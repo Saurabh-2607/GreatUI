@@ -8,7 +8,9 @@ export function generateStaticParams() {
   return components.map((c) => ({ slug: c.slug }));
 }
 
-export default async function ComponentPage(props: PageProps<"/components/[slug]">) {
+export default async function ComponentPage(
+  props: PageProps<"/components/[slug]">,
+) {
   const { slug } = await props.params;
   const component = components.find((c) => c.slug === slug);
 

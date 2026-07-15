@@ -9,7 +9,7 @@ export default function PropsPanel({ component }: { component: Component }) {
       </p>
 
       {/* Description */}
-      <p className="text-xl font-semibold leading-snug text-white">
+      <p className="text-xl leading-snug font-semibold text-white">
         {component.description}
       </p>
 
@@ -76,7 +76,9 @@ export default function PropsPanel({ component }: { component: Component }) {
                     </span>
                   ))}
                 </div>
-                <p className="leading-relaxed text-zinc-400">{prop.description}</p>
+                <p className="leading-relaxed text-zinc-400">
+                  {prop.description}
+                </p>
               </div>
             ))}
           </div>

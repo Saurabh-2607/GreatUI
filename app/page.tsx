@@ -8,7 +8,7 @@ export default function Home() {
       </span>
 
       {/* Headline */}
-      <h1 className="max-w-2xl text-5xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50 sm:text-6xl">
+      <h1 className="max-w-2xl text-5xl font-semibold tracking-tight text-zinc-950 sm:text-6xl dark:text-zinc-50">
         Beautiful components,{" "}
         <span className="text-zinc-400 dark:text-zinc-500">your way.</span>
       </h1>
