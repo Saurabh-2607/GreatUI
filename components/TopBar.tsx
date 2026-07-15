@@ -1,53 +1,19 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 export default function TopBar() {
   return (
     <header className="flex h-10 shrink-0 items-center justify-between border-b border-white/[0.06] px-4">
-      <Link
-        href="/"
-        className="flex h-6 w-6 items-center justify-center rounded border border-white/[0.10] bg-white/[0.04] text-zinc-400 transition-colors hover:text-zinc-200"
-        title="Home"
-      >
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <rect
-            x="1"
-            y="1"
-            width="4"
-            height="4"
-            rx="0.5"
-            fill="currentColor"
-            opacity="0.7"
-          />
-          <rect
-            x="7"
-            y="1"
-            width="4"
-            height="4"
-            rx="0.5"
-            fill="currentColor"
-            opacity="0.7"
-          />
-          <rect
-            x="1"
-            y="7"
-            width="4"
-            height="4"
-            rx="0.5"
-            fill="currentColor"
-            opacity="0.4"
-          />
-          <rect
-            x="7"
-            y="7"
-            width="4"
-            height="4"
-            rx="0.5"
-            fill="currentColor"
-            opacity="0.4"
-          />
-        </svg>
+      <Link href="/" className="flex items-center gap-2">
+        <Image
+          src="/Great-UI-logo.svg"
+          alt="Great UI logo"
+          width={20}
+          height={20}
+        />
+        <span className="text-sm font-semibold text-white">Great UI</span>
       </Link>
 
       <div className="flex items-center gap-1">

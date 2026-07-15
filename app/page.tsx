@@ -1,6 +1,14 @@
 export default function Home() {
   return (
     <main className="flex flex-1 flex-col items-center justify-center px-6 py-24 text-center">
+      {/* Logo */}
+      <div className="mb-8 flex items-center gap-3">
+        <img src="/Great-UI-logo.svg" alt="Great UI" className="h-14 w-14" />
+        <span className="text-4xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">
+          Great UI
+        </span>
+      </div>
+
       {/* Badge */}
       <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-500 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400">
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
@@ -23,7 +31,7 @@ export default function Home() {
       <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
         <a
           href="/components/folder"
-          className="rounded-full bg-zinc-950 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200"
+          className="bg-brand rounded-full px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#e0731a]"
         >
           Browse components →
         </a>

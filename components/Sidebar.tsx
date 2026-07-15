@@ -20,7 +20,7 @@ export default function Sidebar({ activeSlug }: { activeSlug: string }) {
             >
               <span
                 className={`h-1.5 w-1.5 shrink-0 rounded-full ${
-                  active ? "bg-red-500" : ""
+                  active ? "bg-brand" : ""
                 }`}
               />
               {c.name}
