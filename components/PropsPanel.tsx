@@ -2,7 +2,7 @@ import { type Component } from "@/lib/registry";
 
 export default function PropsPanel({ component }: { component: Component }) {
   return (
-    <aside className="hidden w-72 shrink-0 overflow-y-auto border-l border-white/[0.06] bg-[#141414] px-6 py-8 xl:flex xl:flex-col">
+    <aside className="hidden w-72 shrink-0 overflow-y-auto border-l border-white/6 bg-[#141414] px-6 py-8 xl:flex xl:flex-col">
       {/* Name */}
       <p className="mb-3 text-[10px] font-semibold tracking-widest text-zinc-500 uppercase">
         {component.name.toUpperCase()}
