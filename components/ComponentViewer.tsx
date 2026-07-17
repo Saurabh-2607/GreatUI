@@ -20,10 +20,6 @@ export default function ComponentViewer({
 
   return (
     <div className="relative flex h-screen flex-col overflow-hidden bg-[#0d0d0d] text-white p-6">
-      {/* Grid background for base bg */}
-      <div className="absolute inset-0 [background-size:16px_16px] pointer-events-none" />
-
-      {/* Floating Toolbar (Absolutely positioned overlay) */}
       <div className="absolute top-6 left-1/2 z-30 flex -translate-x-1/2 items-center gap-4 rounded-full border border-white/[0.08] bg-zinc-950/85 px-5 py-2.5 shadow-2xl backdrop-blur-xl">
         <Link
           href="/"
@@ -34,7 +30,6 @@ export default function ComponentViewer({
 
         <div className="h-4 w-[1px] bg-white/10" />
 
-        {/* Sidebar Toggle Button */}
         <button
           onClick={() => setIsSidebarOpen(true)}
           className="rounded-full bg-white/[0.04] px-4 py-1.5 text-xs font-medium text-zinc-300 border border-white/[0.05] hover:bg-white/[0.08] hover:text-white cursor-pointer"
@@ -42,7 +37,6 @@ export default function ComponentViewer({
           Browse Components
         </button>
 
-        {/* Docs Toggle Button */}
         <button
           onClick={() => setIsDocsOpen(!isDocsOpen)}
           className={`rounded-full px-4 py-1.5 text-xs font-medium border cursor-pointer ${isDocsOpen
@@ -54,20 +48,17 @@ export default function ComponentViewer({
         </button>
       </div>
 
-      {/* Floating Sidebar Container (Drawer - Absolutely positioned overlay inside container) */}
       <div
         className={`absolute inset-0 z-40 ${isSidebarOpen
           ? "pointer-events-auto"
           : "pointer-events-none hidden"
           }`}
       >
-        {/* Backdrop overlay */}
         <div
           onClick={() => setIsSidebarOpen(false)}
           className="absolute inset-0 bg-black/60 cursor-pointer rounded-2xl"
         />
 
-        {/* Sidebar panel */}
         <div
           className={`absolute top-6 bottom-6 left-6 z-50 w-72 bg-[#141414] shadow-2xl border border-white/[0.06] rounded-2xl overflow-hidden ${isSidebarOpen
             ? "block"
@@ -81,11 +72,8 @@ export default function ComponentViewer({
         </div>
       </div>
 
-      {/* Two Column Layout over base bg */}
-      <div className={`flex flex-1 overflow-hidden relative z-10 ${
-        isDocsOpen ? "gap-6" : "gap-0"
-      }`}>
-        {/* Docs Column - First Half */}
+      <div className={`flex flex-1 overflow-hidden relative z-10 ${isDocsOpen ? "gap-6" : "gap-0"
+        }`}>
         <div
           className={`h-full flex flex-col shrink-0 ${isDocsOpen
             ? "w-full lg:w-1/2"
@@ -97,12 +85,9 @@ export default function ComponentViewer({
           </div>
         </div>
 
-        {/* Component Preview Column - Second Half */}
         <section className="flex-1 h-full rounded-2xl border border-white/[0.06] bg-[#141414] shadow-xl flex flex-col items-center justify-center p-8 overflow-hidden relative">
-          {/* Subtle pattern for preview */}
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff01_1px,transparent_1px),linear-gradient(to_bottom,#ffffff01_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
 
-          {/* Clean text-only preview wrapper */}
           <div className="text-center select-none relative z-10 max-w-sm">
             <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500 mb-3">
               Preview Panel

@@ -10,7 +10,6 @@ export default function Sidebar({
 }) {
   return (
     <aside className="flex h-full w-full flex-col bg-[#141414] px-6 py-6">
-      {/* Sidebar Header */}
       <div className="mb-6 flex items-center justify-between">
         <p className="px-2 text-xs font-semibold tracking-widest text-zinc-500 uppercase">
           Components

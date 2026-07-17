@@ -20,7 +20,6 @@ app/
 
 components/
 ├── Sidebar.tsx                   # Component list
-├── TopBar.tsx                    # Top navigation bar
 └── PropsPanel.tsx                # Right-side props & docs panel
 
 lib/

@@ -3,17 +3,14 @@ import { type Component } from "@/lib/registry";
 export default function PropsPanel({ component }: { component: Component }) {
   return (
     <aside className="flex h-full w-full flex-col overflow-y-auto bg-transparent px-8 pt-24 pb-8">
-      {/* Name */}
       <p className="mb-3 text-[10px] font-semibold tracking-widest text-zinc-500 uppercase">
         {component.name.toUpperCase()}
       </p>
 
-      {/* Description */}
       <p className="text-xl leading-snug font-semibold text-white">
         {component.description}
       </p>
 
-      {/* Dependencies */}
       {component.dependencies.length > 0 && (
         <div className="mt-8">
           <p className="mb-2 text-[10px] font-semibold tracking-widest text-zinc-500 uppercase">
@@ -32,7 +29,6 @@ export default function PropsPanel({ component }: { component: Component }) {
         </div>
       )}
 
-      {/* Interaction type */}
       <div className="mt-8">
         <p className="mb-2 text-[10px] font-semibold tracking-widest text-zinc-500 uppercase">
           Interaction Type
@@ -42,7 +38,6 @@ export default function PropsPanel({ component }: { component: Component }) {
         </p>
       </div>
 
-      {/* Props */}
       {component.props.length > 0 && (
         <div className="mt-8">
           <p className="mb-1 text-[10px] font-semibold tracking-widest text-zinc-500 uppercase">
@@ -52,7 +47,6 @@ export default function PropsPanel({ component }: { component: Component }) {
             Options you can pass to customize this component.
           </p>
 
-          {/* Header row */}
           <div className="mb-2 grid grid-cols-[80px_80px_1fr] gap-2 text-[10px] font-semibold tracking-widest text-zinc-600 uppercase">
             <span>Prop</span>
             <span>Type</span>
@@ -83,13 +77,6 @@ export default function PropsPanel({ component }: { component: Component }) {
           </div>
         </div>
       )}
-
-      {/* Installation placeholder */}
-      <div className="mt-8">
-        <p className="text-[10px] font-semibold tracking-widest text-zinc-500 uppercase">
-          Installation
-        </p>
-      </div>
     </aside>
   );
 }
