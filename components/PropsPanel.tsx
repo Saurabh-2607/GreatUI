@@ -2,7 +2,7 @@ import { type Component } from "@/lib/registry";
 
 export default function PropsPanel({ component }: { component: Component }) {
   return (
-    <aside className="hidden w-72 shrink-0 overflow-y-auto border-l border-white/6 bg-[#141414] px-6 py-8 xl:flex xl:flex-col">
+    <aside className="flex h-full w-full flex-col overflow-y-auto bg-transparent px-8 pt-24 pb-8">
       {/* Name */}
       <p className="mb-3 text-[10px] font-semibold tracking-widest text-zinc-500 uppercase">
         {component.name.toUpperCase()}
@@ -23,9 +23,8 @@ export default function PropsPanel({ component }: { component: Component }) {
             {component.dependencies.map((dep) => (
               <span
                 key={dep}
-                className="inline-flex items-center gap-1.5 rounded-md border border-white/[0.08] bg-white/[0.04] px-2.5 py-1 text-xs text-zinc-300"
+                className="inline-flex items-center rounded-md border border-white/[0.08] bg-white/[0.04] px-2.5 py-1 text-xs text-zinc-300"
               >
-                <span className="text-zinc-500">▲</span>
                 {dep}
               </span>
             ))}
