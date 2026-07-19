@@ -63,16 +63,11 @@ export function pixelBloomStyle(bloom: PixelBloom): PixelBloomStyle | null {
   };
 }
 
-// --- ClassName Helper ---
-function cn(...classes: (string | undefined | false | null)[]) {
-  return classes.filter(Boolean).join(" ");
-}
+// --- Dither Shader Engine ---
+const MAX_COLS = 600;
+const MAX_ROWS = 400;
 
-// --- Dither Gradient Engine ---
-const MAX_COLS = 960;
-const MAX_ROWS = 600;
-
-export type GradientDirection = "up" | "down" | "left" | "right";
+export type GradientDirection = "up" | "down" | "left" | "right" | "radial" | "wave";
 
 export type DitherGradientProps = {
   color?: Rgb | string;
@@ -82,6 +77,8 @@ export type DitherGradientProps = {
   cell?: number;
   opacity?: number;
   bloom?: PixelBloom;
+  speed?: number;
+  animated?: boolean;
   className?: string;
 };
 
@@ -93,7 +90,7 @@ type PaintSpec = {
   opacity: number;
 };
 
-function paintGradient(
+function paintShader(
   canvas: HTMLCanvasElement,
   bloomCanvas: HTMLCanvasElement | null,
   width: number,
@@ -102,27 +99,50 @@ function paintGradient(
 ): void {
   const ctx = canvas.getContext("2d");
   if (!ctx || width <= 0 || height <= 0) return;
+
   const cols = Math.min(MAX_COLS, Math.max(4, Math.round(width / spec.cell)));
   const rows = Math.min(MAX_ROWS, Math.max(4, Math.round(height / spec.cell)));
-  canvas.width = cols;
-  canvas.height = rows;
+  if (canvas.width !== cols || canvas.height !== rows) {
+    canvas.width = cols;
+    canvas.height = rows;
+  }
+
+  ctx.clearRect(0, 0, cols, rows);
 
   const fromFill = parseColor(spec.color);
   const toFill = spec.to === "transparent" ? null : parseColor(spec.to);
   const o = spec.opacity;
 
   for (let y = 0; y < rows; y++) {
+    const ny = (y / rows) * 2 - 1;
     for (let x = 0; x < cols; x++) {
-      const t =
-        spec.direction === "up"
-          ? 1 - (y + 0.5) / rows
-          : spec.direction === "down"
-            ? (y + 0.5) / rows
-            : spec.direction === "left"
-              ? 1 - (x + 0.5) / cols
-              : (x + 0.5) / cols;
-      const density = 1 - t;
+      const nx = (x / cols) * 2 - 1;
+
+      // Shader wave field equations (static spatial distribution)
+      const w1 = Math.sin(nx * 3.2);
+      const w2 = Math.cos(ny * 3.2);
+      const w3 = Math.sin((nx + ny) * 2.5);
+      const radial = Math.sqrt(nx * nx + ny * ny);
+
+      let density = 0.5;
+      if (spec.direction === "up") {
+        density = (1 - (y / rows)) * 0.6 + 0.4 * (0.5 + 0.5 * w1);
+      } else if (spec.direction === "down") {
+        density = (y / rows) * 0.6 + 0.4 * (0.5 + 0.5 * w1);
+      } else if (spec.direction === "left") {
+        density = (1 - (x / cols)) * 0.6 + 0.4 * (0.5 + 0.5 * w2);
+      } else if (spec.direction === "right") {
+        density = (x / cols) * 0.6 + 0.4 * (0.5 + 0.5 * w2);
+      } else if (spec.direction === "radial") {
+        density = (1 - Math.min(1, radial)) * 0.5 + 0.5 * (0.5 + 0.5 * w3);
+      } else {
+        // "wave" shader mode
+        density = 0.5 + 0.3 * w1 + 0.2 * w2 + 0.2 * w3;
+      }
+
+      // Bayer matrix 4x4 threshold
       const lit = density > BAYER4[y & 3][x & 3];
+
       if (toFill) {
         ctx.fillStyle = rgb(lit ? fromFill : toFill, 1, o);
         ctx.fillRect(x, y, 1, 1);
@@ -137,8 +157,11 @@ function paintGradient(
 
   const bloomCtx = bloomCanvas?.getContext("2d") ?? null;
   if (bloomCanvas && bloomCtx) {
-    bloomCanvas.width = cols;
-    bloomCanvas.height = rows;
+    if (bloomCanvas.width !== cols || bloomCanvas.height !== rows) {
+      bloomCanvas.width = cols;
+      bloomCanvas.height = rows;
+    }
+    bloomCtx.clearRect(0, 0, cols, rows);
     bloomCtx.drawImage(canvas, 0, 0);
   }
 }
@@ -148,10 +171,10 @@ export function DitherGradient({
   from,
   to = "transparent",
   direction = "up",
-  cell = 3,
+  cell = 4,
   opacity = 1,
   bloom = "off",
-  className,
+  className = "",
 }: DitherGradientProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -163,9 +186,10 @@ export function DitherGradient({
     const wrap = wrapRef.current;
     const canvas = canvasRef.current;
     if (!wrap || !canvas) return;
+
     const paint = () => {
       const box = wrap.getBoundingClientRect();
-      paintGradient(canvas, bloomRef.current, box.width, box.height, {
+      paintShader(canvas, bloomRef.current, box.width, box.height, {
         color: activeColor,
         to,
         direction,
@@ -173,24 +197,21 @@ export function DitherGradient({
         opacity,
       });
     };
+
     paint();
+
     if (typeof ResizeObserver === "undefined") return;
     const ro = new ResizeObserver(paint);
     ro.observe(wrap);
+
     return () => ro.disconnect();
   }, [activeColor, to, direction, cell, opacity, bloom]);
 
   const bloomStyle = pixelBloomStyle(bloom);
+  const wrapClasses = `pointer-events-none absolute inset-0 overflow-hidden ${className}`.trim();
 
   return (
-    <div
-      ref={wrapRef}
-      aria-hidden
-      className={cn(
-        "pointer-events-none absolute inset-0 overflow-hidden",
-        className
-      )}
-    >
+    <div ref={wrapRef} aria-hidden className={wrapClasses}>
       <canvas
         ref={canvasRef}
         className="absolute inset-0 h-full w-full"
@@ -207,5 +228,8 @@ export function DitherGradient({
   );
 }
 
+export const DitherShader = DitherGradient;
+
 export default DitherGradient;
+
 
