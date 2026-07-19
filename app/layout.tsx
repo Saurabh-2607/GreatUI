@@ -47,7 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${ttCommons.variable} dark h-full antialiased`}>
-      <body className="flex min-h-full flex-col font-sans bg-white dark:bg-[#0a0a0a] text-neutral-900 dark:text-[#ededed] transition-colors">
+      <body className="flex min-h-full flex-col bg-white font-sans text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-[#ededed]">
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

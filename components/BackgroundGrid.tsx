@@ -4,7 +4,7 @@ import React from "react";
 
 export function BackgroundGrid() {
   return (
-    <div className="absolute inset-y-0 left-1/2 w-[1480px] -translate-x-1/2 pointer-events-none z-0">
+    <div className="pointer-events-none absolute inset-y-0 left-1/2 z-0 w-[1480px] -translate-x-1/2">
       <svg
         className="pointer-events-none absolute top-0 left-0 z-0 h-full w-full"
         data-testid="rf__background"
@@ -39,7 +39,8 @@ export function BackgroundGrid() {
       <div
         className="absolute top-0 left-0 h-full w-px"
         style={{
-          backgroundImage: "linear-gradient(to bottom, var(--color-border-100) 50%, transparent 50%)",
+          backgroundImage:
+            "linear-gradient(to bottom, var(--color-border-100) 50%, transparent 50%)",
           backgroundSize: "1px 32px",
           backgroundRepeat: "repeat-y",
         }}
@@ -47,7 +48,8 @@ export function BackgroundGrid() {
       <div
         className="absolute top-0 right-0 h-full w-px"
         style={{
-          backgroundImage: "linear-gradient(to bottom, var(--color-border-100) 50%, transparent 50%)",
+          backgroundImage:
+            "linear-gradient(to bottom, var(--color-border-100) 50%, transparent 50%)",
           backgroundSize: "1px 32px",
           backgroundRepeat: "repeat-y",
         }}

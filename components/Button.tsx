@@ -3,16 +3,11 @@
 import React from "react";
 
 export type ButtonVariant =
-  | "primary"
-  | "secondary"
-  | "outline"
-  | "ghost"
-  | "destructive";
+  "primary" | "secondary" | "outline" | "ghost" | "destructive";
 
 export type ButtonSize = "sm" | "md" | "lg" | "icon";
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   isLoading?: boolean;
@@ -54,7 +49,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       disabled,
       ...props
     },
-    ref
+    ref,
   ) => {
     const baseClasses =
       "inline-flex items-center justify-center font-sans tracking-wide transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 disabled:pointer-events-none disabled:opacity-50 select-none cursor-pointer";
@@ -62,7 +57,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const vClass = variantStyles[variant] || variantStyles.primary;
     const sClass = sizeStyles[size] || sizeStyles.md;
 
-    const combinedClasses = `${baseClasses} ${vClass} ${sClass} ${className}`.trim();
+    const combinedClasses =
+      `${baseClasses} ${vClass} ${sClass} ${className}`.trim();
 
     return (
       <button
@@ -73,7 +69,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {isLoading && (
           <svg
-            className="animate-spin -ml-1 mr-2 h-4 w-4 text-current"
+            className="mr-2 -ml-1 h-4 w-4 animate-spin text-current"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -93,12 +89,16 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             />
           </svg>
         )}
-        {!isLoading && leftIcon && <span className="inline-flex shrink-0">{leftIcon}</span>}
+        {!isLoading && leftIcon && (
+          <span className="inline-flex shrink-0">{leftIcon}</span>
+        )}
         {children}
-        {!isLoading && rightIcon && <span className="inline-flex shrink-0">{rightIcon}</span>}
+        {!isLoading && rightIcon && (
+          <span className="inline-flex shrink-0">{rightIcon}</span>
+        )}
       </button>
     );
-  }
+  },
 );
 
 Button.displayName = "Button";

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { IconX } from "@tabler/icons-react";
 import { components } from "@/lib/registry";
 
 export default function Sidebar({
@@ -18,10 +17,10 @@ export default function Sidebar({
         {onClose && (
           <button
             onClick={onClose}
-            className="flex items-center justify-center rounded-md border border-white/[0.05] bg-white/[0.02] p-1.5 text-zinc-400 hover:bg-white/5 hover:text-white cursor-pointer"
+            className="flex cursor-pointer items-center justify-center rounded-md border border-white/[0.05] bg-white/[0.02] p-1.5 text-zinc-400 hover:bg-white/5 hover:text-white"
             aria-label="Close sidebar"
           >
-            <IconX className="h-4 w-4" />
+            X
           </button>
         )}
       </div>
@@ -35,7 +34,9 @@ export default function Sidebar({
               href={`/components/${c.slug}`}
               onClick={onClose}
               className={`flex items-center gap-2.5 rounded-md px-3.5 py-2 text-sm ${
-                active ? "text-white bg-white/[0.04]" : "text-zinc-500 hover:text-zinc-300"
+                active
+                  ? "bg-white/[0.04] text-white"
+                  : "text-zinc-500 hover:text-zinc-300"
               }`}
             >
               {c.name}

@@ -7,7 +7,7 @@ import Sponsors from "@/components/Sponsors";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-white dark:bg-[#0a0a0a] text-neutral-900 dark:text-white transition-colors overflow-x-hidden pb-16">
+    <div className="relative min-h-screen overflow-x-hidden bg-white pb-16 text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-white">
       <BackgroundGrid />
       <Navbar />
       <AnnouncementBanner />
@@ -17,5 +17,3 @@ export default function Home() {
     </div>
   );
 }
-
-

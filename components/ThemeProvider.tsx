@@ -17,12 +17,18 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const savedTheme = localStorage.getItem("great-ui-theme") as Theme;
     const initialTheme = savedTheme || "dark";
-    setTheme(initialTheme);
+
     const root = document.documentElement;
     if (initialTheme === "dark") {
       root.classList.add("dark");
     } else {
       root.classList.remove("dark");
+    }
+
+    if (initialTheme !== "dark") {
+      setTimeout(() => {
+        setTheme(initialTheme);
+      }, 0);
     }
   }, []);
 

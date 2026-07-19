@@ -19,18 +19,20 @@ export function Container({
     <div className={containerClasses} {...props}>
       {/* Left Dashed Border */}
       <div
-        className="absolute top-0 bottom-0 left-0 w-px pointer-events-none select-none"
+        className="pointer-events-none absolute top-0 bottom-0 left-0 w-px select-none"
         style={{
-          backgroundImage: "linear-gradient(to bottom, var(--color-border-100) 50%, transparent 50%)",
+          backgroundImage:
+            "linear-gradient(to bottom, var(--color-border-100) 50%, transparent 50%)",
           backgroundSize: "1px 32px",
           backgroundRepeat: "repeat-y",
         }}
       />
       {/* Right Dashed Border */}
       <div
-        className="absolute top-0 bottom-0 right-0 w-px pointer-events-none select-none"
+        className="pointer-events-none absolute top-0 right-0 bottom-0 w-px select-none"
         style={{
-          backgroundImage: "linear-gradient(to bottom, var(--color-border-100) 50%, transparent 50%)",
+          backgroundImage:
+            "linear-gradient(to bottom, var(--color-border-100) 50%, transparent 50%)",
           backgroundSize: "1px 32px",
           backgroundRepeat: "repeat-y",
         }}

@@ -1,53 +1,56 @@
-"use client";
-
-import React from "react";
 import Container from "./Container";
-import { IconPlus } from "@tabler/icons-react";
 
 export function Sponsors() {
   return (
     <div className="relative w-full">
       {/* Horizontal Dashed Top Border */}
       <div
-        className="absolute top-0 left-0 right-0 h-px pointer-events-none select-none z-20"
+        className="pointer-events-none absolute top-0 right-0 left-0 z-20 h-px select-none"
         style={{
-          backgroundImage: "linear-gradient(to right, var(--color-border-100) 50%, transparent 50%)",
+          backgroundImage:
+            "linear-gradient(to right, var(--color-border-100) 50%, transparent 50%)",
           backgroundSize: "32px 1px",
           backgroundRepeat: "repeat-x",
         }}
       />
 
       <Container>
-        <div className="grid grid-cols-1 sm:grid-cols-3 w-full">
+        <div className="grid w-full grid-cols-1 sm:grid-cols-3">
           {/* Sponsor Slot 1 */}
           <a
             href="https://github.com/sponsors/Saurabh-2607"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col py-8 items-center justify-center gap-2 border-b sm:border-y-0 border-x-[1.5px] border-neutral-200 dark:border-neutral-800 h-full cursor-pointer transition-all hover:bg-[#f6821f]/[0.02]"
+            className="group flex h-full cursor-pointer flex-col items-center justify-center gap-2 border-x-[1.5px] border-b border-neutral-200 py-8 transition-all hover:bg-[#f6821f]/[0.02] sm:border-y-0 dark:border-neutral-800"
           >
-            <IconPlus className="h-5 w-5 text-neutral-400 group-hover:text-[#f6821f] transition-colors" />
-            <span className="text-sm font-semibold tracking-wide text-neutral-600 dark:text-neutral-400 group-hover:text-[#f6821f] transition-colors">Place your logo here</span>
+            +
+            <span className="text-sm font-semibold tracking-wide text-neutral-600 transition-colors group-hover:text-[#f6821f] dark:text-neutral-400">
+              Place your logo here
+            </span>
           </a>
           {/* Sponsor Slot 2 */}
           <a
             href="https://github.com/sponsors/Saurabh-2607"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col py-8 items-center justify-center gap-2 border-b sm:border-y-0 border-x-[1.5px] border-neutral-200 dark:border-neutral-800 h-full cursor-pointer transition-all hover:bg-[#f6821f]/[0.02]"
+            className="group flex h-full cursor-pointer flex-col items-center justify-center gap-2 border-x-[1.5px] border-b border-neutral-200 py-8 transition-all hover:bg-[#f6821f]/[0.02] sm:border-y-0 dark:border-neutral-800"
           >
-            <IconPlus className="h-5 w-5 text-neutral-400 group-hover:text-[#f6821f] transition-colors" />
-            <span className="text-sm font-semibold tracking-wide text-neutral-600 dark:text-neutral-400 group-hover:text-[#f6821f] transition-colors">Place your logo here</span>
+            +
+            <span className="text-sm font-semibold tracking-wide text-neutral-600 transition-colors group-hover:text-[#f6821f] dark:text-neutral-400">
+              Place your logo here
+            </span>
           </a>
           {/* Sponsor Slot 3 */}
           <a
             href="https://github.com/sponsors/Saurabh-2607"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col py-8 items-center justify-center gap-2 border-b last:border-b-0 sm:border-y-0 border-x-[1.5px] border-neutral-200 dark:border-neutral-800 h-full cursor-pointer transition-all hover:bg-[#f6821f]/[0.02]"
+            className="group flex h-full cursor-pointer flex-col items-center justify-center gap-2 border-x-[1.5px] border-b border-neutral-200 py-8 transition-all last:border-b-0 hover:bg-[#f6821f]/[0.02] sm:border-y-0 dark:border-neutral-800"
           >
-            <IconPlus className="h-5 w-5 text-neutral-400 group-hover:text-[#f6821f] transition-colors" />
-            <span className="text-sm font-semibold tracking-wide text-neutral-600 dark:text-neutral-400 group-hover:text-[#f6821f] transition-colors">Place your logo here</span>
+            +
+            <span className="text-sm font-semibold tracking-wide text-neutral-600 transition-colors group-hover:text-[#f6821f] dark:text-neutral-400">
+              Place your logo here
+            </span>
           </a>
         </div>
       </Container>

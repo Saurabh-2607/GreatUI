@@ -1,8 +1,6 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
-import { IconSearch, IconBrandGithub } from "@tabler/icons-react";
 import Container from "./Container";
 import ThemeToggle from "./ThemeToggle";
 
@@ -16,7 +14,7 @@ export function Navbar() {
             href="/"
             className="flex items-center gap-2.5 transition-opacity hover:opacity-90"
           >
-            <span className="text-3xl uppercase font-bold tracking-tight text-neutral-900 dark:text-white">
+            <span className="text-3xl font-bold tracking-tight text-neutral-900 uppercase dark:text-white">
               Great <span className="text-[#f6821f]">UI</span>
             </span>
           </Link>
@@ -41,9 +39,9 @@ export function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub repository"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-950 dark:hover:text-white"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-neutral-300 bg-white text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-950 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
             >
-              <IconBrandGithub className="h-4 w-4" />
+              Github
             </a>
 
             {/* Theme Toggle Button */}
@@ -53,9 +51,10 @@ export function Navbar() {
       </Container>
       {/* Horizontal Dashed Bottom Border */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-px pointer-events-none select-none z-20"
+        className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-px select-none"
         style={{
-          backgroundImage: "linear-gradient(to right, var(--color-border-100) 50%, transparent 50%)",
+          backgroundImage:
+            "linear-gradient(to right, var(--color-border-100) 50%, transparent 50%)",
           backgroundSize: "32px 1px",
           backgroundRepeat: "repeat-x",
         }}
