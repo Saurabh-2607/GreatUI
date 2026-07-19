@@ -13,11 +13,29 @@ export function Container({
   ...props
 }: ContainerProps) {
   const containerClasses =
-    `relative w-full max-w-[1360px] border-x border-neutral-800 overflow-hidden m-auto p-6 ${className}`.trim();
+    `relative w-full max-w-[1280px] mx-auto px-4 bg-white dark:bg-neutral-950 sm:px-6 ${className}`.trim();
 
   return (
     <div className={containerClasses} {...props}>
-      <div className="relative z-10">{children}</div>
+      {/* Left Dashed Border */}
+      <div
+        className="absolute top-0 bottom-0 left-0 w-px pointer-events-none select-none"
+        style={{
+          backgroundImage: "linear-gradient(to bottom, var(--color-border-100) 50%, transparent 50%)",
+          backgroundSize: "1px 32px",
+          backgroundRepeat: "repeat-y",
+        }}
+      />
+      {/* Right Dashed Border */}
+      <div
+        className="absolute top-0 bottom-0 right-0 w-px pointer-events-none select-none"
+        style={{
+          backgroundImage: "linear-gradient(to bottom, var(--color-border-100) 50%, transparent 50%)",
+          backgroundSize: "1px 32px",
+          backgroundRepeat: "repeat-y",
+        }}
+      />
+      <div className="relative z-10 w-full">{children}</div>
     </div>
   );
 }
