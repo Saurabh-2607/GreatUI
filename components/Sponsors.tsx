@@ -24,31 +24,31 @@ export function Sponsors() {
             href="https://github.com/sponsors/Saurabh-2607"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col py-8 items-center justify-center gap-2 border-x-[1.5px] border-neutral-800 h-full cursor-pointer"
+            className="group flex flex-col py-8 items-center justify-center gap-2 border-b sm:border-y-0 border-x-[1.5px] border-neutral-200 dark:border-neutral-800 h-full cursor-pointer transition-all hover:bg-[#f6821f]/[0.02]"
           >
             <IconPlus className="h-5 w-5 text-neutral-400 group-hover:text-[#f6821f] transition-colors" />
-            <span className="text-sm font-semibold tracking-wide">Place your logo here</span>
+            <span className="text-sm font-semibold tracking-wide text-neutral-600 dark:text-neutral-400 group-hover:text-[#f6821f] transition-colors">Place your logo here</span>
           </a>
+          {/* Sponsor Slot 2 */}
           <a
             href="https://github.com/sponsors/Saurabh-2607"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col py-8 items-center justify-center gap-2 border-x-[1.5px] border-neutral-800 h-full cursor-pointer"
+            className="group flex flex-col py-8 items-center justify-center gap-2 border-b sm:border-y-0 border-x-[1.5px] border-neutral-200 dark:border-neutral-800 h-full cursor-pointer transition-all hover:bg-[#f6821f]/[0.02]"
           >
             <IconPlus className="h-5 w-5 text-neutral-400 group-hover:text-[#f6821f] transition-colors" />
-            <span className="text-sm font-semibold tracking-wide">Place your logo here</span>
+            <span className="text-sm font-semibold tracking-wide text-neutral-600 dark:text-neutral-400 group-hover:text-[#f6821f] transition-colors">Place your logo here</span>
           </a>
+          {/* Sponsor Slot 3 */}
           <a
             href="https://github.com/sponsors/Saurabh-2607"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col py-8 items-center justify-center gap-2 border-x-[1.5px] border-neutral-800 h-full cursor-pointer"
+            className="group flex flex-col py-8 items-center justify-center gap-2 border-b last:border-b-0 sm:border-y-0 border-x-[1.5px] border-neutral-200 dark:border-neutral-800 h-full cursor-pointer transition-all hover:bg-[#f6821f]/[0.02]"
           >
             <IconPlus className="h-5 w-5 text-neutral-400 group-hover:text-[#f6821f] transition-colors" />
-            <span className="text-sm font-semibold tracking-wide">Place your logo here</span>
+            <span className="text-sm font-semibold tracking-wide text-neutral-600 dark:text-neutral-400 group-hover:text-[#f6821f] transition-colors">Place your logo here</span>
           </a>
-
-
         </div>
       </Container>
     </div>
