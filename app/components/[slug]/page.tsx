@@ -17,13 +17,30 @@ export async function generateMetadata({
 
   if (!component) {
     return {
-      title: "Component Not Found - Great UI",
+      title: "Component Not Found",
     };
   }
 
+  const title = `${component.name} Component`;
+  const description = `${component.description} Copy and paste this accessible React component built with Tailwind CSS into your project.`;
+
   return {
-    title: `${component.name} - Great UI`,
-    description: component.description,
+    title,
+    description,
+    openGraph: {
+      title: `${title} - Great UI`,
+      description,
+      url: `https://great-ui.com/components/${slug}`,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} - Great UI`,
+      description,
+    },
+    alternates: {
+      canonical: `/components/${slug}`,
+    },
   };
 }
 

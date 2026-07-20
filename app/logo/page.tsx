@@ -1,9 +1,19 @@
 import BackgroundGrid from "@/components/BackgroundGrid";
 import Container from "@/components/Container";
 
-export const metadata = {
-  title: "Logo - Great UI",
-  description: "Great UI Logo",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Logo",
+  description: "Official Great UI logo assets and typography representation.",
+  openGraph: {
+    title: "Logo - Great UI",
+    description: "Official Great UI logo assets and typography representation.",
+    url: "https://great-ui.com/logo",
+  },
+  alternates: {
+    canonical: "/logo",
+  },
 };
 
 export default function LogoPage() {
