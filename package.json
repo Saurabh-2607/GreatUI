@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write .",
+    "pre-commit": "tsc --noEmit && lint-staged && npm run format",
     "prepare": "husky"
   },
   "dependencies": {
