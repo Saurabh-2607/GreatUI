@@ -17,17 +17,12 @@ export function Hero() {
         </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <Link href="/components">
-            <Button variant="primary" size="md">
-              Explore Components
-            </Button>
-          </Link>
           <a
             href="https://github.com/Saurabh-2607/GreatUI"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Button variant="outline" size="md">
+            <Button variant="primary" size="md">
               Star on GitHub
             </Button>
           </a>

@@ -3,7 +3,7 @@ import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
 import BackgroundGrid from "@/components/BackgroundGrid";
 import AnnouncementBanner from "@/components/AnnouncementBanner";
-import Sponsors from "@/components/Sponsors";
+// import Sponsors from "@/components/Sponsors";
 
 export default function Home() {
   return (
@@ -12,7 +12,7 @@ export default function Home() {
       <Navbar />
       <AnnouncementBanner />
       <Hero />
-      <Sponsors />
+      {/* <Sponsors /> */}
       <Footer />
     </div>
   );
