@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Databuddy } from "@databuddy/sdk/react";
 import ThemeProvider from "@/components/ThemeProvider";
 import "./globals.css";
 
@@ -108,7 +109,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${ttCommons.variable} dark h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-white font-sans text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-[#ededed]">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <Databuddy
+            clientId={process.env.NEXT_PUBLIC_DATABUDDY_CLIENT_ID!}
+            trackWebVitals
+            trackErrors
+          />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
