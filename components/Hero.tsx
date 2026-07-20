@@ -1,3 +1,6 @@
+"use client";
+
+import posthog from "posthog-js";
 import Container from "./Container";
 import Button from "./Button";
 
@@ -19,6 +22,9 @@ export function Hero() {
             href="https://github.com/Saurabh-2607/GreatUI"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              posthog.capture("github_star_clicked", { location: "hero" })
+            }
           >
             <Button variant="primary" size="md">
               Star on GitHub

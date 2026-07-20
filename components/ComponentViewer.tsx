@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import posthog from "posthog-js";
 import Sidebar from "@/components/Sidebar";
 import SidebarToggle from "@/components/SidebarToggle";
 import DocsPanel from "@/components/DocsPanel";
@@ -21,13 +22,27 @@ export default function ComponentViewer({ component }: ComponentViewerProps) {
       <div className="absolute top-9 left-9 z-[60]">
         <SidebarToggle
           isOpen={isSidebarOpen}
-          onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+          onToggle={() => {
+            const next = !isSidebarOpen;
+            setIsSidebarOpen(next);
+            posthog.capture("sidebar_toggled", {
+              state: next ? "open" : "closed",
+              component_slug: component.slug,
+            });
+          }}
         />
       </div>
 
       <div className="absolute top-9 right-9 z-40 flex h-10 items-center gap-1.5 rounded-xl border border-neutral-800/60 bg-neutral-950 p-1.5 text-white shadow-xs backdrop-blur-xl transition-all dark:bg-neutral-950 dark:text-white">
         <button
-          onClick={() => setIsDocsOpen(!isDocsOpen)}
+          onClick={() => {
+            const next = !isDocsOpen;
+            setIsDocsOpen(next);
+            posthog.capture("docs_panel_toggled", {
+              state: next ? "open" : "closed",
+              component_slug: component.slug,
+            });
+          }}
           className={`inline-flex h-7 cursor-pointer items-center rounded-lg px-3 text-xs font-semibold transition-all ${
             isDocsOpen
               ? "bg-[#f6821f] text-white"

@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import Link from "next/link";
+import posthog from "posthog-js";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackgroundGrid from "@/components/BackgroundGrid";
@@ -64,6 +65,13 @@ export default function ComponentsPage() {
                           key={c.slug}
                           href={`/components/${c.slug}`}
                           className="group flex cursor-pointer flex-col gap-2 select-none"
+                          onClick={() =>
+                            posthog.capture("component_card_clicked", {
+                              component_slug: c.slug,
+                              component_name: c.name,
+                              component_category: c.category,
+                            })
+                          }
                         >
                           <div className="relative flex h-44 w-full items-center justify-center overflow-hidden rounded-2xl border border-neutral-200 bg-[#0d0d0d] p-4 transition-all duration-200 group-hover:border-[#f6821f]/60 dark:border-neutral-800">
                             <div className="pointer-events-none relative z-10 flex w-full items-center justify-center">

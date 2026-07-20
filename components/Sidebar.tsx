@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import posthog from "posthog-js";
 import { components } from "@/lib/registry";
 
 interface SidebarProps {
@@ -45,7 +46,14 @@ export default function Sidebar({ activeSlug, onClose }: SidebarProps) {
                 <Link
                   key={c.slug}
                   href={`/components/${c.slug}`}
-                  onClick={onClose}
+                  onClick={() => {
+                    posthog.capture("sidebar_component_navigated", {
+                      component_slug: c.slug,
+                      component_name: c.name,
+                      from_slug: activeSlug,
+                    });
+                    onClose?.();
+                  }}
                   className="group relative flex cursor-pointer flex-col transition-colors"
                 >
                   {!isFirst && <TickRow />}

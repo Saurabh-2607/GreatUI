@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import posthog from "posthog-js";
 import { useTheme } from "./ThemeProvider";
 
 interface ThemeToggleProps {
@@ -14,10 +15,13 @@ interface ViewTransitionDocument {
 }
 
 export function ThemeToggle({ className = "" }: ThemeToggleProps) {
-  const { toggleTheme } = useTheme();
+  const { toggleTheme, theme } = useTheme();
 
   const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     const doc = document as unknown as ViewTransitionDocument;
+
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    posthog.capture("theme_toggled", { theme: nextTheme });
 
     if (
       typeof document === "undefined" ||
