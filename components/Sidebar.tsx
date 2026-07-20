@@ -1,49 +1,79 @@
+"use client";
+
+import React from "react";
 import Link from "next/link";
 import { components } from "@/lib/registry";
 
-export default function Sidebar({
-  activeSlug,
-  onClose,
-}: {
+interface SidebarProps {
   activeSlug: string;
   onClose?: () => void;
-}) {
-  return (
-    <aside className="flex h-full w-full flex-col bg-[#141414] px-6 py-6">
-      <div className="mb-6 flex items-center justify-between">
-        <p className="px-2 text-xs font-semibold tracking-widest text-zinc-500 uppercase">
-          Components
-        </p>
-        {onClose && (
-          <button
-            onClick={onClose}
-            className="flex cursor-pointer items-center justify-center rounded-md border border-white/[0.05] bg-white/[0.02] p-1.5 text-zinc-400 hover:bg-white/5 hover:text-white"
-            aria-label="Close sidebar"
-          >
-            X
-          </button>
-        )}
-      </div>
+}
 
-      <nav className="flex flex-col gap-0.5">
-        {components.map((c) => {
-          const active = c.slug === activeSlug;
-          return (
-            <Link
-              key={c.slug}
-              href={`/components/${c.slug}`}
-              onClick={onClose}
-              className={`flex items-center gap-2.5 rounded-md px-3.5 py-2 text-sm ${
-                active
-                  ? "bg-white/[0.04] text-white"
-                  : "text-zinc-500 hover:text-zinc-300"
-              }`}
-            >
-              {c.name}
-            </Link>
-          );
-        })}
-      </nav>
+const TickRow = () => (
+  <div className="flex h-2.5 items-center">
+    <span className="block h-[2px] w-8 shrink-0 bg-neutral-300 dark:bg-neutral-700" />
+  </div>
+);
+
+export default function Sidebar({ activeSlug, onClose }: SidebarProps) {
+  return (
+    <aside className="relative flex h-full w-full flex-col overflow-hidden bg-transparent text-neutral-900 select-none dark:text-white">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-0 right-0 left-0 z-20 h-24 bg-gradient-to-b from-white via-white/80 to-transparent dark:from-[#141414] dark:via-[#141414]/80 dark:to-transparent"
+      />
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-28 bg-gradient-to-t from-white via-white/80 to-transparent dark:from-[#141414] dark:via-[#141414]/80 dark:to-transparent"
+      />
+
+      <div className="relative flex-1 scrollbar-none overflow-x-clip overflow-y-auto pr-2 pl-1 tracking-tight">
+        <div className="relative flex h-fit flex-col pt-[28vh] pb-[10vh]">
+          {components.length === 0 ? (
+            <div className="flex items-center justify-center p-4 text-center">
+              <span className="text-xs text-neutral-400">No components</span>
+            </div>
+          ) : (
+            components.map((c, index) => {
+              const active = c.slug === activeSlug;
+              const itemNumber = (index + 1).toString().padStart(2, "0");
+              const isFirst = index === 0;
+              const isLast = index === components.length - 1;
+
+              return (
+                <Link
+                  key={c.slug}
+                  href={`/components/${c.slug}`}
+                  onClick={onClose}
+                  className="group relative flex cursor-pointer flex-col transition-colors"
+                >
+                  {!isFirst && <TickRow />}
+                  <div className="flex h-2.5 items-center gap-2">
+                    <span
+                      className={`block shrink-0 transition-all ${
+                        active
+                          ? "h-[3px] w-14 bg-[#f6821f]"
+                          : "h-[2px] w-8 bg-neutral-300 group-hover:w-14 group-hover:bg-[#f6821f] dark:bg-neutral-700"
+                      }`}
+                    />
+                    <span
+                      className={`text-xl leading-none whitespace-nowrap transition-all ease-out ${
+                        active
+                          ? "font-semibold text-[#f6821f] opacity-100 dark:text-[#ff9d42]"
+                          : "font-medium text-neutral-700 opacity-50 group-hover:text-[#f6821f] group-hover:opacity-100 dark:text-neutral-300 dark:group-hover:text-[#f6821f]"
+                      }`}
+                    >
+                      {itemNumber} {c.name}
+                    </span>
+                  </div>
+                  {!isLast && <TickRow />}
+                </Link>
+              );
+            })
+          )}
+        </div>
+      </div>
     </aside>
   );
 }

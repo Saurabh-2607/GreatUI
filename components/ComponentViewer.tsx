@@ -1,14 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import Sidebar from "@/components/Sidebar";
-import PropsPanel from "@/components/PropsPanel";
+import SidebarToggle from "@/components/SidebarToggle";
+import DocsPanel from "@/components/DocsPanel";
+import ThemeToggle from "@/components/ThemeToggle";
+import ComponentPreviewRenderer from "@/components/ComponentPreviewRenderer";
 import { type Component } from "@/lib/registry";
 
 interface ComponentViewerProps {
   component: Component;
-  components: Component[];
 }
 
 export default function ComponentViewer({ component }: ComponentViewerProps) {
@@ -16,89 +17,66 @@ export default function ComponentViewer({ component }: ComponentViewerProps) {
   const [isDocsOpen, setIsDocsOpen] = useState(true);
 
   return (
-    <div className="relative flex h-screen flex-col overflow-hidden bg-[#0d0d0d] p-6 text-white">
-      <div className="absolute top-6 left-1/2 z-30 flex -translate-x-1/2 items-center gap-4 rounded-full border border-white/[0.08] bg-zinc-950/85 px-5 py-2.5 shadow-2xl backdrop-blur-xl">
-        <Link
-          href="/"
-          className="text-xs font-semibold tracking-wide text-white hover:text-zinc-300"
-        >
-          Great UI
-        </Link>
+    <div className="relative flex h-screen w-full flex-col overflow-hidden bg-neutral-50 p-4 text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-white">
+      <div className="absolute top-9 left-9 z-[60]">
+        <SidebarToggle
+          isOpen={isSidebarOpen}
+          onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+        />
+      </div>
 
-        <div className="h-4 w-[1px] bg-white/10" />
-
-        <button
-          onClick={() => setIsSidebarOpen(true)}
-          className="cursor-pointer rounded-full border border-white/[0.05] bg-white/[0.04] px-4 py-1.5 text-xs font-medium text-zinc-300 hover:bg-white/[0.08] hover:text-white"
-        >
-          Browse Components
-        </button>
-
+      <div className="absolute top-9 right-9 z-40 flex h-10 items-center gap-1.5 rounded-xl border border-neutral-800/60 bg-neutral-950 p-1.5 text-white shadow-xs backdrop-blur-xl transition-all dark:bg-neutral-950 dark:text-white">
         <button
           onClick={() => setIsDocsOpen(!isDocsOpen)}
-          className={`cursor-pointer rounded-full border px-4 py-1.5 text-xs font-medium ${
+          className={`inline-flex h-7 cursor-pointer items-center rounded-lg px-3 text-xs font-semibold transition-all ${
             isDocsOpen
-              ? "border-[#e0731a] bg-[#e0731a] text-white shadow-lg shadow-orange-500/10 hover:bg-[#c96213]"
-              : "border-white/[0.05] bg-white/[0.04] text-zinc-300 hover:bg-white/[0.08] hover:text-white"
+              ? "bg-[#f6821f] text-white"
+              : "bg-neutral-800 text-neutral-300 hover:bg-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
           }`}
         >
           {isDocsOpen ? "Hide Docs" : "Show Docs"}
         </button>
+
+        <div className="h-4 w-px bg-neutral-800 dark:bg-white/10" />
+
+        <ThemeToggle className="!h-7 !w-7 !rounded-lg !border-0 !bg-transparent hover:!bg-neutral-800 dark:!border-0 dark:!bg-transparent dark:hover:!bg-neutral-800" />
       </div>
 
-      <div
-        className={`absolute inset-0 z-40 ${
-          isSidebarOpen ? "pointer-events-auto" : "pointer-events-none hidden"
-        }`}
-      >
-        <div
-          onClick={() => setIsSidebarOpen(false)}
-          className="absolute inset-0 cursor-pointer rounded-2xl bg-black/60"
-        />
-
-        <div
-          className={`absolute top-6 bottom-6 left-6 z-50 w-72 overflow-hidden rounded-2xl border border-white/[0.06] bg-[#141414] shadow-2xl ${
-            isSidebarOpen ? "block" : "hidden"
-          }`}
-        >
-          <Sidebar
-            activeSlug={component.slug}
-            onClose={() => setIsSidebarOpen(false)}
-          />
+      {isSidebarOpen && (
+        <div className="pointer-events-none absolute inset-0 z-50 flex p-4">
+          <div className="pointer-events-auto relative z-10 h-full w-64 overflow-hidden rounded-2xl bg-white/95 p-4 backdrop-blur-xl transition-all sm:w-72 dark:bg-[#141414]/95">
+            <Sidebar
+              activeSlug={component.slug}
+              onClose={() => setIsSidebarOpen(false)}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       <div
-        className={`relative z-10 flex flex-1 overflow-hidden ${
-          isDocsOpen ? "gap-6" : "gap-0"
+        className={`relative z-10 flex flex-1 overflow-hidden transition-all duration-300 ${
+          isDocsOpen ? "gap-4" : "gap-0"
         }`}
       >
         <div
-          className={`flex h-full shrink-0 flex-col ${
+          className={`flex h-full shrink-0 flex-col transition-all duration-300 ${
             isDocsOpen
-              ? "w-full lg:w-1/2"
-              : "pointer-events-none w-0 overflow-hidden"
+              ? "w-full lg:w-[40%]"
+              : "pointer-events-none w-0 overflow-hidden opacity-0"
           }`}
         >
-          <div className="h-full w-full overflow-hidden rounded-2xl border border-white/[0.06] bg-[#141414] shadow-xl">
-            <PropsPanel component={component} />
+          <div className="relative h-full w-full overflow-hidden rounded-2xl backdrop-blur-md">
+            <div className="h-full w-full scrollbar-none overflow-y-auto px-6 pt-[25vh] pb-[10vh]">
+              <DocsPanel component={component} />
+            </div>
           </div>
         </div>
 
-        <section className="relative flex h-full flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/[0.06] bg-[#141414] p-8 shadow-xl">
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#ffffff01_1px,transparent_1px),linear-gradient(to_bottom,#ffffff01_1px,transparent_1px)] bg-[size:32px_32px]" />
-
-          <div className="relative z-10 max-w-sm text-center select-none">
-            <p className="mb-3 text-[10px] font-semibold tracking-widest text-zinc-500 uppercase">
-              Preview Panel
-            </p>
-            <h2 className="mb-2 text-2xl font-bold tracking-tight text-white">
-              {component.name}
-            </h2>
-            <p className="text-sm leading-relaxed text-zinc-400">
-              Interactive preview loads here. Check documentation on the left to
-              see available states and props.
-            </p>
+        <section className="relative flex h-full flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl bg-white p-5 backdrop-blur-md dark:bg-[#141414]">
+          <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden">
+            <div className="pointer-events-auto relative z-10 flex h-full w-full items-center justify-center">
+              <ComponentPreviewRenderer slug={component.slug} />
+            </div>
           </div>
         </section>
       </div>

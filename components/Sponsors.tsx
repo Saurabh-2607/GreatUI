@@ -3,7 +3,6 @@ import Container from "./Container";
 export function Sponsors() {
   return (
     <div className="relative w-full">
-      {/* Horizontal Dashed Top Border */}
       <div
         className="pointer-events-none absolute top-0 right-0 left-0 z-20 h-px select-none"
         style={{
@@ -16,7 +15,6 @@ export function Sponsors() {
 
       <Container>
         <div className="grid w-full grid-cols-1 sm:grid-cols-3">
-          {/* Sponsor Slot 1 */}
           <a
             href="https://github.com/sponsors/Saurabh-2607"
             target="_blank"
@@ -28,7 +26,6 @@ export function Sponsors() {
               Place your logo here
             </span>
           </a>
-          {/* Sponsor Slot 2 */}
           <a
             href="https://github.com/sponsors/Saurabh-2607"
             target="_blank"
@@ -40,7 +37,6 @@ export function Sponsors() {
               Place your logo here
             </span>
           </a>
-          {/* Sponsor Slot 3 */}
           <a
             href="https://github.com/sponsors/Saurabh-2607"
             target="_blank"
