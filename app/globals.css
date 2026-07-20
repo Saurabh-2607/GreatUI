@@ -5,8 +5,8 @@
 :root {
   --background: #ffffff;
   --foreground: #09090b;
-  --color-decor-dots-100: rgba(9, 9, 11, 0.1);
-  --color-border-100: rgba(9, 9, 11, 0.15);
+  --color-decor-dots-100: rgba(9, 9, 11, 0.12);
+  --color-border-100: rgba(9, 9, 11, 0.16);
 }
 
 .dark {

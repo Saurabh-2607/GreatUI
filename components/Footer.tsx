@@ -8,9 +8,8 @@ export function Footer() {
   return (
     <footer className="relative z-10 w-full bg-transparent transition-colors">
       <Container className="py-8">
-        {/* Large Watermark Text */}
         <div className="text-center select-none">
-          <div className="text-6xl leading-none font-black tracking-tighter text-neutral-200 uppercase sm:text-8xl md:text-[140px] dark:text-neutral-800/60">
+          <div className="text-6xl leading-none font-black tracking-tighter text-neutral-300 uppercase sm:text-8xl md:text-[140px] dark:text-neutral-800">
             GREAT <span className="text-[#f6821f]">UI</span>
           </div>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-neutral-500 dark:text-neutral-400">
@@ -36,7 +35,6 @@ export function Footer() {
           </div>
         </div>
       </Container>
-      {/* Horizontal Dashed Top Border */}
       <div
         className="pointer-events-none absolute top-0 right-0 left-0 z-20 h-px select-none"
         style={{
@@ -46,7 +44,6 @@ export function Footer() {
           backgroundRepeat: "repeat-x",
         }}
       />
-      {/* Horizontal Dashed Bottom Border */}
       <div
         className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-px select-none"
         style={{
