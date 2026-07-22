@@ -7,6 +7,9 @@
   --foreground: #09090b;
   --color-decor-dots-100: rgba(9, 9, 11, 0.12);
   --color-border-100: rgba(9, 9, 11, 0.16);
+  --font-mono:
+    var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 .dark {
@@ -21,6 +24,7 @@
   --color-foreground: var(--foreground);
   --color-brand: #f6821f;
   --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 }
 
 body {
@@ -29,22 +33,6 @@ body {
   font-family: var(--font-sans);
 }
 
-/* Circular Clip-Path Theme Transition */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-
-::view-transition-old(root) {
-  z-index: 1;
-}
-
-::view-transition-new(root) {
-  z-index: 9999;
-}
-
-/* Circular Clip-Path Theme Transition */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;

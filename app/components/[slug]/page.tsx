@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { components } from "@/lib/registry";
+import { getRegistryComponent } from "@/lib/registry-server";
 import ComponentViewer from "@/components/site/ComponentViewer";
 import type { Metadata } from "next";
 
@@ -50,7 +51,7 @@ export function generateStaticParams() {
 
 export default async function ComponentPage({ params }: ComponentPageProps) {
   const { slug } = await params;
-  const component = components.find((c) => c.slug === slug);
+  const component = getRegistryComponent(slug);
 
   if (!component) notFound();
 

@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Geist_Mono } from "next/font/google";
 import { Databuddy } from "@databuddy/sdk/react";
 import ThemeProvider from "@/components/site/ThemeProvider";
 import "./globals.css";
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+});
 
 const ttCommons = localFont({
   src: [
@@ -107,7 +113,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${ttCommons.variable} dark h-full antialiased`}>
+    <html
+      lang="en"
+      className={`${ttCommons.variable} ${geistMono.variable} dark h-full antialiased`}
+    >
       <body className="flex min-h-full flex-col bg-white font-sans text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-[#ededed]">
         <ThemeProvider>
           <Databuddy
