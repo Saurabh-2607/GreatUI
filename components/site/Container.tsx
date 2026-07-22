@@ -2,18 +2,18 @@
 
 import React from "react";
 
+import { cn } from "@/lib/utils";
+
 export type ContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   children?: React.ReactNode;
   className?: string;
 };
 
-export function Container({
-  children,
-  className = "",
-  ...props
-}: ContainerProps) {
-  const containerClasses =
-    `relative w-full max-w-[1280px] mx-auto px-4 bg-white dark:bg-neutral-950 sm:px-6 ${className}`.trim();
+export function Container({ children, className, ...props }: ContainerProps) {
+  const containerClasses = cn(
+    "relative w-full max-w-[1280px] mx-auto px-4 bg-white dark:bg-neutral-950 sm:px-6",
+    className,
+  );
 
   return (
     <div className={containerClasses} {...props}>

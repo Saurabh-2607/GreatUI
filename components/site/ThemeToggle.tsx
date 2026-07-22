@@ -4,6 +4,8 @@ import React from "react";
 import posthog from "posthog-js";
 import { useTheme } from "./ThemeProvider";
 
+import { cn } from "@/lib/utils";
+
 interface ThemeToggleProps {
   className?: string;
 }
@@ -14,7 +16,7 @@ interface ViewTransitionDocument {
   };
 }
 
-export function ThemeToggle({ className = "" }: ThemeToggleProps) {
+export function ThemeToggle({ className }: ThemeToggleProps) {
   const { toggleTheme, theme } = useTheme();
 
   const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -69,7 +71,10 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
       onClick={handleToggle}
       aria-label="Toggle theme"
       title="Toggle theme"
-      className={`inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-neutral-300 bg-white text-neutral-700 transition-colors select-none hover:bg-neutral-100 hover:text-neutral-950 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white ${className}`.trim()}
+      className={cn(
+        "inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-neutral-300 bg-white text-neutral-700 transition-colors select-none hover:bg-neutral-100 hover:text-neutral-950 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white",
+        className,
+      )}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
