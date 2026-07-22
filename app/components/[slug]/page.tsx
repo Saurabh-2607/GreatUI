@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { components } from "@/lib/registry";
-import ComponentViewer from "@/components/ComponentViewer";
+import ComponentViewer from "@/components/site/ComponentViewer";
 import type { Metadata } from "next";
 
 interface ComponentPageProps {

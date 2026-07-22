@@ -2,7 +2,7 @@
 
 import posthog from "posthog-js";
 import Container from "./Container";
-import Button from "./Button";
+import Button from "./ui/Button";
 
 export function Hero() {
   return (

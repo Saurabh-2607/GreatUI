@@ -3,12 +3,12 @@
 import { useMemo } from "react";
 import Link from "next/link";
 import posthog from "posthog-js";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import BackgroundGrid from "@/components/BackgroundGrid";
-import AnnouncementBanner from "@/components/AnnouncementBanner";
-import Container from "@/components/Container";
-import ComponentPreviewRenderer from "@/components/ComponentPreviewRenderer";
+import Navbar from "@/components/site/Navbar";
+import Footer from "@/components/site/Footer";
+import BackgroundGrid from "@/components/site/BackgroundGrid";
+import AnnouncementBanner from "@/components/site/AnnouncementBanner";
+import Container from "@/components/site/Container";
+import ComponentPreviewRenderer from "@/components/site/ComponentPreviewRenderer";
 import { components } from "@/lib/registry";
 
 export default function ComponentsPage() {

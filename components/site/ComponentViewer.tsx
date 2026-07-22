@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import posthog from "posthog-js";
-import Sidebar from "@/components/Sidebar";
-import SidebarToggle from "@/components/SidebarToggle";
-import DocsPanel from "@/components/DocsPanel";
-import ThemeToggle from "@/components/ThemeToggle";
-import ComponentPreviewRenderer from "@/components/ComponentPreviewRenderer";
+import Sidebar from "@/components/site/Sidebar";
+import SidebarToggle from "@/components/site/SidebarToggle";
+import DocsPanel from "@/components/site/DocsPanel";
+import ThemeToggle from "@/components/site/ThemeToggle";
+import ComponentPreviewRenderer from "@/components/site/ComponentPreviewRenderer";
 import { type Component } from "@/lib/registry";
 
 interface ComponentViewerProps {

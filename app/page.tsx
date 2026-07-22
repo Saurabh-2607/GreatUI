@@ -1,9 +1,9 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import Footer from "@/components/Footer";
-import BackgroundGrid from "@/components/BackgroundGrid";
-import AnnouncementBanner from "@/components/AnnouncementBanner";
-// import Sponsors from "@/components/Sponsors";
+import Navbar from "@/components/site/Navbar";
+import Hero from "@/components/site/Hero";
+import Footer from "@/components/site/Footer";
+import BackgroundGrid from "@/components/site/BackgroundGrid";
+import AnnouncementBanner from "@/components/site/AnnouncementBanner";
+// import Sponsors from "@/components/site/Sponsors";
 
 export default function Home() {
   return (

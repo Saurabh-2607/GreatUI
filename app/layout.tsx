@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Databuddy } from "@databuddy/sdk/react";
-import ThemeProvider from "@/components/ThemeProvider";
+import ThemeProvider from "@/components/site/ThemeProvider";
 import "./globals.css";
 
 const ttCommons = localFont({
