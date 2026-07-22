@@ -1,34 +1,72 @@
 "use client";
 
-import React from "react";
-import Button from "@/components/ui/Button";
+import React, { useState, useEffect } from "react";
+import { components } from "@/lib/registry";
 
 interface ComponentPreviewRendererProps {
   slug: string;
   variantProps?: Record<string, unknown>;
 }
 
-export default function ComponentPreviewRenderer({
-  slug,
-}: ComponentPreviewRendererProps) {
-  if (slug === "button") {
+function DynamicPreviewLoader({
+  filename,
+  componentName,
+}: {
+  filename: string;
+  componentName: string;
+}) {
+  const [PreviewComp, setPreviewComp] = useState<React.ComponentType | null>(
+    null,
+  );
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    import(`./previews/${filename}`)
+      .then((mod) => {
+        setPreviewComp(() => mod.default);
+      })
+      .catch(() => {
+        setError(true);
+      });
+  }, [filename]);
+
+  if (error) {
     return (
-      <div className="flex flex-wrap items-center justify-center gap-4 p-6">
-        <Button variant="primary">Primary</Button>
-        <Button variant="secondary">Secondary</Button>
-        <Button variant="outline">Outline</Button>
-        <Button variant="ghost">Ghost</Button>
-        <Button variant="destructive">Destructive</Button>
-        <Button variant="primary" isLoading>
-          Loading
-        </Button>
+      <div className="text-neutral-450 py-6 text-center text-xs">
+        No preview component found for {componentName}.
       </div>
     );
   }
 
+  if (!PreviewComp) {
+    return <div className="text-sm text-neutral-400">Loading preview...</div>;
+  }
+
+  return <PreviewComp />;
+}
+
+export default function ComponentPreviewRenderer({
+  slug,
+}: ComponentPreviewRendererProps) {
+  const component = components.find((c) => c.slug === slug);
+
+  if (!component) {
+    return (
+      <div className="py-6 text-center text-xs text-neutral-400">
+        No registry entry found for {slug}.
+      </div>
+    );
+  }
+
+  const previewFilename = component.previewFile || `${component.name}Preview`;
+
   return (
-    <div className="py-6 text-center text-xs text-neutral-400">
-      No preview available for {slug}.
+    <div className="pointer-events-auto relative z-10 flex h-full w-full items-center justify-center">
+      <DynamicPreviewLoader
+        key={previewFilename}
+        filename={previewFilename}
+        componentName={component.name}
+      />
     </div>
   );
 }

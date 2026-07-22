@@ -1,30 +1,42 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Prism from "prismjs";
 import { type Component } from "@/lib/registry";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-jsx";
+import "prismjs/components/prism-tsx";
+import "prismjs/themes/prism-tomorrow.css";
 
 export default function DocsPanel({ component }: { component: Component }) {
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    Prism.highlightAll();
+  }, [component.usageCode]);
+
   return (
-    <aside className="flex flex-col text-neutral-900 dark:text-white">
-      <span className="mb-2 text-xs font-bold tracking-widest text-[#f6821f] uppercase">
-        {component.category}
-      </span>
-
-      <h2 className="text-3xl font-extrabold tracking-tight text-neutral-900 dark:text-white">
-        {component.name}
-      </h2>
-
-      <p className="mt-3 text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
-        {component.description}
-      </p>
+    <aside className="flex flex-col space-y-20 text-neutral-900 dark:text-white">
+      <div>
+        <h2 className="text-4xl font-semibold tracking-tight text-neutral-900 dark:text-white">
+          {component.name}
+        </h2>
+        <p className="leading-tighter mt-5 text-2xl text-neutral-700 dark:text-neutral-300">
+          {component.description}
+        </p>
+      </div>
 
       {component.dependencies.length > 0 && (
-        <div className="mt-6 border-t border-neutral-200 pt-4 dark:border-neutral-800">
-          <p className="mb-2.5 text-xs font-bold tracking-widest text-neutral-500 uppercase dark:text-neutral-400">
+        <div className="flex flex-col gap-2">
+          <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
             Dependencies
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2.5">
             {component.dependencies.map((dep) => (
               <span
                 key={dep}
-                className="inline-flex items-center rounded-xl border border-neutral-200 bg-neutral-100 px-3 py-1.5 font-mono text-sm font-medium text-neutral-800 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200"
+                className="inline-flex items-center rounded-xl border border-neutral-200 bg-neutral-100 px-4 py-2.5 font-mono text-lg font-medium text-neutral-800 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200"
               >
                 {dep}
               </span>
@@ -33,48 +45,113 @@ export default function DocsPanel({ component }: { component: Component }) {
         </div>
       )}
 
-      <div className="mt-6 border-t border-neutral-200 pt-4 dark:border-neutral-800">
-        <p className="mb-1.5 text-xs font-bold tracking-widest text-neutral-500 uppercase dark:text-neutral-400">
+      <div className="flex flex-col gap-2">
+        <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
           Interaction
         </p>
-        <p className="text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">
+        <p className="text-2xl leading-relaxed text-neutral-700 dark:text-neutral-300">
           {component.interactionType}
         </p>
       </div>
 
-      {component.props.length > 0 && (
-        <div className="mt-6 border-t border-neutral-200 pt-4 dark:border-neutral-800">
-          <p className="mb-1.5 text-xs font-bold tracking-widest text-neutral-500 uppercase dark:text-neutral-400">
-            Props API
-          </p>
-          <p className="mb-4 text-sm text-neutral-500 dark:text-neutral-400">
-            Configurable properties for {component.name}.
-          </p>
+      {component.usageCode && (
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+              How to use
+            </p>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(component.usageCode || "");
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+              className="text-neutral-450 inline-flex cursor-pointer items-center gap-1 rounded-md px-2.5 py-1 text-base hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-white"
+            >
+              {copied ? "Copied!" : "Copy"}
+            </button>
+          </div>
+          <pre className="relative !m-0 scrollbar-none overflow-auto rounded-xl !bg-[#141414] p-6 text-left !font-mono font-mono text-base leading-relaxed select-text selection:bg-[#f6821f]/30">
+            <code className="language-tsx !font-mono">
+              {component.usageCode}
+            </code>
+          </pre>
+        </div>
+      )}
 
-          <div className="flex flex-col divide-y divide-neutral-200 dark:divide-neutral-800/80">
-            {component.props.map((prop) => (
-              <div
-                key={prop.name}
-                className="flex flex-col gap-1.5 py-3.5 text-sm"
-              >
-                <div className="flex items-center justify-between gap-2">
-                  <code className="rounded-lg bg-neutral-100 px-2 py-0.5 font-mono text-sm font-semibold text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
-                    {prop.name}
-                  </code>
-                  <span className="font-mono text-xs font-medium text-[#f6821f]">
-                    {prop.type.join(" | ")}
-                  </span>
-                </div>
-                <p className="mt-1 text-sm leading-relaxed text-neutral-600 dark:text-neutral-300">
-                  {prop.description}
-                  {prop.default && (
-                    <span className="ml-1.5 font-mono text-xs text-neutral-400 dark:text-neutral-500">
-                      (default: {prop.default})
-                    </span>
-                  )}
-                </p>
-              </div>
-            ))}
+      <div className="flex flex-col gap-2">
+        <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+          Source Code
+        </p>
+        <p className="text-2xl leading-relaxed text-neutral-700 dark:text-neutral-300">
+          Click on the top right{" "}
+          <code className="rounded-lg bg-neutral-100 px-2.5 py-1 font-mono text-base font-semibold text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+            Code
+          </code>{" "}
+          button to view the source code.
+        </p>
+      </div>
+
+      {component.props.length > 0 && (
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-2">
+            <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+              Props Details
+            </p>
+            <p className="text-2xl leading-relaxed text-neutral-500 dark:text-neutral-400">
+              Configurable properties for {component.name}.
+            </p>
+          </div>
+
+          <div className="w-full scrollbar-none overflow-x-auto">
+            <table className="w-full border-collapse text-left">
+              <thead>
+                <tr>
+                  <th className="text-md text-neutral-450 py-4 pr-4 font-semibold uppercase dark:text-neutral-500">
+                    Prop
+                  </th>
+                  <th className="text-md text-neutral-450 px-4 py-4 font-semibold uppercase dark:text-neutral-500">
+                    Type
+                  </th>
+                  <th className="text-md text-neutral-450 px-4 py-4 font-semibold uppercase dark:text-neutral-500">
+                    Default
+                  </th>
+                  <th className="text-md text-neutral-450 py-4 pl-4 font-semibold uppercase dark:text-neutral-500">
+                    Description
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y-0">
+                {component.props.map((prop) => (
+                  <tr key={prop.name} className="align-top">
+                    <td className="py-4 pr-4">
+                      <code className="rounded-lg bg-neutral-100 px-3 py-1 font-mono text-xl font-semibold text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+                        {prop.name}
+                      </code>
+                    </td>
+                    <td className="px-4 py-4">
+                      <span className="font-mono text-base font-semibold whitespace-pre-wrap text-[#f6821f] dark:text-[#ff9d42]">
+                        {prop.type.join(" | ")}
+                      </span>
+                    </td>
+                    <td className="px-4 py-4">
+                      {prop.default ? (
+                        <code className="font-mono text-base text-neutral-500 dark:text-neutral-400">
+                          {prop.default}
+                        </code>
+                      ) : (
+                        <span className="text-base text-neutral-400 dark:text-neutral-600">
+                          —
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-4 pl-4 text-xl leading-relaxed text-neutral-600 dark:text-neutral-300">
+                      {prop.description}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       )}

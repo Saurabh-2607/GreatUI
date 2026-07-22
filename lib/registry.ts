@@ -16,7 +16,9 @@ export type Component = {
   interactionType: string;
   dependencies: string[];
   props: Prop[];
+  previewFile?: string;
   code?: string;
+  usageCode?: string;
 };
 
 export const categories: ComponentCategory[] = [
@@ -38,6 +40,7 @@ export const components: Component[] = [
     interactionType:
       "Clickable element with hover, active, focus, and loading states.",
     dependencies: [],
+    previewFile: "ButtonPreview",
     props: [
       {
         name: "variant",
