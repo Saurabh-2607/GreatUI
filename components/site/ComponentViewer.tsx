@@ -128,7 +128,11 @@ export default function ComponentViewer({ component }: ComponentViewerProps) {
       </div>
 
       {isSidebarOpen && (
-        <div className="pointer-events-none absolute inset-0 z-50 flex p-4">
+        <div className="absolute inset-0 z-50 flex p-4">
+          <div
+            className="fixed inset-0 bg-black/5 backdrop-blur-xs transition-opacity dark:bg-black/20"
+            onClick={() => setIsSidebarOpen(false)}
+          />
           <div className="pointer-events-auto relative z-10 h-full w-64 overflow-hidden rounded-2xl bg-neutral-100/95 p-4 backdrop-blur-xl transition-all sm:w-72 dark:bg-[#141414]/95">
             <Sidebar
               activeSlug={component.slug}
