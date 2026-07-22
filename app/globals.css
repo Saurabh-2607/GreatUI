@@ -48,7 +48,12 @@ body {
 }
 
 /* Custom Prism styling overrides for light/dark mode */
-pre[class*="language-"],
+pre[class*="language-"] {
+  background: #f5f5f5 !important;
+  color: #24292e !important;
+  text-shadow: none !important;
+}
+
 code[class*="language-"],
 pre[class*="language-"] code {
   background: transparent !important;
@@ -56,7 +61,11 @@ pre[class*="language-"] code {
   text-shadow: none !important;
 }
 
-.dark pre[class*="language-"],
+.dark pre[class*="language-"] {
+  background: #141414 !important;
+  color: #c9d1d9 !important;
+}
+
 .dark code[class*="language-"],
 .dark pre[class*="language-"] code {
   background: transparent !important;
