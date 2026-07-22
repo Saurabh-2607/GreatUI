@@ -39,7 +39,7 @@ export function Navbar() {
               }
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
-              className="group relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-950 text-white shadow-xs transition-all hover:bg-neutral-900 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-900"
+              className="group relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-100 text-neutral-700 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
               style={{ perspective: "1000px" }}
             >
               <div
@@ -71,7 +71,7 @@ export function Navbar() {
               </div>
             </a>
 
-            <ThemeToggle className="!h-10 !w-10 !rounded-xl !border-0 !bg-neutral-950 !text-white shadow-xs hover:!bg-neutral-900 dark:!border-0 dark:!bg-neutral-950 dark:!text-white dark:hover:!bg-neutral-900 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-white dark:[&>svg]:text-white" />
+            <ThemeToggle className="dark:!hover:text-white !h-10 !w-10 !rounded-xl !border-0 !bg-neutral-100 !text-neutral-700 shadow-xs hover:!bg-neutral-200 hover:!text-neutral-950 dark:!border-0 dark:!bg-neutral-900 dark:!text-neutral-300 dark:hover:!bg-neutral-800 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-neutral-700 dark:[&>svg]:text-neutral-300" />
           </div>
         </div>
       </Container>
