@@ -109,7 +109,7 @@ export default function Contact() {
             </div>
           </div>
 
-          <h3 className="mt-1 mt-4 text-2xl font-semibold tracking-tight text-neutral-950 dark:text-white">
+          <h3 className="mt-4 text-2xl font-semibold tracking-tight text-neutral-950 dark:text-white">
             hi@great-ui.com
           </h3>
 
@@ -144,7 +144,7 @@ export default function Contact() {
             </div>
           </div>
 
-          <h3 className="mt-1 mt-4 text-2xl font-semibold tracking-tight text-neutral-950 dark:text-white">
+          <h3 className="mt-4 text-2xl font-semibold tracking-tight text-neutral-950 dark:text-white">
             @GreatUIHQ
           </h3>
 
@@ -179,7 +179,7 @@ export default function Contact() {
             </div>
           </div>
 
-          <h3 className="mt-1 mt-4 text-2xl font-semibold tracking-tight text-neutral-950 dark:text-white">
+          <h3 className="mt-4 text-2xl font-semibold tracking-tight text-neutral-950 dark:text-white">
             GreatUI
           </h3>
 

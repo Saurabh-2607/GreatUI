@@ -4,7 +4,7 @@ import Contact from "@/components/site/Contact";
 import Footer from "@/components/site/Footer";
 import BackgroundGrid from "@/components/site/BackgroundGrid";
 import AnnouncementBanner from "@/components/site/AnnouncementBanner";
-// import Sponsors from "@/components/site/Sponsors";
+import Sponsors from "@/components/site/Sponsors";
 
 export default function Home() {
   return (
@@ -14,7 +14,7 @@ export default function Home() {
       <AnnouncementBanner />
       <Hero />
       <Contact />
-      {/* <Sponsors /> */}
+      <Sponsors />
       <Footer />
     </div>
   );
