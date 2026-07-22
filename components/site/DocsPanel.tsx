@@ -3,8 +3,7 @@
 import { useState, useEffect } from "react";
 import Prism from "prismjs";
 import { type Component } from "@/lib/registry";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { CopyIcon, CheckIcon } from "@hugeicons/core-free-icons";
+import { CopyIcon, CheckIcon } from "./Icons";
 import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-jsx";
@@ -72,15 +71,12 @@ export default function DocsPanel({ component }: { component: Component }) {
             >
               {copied ? (
                 <>
-                  <HugeiconsIcon
-                    icon={CheckIcon}
-                    className="h-4 w-4 text-green-500"
-                  />
+                  <CheckIcon className="h-4 w-4 text-green-500" />
                   <span>Copied!</span>
                 </>
               ) : (
                 <>
-                  <HugeiconsIcon icon={CopyIcon} className="h-4 w-4" />
+                  <CopyIcon className="h-4 w-4" />
                   <span>Copy</span>
                 </>
               )}

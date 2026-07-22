@@ -5,8 +5,7 @@ import Link from "next/link";
 import posthog from "posthog-js";
 import Container from "./Container";
 import ThemeToggle from "./ThemeToggle";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { GithubIcon, StarIcon } from "@hugeicons/core-free-icons";
+import { GithubIcon, StarIcon } from "./Icons";
 
 export function Navbar() {
   const [isHovered, setIsHovered] = useState(false);
@@ -17,14 +16,14 @@ export function Navbar() {
         <div className="flex w-full items-center justify-between">
           <Link
             href="/"
-            className="flex items-center gap-2.5 transition-opacity hover:opacity-90"
+            className="flex h-10 items-center gap-2.5 transition-opacity hover:opacity-90"
           >
             <img
               src="/Great-UI.png"
               alt="Great UI Logo"
-              className="h-6 w-auto object-contain"
+              className="h-8 w-auto object-contain"
             />
-            <span className="text-xl font-bold tracking-tight text-neutral-900 uppercase sm:block dark:text-white">
+            <span className="text-3xl font-bold tracking-tight text-neutral-900 uppercase sm:block dark:text-white">
               Great <span className="text-[#f6821f]">UI</span>
             </span>
           </Link>
@@ -40,11 +39,11 @@ export function Navbar() {
               }
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
-              className="group relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-neutral-300 bg-white text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-950 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
+              className="group relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-950 text-white shadow-xs transition-all hover:bg-neutral-900 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-900"
               style={{ perspective: "1000px" }}
             >
               <div
-                className="relative h-4 w-4 transition-transform duration-500"
+                className="relative h-5 w-5 transition-transform duration-500"
                 style={{
                   transformStyle: "preserve-3d",
                   transform: isHovered ? "rotateY(180deg)" : "rotateY(0deg)",
@@ -57,7 +56,7 @@ export function Navbar() {
                     WebkitBackfaceVisibility: "hidden",
                   }}
                 >
-                  <HugeiconsIcon icon={GithubIcon} className="h-4 w-4" />
+                  <GithubIcon className="h-5 w-5" />
                 </div>
                 <div
                   className="absolute inset-0 flex items-center justify-center text-amber-500"
@@ -67,12 +66,12 @@ export function Navbar() {
                     transform: "rotateY(180deg)",
                   }}
                 >
-                  <HugeiconsIcon icon={StarIcon} className="h-4 w-4" />
+                  <StarIcon className="h-5 w-5" />
                 </div>
               </div>
             </a>
 
-            <ThemeToggle />
+            <ThemeToggle className="!h-10 !w-10 !rounded-xl !border-0 !bg-neutral-950 !text-white shadow-xs hover:!bg-neutral-900 dark:!border-0 dark:!bg-neutral-950 dark:!text-white dark:hover:!bg-neutral-900 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-white dark:[&>svg]:text-white" />
           </div>
         </div>
       </Container>

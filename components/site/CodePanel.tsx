@@ -4,13 +4,7 @@ import { useState, useEffect } from "react";
 import posthog from "posthog-js";
 import Prism from "prismjs";
 import { type Component } from "@/lib/registry";
-import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  ChevronLeftIcon,
-  Download01Icon,
-  CopyIcon,
-  CheckIcon,
-} from "@hugeicons/core-free-icons";
+import { ChevronLeftIcon, DownloadIcon, CopyIcon, CheckIcon } from "./Icons";
 
 import "prismjs/themes/prism-tomorrow.css";
 import "prismjs/components/prism-clike";
@@ -68,7 +62,7 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
             className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-white"
             title="Close code panel"
           >
-            <HugeiconsIcon icon={ChevronLeftIcon} className="h-4 w-4" />
+            <ChevronLeftIcon className="h-4 w-4" />
           </button>
 
           <div className="h-4 w-px bg-neutral-800" />
@@ -84,7 +78,7 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
             className="hover:bg-neutral-850 inline-flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-lg border border-neutral-800 bg-neutral-900/60 px-3 text-xs font-semibold text-neutral-300 transition-colors select-none hover:text-white"
             title="Download TSX file"
           >
-            <HugeiconsIcon icon={Download01Icon} className="h-3.5 w-3.5" />
+            <DownloadIcon className="h-3.5 w-3.5" />
             <span>{component.name}.tsx</span>
           </button>
 
@@ -94,15 +88,12 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
           >
             {copied ? (
               <>
-                <HugeiconsIcon
-                  icon={CheckIcon}
-                  className="h-3.5 w-3.5 text-green-500"
-                />
+                <CheckIcon className="h-3.5 w-3.5 text-green-500" />
                 <span>Copied</span>
               </>
             ) : (
               <>
-                <HugeiconsIcon icon={CopyIcon} className="h-3.5 w-3.5" />
+                <CopyIcon className="h-3.5 w-3.5" />
                 <span>Copy</span>
               </>
             )}

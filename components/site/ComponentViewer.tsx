@@ -8,9 +8,14 @@ import DocsPanel from "@/components/site/DocsPanel";
 import CodePanel from "@/components/site/CodePanel";
 import ThemeToggle from "@/components/site/ThemeToggle";
 import ComponentPreviewRenderer from "@/components/site/ComponentPreviewRenderer";
+import Link from "next/link";
 import { type Component } from "@/lib/registry";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { BookOpen01Icon, CodeIcon } from "@hugeicons/core-free-icons";
+import {
+  CodeIcon,
+  HomeIcon,
+  MaximizeIcon,
+  MinimizeIcon,
+} from "@/components/site/Icons";
 
 interface ComponentViewerProps {
   component: Component;
@@ -39,7 +44,16 @@ export default function ComponentViewer({ component }: ComponentViewerProps) {
         />
       </div>
 
-      <div className="absolute top-9 right-9 z-40 flex h-10 items-center gap-1.5 rounded-xl border border-neutral-800/60 bg-neutral-950 p-1.5 text-white shadow-xs backdrop-blur-xl transition-all dark:bg-neutral-950 dark:text-white">
+      <div className="absolute top-9 right-9 z-40 flex items-center gap-1.5 rounded-2xl border border-neutral-200 bg-white/80 p-1.5 shadow-xs backdrop-blur-xl transition-all dark:border-neutral-800/60 dark:bg-neutral-950/80">
+        <Link
+          href="/"
+          title="Back to Home"
+          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-950 text-white shadow-xs transition-all hover:bg-neutral-900 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-900"
+          aria-label="Navigate to Home"
+        >
+          <HomeIcon className="h-5 w-5" />
+        </Link>
+
         <button
           onClick={() => {
             if (isPanelOpen) {
@@ -65,14 +79,15 @@ export default function ComponentViewer({ component }: ComponentViewerProps) {
               });
             }
           }}
-          className={`inline-flex h-7 cursor-pointer items-center gap-1.5 rounded-lg px-3 text-xs font-semibold transition-all ${
-            isPanelOpen && !isCodeOpen
-              ? "bg-[#f6821f] text-white"
-              : "bg-neutral-800 text-neutral-300 hover:bg-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
-          }`}
+          title={isPanelOpen ? "Hide docs" : "Show docs"}
+          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-950 text-white shadow-xs transition-all hover:bg-neutral-900 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-900"
+          aria-label="Toggle docs panel"
         >
-          <HugeiconsIcon icon={BookOpen01Icon} className="h-3.5 w-3.5" />
-          <span>Docs</span>
+          {isPanelOpen ? (
+            <MaximizeIcon className="h-5 w-5" />
+          ) : (
+            <MinimizeIcon className="h-5 w-5" />
+          )}
         </button>
 
         <button
@@ -102,19 +117,14 @@ export default function ComponentViewer({ component }: ComponentViewerProps) {
               });
             }
           }}
-          className={`inline-flex h-7 cursor-pointer items-center gap-1.5 rounded-lg px-3 text-xs font-semibold transition-all ${
-            isPanelOpen && isCodeOpen
-              ? "bg-[#f6821f] text-white"
-              : "bg-neutral-800 text-neutral-300 hover:bg-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
-          }`}
+          title={isPanelOpen && isCodeOpen ? "Hide code" : "Show code"}
+          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-950 text-white shadow-xs transition-all hover:bg-neutral-900 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-900"
+          aria-label="Toggle code panel"
         >
-          <HugeiconsIcon icon={CodeIcon} className="h-3.5 w-3.5" />
-          <span>Code</span>
+          <CodeIcon className="h-5 w-5" />
         </button>
 
-        <div className="h-4 w-px bg-neutral-800 dark:bg-white/10" />
-
-        <ThemeToggle className="!h-7 !w-7 !rounded-lg !border-0 !bg-transparent hover:!bg-neutral-800 dark:!border-0 dark:!bg-transparent dark:hover:!bg-neutral-800" />
+        <ThemeToggle className="!h-10 !w-10 !rounded-xl !border-0 !bg-neutral-950 !text-white shadow-xs hover:!bg-neutral-900 dark:!border-0 dark:!bg-neutral-950 dark:!text-white dark:hover:!bg-neutral-900" />
       </div>
 
       {isSidebarOpen && (
