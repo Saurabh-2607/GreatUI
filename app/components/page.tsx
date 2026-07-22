@@ -74,27 +74,24 @@ export default function ComponentsPage() {
                       </span>
                     </div>
 
-                    <div className="relative z-10 -mx-4 grid grid-cols-1 border border-neutral-200 bg-neutral-50/10 sm:-mx-6 sm:grid-cols-2 lg:grid-cols-3 dark:border-neutral-800 dark:bg-neutral-900/5">
-                      {/* Corner & Divider Anchors Overlay */}
+                    <div
+                      className={`relative z-10 grid border border-neutral-200 bg-neutral-50/10 dark:border-neutral-800 dark:bg-neutral-900/5 ${
+                        itemGroup.length === 1
+                          ? "grid-cols-1 sm:max-w-[50%] lg:max-w-[33.333%]"
+                          : itemGroup.length === 2
+                            ? "grid-cols-1 sm:grid-cols-2 lg:max-w-[66.666%]"
+                            : "w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                      }`}
+                    >
+                      {/* Corner Anchors Overlay */}
                       <div
                         className="pointer-events-none absolute inset-0 z-20 select-none"
                         aria-hidden="true"
                       >
-                        {/* Corners */}
-                        <div className="absolute -top-[7px] -left-[7px] h-3.5 w-3.5 rounded-[3px] border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a]" />
-                        <div className="absolute -top-[7px] -right-[7px] h-3.5 w-3.5 rounded-[3px] border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a]" />
-                        <div className="absolute -bottom-[7px] -left-[7px] h-3.5 w-3.5 rounded-[3px] border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a]" />
-                        <div className="absolute -right-[7px] -bottom-[7px] h-3.5 w-3.5 rounded-[3px] border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a]" />
-
-                        {/* sm Breakpoint: 2 columns divider (at 1/2 width) */}
-                        <div className="absolute -top-[7px] left-1/2 hidden h-3.5 w-3.5 -translate-x-1/2 rounded-[3px] border border-neutral-200 bg-white sm:block lg:hidden dark:border-neutral-800 dark:bg-[#0a0a0a]" />
-                        <div className="absolute -bottom-[7px] left-1/2 hidden h-3.5 w-3.5 -translate-x-1/2 rounded-[3px] border border-neutral-200 bg-white sm:block lg:hidden dark:border-neutral-800 dark:bg-[#0a0a0a]" />
-
-                        {/* lg Breakpoint: 3 columns dividers (at 1/3 and 2/3 width) */}
-                        <div className="absolute -top-[7px] left-1/3 hidden h-3.5 w-3.5 -translate-x-1/2 rounded-[3px] border border-neutral-200 bg-white lg:block dark:border-neutral-800 dark:bg-[#0a0a0a]" />
-                        <div className="absolute -top-[7px] left-2/3 hidden h-3.5 w-3.5 -translate-x-1/2 rounded-[3px] border border-neutral-200 bg-white lg:block dark:border-neutral-800 dark:bg-[#0a0a0a]" />
-                        <div className="absolute -bottom-[7px] left-1/3 hidden h-3.5 w-3.5 -translate-x-1/2 rounded-[3px] border border-neutral-200 bg-white lg:block dark:border-neutral-800 dark:bg-[#0a0a0a]" />
-                        <div className="absolute -bottom-[7px] left-2/3 hidden h-3.5 w-3.5 -translate-x-1/2 rounded-[3px] border border-neutral-200 bg-white lg:block dark:border-neutral-800 dark:bg-[#0a0a0a]" />
+                        <div className="absolute -top-[7px] -left-[7px] h-3.5 w-3.5 rounded-[3px] border border-neutral-200/60 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a]" />
+                        <div className="absolute -top-[7px] -right-[7px] h-3.5 w-3.5 rounded-[3px] border border-neutral-200/60 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a]" />
+                        <div className="absolute -bottom-[7px] -left-[7px] h-3.5 w-3.5 rounded-[3px] border border-neutral-200/60 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a]" />
+                        <div className="absolute -right-[7px] -bottom-[7px] h-3.5 w-3.5 rounded-[3px] border border-neutral-200/60 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a]" />
                       </div>
 
                       {itemGroup.map((c, index) => (
