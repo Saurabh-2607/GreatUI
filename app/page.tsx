@@ -1,5 +1,6 @@
 import Navbar from "@/components/site/Navbar";
 import Hero from "@/components/site/Hero";
+import Contact from "@/components/site/Contact";
 import Footer from "@/components/site/Footer";
 import BackgroundGrid from "@/components/site/BackgroundGrid";
 import AnnouncementBanner from "@/components/site/AnnouncementBanner";
@@ -12,6 +13,7 @@ export default function Home() {
       <Navbar />
       <AnnouncementBanner />
       <Hero />
+      <Contact />
       {/* <Sponsors /> */}
       <Footer />
     </div>
