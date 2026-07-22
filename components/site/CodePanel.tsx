@@ -108,7 +108,7 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
           fontSize: "14px",
           lineHeight: "1.6",
         }}
-        className="!m-0 flex-1 scrollbar-none overflow-auto bg-neutral-50/50 p-6 text-left !font-mono select-text selection:bg-[#f6821f]/30 dark:bg-transparent"
+        className="!m-0 flex-1 scrollbar-none overflow-auto bg-neutral-100 p-6 text-left !font-mono select-text selection:bg-[#f6821f]/30 dark:bg-[#141414]"
       >
         <code
           style={{

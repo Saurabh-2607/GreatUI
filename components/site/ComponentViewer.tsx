@@ -127,20 +127,32 @@ export default function ComponentViewer({ component }: ComponentViewerProps) {
         <ThemeToggle className="dark:!hover:text-white !h-10 !w-10 !rounded-xl !border-0 !bg-neutral-100 !text-neutral-700 shadow-xs hover:!bg-neutral-200 hover:!text-neutral-950 dark:!border-0 dark:!bg-neutral-900 dark:!text-neutral-300 dark:hover:!bg-neutral-800 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-neutral-700 dark:[&>svg]:text-neutral-300" />
       </div>
 
-      {isSidebarOpen && (
-        <div className="absolute inset-0 z-50 flex p-4">
-          <div
-            className="fixed inset-0 bg-black/5 backdrop-blur-xs transition-opacity dark:bg-black/20"
-            onClick={() => setIsSidebarOpen(false)}
+      <div
+        className={`absolute inset-0 z-50 flex p-4 transition-all duration-300 ${
+          isSidebarOpen
+            ? "pointer-events-auto visible"
+            : "pointer-events-none invisible"
+        }`}
+      >
+        <div
+          className={`fixed inset-0 bg-black/5 backdrop-blur-xs transition-opacity duration-300 dark:bg-black/20 ${
+            isSidebarOpen ? "opacity-100" : "opacity-0"
+          }`}
+          onClick={() => setIsSidebarOpen(false)}
+        />
+        <div
+          className={`pointer-events-auto relative z-10 h-full w-64 overflow-hidden rounded-2xl bg-neutral-100/95 p-4 backdrop-blur-xl transition-all duration-300 ease-in-out sm:w-72 dark:bg-[#141414]/95 ${
+            isSidebarOpen
+              ? "translate-x-0 opacity-100"
+              : "-translate-x-[calc(100%+1.5rem)] opacity-0"
+          }`}
+        >
+          <Sidebar
+            activeSlug={component.slug}
+            onClose={() => setIsSidebarOpen(false)}
           />
-          <div className="pointer-events-auto relative z-10 h-full w-64 overflow-hidden rounded-2xl bg-neutral-100/95 p-4 backdrop-blur-xl transition-all sm:w-72 dark:bg-[#141414]/95">
-            <Sidebar
-              activeSlug={component.slug}
-              onClose={() => setIsSidebarOpen(false)}
-            />
-          </div>
         </div>
-      )}
+      </div>
 
       <div
         className={`relative z-10 flex flex-1 overflow-hidden transition-all duration-300 ${

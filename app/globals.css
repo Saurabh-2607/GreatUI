@@ -48,11 +48,23 @@ body {
 }
 
 /* Custom Prism styling overrides for light/dark mode */
-pre code {
-  color: #24292e; /* Light mode default text */
+pre[class*="language-"],
+code[class*="language-"],
+pre[class*="language-"] code {
+  background: transparent !important;
+  color: #24292e !important;
+  text-shadow: none !important;
 }
-.dark pre code {
-  color: #c9d1d9; /* Dark mode default text */
+
+.dark pre[class*="language-"],
+.dark code[class*="language-"],
+.dark pre[class*="language-"] code {
+  background: transparent !important;
+  color: #c9d1d9 !important;
+}
+
+.token {
+  text-shadow: none !important;
 }
 
 /* Tokens */

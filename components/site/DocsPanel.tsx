@@ -82,7 +82,7 @@ export default function DocsPanel({ component }: { component: Component }) {
               )}
             </button>
           </div>
-          <pre className="relative !m-0 scrollbar-none overflow-auto rounded-xl bg-neutral-100 p-6 text-left !font-mono font-mono text-base leading-relaxed select-text selection:bg-[#f6821f]/30 dark:bg-[#141414]">
+          <pre className="relative !m-0 scrollbar-none overflow-auto rounded-xl bg-neutral-100 p-6 text-left !font-mono font-mono text-sm leading-[1.6] select-text selection:bg-[#f6821f]/30 dark:bg-[#141414]">
             <code className="language-tsx !font-mono">
               {component.usageCode}
             </code>
