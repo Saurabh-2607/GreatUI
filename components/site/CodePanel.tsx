@@ -54,20 +54,20 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
   };
 
   return (
-    <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#141414] font-sans text-white">
-      <div className="flex h-14 shrink-0 items-center justify-between bg-[#141414] px-4 select-none">
+    <div className="relative flex h-full w-full flex-col overflow-hidden bg-neutral-100 font-sans text-neutral-900 dark:bg-[#141414] dark:text-white">
+      <div className="flex h-14 shrink-0 items-center justify-between bg-neutral-100 px-4 select-none dark:bg-[#141414]">
         <div className="flex items-center gap-3">
           <button
             onClick={onClose}
-            className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-white"
+            className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-neutral-500 transition-colors hover:bg-neutral-200 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
             title="Close code panel"
           >
             <ChevronLeftIcon className="h-4 w-4" />
           </button>
 
-          <div className="h-4 w-px bg-neutral-800" />
+          <div className="h-4 w-px bg-neutral-300 dark:bg-neutral-800" />
 
-          <span className="text-sm font-semibold tracking-wide text-neutral-100">
+          <span className="text-sm font-semibold tracking-wide text-neutral-800 dark:text-neutral-100">
             {component.name}
           </span>
         </div>
@@ -75,7 +75,7 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
         <div className="flex items-center gap-2">
           <button
             onClick={handleDownload}
-            className="hover:bg-neutral-850 inline-flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-lg border border-neutral-800 bg-neutral-900/60 px-3 text-xs font-semibold text-neutral-300 transition-colors select-none hover:text-white"
+            className="dark:hover:bg-neutral-850 inline-flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-neutral-200/50 px-3 text-xs font-semibold text-neutral-600 transition-colors select-none hover:bg-neutral-200 hover:text-neutral-950 dark:border dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-300 dark:hover:text-white"
             title="Download TSX file"
           >
             <DownloadIcon className="h-3.5 w-3.5" />
@@ -84,7 +84,7 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
 
           <button
             onClick={handleCopy}
-            className="hover:bg-neutral-850 inline-flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-lg border border-neutral-800 bg-neutral-900/60 px-3 text-xs font-semibold text-neutral-300 transition-colors select-none hover:text-white"
+            className="dark:hover:bg-neutral-850 inline-flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-neutral-200/50 px-3 text-xs font-semibold text-neutral-600 transition-colors select-none hover:bg-neutral-200 hover:text-neutral-950 dark:border dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-300 dark:hover:text-white"
           >
             {copied ? (
               <>
@@ -108,7 +108,7 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
           fontSize: "14px",
           lineHeight: "1.6",
         }}
-        className="!m-0 flex-1 scrollbar-none overflow-auto !bg-transparent p-6 text-left !font-mono select-text selection:bg-[#f6821f]/30"
+        className="!m-0 flex-1 scrollbar-none overflow-auto bg-neutral-50/50 p-6 text-left !font-mono select-text selection:bg-[#f6821f]/30 dark:bg-transparent"
       >
         <code
           style={{

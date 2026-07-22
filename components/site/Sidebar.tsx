@@ -21,12 +21,12 @@ export default function Sidebar({ activeSlug, onClose }: SidebarProps) {
     <aside className="relative flex h-full w-full flex-col overflow-hidden bg-transparent text-neutral-900 select-none dark:text-white">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-0 right-0 left-0 z-20 h-24 bg-gradient-to-b from-white via-white/80 to-transparent dark:from-[#141414] dark:via-[#141414]/80 dark:to-transparent"
+        className="pointer-events-none absolute top-0 right-0 left-0 z-20 h-24 bg-gradient-to-b from-neutral-100 via-neutral-100/80 to-transparent dark:from-[#141414] dark:via-[#141414]/80 dark:to-transparent"
       />
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-28 bg-gradient-to-t from-white via-white/80 to-transparent dark:from-[#141414] dark:via-[#141414]/80 dark:to-transparent"
+        className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-28 bg-gradient-to-t from-neutral-100 via-neutral-100/80 to-transparent dark:from-[#141414] dark:via-[#141414]/80 dark:to-transparent"
       />
 
       <div className="relative flex-1 scrollbar-none overflow-x-clip overflow-y-auto pr-2 pl-1 tracking-tight">

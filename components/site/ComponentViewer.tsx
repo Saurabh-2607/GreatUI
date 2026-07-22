@@ -27,7 +27,7 @@ export default function ComponentViewer({ component }: ComponentViewerProps) {
   const [isCodeOpen, setIsCodeOpen] = useState(false);
 
   return (
-    <div className="relative flex h-screen w-full flex-col overflow-hidden bg-neutral-50 p-4 text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-white">
+    <div className="relative flex h-screen w-full flex-col overflow-hidden bg-white p-4 text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-white">
       <div
         className={`absolute top-9 left-9 z-[60] transition-opacity duration-300 ${isCodeOpen ? "pointer-events-none opacity-0" : "opacity-100"}`}
       >
@@ -129,7 +129,7 @@ export default function ComponentViewer({ component }: ComponentViewerProps) {
 
       {isSidebarOpen && (
         <div className="pointer-events-none absolute inset-0 z-50 flex p-4">
-          <div className="pointer-events-auto relative z-10 h-full w-64 overflow-hidden rounded-2xl bg-white/95 p-4 backdrop-blur-xl transition-all sm:w-72 dark:bg-[#141414]/95">
+          <div className="pointer-events-auto relative z-10 h-full w-64 overflow-hidden rounded-2xl bg-neutral-100/95 p-4 backdrop-blur-xl transition-all sm:w-72 dark:bg-[#141414]/95">
             <Sidebar
               activeSlug={component.slug}
               onClose={() => setIsSidebarOpen(false)}
@@ -170,7 +170,7 @@ export default function ComponentViewer({ component }: ComponentViewerProps) {
           </div>
         </div>
 
-        <section className="relative flex h-full flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl bg-white p-5 backdrop-blur-md dark:bg-[#141414]">
+        <section className="relative flex h-full flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 p-5 backdrop-blur-md dark:bg-[#141414]">
           <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden">
             <div className="pointer-events-auto relative z-10 flex h-full w-full items-center justify-center">
               <ComponentPreviewRenderer slug={component.slug} />
