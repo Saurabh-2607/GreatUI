@@ -11,7 +11,7 @@ interface ComponentCardProps {
 export default function ComponentCard({ component }: ComponentCardProps) {
   return (
     <div className="group flex h-full w-full flex-col select-none">
-      <div className="relative flex h-56 w-full items-center justify-center overflow-hidden rounded-b-2xl bg-[#0d0d0d]">
+      <div className="relative flex h-56 w-full items-center justify-center overflow-hidden bg-[#0d0d0d]">
         {component.previewImage ? (
           <img
             src={component.previewImage}
