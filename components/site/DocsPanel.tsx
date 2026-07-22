@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import Prism from "prismjs";
 import { type Component } from "@/lib/registry";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { CopyIcon, CheckIcon } from "@hugeicons/core-free-icons";
 import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-jsx";
@@ -66,9 +68,22 @@ export default function DocsPanel({ component }: { component: Component }) {
                 setCopied(true);
                 setTimeout(() => setCopied(false), 2000);
               }}
-              className="text-neutral-450 inline-flex cursor-pointer items-center gap-1 rounded-md px-2.5 py-1 text-base hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-white"
+              className="text-neutral-450 inline-flex cursor-pointer items-center gap-1.5 rounded-md px-2.5 py-1 text-base hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-white"
             >
-              {copied ? "Copied!" : "Copy"}
+              {copied ? (
+                <>
+                  <HugeiconsIcon
+                    icon={CheckIcon}
+                    className="h-4 w-4 text-green-500"
+                  />
+                  <span>Copied!</span>
+                </>
+              ) : (
+                <>
+                  <HugeiconsIcon icon={CopyIcon} className="h-4 w-4" />
+                  <span>Copy</span>
+                </>
+              )}
             </button>
           </div>
           <pre className="relative !m-0 scrollbar-none overflow-auto rounded-xl !bg-[#141414] p-6 text-left !font-mono font-mono text-base leading-relaxed select-text selection:bg-[#f6821f]/30">

@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { SidebarLeft01Icon } from "@hugeicons/core-free-icons";
 
 interface SidebarToggleProps {
   isOpen: boolean;
@@ -20,20 +22,7 @@ export default function SidebarToggle({
       className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-950 text-white shadow-xs transition-all hover:bg-neutral-900 dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-900 ${className}`}
       aria-label="Toggle sidebar"
     >
-      <svg
-        className="h-5 w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <rect x="3" y="3" width="18" height="18" rx="4" strokeWidth="2" />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M9 3v18"
-        />
-      </svg>
+      <HugeiconsIcon icon={SidebarLeft01Icon} className="h-5 w-5" />
     </button>
   );
 }

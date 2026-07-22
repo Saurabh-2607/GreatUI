@@ -9,6 +9,8 @@ import CodePanel from "@/components/site/CodePanel";
 import ThemeToggle from "@/components/site/ThemeToggle";
 import ComponentPreviewRenderer from "@/components/site/ComponentPreviewRenderer";
 import { type Component } from "@/lib/registry";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { BookOpen01Icon, CodeIcon } from "@hugeicons/core-free-icons";
 
 interface ComponentViewerProps {
   component: Component;
@@ -63,13 +65,14 @@ export default function ComponentViewer({ component }: ComponentViewerProps) {
               });
             }
           }}
-          className={`inline-flex h-7 cursor-pointer items-center rounded-lg px-3 text-xs font-semibold transition-all ${
+          className={`inline-flex h-7 cursor-pointer items-center gap-1.5 rounded-lg px-3 text-xs font-semibold transition-all ${
             isPanelOpen && !isCodeOpen
               ? "bg-[#f6821f] text-white"
               : "bg-neutral-800 text-neutral-300 hover:bg-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
           }`}
         >
-          Docs
+          <HugeiconsIcon icon={BookOpen01Icon} className="h-3.5 w-3.5" />
+          <span>Docs</span>
         </button>
 
         <button
@@ -99,13 +102,14 @@ export default function ComponentViewer({ component }: ComponentViewerProps) {
               });
             }
           }}
-          className={`inline-flex h-7 cursor-pointer items-center rounded-lg px-3 text-xs font-semibold transition-all ${
+          className={`inline-flex h-7 cursor-pointer items-center gap-1.5 rounded-lg px-3 text-xs font-semibold transition-all ${
             isPanelOpen && isCodeOpen
               ? "bg-[#f6821f] text-white"
               : "bg-neutral-800 text-neutral-300 hover:bg-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
           }`}
         >
-          Code
+          <HugeiconsIcon icon={CodeIcon} className="h-3.5 w-3.5" />
+          <span>Code</span>
         </button>
 
         <div className="h-4 w-px bg-neutral-800 dark:bg-white/10" />

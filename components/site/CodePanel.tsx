@@ -4,6 +4,13 @@ import { useState, useEffect } from "react";
 import posthog from "posthog-js";
 import Prism from "prismjs";
 import { type Component } from "@/lib/registry";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  ChevronLeftIcon,
+  Download01Icon,
+  CopyIcon,
+  CheckIcon,
+} from "@hugeicons/core-free-icons";
 
 import "prismjs/themes/prism-tomorrow.css";
 import "prismjs/components/prism-clike";
@@ -61,20 +68,7 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
             className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-white"
             title="Close code panel"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2.5}
-              stroke="currentColor"
-              className="h-4 w-4"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 19.5L8.25 12l7.5-7.5"
-              />
-            </svg>
+            <HugeiconsIcon icon={ChevronLeftIcon} className="h-4 w-4" />
           </button>
 
           <div className="h-4 w-px bg-neutral-800" />
@@ -90,20 +84,7 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
             className="hover:bg-neutral-850 inline-flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-lg border border-neutral-800 bg-neutral-900/60 px-3 text-xs font-semibold text-neutral-300 transition-colors select-none hover:text-white"
             title="Download TSX file"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="h-3.5 w-3.5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
-              />
-            </svg>
+            <HugeiconsIcon icon={Download01Icon} className="h-3.5 w-3.5" />
             <span>{component.name}.tsx</span>
           </button>
 
@@ -113,38 +94,15 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
           >
             {copied ? (
               <>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2.5}
-                  stroke="currentColor"
+                <HugeiconsIcon
+                  icon={CheckIcon}
                   className="h-3.5 w-3.5 text-green-500"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4.5 12.75l6 6 9-13.5"
-                  />
-                </svg>
+                />
                 <span>Copied</span>
               </>
             ) : (
               <>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="h-3.5 w-3.5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H5.25m11.9-3.664A2.251 2.251 0 0015 2.25h-1.5a2.251 2.251 0 00-2.15 1.586m5.8 0c.065.21.1.433.1.664v.75h-6V4.5c0-.231.035-.454.1-.664M6.75 7.5h.75m-.75 3h1.5m-1.5 3h.75m9.75-3h.75m-.75 3h1.5m-1.5 3h.75m-.75 3h1.5"
-                  />
-                </svg>
+                <HugeiconsIcon icon={CopyIcon} className="h-3.5 w-3.5" />
                 <span>Copy</span>
               </>
             )}
