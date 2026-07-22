@@ -17,6 +17,7 @@ export type Component = {
   dependencies: string[];
   props: Prop[];
   previewFile?: string;
+  previewImage?: string;
   code?: string;
   usageCode?: string;
 };
@@ -41,6 +42,7 @@ export const components: Component[] = [
       "Clickable element with hover, active, focus, and loading states.",
     dependencies: [],
     previewFile: "ButtonPreview",
+    previewImage: "/previews/button.png",
     props: [
       {
         name: "variant",
