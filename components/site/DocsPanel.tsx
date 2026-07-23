@@ -62,6 +62,7 @@ export default function DocsPanel({ component }: { component: Component }) {
               How to use
             </p>
             <button
+              type="button"
               onClick={() => {
                 navigator.clipboard.writeText(component.usageCode || "");
                 setCopied(true);

@@ -73,6 +73,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
         </Link>
 
         <button
+          type="button"
           onClick={() => {
             if (isPanelOpen) {
               if (isCodeOpen) {
@@ -109,6 +110,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
         </button>
 
         <button
+          type="button"
           onClick={() => {
             if (isPanelOpen) {
               if (isCodeOpen) {
@@ -153,6 +155,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
         }`}
       >
         <div
+          aria-hidden="true"
           className={`fixed inset-0 bg-black/5 transition-opacity duration-300 dark:bg-black/20 ${
             isSidebarOpen ? "opacity-100" : "opacity-0"
           }`}

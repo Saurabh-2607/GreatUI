@@ -387,13 +387,22 @@ export function MacbookMockup({
                 )}
               </div>
               <div className="flex items-center gap-2.5 text-neutral-600 dark:text-neutral-400">
-                <button className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
+                <button
+                  type="button"
+                  className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400"
+                >
                   <StatusCircleIcon />
                 </button>
-                <button className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
+                <button
+                  type="button"
+                  className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400"
+                >
                   <NewChatIcon />
                 </button>
-                <button className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
+                <button
+                  type="button"
+                  className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400"
+                >
                   <MoreVerticalIcon />
                 </button>
               </div>
@@ -483,10 +492,16 @@ export function MacbookMockup({
               </div>
 
               <div className="flex items-center gap-3 text-neutral-600 dark:text-neutral-400">
-                <button className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
+                <button
+                  type="button"
+                  className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400"
+                >
                   <SearchIcon />
                 </button>
-                <button className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
+                <button
+                  type="button"
+                  className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400"
+                >
                   <MoreVerticalIcon />
                 </button>
               </div>
@@ -540,6 +555,7 @@ export function MacbookMockup({
                             {msg.isAudio ? (
                               <div className="flex min-w-[180px] items-center gap-3 py-1">
                                 <button
+                                  type="button"
                                   onClick={() =>
                                     setIsPlayingAudio(!isPlayingAudio)
                                   }
@@ -633,16 +649,25 @@ export function MacbookMockup({
             </div>
 
             <div className="z-10 flex shrink-0 items-center gap-2 bg-[#f0f2f5] p-2.5 dark:bg-[#111b21]">
-              <button className="p-1 text-neutral-600 transition-colors hover:text-emerald-600 dark:text-neutral-400 dark:hover:text-emerald-400">
+              <button
+                type="button"
+                className="p-1 text-neutral-600 transition-colors hover:text-emerald-600 dark:text-neutral-400 dark:hover:text-emerald-400"
+              >
                 <EmojiIcon />
               </button>
-              <button className="p-1 text-neutral-600 transition-colors hover:text-emerald-600 dark:text-neutral-400 dark:hover:text-emerald-400">
+              <button
+                type="button"
+                className="p-1 text-neutral-600 transition-colors hover:text-emerald-600 dark:text-neutral-400 dark:hover:text-emerald-400"
+              >
                 <PaperclipIcon />
               </button>
               <div className="flex-1 rounded-lg bg-white px-3 py-1.5 text-xs text-neutral-400 dark:bg-[#2a3942] dark:text-neutral-400">
                 Type a message
               </div>
-              <button className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#00a884] text-white transition-colors hover:bg-emerald-600">
+              <button
+                type="button"
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#00a884] text-white transition-colors hover:bg-emerald-600"
+              >
                 <MicrophoneIcon />
               </button>
             </div>

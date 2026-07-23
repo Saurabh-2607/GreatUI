@@ -358,7 +358,10 @@ export function MobileMockup({
 
           <div className="z-20 flex shrink-0 items-center justify-between bg-[#008069] px-3 py-1.5 text-white transition-colors dark:bg-[#111b21]">
             <div className="flex items-center gap-1.5">
-              <button className="text-white/90 transition-colors hover:text-white">
+              <button
+                type="button"
+                className="text-white/90 transition-colors hover:text-white"
+              >
                 <ArrowLeftIcon />
               </button>
 
@@ -385,13 +388,22 @@ export function MobileMockup({
             </div>
 
             <div className="flex items-center gap-2.5 text-white/90">
-              <button className="transition-colors hover:text-white">
+              <button
+                type="button"
+                className="transition-colors hover:text-white"
+              >
                 <VideoCallIcon className="h-3.5 w-3.5" />
               </button>
-              <button className="transition-colors hover:text-white">
+              <button
+                type="button"
+                className="transition-colors hover:text-white"
+              >
                 <PhoneCallIcon className="h-3.5 w-3.5" />
               </button>
-              <button className="transition-colors hover:text-white">
+              <button
+                type="button"
+                className="transition-colors hover:text-white"
+              >
                 <MoreVerticalIcon className="h-3.5 w-3.5" />
               </button>
             </div>
@@ -509,21 +521,33 @@ export function MobileMockup({
           </div>
 
           <div className="z-20 flex shrink-0 items-center gap-1.5 bg-[#f0f2f5] p-2 transition-colors dark:bg-[#111b21]">
-            <button className="p-1 text-neutral-600 transition-colors hover:text-emerald-600 dark:text-neutral-400 dark:hover:text-emerald-400">
+            <button
+              type="button"
+              className="p-1 text-neutral-600 transition-colors hover:text-emerald-600 dark:text-neutral-400 dark:hover:text-emerald-400"
+            >
               <EmojiIcon />
             </button>
             <div className="flex flex-1 items-center justify-between rounded-full bg-white px-3 py-1.5 text-xs text-neutral-400 dark:bg-[#2a3942] dark:text-neutral-400">
               <span className="truncate">Message</span>
               <div className="flex items-center gap-2 text-neutral-400">
-                <button className="hover:text-neutral-600 dark:hover:text-neutral-200">
+                <button
+                  type="button"
+                  className="hover:text-neutral-600 dark:hover:text-neutral-200"
+                >
                   <PaperclipIcon />
                 </button>
-                <button className="hover:text-neutral-600 dark:hover:text-neutral-200">
+                <button
+                  type="button"
+                  className="hover:text-neutral-600 dark:hover:text-neutral-200"
+                >
                   <CameraIcon />
                 </button>
               </div>
             </div>
-            <button className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#00a884] text-white transition-colors hover:bg-emerald-600">
+            <button
+              type="button"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#00a884] text-white transition-colors hover:bg-emerald-600"
+            >
               <MicrophoneIcon />
             </button>
           </div>

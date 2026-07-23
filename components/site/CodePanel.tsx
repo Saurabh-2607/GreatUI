@@ -58,6 +58,7 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
       <div className="flex h-14 shrink-0 items-center justify-between bg-neutral-100 px-4 select-none dark:bg-[#141414]">
         <div className="flex items-center gap-3">
           <button
+            type="button"
             onClick={onClose}
             className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-neutral-500 transition-colors hover:bg-neutral-200 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
             title="Close code panel"
@@ -74,6 +75,7 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
 
         <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={handleDownload}
             className="dark:hover:bg-neutral-850 inline-flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-neutral-200/50 px-3 text-xs font-semibold text-neutral-600 transition-colors select-none hover:bg-neutral-200 hover:text-neutral-950 dark:border dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-300 dark:hover:text-white"
             title="Download TSX file"
@@ -83,6 +85,7 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
           </button>
 
           <button
+            type="button"
             onClick={handleCopy}
             className="dark:hover:bg-neutral-850 inline-flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-neutral-200/50 px-3 text-xs font-semibold text-neutral-600 transition-colors select-none hover:bg-neutral-200 hover:text-neutral-950 dark:border dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-300 dark:hover:text-white"
           >

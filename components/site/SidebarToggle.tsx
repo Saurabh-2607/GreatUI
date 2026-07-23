@@ -18,6 +18,7 @@ export default function SidebarToggle({
 }: SidebarToggleProps) {
   return (
     <button
+      type="button"
       onClick={onToggle}
       title={isOpen ? "Collapse sidebar" : "Open sidebar"}
       className={cn(
