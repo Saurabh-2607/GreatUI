@@ -11,21 +11,6 @@ import Container from "@/components/site/Container";
 import ComponentCard from "@/components/site/ComponentCard";
 import { components } from "@/lib/registry";
 
-const getBorderClasses = (index: number) => {
-  const topBorder = [
-    index > 0 ? "border-t" : "",
-    index < 2 ? "sm:border-t-0" : "sm:border-t",
-    index < 3 ? "lg:border-t-0" : "lg:border-t",
-  ].join(" ");
-
-  const leftBorder = [
-    index % 2 !== 0 ? "sm:border-l" : "sm:border-l-0",
-    index % 3 !== 0 ? "lg:border-l" : "lg:border-l-0",
-  ].join(" ");
-
-  return `${topBorder} ${leftBorder} border-neutral-200 dark:border-neutral-800`;
-};
-
 export default function ComponentsPage() {
   const groupedComponents = useMemo(() => {
     const map: Record<string, typeof components> = {};
@@ -74,31 +59,12 @@ export default function ComponentsPage() {
                       </span>
                     </div>
 
-                    <div
-                      className={`relative z-10 grid border border-neutral-200 bg-neutral-50/10 dark:border-neutral-800 dark:bg-neutral-900/5 ${
-                        itemGroup.length === 1
-                          ? "grid-cols-1 sm:max-w-[50%] lg:max-w-[33.333%]"
-                          : itemGroup.length === 2
-                            ? "grid-cols-1 sm:grid-cols-2 lg:max-w-[66.666%]"
-                            : "w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-                      }`}
-                    >
-                      {/* Corner Anchors Overlay */}
-                      <div
-                        className="pointer-events-none absolute inset-0 z-20 select-none"
-                        aria-hidden="true"
-                      >
-                        <div className="absolute -top-[7px] -left-[7px] h-3.5 w-3.5 rounded-[3px] border border-neutral-200/60 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a]" />
-                        <div className="absolute -top-[7px] -right-[7px] h-3.5 w-3.5 rounded-[3px] border border-neutral-200/60 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a]" />
-                        <div className="absolute -bottom-[7px] -left-[7px] h-3.5 w-3.5 rounded-[3px] border border-neutral-200/60 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a]" />
-                        <div className="absolute -right-[7px] -bottom-[7px] h-3.5 w-3.5 rounded-[3px] border border-neutral-200/60 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a]" />
-                      </div>
-
-                      {itemGroup.map((c, index) => (
+                    <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                      {itemGroup.map((c) => (
                         <Link
                           href={`/components/${c.slug}`}
                           key={c.slug}
-                          className={`group block cursor-pointer overflow-hidden no-underline transition-colors duration-400 ease-out hover:bg-neutral-100/50 dark:hover:bg-[#141414]/60 ${getBorderClasses(index)}`}
+                          className="group relative block cursor-pointer border border-neutral-200 bg-neutral-50/10 no-underline transition-colors duration-300 hover:bg-neutral-100/50 dark:border-neutral-800 dark:bg-neutral-900/5 dark:hover:bg-[#141414]/60"
                           onClick={() =>
                             posthog.capture("component_card_clicked", {
                               component_slug: c.slug,
@@ -107,6 +73,17 @@ export default function ComponentsPage() {
                             })
                           }
                         >
+                          {/* Individual Card Corner Anchors */}
+                          <div
+                            className="pointer-events-none absolute inset-0 z-20 select-none"
+                            aria-hidden="true"
+                          >
+                            <div className="absolute -top-[7px] -left-[7px] h-3.5 w-3.5 rounded-[3px] border border-neutral-200/60 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a]" />
+                            <div className="absolute -top-[7px] -right-[7px] h-3.5 w-3.5 rounded-[3px] border border-neutral-200/60 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a]" />
+                            <div className="absolute -bottom-[7px] -left-[7px] h-3.5 w-3.5 rounded-[3px] border border-neutral-200/60 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a]" />
+                            <div className="absolute -right-[7px] -bottom-[7px] h-3.5 w-3.5 rounded-[3px] border border-neutral-200/60 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a]" />
+                          </div>
+
                           <ComponentCard component={c} />
                         </Link>
                       ))}

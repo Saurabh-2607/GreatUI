@@ -11,12 +11,12 @@ interface ComponentCardProps {
 export default function ComponentCard({ component }: ComponentCardProps) {
   return (
     <div className="group flex h-full w-full flex-col select-none">
-      <div className="relative flex h-56 w-full items-center justify-center overflow-hidden bg-[#0d0d0d]">
+      <div className="relative flex h-56 w-full items-center justify-center overflow-hidden bg-[#0d0d0d] p-3">
         {component.previewImage ? (
           <img
             src={component.previewImage}
             alt={component.name}
-            className="h-full w-full object-cover"
+            className="h-full w-full scale-135 object-contain"
           />
         ) : (
           <div className="pointer-events-none relative z-10 flex w-full items-center justify-center">
@@ -27,7 +27,7 @@ export default function ComponentCard({ component }: ComponentCardProps) {
 
       <div className="flex flex-col p-6">
         <div className="flex items-center justify-between gap-2">
-          <span className="font-semiBold text-2xl text-neutral-900 transition-colors group-hover:text-[#f6821f] dark:text-white">
+          <span className="text-2xl font-semibold text-neutral-900 transition-colors group-hover:text-[#f6821f] dark:text-white">
             {component.name}
           </span>
         </div>
