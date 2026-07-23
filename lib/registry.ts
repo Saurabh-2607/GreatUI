@@ -86,4 +86,101 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "mobile-mockup",
+    name: "MobileMockup",
+    category: "Surfaces",
+    description:
+      "An interactive mobile device frame mockup with a realistic smartphone chassis, dynamic island, status bar, and WhatsApp mobile chat UI.",
+    interactionType:
+      "Animated message stream, interactive audio notes, and responsive dark/light mode device chassis.",
+    dependencies: ["motion"],
+    previewFile: "MobileMockupPreview",
+    props: [
+      {
+        name: "headerTitle",
+        type: ["string"],
+        description: "Contact or group name shown in the WhatsApp header bar.",
+        default: "'Alex (Design Lead)'",
+      },
+      {
+        name: "headerSubtitle",
+        type: ["string"],
+        description: "Status or subtitle shown under the header title.",
+        default: "'online'",
+      },
+      {
+        name: "avatarUrl",
+        type: ["string"],
+        description: "Optional URL for the user avatar image.",
+      },
+      {
+        name: "avatarFallback",
+        type: ["string"],
+        description: "Fallback text or initial if no avatar image is supplied.",
+        default: "'A'",
+      },
+      {
+        name: "messages",
+        type: ["ChatMessage[]"],
+        description:
+          "List of chat messages to render inside the mobile screen.",
+      },
+      {
+        name: "autoPlay",
+        type: ["boolean"],
+        description:
+          "Whether to animate message streaming and typing indicator automatically.",
+        default: "true",
+      },
+    ],
+  },
+  {
+    slug: "macbook-mockup",
+    name: "MacbookMockup",
+    category: "Surfaces",
+    description:
+      "A realistic 3D Macbook Pro device frame mockup with aluminum casing, keyboard base, webcam notch, and dual-pane WhatsApp Web chat UI.",
+    interactionType:
+      "Interactive dual-pane sidebar & chat stream, voice notes, and desktop laptop frame animations.",
+    dependencies: ["motion"],
+    previewFile: "MacbookMockupPreview",
+    props: [
+      {
+        name: "headerTitle",
+        type: ["string"],
+        description:
+          "Active chat contact or group name in WhatsApp Web header.",
+        default: "'Alex (Design Lead)'",
+      },
+      {
+        name: "headerSubtitle",
+        type: ["string"],
+        description: "Status or subtitle text in the chat header.",
+        default: "'online'",
+      },
+      {
+        name: "avatarUrl",
+        type: ["string"],
+        description: "Optional URL for the contact profile avatar.",
+      },
+      {
+        name: "avatarFallback",
+        type: ["string"],
+        description: "Fallback initial for contact avatar.",
+        default: "'A'",
+      },
+      {
+        name: "messages",
+        type: ["ChatMessage[]"],
+        description: "Array of chat messages for the desktop chat stream.",
+      },
+      {
+        name: "autoPlay",
+        type: ["boolean"],
+        description: "Toggle automated message sequence and typing state loop.",
+        default: "true",
+      },
+    ],
+  },
 ];
