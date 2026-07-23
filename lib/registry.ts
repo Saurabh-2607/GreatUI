@@ -91,17 +91,18 @@ export const components: Component[] = [
     name: "MobileMockup",
     category: "Surfaces",
     description:
-      "An interactive mobile device frame mockup with a realistic smartphone chassis, dynamic island, status bar, and WhatsApp mobile chat UI.",
+      "An interactive mobile device frame mockup with a realistic smartphone chassis, status bar, and WhatsApp mobile chat UI.",
     interactionType:
       "Animated message stream, interactive audio notes, and responsive dark/light mode device chassis.",
     dependencies: ["motion"],
     previewFile: "MobileMockupPreview",
+    previewImage: "/previews/MobileMockupPreview.png",
     props: [
       {
         name: "headerTitle",
         type: ["string"],
         description: "Contact or group name shown in the WhatsApp header bar.",
-        default: "'Alex (Design Lead)'",
+        default: "'Taylor'",
       },
       {
         name: "headerSubtitle",
@@ -118,7 +119,7 @@ export const components: Component[] = [
         name: "avatarFallback",
         type: ["string"],
         description: "Fallback text or initial if no avatar image is supplied.",
-        default: "'A'",
+        default: "'T'",
       },
       {
         name: "messages",
@@ -140,11 +141,12 @@ export const components: Component[] = [
     name: "MacbookMockup",
     category: "Surfaces",
     description:
-      "A realistic 3D Macbook Pro device frame mockup with aluminum casing, keyboard base, webcam notch, and dual-pane WhatsApp Web chat UI.",
+      "A realistic 3D Macbook Pro device frame mockup with aluminum casing, keyboard base, and dual-pane WhatsApp Web chat UI.",
     interactionType:
       "Interactive dual-pane sidebar & chat stream, voice notes, and desktop laptop frame animations.",
     dependencies: ["motion"],
     previewFile: "MacbookMockupPreview",
+    previewImage: "/previews/MacbookMockupPreview.png",
     props: [
       {
         name: "headerTitle",
