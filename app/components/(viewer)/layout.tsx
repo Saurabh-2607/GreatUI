@@ -1,30 +1,48 @@
 "use client";
 
-import { useState } from "react";
+import React from "react";
+import { useParams } from "next/navigation";
+import Link from "next/link";
 import posthog from "posthog-js";
 import Sidebar from "@/components/site/Sidebar";
 import SidebarToggle from "@/components/site/SidebarToggle";
 import DocsPanel from "@/components/site/DocsPanel";
 import CodePanel from "@/components/site/CodePanel";
 import ThemeToggle from "@/components/site/ThemeToggle";
-import ComponentPreviewRenderer from "@/components/site/ComponentPreviewRenderer";
-import Link from "next/link";
-import { type Component } from "@/lib/registry";
 import {
   CodeIcon,
   HomeIcon,
   MaximizeIcon,
   MinimizeIcon,
 } from "@/components/site/Icons";
+import { components } from "@/lib/registry";
+import { ViewerProvider, useViewer } from "@/lib/viewer-context";
 
-interface ComponentViewerProps {
-  component: Component;
-}
+function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
+  const {
+    isSidebarOpen,
+    setIsSidebarOpen,
+    isPanelOpen,
+    setIsPanelOpen,
+    isCodeOpen,
+    setIsCodeOpen,
+    activeComponent,
+  } = useViewer();
 
-export default function ComponentViewer({ component }: ComponentViewerProps) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isPanelOpen, setIsPanelOpen] = useState(true);
-  const [isCodeOpen, setIsCodeOpen] = useState(false);
+  const params = useParams();
+  const slug = params.slug as string;
+  const clientComponent = components.find((c) => c.slug === slug);
+
+  const component =
+    activeComponent?.slug === slug ? activeComponent : clientComponent;
+
+  if (!component) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-white dark:bg-[#0a0a0a]">
+        <div className="text-sm text-neutral-400">Loading component...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative flex h-screen w-full flex-col overflow-hidden bg-white p-4 text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-white">
@@ -135,22 +153,19 @@ export default function ComponentViewer({ component }: ComponentViewerProps) {
         }`}
       >
         <div
-          className={`fixed inset-0 bg-black/5 backdrop-blur-xs transition-opacity duration-300 dark:bg-black/20 ${
+          className={`fixed inset-0 bg-black/5 transition-opacity duration-300 dark:bg-black/20 ${
             isSidebarOpen ? "opacity-100" : "opacity-0"
           }`}
           onClick={() => setIsSidebarOpen(false)}
         />
         <div
-          className={`pointer-events-auto relative z-10 h-full w-64 overflow-hidden rounded-2xl bg-neutral-100/95 p-4 backdrop-blur-xl transition-all duration-300 ease-in-out sm:w-72 dark:bg-[#141414]/95 ${
+          className={`pointer-events-auto relative z-10 h-full w-64 overflow-hidden rounded-2xl bg-neutral-100 p-4 transition-all duration-300 ease-in-out sm:w-72 dark:bg-[#141414] ${
             isSidebarOpen
               ? "translate-x-0 opacity-100"
               : "-translate-x-[calc(100%+1.5rem)] opacity-0"
           }`}
         >
-          <Sidebar
-            activeSlug={component.slug}
-            onClose={() => setIsSidebarOpen(false)}
-          />
+          <Sidebar activeSlug={component.slug} />
         </div>
       </div>
 
@@ -189,11 +204,23 @@ export default function ComponentViewer({ component }: ComponentViewerProps) {
         <section className="relative flex h-full flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 p-5 backdrop-blur-md dark:bg-[#141414]">
           <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden">
             <div className="pointer-events-auto relative z-10 flex h-full w-full items-center justify-center">
-              <ComponentPreviewRenderer slug={component.slug} />
+              {children}
             </div>
           </div>
         </section>
       </div>
     </div>
+  );
+}
+
+export default function ViewerLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <ViewerProvider>
+      <ViewerLayoutContent>{children}</ViewerLayoutContent>
+    </ViewerProvider>
   );
 }

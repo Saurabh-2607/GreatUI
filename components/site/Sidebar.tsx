@@ -7,7 +7,6 @@ import { components } from "@/lib/registry";
 
 interface SidebarProps {
   activeSlug: string;
-  onClose?: () => void;
 }
 
 const TickRow = () => (
@@ -16,7 +15,7 @@ const TickRow = () => (
   </div>
 );
 
-export default function Sidebar({ activeSlug, onClose }: SidebarProps) {
+export default function Sidebar({ activeSlug }: SidebarProps) {
   return (
     <aside className="relative flex h-full w-full flex-col overflow-hidden bg-transparent text-neutral-900 select-none dark:text-white">
       <div
@@ -52,7 +51,6 @@ export default function Sidebar({ activeSlug, onClose }: SidebarProps) {
                       component_name: c.name,
                       from_slug: activeSlug,
                     });
-                    onClose?.();
                   }}
                   className="group relative flex cursor-pointer flex-col transition-colors"
                 >

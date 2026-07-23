@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import { components } from "@/lib/registry";
 import { getRegistryComponent } from "@/lib/registry-server";
-import ComponentViewer from "@/components/site/ComponentViewer";
+import ComponentPreviewRenderer from "@/components/site/ComponentPreviewRenderer";
+import ComponentRegistrar from "@/components/site/ComponentRegistrar";
 import type { Metadata } from "next";
 
 interface ComponentPageProps {
@@ -55,5 +56,10 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
   if (!component) notFound();
 
-  return <ComponentViewer component={component} />;
+  return (
+    <>
+      <ComponentRegistrar component={component} />
+      <ComponentPreviewRenderer slug={slug} />
+    </>
+  );
 }
