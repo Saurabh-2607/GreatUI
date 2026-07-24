@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import AsciiLoader from "@/components/ui/AsciiLoader";
+import TerminalLoader from "@/components/ui/TerminalLoader";
 
-export default function AsciiLoaderPreview() {
+export default function TerminalLoaderPreview() {
   return (
     <div className="flex w-full items-center justify-center p-12 select-none">
-      <AsciiLoader
+      <TerminalLoader
         rows={5}
         cols={40}
         blockWidth={3}

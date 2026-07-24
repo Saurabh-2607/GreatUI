@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useTheme } from "@/components/site/ThemeProvider";
 import { cn } from "@/lib/utils";
 
-export interface VinylCardProps {
+export interface VinylAlbumCardProps {
   title?: string;
   artist?: string;
   releaseType?: string;
@@ -13,13 +13,13 @@ export interface VinylCardProps {
   coverImage?: string;
 }
 
-export default function VinylCard({
+export default function VinylAlbumCard({
   title = "Crashing Worlds",
   artist = "The Bebos",
   releaseType = "Single",
   year = "2057",
   coverImage = "https://ik.imagekit.io/ybq4azred/greatui/album_art.png",
-}: VinylCardProps) {
+}: VinylAlbumCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();

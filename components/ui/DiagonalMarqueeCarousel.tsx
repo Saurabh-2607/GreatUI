@@ -9,7 +9,7 @@ export interface CardItem {
   title: string;
 }
 
-export interface DiagonalMarqueeProps {
+export interface DiagonalMarqueeCarouselProps {
   cards?: CardItem[];
   angle?: number;
   baseSpeed?: number;
@@ -112,7 +112,7 @@ const MarqueeRow = ({
   );
 };
 
-export default function DiagonalMarquee({
+export default function DiagonalMarqueeCarousel({
   cards = DEFAULT_CARDS,
   angle = -25,
   baseSpeed = 120,
@@ -120,7 +120,7 @@ export default function DiagonalMarquee({
   className = "",
   cardClassName = "",
   fadeClassName = "",
-}: DiagonalMarqueeProps) {
+}: DiagonalMarqueeCarouselProps) {
   const rotationStyle = {
     transform: `rotate(${angle}deg)`,
   };

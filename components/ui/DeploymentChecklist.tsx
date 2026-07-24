@@ -227,13 +227,13 @@ interface Task {
   info: string | null;
 }
 
-export interface InteractiveChecklistProps {
+export interface DeploymentChecklistProps {
   initialTasks?: Task[];
 }
 
-export default function InteractiveChecklist({
+export default function DeploymentChecklist({
   initialTasks,
-}: InteractiveChecklistProps) {
+}: DeploymentChecklistProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(true);

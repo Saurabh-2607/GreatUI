@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
-export interface AsciiLoaderProps {
+export interface TerminalLoaderProps {
   rows?: number;
   cols?: number;
   blockWidth?: number;
@@ -15,7 +15,7 @@ export interface AsciiLoaderProps {
   className?: string;
 }
 
-export default function AsciiLoader({
+export default function TerminalLoader({
   rows = 5,
   cols = 60,
   blockWidth = 3,
@@ -25,7 +25,7 @@ export default function AsciiLoader({
   charEmpty = ".",
   charTrail = ["▓", "▒", "░"],
   className,
-}: AsciiLoaderProps) {
+}: TerminalLoaderProps) {
   const [position, setPosition] = useState(0);
   const [direction, setDirection] = useState(1);
 

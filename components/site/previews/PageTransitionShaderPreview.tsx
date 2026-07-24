@@ -4,7 +4,7 @@ import React from "react";
 import {
   WebglTransitionProvider,
   useWebglTransition,
-} from "@/components/ui/WebglShaderTransition";
+} from "@/components/ui/PageTransitionShader";
 
 function TransitionControl() {
   const { setShaderMode, triggerTransition } = useWebglTransition();
@@ -55,7 +55,7 @@ function TransitionControl() {
   );
 }
 
-export default function WebglShaderTransitionPreview() {
+export default function PageTransitionShaderPreview() {
   return (
     <WebglTransitionProvider>
       <TransitionControl />

@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-export interface TactileButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface AceternityButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string;
   variant?: "primary" | "secondary" | "outline" | "ghost" | "destructive";
   size?: "sm" | "md" | "lg" | "xl";
@@ -33,7 +33,7 @@ const Spinner = () => (
   </svg>
 );
 
-export default function TactileButton({
+export default function AceternityButton({
   className,
   variant = "primary",
   size = "md",
@@ -42,7 +42,7 @@ export default function TactileButton({
   children,
   disabled,
   ...props
-}: TactileButtonProps) {
+}: AceternityButtonProps) {
   const baseClasses =
     "cursor-pointer inline-flex items-center justify-center rounded-xl font-medium transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed select-none outline-none focus:outline-none";
 

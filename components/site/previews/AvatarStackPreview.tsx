@@ -1,30 +1,30 @@
 "use client";
 
 import React from "react";
-import CursorAvatars from "@/components/ui/CursorAvatars";
+import AvatarStack from "@/components/ui/AvatarStack";
 
-export default function CursorAvatarsPreview() {
+export default function AvatarStackPreview() {
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-12 p-8 select-none">
       <div className="flex flex-col items-center gap-3">
         <span className="text-neutral-450 font-mono text-xs tracking-wider uppercase dark:text-neutral-500">
           Spring Tilt (Moves with Cursor)
         </span>
-        <CursorAvatars variant="spring-tilt" size="md" />
+        <AvatarStack variant="spring-tilt" size="md" />
       </div>
 
       <div className="flex flex-col items-center gap-3">
         <span className="text-neutral-450 font-mono text-xs tracking-wider uppercase dark:text-neutral-500">
           Spring Box (Inner Tilting Box)
         </span>
-        <CursorAvatars variant="spring-box" size="md" />
+        <AvatarStack variant="spring-box" size="md" />
       </div>
 
       <div className="flex flex-col items-center gap-3">
         <span className="text-neutral-450 font-mono text-xs tracking-wider uppercase dark:text-neutral-500">
           Slide Blur (Directional Reveal)
         </span>
-        <CursorAvatars variant="slide-blur" size="md" />
+        <AvatarStack variant="slide-blur" size="md" />
       </div>
 
       <div className="flex w-full flex-col items-center gap-6 border-t border-neutral-200 pt-8 dark:border-neutral-800">
@@ -36,19 +36,19 @@ export default function CursorAvatarsPreview() {
             <span className="font-mono text-[10px] text-neutral-400">
               Small (SM)
             </span>
-            <CursorAvatars variant="spring-tilt" size="sm" />
+            <AvatarStack variant="spring-tilt" size="sm" />
           </div>
           <div className="flex flex-col items-center gap-2">
             <span className="font-mono text-[10px] text-neutral-400">
               Medium (MD)
             </span>
-            <CursorAvatars variant="spring-tilt" size="md" />
+            <AvatarStack variant="spring-tilt" size="md" />
           </div>
           <div className="flex flex-col items-center gap-2">
             <span className="font-mono text-[10px] text-neutral-400">
               Large (LG)
             </span>
-            <CursorAvatars variant="spring-tilt" size="lg" />
+            <AvatarStack variant="spring-tilt" size="lg" />
           </div>
         </div>
       </div>

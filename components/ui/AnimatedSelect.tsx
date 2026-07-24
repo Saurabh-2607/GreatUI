@@ -131,7 +131,7 @@ const defaultOptions: DropdownOption[] = [
   { id: "logout", label: "Log Out", icon: LogOutIcon, danger: true },
 ];
 
-export interface AnimatedDropdownProps {
+export interface AnimatedSelectProps {
   placeholder?: string;
   options?: DropdownOption[];
   className?: string;
@@ -142,7 +142,7 @@ export interface AnimatedDropdownProps {
   onSelect?: (option: DropdownOption) => void;
 }
 
-export default function AnimatedDropdown({
+export default function AnimatedSelect({
   placeholder = "Select Action",
   options = defaultOptions,
   className,
@@ -151,7 +151,7 @@ export default function AnimatedDropdown({
   itemGap = 4,
   triggerHeight = 44,
   onSelect,
-}: AnimatedDropdownProps) {
+}: AnimatedSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<DropdownOption | null>(null);
   const [mounted, setMounted] = useState(false);

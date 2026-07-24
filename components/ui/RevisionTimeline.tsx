@@ -444,7 +444,7 @@ const renderMDXContent = (mdxText: string): React.ReactNode => {
   return <div className="flex flex-col gap-0.5">{elements}</div>;
 };
 
-interface DocumentHistoryTimelineProps {
+interface RevisionTimelineProps {
   revisions: TimelineRevision[];
   defaultActiveId?: string;
   className?: string;
@@ -456,7 +456,7 @@ interface DocumentHistoryTimelineProps {
   onActiveIdChange?: (activeId: string) => void;
 }
 
-export default function DocumentHistoryTimeline({
+export default function RevisionTimeline({
   revisions,
   defaultActiveId,
   className,
@@ -466,7 +466,7 @@ export default function DocumentHistoryTimeline({
   futurePaddingDays = 30,
   height = "420px",
   onActiveIdChange,
-}: DocumentHistoryTimelineProps) {
+}: RevisionTimelineProps) {
   const orderedRevisions = useMemo(
     () => getSortedUniqueRevisions(revisions),
     [revisions],

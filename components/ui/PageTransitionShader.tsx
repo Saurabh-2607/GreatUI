@@ -178,7 +178,7 @@ function createProgram(
   return program;
 }
 
-export interface WebglShaderTransitionProps {
+export interface PageTransitionShaderProps {
   trigger: number;
   onViewSwap?: () => void;
   isDark?: boolean;
@@ -187,14 +187,14 @@ export interface WebglShaderTransitionProps {
   aberration?: number;
 }
 
-export function WebglShaderTransition({
+export function PageTransitionShader({
   trigger,
   onViewSwap,
   isDark = false,
   shaderMode = "ripple",
   duration = 900,
   aberration = 1.0,
-}: WebglShaderTransitionProps) {
+}: PageTransitionShaderProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [transitionState, setTransitionState] = useState<
     "idle" | "entering" | "covered" | "exiting"
@@ -444,7 +444,7 @@ export function WebglTransitionProvider({
       }}
     >
       {mounted && (
-        <WebglShaderTransition
+        <PageTransitionShader
           trigger={trigger}
           onViewSwap={handleViewSwap}
           isDark={isDark}
@@ -458,4 +458,4 @@ export function WebglTransitionProvider({
   );
 }
 
-export default WebglShaderTransition;
+export default PageTransitionShader;

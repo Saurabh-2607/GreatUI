@@ -8,7 +8,7 @@ import {
 } from "motion/react";
 import { cn } from "@/lib/utils";
 
-export interface AvatarHoverProps {
+export interface ImageHoverRevealProps {
   className?: string;
   src?: string;
   overlaySrc?: string;
@@ -19,13 +19,13 @@ export interface AvatarHoverProps {
 const DEFAULT_IMAGE =
   "https://ik.imagekit.io/ybq4azred/temp_avatar_new_1784920336469.png";
 
-export default function AvatarHover({
+export default function ImageHoverReveal({
   className = "",
   src = DEFAULT_IMAGE,
   overlaySrc,
   alt = "Avatar Hover",
   variant = "directional",
-}: AvatarHoverProps) {
+}: ImageHoverRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   // Directional Reveal (for variant = "directional")

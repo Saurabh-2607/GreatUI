@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import AvatarHover from "@/components/ui/AvatarHover";
+import ImageHoverReveal from "@/components/ui/ImageHoverReveal";
 
-export default function AvatarHoverPreview() {
+export default function ImageHoverRevealPreview() {
   const sharedSrc =
     "https://ik.imagekit.io/ybq4azred/temp_person_color_1784920435220.png";
   const ghibliOverlay =
@@ -15,7 +15,7 @@ export default function AvatarHoverPreview() {
         <span className="font-mono text-[10px] tracking-widest text-neutral-400 uppercase dark:text-neutral-500">
           Directional Hover
         </span>
-        <AvatarHover
+        <ImageHoverReveal
           variant="directional"
           src={sharedSrc}
           overlaySrc={ghibliOverlay}
@@ -28,7 +28,7 @@ export default function AvatarHoverPreview() {
         <span className="font-mono text-[10px] tracking-widest text-neutral-400 uppercase dark:text-neutral-500">
           Mouse Track Slot
         </span>
-        <AvatarHover
+        <ImageHoverReveal
           variant="slice"
           src={sharedSrc}
           overlaySrc={ghibliOverlay}

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import AsciiImageWebGL from "@/components/ui/AsciiImageWebGL";
+import AsciiImage from "@/components/ui/AsciiImage";
 
 const MailIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -34,12 +34,12 @@ const GlobeIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export default function AsciiImageWebGLPreview() {
+export default function AsciiImagePreview() {
   return (
     <div className="flex w-full items-center justify-center p-8 select-none">
       <div className="relative flex w-[340px] flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-950 dark:border-neutral-800/80">
         {/* Top: Static ASCII / Image Blended Visualizer */}
-        <AsciiImageWebGL
+        <AsciiImage
           src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80"
           width={340}
           height={340}

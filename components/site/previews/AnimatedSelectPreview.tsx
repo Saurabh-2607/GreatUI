@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
-import AnimatedDropdown from "@/components/ui/AnimatedDropdown";
+import AnimatedSelect from "@/components/ui/AnimatedSelect";
 
-export default function AnimatedDropdownPreview() {
+export default function AnimatedSelectPreview() {
   return (
     <div className="flex h-[420px] w-full items-center justify-center p-8 select-none">
       <div className="relative -top-24">
-        <AnimatedDropdown
+        <AnimatedSelect
           placeholder="Choose Option"
           width={240}
           itemHeight={42}

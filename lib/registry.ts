@@ -88,7 +88,7 @@ export const components: Component[] = [
   },
   {
     slug: "mobile-mockup",
-    name: "MobileMockup",
+    name: "Mobile Mockup",
     category: "Surfaces",
     description:
       "An interactive mobile device frame mockup with a realistic smartphone chassis, status bar, and WhatsApp mobile chat UI.",
@@ -138,7 +138,7 @@ export const components: Component[] = [
   },
   {
     slug: "macbook-mockup",
-    name: "MacbookMockup",
+    name: "Macbook Mockup",
     category: "Surfaces",
     description:
       "A realistic 3D Macbook Pro device frame mockup with aluminum casing, keyboard base, and dual-pane WhatsApp Web chat UI.",
@@ -186,16 +186,16 @@ export const components: Component[] = [
     ],
   },
   {
-    slug: "interactive-checklist",
-    name: "InteractiveChecklist",
+    slug: "deployment-checklist",
+    name: "Deployment Checklist",
     category: "Feedback",
     description:
       "An interactive CI/CD pipeline protocol checklist depicting git clone, install, build, and deploy stages with custom animated status icons.",
     interactionType:
       "Sequentially executable checklist with running spin state, skipped items, error logs, and detailed step drawer toggling.",
     dependencies: ["motion"],
-    previewFile: "InteractiveChecklistPreview",
-    previewImage: "/previews/InteractiveChecklistPreview.png",
+    previewFile: "DeploymentChecklistPreview",
+    previewImage: "/previews/DeploymentChecklistPreview.png",
     props: [
       {
         name: "initialTasks",
@@ -206,16 +206,16 @@ export const components: Component[] = [
     ],
   },
   {
-    slug: "vinyl-card",
-    name: "VinylCard",
+    slug: "vinyl-album-card",
+    name: "Vinyl Album Card",
     category: "Surfaces",
     description:
       "An interactive music album card with a spinning vinyl record that emerges from the cover sleeve upon hover.",
     interactionType:
       "Hover-triggered card sleeve scale, tilt rotations, record sliding offset, and vinyl spin animations.",
     dependencies: ["motion"],
-    previewFile: "VinylCardPreview",
-    previewImage: "/previews/VinylCardPreview.png",
+    previewFile: "VinylAlbumCardPreview",
+    previewImage: "/previews/VinylAlbumCardPreview.png",
     props: [
       {
         name: "title",
@@ -251,16 +251,16 @@ export const components: Component[] = [
     ],
   },
   {
-    slug: "webgl-shader-transition",
-    name: "WebglShaderTransition",
+    slug: "page-transition-shader",
+    name: "Page Transition Shader",
     category: "Navigation",
     description:
       "A fullscreen page transition system that applies WebGL custom GLSL fragment shaders (Liquid Ripple, Cyber Glitch, Vortex, and Liquid Dissolve) during route changes.",
     interactionType:
       "Full viewport canvas shader render with custom duration, chromatic aberration levels, and automated link interceptors.",
     dependencies: [],
-    previewFile: "WebglShaderTransitionPreview",
-    previewImage: "/previews/WebglShaderTransitionPreview.png",
+    previewFile: "PageTransitionShaderPreview",
+    previewImage: "/previews/PageTransitionShaderPreview.png",
     props: [
       {
         name: "trigger",
@@ -302,16 +302,16 @@ export const components: Component[] = [
     ],
   },
   {
-    slug: "animated-dropdown",
-    name: "AnimatedDropdown",
+    slug: "animated-select",
+    name: "Animated Select",
     category: "Inputs",
     description:
       "A premium interactive dropdown component with dynamic spring-based menu expanding animations and sequenced staggering list items.",
     interactionType:
       "Hover and click active states, chevron micro-rotation, stagger item animations, and responsive layout.",
     dependencies: ["motion"],
-    previewFile: "AnimatedDropdownPreview",
-    previewImage: "/previews/AnimatedDropdownPreview.png",
+    previewFile: "AnimatedSelectPreview",
+    previewImage: "/previews/AnimatedSelectPreview.png",
     props: [
       {
         name: "placeholder",
@@ -363,7 +363,7 @@ export const components: Component[] = [
   },
   {
     slug: "animated-link",
-    name: "AnimatedLink",
+    name: "Animated Link",
     category: "Navigation",
     description:
       "An interactive link component supporting 13 premium hover variants including custom clipping masks, SVG sine waves, and text marquee animations.",
@@ -398,16 +398,16 @@ export const components: Component[] = [
     ],
   },
   {
-    slug: "ascii-image-webgl",
-    name: "AsciiImageWebGL",
+    slug: "ascii-image",
+    name: "ASCII Image",
     category: "Data Display",
     description:
       "A real-time hardware-accelerated WebGL shader component that proceduralizes any image into customizable density-based ASCII art with masking overlays.",
     interactionType:
       "WebGL fragment shader rendering, linear alpha gradient overlay masking, and content container placement.",
     dependencies: [],
-    previewFile: "AsciiImageWebGLPreview",
-    previewImage: "/previews/AsciiImageWebGLPreview.png",
+    previewFile: "AsciiImagePreview",
+    previewImage: "/previews/AsciiImagePreview.png",
     props: [
       {
         name: "src",
@@ -454,16 +454,16 @@ export const components: Component[] = [
     ],
   },
   {
-    slug: "ascii-loader",
-    name: "AsciiLoader",
+    slug: "terminal-loader",
+    name: "Terminal Loader",
     category: "Feedback",
     description:
       "A retro, terminal-inspired monospace loading indicator that animates character blocks and trailing density particles in real-time.",
     interactionType:
       "Continuous procedural loop animation with customizable speed, matrix dimensions, character glyph trails, and colors.",
     dependencies: [],
-    previewFile: "AsciiLoaderPreview",
-    previewImage: "/previews/AsciiLoaderPreview.png",
+    previewFile: "TerminalLoaderPreview",
+    previewImage: "/previews/TerminalLoaderPreview.png",
     props: [
       {
         name: "rows",
@@ -523,16 +523,16 @@ export const components: Component[] = [
     ],
   },
   {
-    slug: "avatar-hover",
-    name: "AvatarHover",
+    slug: "image-hover-reveal",
+    name: "Image Hover Reveal",
     category: "Surfaces",
     description:
       "A dual-image avatar surface implementing directional hover reveals and cursor coordinate tracking spring slices.",
     interactionType:
       "Hover entry angle detection, coordinate tracking springs, clip path interpolation, and dual state cross-fade reveals.",
     dependencies: ["motion"],
-    previewFile: "AvatarHoverPreview",
-    previewImage: "/previews/AvatarHoverPreview.png",
+    previewFile: "ImageHoverRevealPreview",
+    previewImage: "/previews/ImageHoverRevealPreview.png",
     props: [
       {
         name: "src",
@@ -569,16 +569,16 @@ export const components: Component[] = [
     ],
   },
   {
-    slug: "browse-all-button",
-    name: "BrowseAllButton",
+    slug: "minimal-buttons",
+    name: "Minimal Buttons",
     category: "Inputs",
     description:
       "A tactile, retro-modern button component featuring beveled top-border highlights, inner gradients, and inset shadow detailing.",
     interactionType:
       "Press animation and smooth theme-aligned tactile hover state shifts.",
     dependencies: [],
-    previewFile: "BrowseAllButtonPreview",
-    previewImage: "/previews/BrowseAllButtonPreview.png",
+    previewFile: "MinimalButtonsPreview",
+    previewImage: "/previews/MinimalButtonsPreview.png",
     props: [
       {
         name: "href",
@@ -607,16 +607,16 @@ export const components: Component[] = [
     ],
   },
   {
-    slug: "tactile-button",
-    name: "TactileButton",
+    slug: "aceternity-button",
+    name: "Aceternity Button",
     category: "Inputs",
     description:
       "A soft, convex tactile button component featuring inner shadows, active scaling states, and smooth gradients for premium feedback.",
     interactionType:
       "Hover offset transitions, inset shadow focus states, and press-down scale animations.",
     dependencies: [],
-    previewFile: "TactileButtonPreview",
-    previewImage: "/previews/TactileButtonPreview.png",
+    previewFile: "AceternityButtonPreview",
+    previewImage: "/previews/AceternityButtonPreview.png",
     props: [
       {
         name: "href",
@@ -650,16 +650,16 @@ export const components: Component[] = [
     ],
   },
   {
-    slug: "cursor-avatars",
-    name: "CursorAvatars",
+    slug: "avatar-stack",
+    name: "Avatar Stack",
     category: "Data Display",
     description:
       "A dynamic stack of overlapping user avatars featuring custom tooltip display variants that track hover directions or coordinates with spring dynamics.",
     interactionType:
       "Hover animations: spring-tilt (follows coordinate movements), spring-box (tilts the box container), and slide-blur (directional blur reveal).",
     dependencies: ["motion"],
-    previewFile: "CursorAvatarsPreview",
-    previewImage: "/previews/CursorAvatarsPreview.png",
+    previewFile: "AvatarStackPreview",
+    previewImage: "/previews/AvatarStackPreview.png",
     props: [
       {
         name: "users",
@@ -699,16 +699,16 @@ export const components: Component[] = [
     ],
   },
   {
-    slug: "diagonal-marquee",
-    name: "DiagonalMarquee",
+    slug: "diagonal-marquee-carousel",
+    name: "Diagonal Marquee Carousel",
     category: "Data Display",
     description:
       "A premium diagonally slanted, infinitely scrolling marquee showing cards or landscapes with offset speeds, alternating directions, and soft gradients.",
     interactionType:
       "Infinite linear scroll with custom angles, layout parameters, and card-zoom states.",
     dependencies: ["motion"],
-    previewFile: "DiagonalMarqueePreview",
-    previewImage: "/previews/DiagonalMarqueePreview.png",
+    previewFile: "DiagonalMarqueeCarouselPreview",
+    previewImage: "/previews/DiagonalMarqueeCarouselPreview.png",
     props: [
       {
         name: "cards",
@@ -752,16 +752,16 @@ export const components: Component[] = [
     ],
   },
   {
-    slug: "document-history-timeline",
-    name: "DocumentHistoryTimeline",
+    slug: "revision-timeline",
+    name: "Revision Timeline",
     category: "Data Display",
     description:
       "A premium interactive document revision history log timeline featuring Gaussian-weighted dial scale indicators, spring-based sliding position centering, and parsed markdown log lists.",
     interactionType:
       "Gaussian scaling sliders, date hover indicators, paging click navigation, and markdown syntax parsers.",
     dependencies: ["motion"],
-    previewFile: "DocumentHistoryTimelinePreview",
-    previewImage: "/previews/DocumentHistoryTimelinePreview.png",
+    previewFile: "RevisionTimelinePreview",
+    previewImage: "/previews/RevisionTimelinePreview.png",
     props: [
       {
         name: "revisions",

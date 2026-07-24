@@ -60,7 +60,7 @@ const fragmentShaderSource = `
   }
 `;
 
-export interface AsciiImageWebGLProps {
+export interface AsciiImageProps {
   src?: string;
   width?: number;
   height?: number;
@@ -71,7 +71,7 @@ export interface AsciiImageWebGLProps {
   charSize?: number;
 }
 
-export default function AsciiImageWebGL({
+export default function AsciiImage({
   src,
   width = 500,
   height = 500,
@@ -80,7 +80,7 @@ export default function AsciiImageWebGL({
   mask = "linear-gradient(to bottom, black 20%, transparent 100%)",
   baseMask = "linear-gradient(to bottom, transparent 20%, black 100%)",
   charSize = 8.0,
-}: AsciiImageWebGLProps) {
+}: AsciiImageProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {

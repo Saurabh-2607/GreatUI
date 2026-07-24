@@ -62,7 +62,7 @@ const MOCK_REVISIONS: TimelineRevision[] = [
   },
 ];
 
-export default function DocumentHistoryTimelinePreview() {
+export default function RevisionTimelinePreview() {
   return (
     <div className="flex w-full items-center justify-center bg-transparent p-6">
       <RevisionTimeline revisions={MOCK_REVISIONS} />

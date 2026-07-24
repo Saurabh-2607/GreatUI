@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-export interface BrowseAllButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface MinimalButtonsProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string;
   variant?: "primary" | "secondary" | "outline" | "ghost" | "destructive";
   size?: "default" | "xs" | "sm" | "lg";
@@ -32,7 +32,7 @@ const Spinner = () => (
   </svg>
 );
 
-export default function BrowseAllButton({
+export default function MinimalButtons({
   className,
   variant = "primary",
   size = "default",
@@ -41,7 +41,7 @@ export default function BrowseAllButton({
   children,
   disabled,
   ...props
-}: BrowseAllButtonProps) {
+}: MinimalButtonsProps) {
   const baseStyles =
     "group inline-flex items-center justify-center whitespace-nowrap transition duration-200 ease-out outline-none focus:outline-none disabled:pointer-events-none border-x border-b disabled:shadow-none";
 

@@ -15,7 +15,7 @@ export interface User {
   img: string;
 }
 
-export interface CursorAvatarsProps {
+export interface AvatarStackProps {
   users?: User[];
   variant?: "spring-tilt" | "spring-box" | "slide-blur";
   size?: "sm" | "md" | "lg";
@@ -199,14 +199,14 @@ const AvatarItem = ({
   );
 };
 
-export default function CursorAvatars({
+export default function AvatarStack({
   users = DEFAULT_USERS,
   variant = "spring-tilt",
   size = "md",
   className = "",
   avatarClassName = "",
   tooltipClassName = "",
-}: CursorAvatarsProps) {
+}: AvatarStackProps) {
   return (
     <div className={cn("relative flex items-center justify-center", className)}>
       {users.map((user, idx) => (
