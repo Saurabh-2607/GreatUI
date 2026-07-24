@@ -185,4 +185,24 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "interactive-checklist",
+    name: "InteractiveChecklist",
+    category: "Feedback",
+    description:
+      "An interactive CI/CD pipeline protocol checklist depicting git clone, install, build, and deploy stages with custom animated status icons.",
+    interactionType:
+      "Sequentially executable checklist with running spin state, skipped items, error logs, and detailed step drawer toggling.",
+    dependencies: ["motion"],
+    previewFile: "InteractiveChecklistPreview",
+    previewImage: "/previews/InteractiveChecklistPreview.png",
+    props: [
+      {
+        name: "initialTasks",
+        type: ["Task[]"],
+        description:
+          "Initial list of pipeline tasks containing id, title, subtitle, status, and info log attributes.",
+      },
+    ],
+  },
 ];
