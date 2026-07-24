@@ -4,6 +4,7 @@ import posthog from "posthog-js";
 import Link from "next/link";
 import Container from "./Container";
 import Button from "./ui/Button";
+import { SectionIcon } from "./Icons";
 
 export function Hero() {
   return (
@@ -20,22 +21,14 @@ export function Hero() {
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <Link href="/components">
-            <Button variant="primary" size="md">
+            <Button
+              variant="primary"
+              size="md"
+              leftIcon={<SectionIcon className="h-4 w-4" />}
+            >
               Browse Components
             </Button>
           </Link>
-          <a
-            href="https://github.com/Saurabh-2607/GreatUI"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() =>
-              posthog.capture("github_star_clicked", { location: "hero" })
-            }
-          >
-            <Button variant="secondary" size="md">
-              Star on GitHub
-            </Button>
-          </a>
         </div>
       </div>
     </Container>
