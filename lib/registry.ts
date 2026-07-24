@@ -361,4 +361,40 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "animated-link",
+    name: "AnimatedLink",
+    category: "Navigation",
+    description:
+      "An interactive link component supporting 13 premium hover variants including custom clipping masks, SVG sine waves, and text marquee animations.",
+    interactionType:
+      "Hover text fill, SVG loops, marquee transition, doodle draw underline, overline, and dash arrow reveals.",
+    dependencies: ["motion"],
+    previewFile: "AnimatedLinkPreview",
+    previewImage: "/previews/AnimatedLinkPreview.png",
+    props: [
+      {
+        name: "href",
+        type: ["string"],
+        description: "Target URL or path for navigation.",
+      },
+      {
+        name: "variant",
+        type: ["AnimatedLinkVariant"],
+        description: "Visual style preset for the hover effect animation.",
+        default: "'underline'",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to apply custom styling.",
+      },
+      {
+        name: "showArrow",
+        type: ["boolean"],
+        description: "Render a clean arrow indicator next to the link text.",
+        default: "false",
+      },
+    ],
+  },
 ];
