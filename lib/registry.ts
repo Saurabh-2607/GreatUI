@@ -698,4 +698,57 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "diagonal-marquee",
+    name: "DiagonalMarquee",
+    category: "Data Display",
+    description:
+      "A premium diagonally slanted, infinitely scrolling marquee showing cards or landscapes with offset speeds, alternating directions, and soft gradients.",
+    interactionType:
+      "Infinite linear scroll with custom angles, layout parameters, and card-zoom states.",
+    dependencies: ["motion"],
+    previewFile: "DiagonalMarqueePreview",
+    previewImage: "/previews/DiagonalMarqueePreview.png",
+    props: [
+      {
+        name: "cards",
+        type: ["CardItem[]"],
+        description:
+          "Custom array of card items containing urls, titles, and IDs.",
+      },
+      {
+        name: "angle",
+        type: ["number"],
+        description: "Rotation angle offset in degrees.",
+        default: "-25",
+      },
+      {
+        name: "baseSpeed",
+        type: ["number"],
+        description: "Standard scroll duration in seconds per loop cycle.",
+        default: "40",
+      },
+      {
+        name: "alternateDirections",
+        type: ["boolean"],
+        description: "Scroll alternating rows in reverse directions.",
+        default: "true",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Custom class name for the wrapper frame.",
+      },
+      {
+        name: "cardClassName",
+        type: ["string"],
+        description: "Custom class name for individual marquee cards.",
+      },
+      {
+        name: "fadeClassName",
+        type: ["string"],
+        description: "Custom class name for top and bottom gradient fades.",
+      },
+    ],
+  },
 ];

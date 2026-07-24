@@ -219,7 +219,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
           </div>
         </div>
 
-        <section className="relative flex h-full flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 p-5 backdrop-blur-md dark:bg-[#141414]">
+        <section className="relative flex h-full flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 backdrop-blur-md dark:bg-[#141414]">
           <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden">
             <div className="pointer-events-auto relative z-10 flex h-full w-full items-center justify-center">
               {children}
