@@ -649,4 +649,53 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "cursor-avatars",
+    name: "CursorAvatars",
+    category: "Data Display",
+    description:
+      "A dynamic stack of overlapping user avatars featuring custom tooltip display variants that track hover directions or coordinates with spring dynamics.",
+    interactionType:
+      "Hover animations: spring-tilt (follows coordinate movements), spring-box (tilts the box container), and slide-blur (directional blur reveal).",
+    dependencies: ["motion"],
+    previewFile: "CursorAvatarsPreview",
+    previewImage: "/previews/CursorAvatarsPreview.png",
+    props: [
+      {
+        name: "users",
+        type: ["User[]"],
+        description:
+          "Custom list of avatar users with names and portrait URLs.",
+      },
+      {
+        name: "variant",
+        type: ["'spring-tilt' | 'spring-box' | 'slide-blur'"],
+        description:
+          "The visual style and animation variant of the hover tooltip.",
+        default: "'spring-tilt'",
+      },
+      {
+        name: "size",
+        type: ["'sm' | 'md' | 'lg'"],
+        description: "The dimensions of the avatar items.",
+        default: "'md'",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the avatar wrapper stack.",
+      },
+      {
+        name: "avatarClassName",
+        type: ["string"],
+        description: "Custom styles for individual avatar images.",
+      },
+      {
+        name: "tooltipClassName",
+        type: ["string"],
+        description: "Custom styles for the hover tooltip blocks.",
+      },
+    ],
+  },
 ];
