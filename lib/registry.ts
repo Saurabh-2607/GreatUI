@@ -301,4 +301,64 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "animated-dropdown",
+    name: "AnimatedDropdown",
+    category: "Inputs",
+    description:
+      "A premium interactive dropdown component with dynamic spring-based menu expanding animations and sequenced staggering list items.",
+    interactionType:
+      "Hover and click active states, chevron micro-rotation, stagger item animations, and responsive layout.",
+    dependencies: ["motion"],
+    previewFile: "AnimatedDropdownPreview",
+    previewImage: "/previews/AnimatedDropdownPreview.png",
+    props: [
+      {
+        name: "placeholder",
+        type: ["string"],
+        description: "Placeholder text displayed when no option is selected.",
+        default: "'Select Action'",
+      },
+      {
+        name: "options",
+        type: ["DropdownOption[]"],
+        description: "Array of items to display inside the menu list.",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the dropdown container.",
+      },
+      {
+        name: "width",
+        type: ["number"],
+        description: "Total width of the dropdown in pixels.",
+        default: "192",
+      },
+      {
+        name: "itemHeight",
+        type: ["number"],
+        description: "Height of each option in the list in pixels.",
+        default: "40",
+      },
+      {
+        name: "itemGap",
+        type: ["number"],
+        description: "Vertical gap space between menu items in pixels.",
+        default: "4",
+      },
+      {
+        name: "triggerHeight",
+        type: ["number"],
+        description: "Height of the trigger button in pixels.",
+        default: "44",
+      },
+      {
+        name: "onSelect",
+        type: ["(option: DropdownOption) => void"],
+        description:
+          "Callback function fired when a dropdown menu item is selected.",
+      },
+    ],
+  },
 ];
