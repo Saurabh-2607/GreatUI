@@ -1,17 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import posthog from "posthog-js";
-import Prism from "prismjs";
 import { type Component } from "@/lib/registry";
 import { ChevronLeftIcon, DownloadIcon, CopyIcon, CheckIcon } from "./Icons";
-
-import "prismjs/themes/prism-tomorrow.css";
-import "prismjs/components/prism-clike";
-import "prismjs/components/prism-javascript";
-import "prismjs/components/prism-typescript";
-import "prismjs/components/prism-jsx";
-import "prismjs/components/prism-tsx";
+import ShikiHighlight from "./ShikiHighlight";
 
 interface CodePanelProps {
   component: Component;
@@ -20,10 +13,6 @@ interface CodePanelProps {
 
 export default function CodePanel({ component, onClose }: CodePanelProps) {
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    Prism.highlightAll();
-  }, [component.code]);
 
   const handleCopy = () => {
     if (!component.code) return;
@@ -104,7 +93,9 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
         </div>
       </div>
 
-      <pre
+      <ShikiHighlight
+        code={component.code || ""}
+        lang="tsx"
         style={{
           fontFamily:
             "var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
@@ -112,17 +103,7 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
           lineHeight: "1.6",
         }}
         className="!m-0 flex-1 scrollbar-none overflow-auto bg-neutral-100 p-6 text-left !font-mono select-text selection:bg-[#f6821f]/30 dark:bg-[#141414]"
-      >
-        <code
-          style={{
-            fontFamily:
-              "var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
-          }}
-          className="language-tsx !font-mono"
-        >
-          {component.code || ""}
-        </code>
-      </pre>
+      />
     </div>
   );
 }

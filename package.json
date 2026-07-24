@@ -25,7 +25,6 @@
     "motion": "^12.42.2",
     "next": "16.2.10",
     "posthog-js": "^1.404.1",
-    "prismjs": "^1.30.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "tailwind-merge": "^3.6.0"
@@ -33,7 +32,6 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
-    "@types/prismjs": "^1.26.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
@@ -42,6 +40,7 @@
     "lint-staged": "^17.1.0",
     "prettier": "^3.9.5",
     "prettier-plugin-tailwindcss": "^0.8.1",
+    "shiki": "^4.3.1",
     "tailwindcss": "^4.3.2",
     "typescript": "^5"
   }
