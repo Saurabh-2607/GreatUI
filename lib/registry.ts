@@ -397,4 +397,60 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "ascii-image-webgl",
+    name: "AsciiImageWebGL",
+    category: "Data Display",
+    description:
+      "A real-time hardware-accelerated WebGL shader component that proceduralizes any image into customizable density-based ASCII art with masking overlays.",
+    interactionType:
+      "WebGL fragment shader rendering, linear alpha gradient overlay masking, and content container placement.",
+    dependencies: [],
+    previewFile: "AsciiImageWebGLPreview",
+    previewImage: "/previews/AsciiImageWebGLPreview.png",
+    props: [
+      {
+        name: "src",
+        type: ["string"],
+        description: "Source URL of the image to display and transform.",
+      },
+      {
+        name: "width",
+        type: ["number"],
+        description: "Width of the component and WebGL canvas in pixels.",
+        default: "500",
+      },
+      {
+        name: "height",
+        type: ["number"],
+        description: "Height of the component and WebGL canvas in pixels.",
+        default: "500",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the container.",
+      },
+      {
+        name: "mask",
+        type: ["string"],
+        description:
+          "CSS mask image applied to the ASCII WebGL canvas overlay.",
+        default: "'linear-gradient(to bottom, black 20%, transparent 100%)'",
+      },
+      {
+        name: "baseMask",
+        type: ["string"],
+        description:
+          "CSS mask image applied to the underlying clean base image.",
+        default: "'linear-gradient(to bottom, transparent 20%, black 100%)'",
+      },
+      {
+        name: "charSize",
+        type: ["number"],
+        description: "Size coefficient for the ASCII character grid scaling.",
+        default: "8.0",
+      },
+    ],
+  },
 ];
