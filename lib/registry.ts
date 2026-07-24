@@ -568,4 +568,42 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "browse-all-button",
+    name: "BrowseAllButton",
+    category: "Inputs",
+    description:
+      "A tactile, retro-modern button component featuring beveled top-border highlights, inner gradients, and inset shadow detailing.",
+    interactionType:
+      "Press animation and smooth theme-aligned tactile hover state shifts.",
+    dependencies: [],
+    previewFile: "BrowseAllButtonPreview",
+    previewImage: "/previews/BrowseAllButtonPreview.png",
+    props: [
+      {
+        name: "href",
+        type: ["string"],
+        description:
+          "Optional URL navigation path. If provided, renders an anchor tag using Next Link.",
+      },
+      {
+        name: "variant",
+        type: ["'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive'"],
+        description:
+          "Tactile beveled visual variants aligned with theme actions.",
+        default: "'primary'",
+      },
+      {
+        name: "isLoading",
+        type: ["boolean"],
+        description: "Controls the button loading indicator spinner state.",
+        default: "false",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the button wrapper.",
+      },
+    ],
+  },
 ];
