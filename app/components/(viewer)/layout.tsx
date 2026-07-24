@@ -32,13 +32,9 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
   const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsMounted(true);
-    }, 100);
-    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsMounted(true);
   }, []);
-
-  const transitionClass = isMounted ? "transition-all duration-300" : "";
 
   const params = useParams();
   const slug = params.slug as string;
@@ -46,6 +42,14 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
 
   const component =
     activeComponent?.slug === slug ? activeComponent : clientComponent;
+
+  if (!isMounted) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-white dark:bg-[#0a0a0a]">
+        <div className="text-sm text-neutral-400">Loading layout...</div>
+      </div>
+    );
+  }
 
   if (!component) {
     return (
@@ -184,12 +188,12 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
       </div>
 
       <div
-        className={`relative z-10 flex flex-1 overflow-hidden ${transitionClass} ${
+        className={`relative z-10 flex flex-1 overflow-hidden transition-all duration-300 ${
           isPanelOpen ? "gap-4" : "gap-0"
         }`}
       >
         <div
-          className={`relative flex h-full shrink-0 flex-col ${transitionClass} ${
+          className={`relative flex h-full shrink-0 flex-col transition-all duration-300 ${
             isPanelOpen
               ? "w-full lg:w-[40%]"
               : "pointer-events-none w-0 overflow-hidden opacity-0"
