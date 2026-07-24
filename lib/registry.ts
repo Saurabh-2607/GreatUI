@@ -453,4 +453,73 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "ascii-loader",
+    name: "AsciiLoader",
+    category: "Feedback",
+    description:
+      "A retro, terminal-inspired monospace loading indicator that animates character blocks and trailing density particles in real-time.",
+    interactionType:
+      "Continuous procedural loop animation with customizable speed, matrix dimensions, character glyph trails, and colors.",
+    dependencies: [],
+    previewFile: "AsciiLoaderPreview",
+    previewImage: "/previews/AsciiLoaderPreview.png",
+    props: [
+      {
+        name: "rows",
+        type: ["number"],
+        description: "Number of terminal rows to render vertically.",
+        default: "5",
+      },
+      {
+        name: "cols",
+        type: ["number"],
+        description: "Number of terminal columns (characters wide).",
+        default: "60",
+      },
+      {
+        name: "blockWidth",
+        type: ["number"],
+        description: "Length of the active solid cursor blocks.",
+        default: "3",
+      },
+      {
+        name: "speed",
+        type: ["number"],
+        description: "Interval animation frame speed in milliseconds.",
+        default: "50",
+      },
+      {
+        name: "color",
+        type: ["string"],
+        description: "Tailwind CSS class for the character trail text color.",
+        default: "'text-rose-500'",
+      },
+      {
+        name: "bgColor",
+        type: ["string"],
+        description:
+          "Tailwind CSS class for the solid block cursor background color.",
+        default: "'bg-rose-500'",
+      },
+      {
+        name: "charEmpty",
+        type: ["string"],
+        description: "The background glyph character representing empty space.",
+        default: "'.'",
+      },
+      {
+        name: "charTrail",
+        type: ["string[]"],
+        description:
+          "Ordered array of characters forming the fading visual trail.",
+        default: "['▓', '▒', '░']",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the container wrapper.",
+      },
+    ],
+  },
 ];
