@@ -205,4 +205,49 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "vinyl-card",
+    name: "VinylCard",
+    category: "Surfaces",
+    description:
+      "An interactive music album card with a spinning vinyl record that emerges from the cover sleeve upon hover.",
+    interactionType:
+      "Hover-triggered card sleeve scale, tilt rotations, record sliding offset, and vinyl spin animations.",
+    dependencies: ["motion"],
+    previewFile: "VinylCardPreview",
+    previewImage: "/previews/VinylCardPreview.png",
+    props: [
+      {
+        name: "title",
+        type: ["string"],
+        description: "The name of the song or album track.",
+        default: "'Crashing Worlds'",
+      },
+      {
+        name: "artist",
+        type: ["string"],
+        description: "The name of the performing artist or band.",
+        default: "'The Bebos'",
+      },
+      {
+        name: "releaseType",
+        type: ["string"],
+        description:
+          "The classification of the release (e.g. Single, Album, EP).",
+        default: "'Single'",
+      },
+      {
+        name: "year",
+        type: ["string"],
+        description: "The release calendar year.",
+        default: "'2057'",
+      },
+      {
+        name: "coverImage",
+        type: ["string"],
+        description: "URL or local asset path of the album cover image.",
+        default: "'https://ik.imagekit.io/ybq4azred/greatui/album_art.png'",
+      },
+    ],
+  },
 ];
