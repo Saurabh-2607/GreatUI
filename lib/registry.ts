@@ -606,4 +606,47 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "tactile-button",
+    name: "TactileButton",
+    category: "Inputs",
+    description:
+      "A soft, convex tactile button component featuring inner shadows, active scaling states, and smooth gradients for premium feedback.",
+    interactionType:
+      "Hover offset transitions, inset shadow focus states, and press-down scale animations.",
+    dependencies: [],
+    previewFile: "TactileButtonPreview",
+    previewImage: "/previews/TactileButtonPreview.png",
+    props: [
+      {
+        name: "href",
+        type: ["string"],
+        description:
+          "Optional URL path. If provided, renders an anchor tag using Next Link.",
+      },
+      {
+        name: "variant",
+        type: ["'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive'"],
+        description: "Tactile convex style variants aligned with colors.",
+        default: "'primary'",
+      },
+      {
+        name: "size",
+        type: ["'sm' | 'md' | 'lg' | 'xl'"],
+        description: "Size dimensions of the tactile button layout.",
+        default: "'md'",
+      },
+      {
+        name: "isLoading",
+        type: ["boolean"],
+        description: "Controls the button loading indicator spinner state.",
+        default: "false",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the button container.",
+      },
+    ],
+  },
 ];
