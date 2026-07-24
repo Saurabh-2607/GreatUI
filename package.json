@@ -21,8 +21,6 @@
   },
   "dependencies": {
     "@databuddy/sdk": "^2.6.0",
-    "@hugeicons/core-free-icons": "^4.2.3",
-    "@hugeicons/react": "^1.1.9",
     "clsx": "^2.1.1",
     "motion": "^12.42.2",
     "next": "16.2.10",
