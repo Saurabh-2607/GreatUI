@@ -522,4 +522,50 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "avatar-hover",
+    name: "AvatarHover",
+    category: "Surfaces",
+    description:
+      "A dual-image avatar surface implementing directional hover reveals and cursor coordinate tracking spring slices.",
+    interactionType:
+      "Hover entry angle detection, coordinate tracking springs, clip path interpolation, and dual state cross-fade reveals.",
+    dependencies: ["motion"],
+    previewFile: "AvatarHoverPreview",
+    previewImage: "/previews/AvatarHoverPreview.png",
+    props: [
+      {
+        name: "src",
+        type: ["string"],
+        description:
+          "Source URL of the avatar image to be revealed from grayscale to color.",
+        default:
+          "'https://ik.imagekit.io/ybq4azred/temp_avatar_new_1784920336469.png'",
+      },
+      {
+        name: "overlaySrc",
+        type: ["string"],
+        description:
+          "Optional secondary transition image URL revealed on hover.",
+      },
+      {
+        name: "alt",
+        type: ["string"],
+        description: "Alt accessibility description for the avatar image.",
+        default: "'Avatar Hover'",
+      },
+      {
+        name: "variant",
+        type: ["'directional' | 'slice'"],
+        description:
+          "The reveal animation variant (directional entry angle or pointer coordinate-tracking slide).",
+        default: "'directional'",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the card boundary.",
+      },
+    ],
+  },
 ];
