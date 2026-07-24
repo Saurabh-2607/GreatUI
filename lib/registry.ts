@@ -6,7 +6,7 @@ export type Prop = {
 };
 
 export type ComponentCategory =
-  "All" | "Inputs" | "Feedback" | "Data Display" | "Navigation" | "Surfaces";
+  "Buttons" | "Inputs" | "Navigation" | "Illustrations" | "Utilities";
 
 export type Component = {
   slug: string;
@@ -23,19 +23,18 @@ export type Component = {
 };
 
 export const categories: ComponentCategory[] = [
-  "All",
+  "Buttons",
   "Inputs",
-  "Feedback",
-  "Data Display",
   "Navigation",
-  "Surfaces",
+  "Illustrations",
+  "Utilities",
 ];
 
 export const components: Component[] = [
   {
     slug: "button",
     name: "Button",
-    category: "Inputs",
+    category: "Buttons",
     description:
       "A versatile button component supporting multiple variants, sizes, icons, and a loading state.",
     interactionType:
@@ -89,7 +88,7 @@ export const components: Component[] = [
   {
     slug: "mobile-mockup",
     name: "Mobile Mockup",
-    category: "Surfaces",
+    category: "Illustrations",
     description:
       "An interactive mobile device frame mockup with a realistic smartphone chassis, status bar, and WhatsApp mobile chat UI.",
     interactionType:
@@ -139,7 +138,7 @@ export const components: Component[] = [
   {
     slug: "macbook-mockup",
     name: "Macbook Mockup",
-    category: "Surfaces",
+    category: "Illustrations",
     description:
       "A realistic 3D Macbook Pro device frame mockup with aluminum casing, keyboard base, and dual-pane WhatsApp Web chat UI.",
     interactionType:
@@ -188,7 +187,7 @@ export const components: Component[] = [
   {
     slug: "deployment-checklist",
     name: "Deployment Checklist",
-    category: "Feedback",
+    category: "Utilities",
     description:
       "An interactive CI/CD pipeline protocol checklist depicting git clone, install, build, and deploy stages with custom animated status icons.",
     interactionType:
@@ -208,7 +207,7 @@ export const components: Component[] = [
   {
     slug: "vinyl-album-card",
     name: "Vinyl Album Card",
-    category: "Surfaces",
+    category: "Illustrations",
     description:
       "An interactive music album card with a spinning vinyl record that emerges from the cover sleeve upon hover.",
     interactionType:
@@ -400,7 +399,7 @@ export const components: Component[] = [
   {
     slug: "ascii-image",
     name: "ASCII Image",
-    category: "Data Display",
+    category: "Illustrations",
     description:
       "A real-time hardware-accelerated WebGL shader component that proceduralizes any image into customizable density-based ASCII art with masking overlays.",
     interactionType:
@@ -456,7 +455,7 @@ export const components: Component[] = [
   {
     slug: "terminal-loader",
     name: "Terminal Loader",
-    category: "Feedback",
+    category: "Utilities",
     description:
       "A retro, terminal-inspired monospace loading indicator that animates character blocks and trailing density particles in real-time.",
     interactionType:
@@ -525,7 +524,7 @@ export const components: Component[] = [
   {
     slug: "image-hover-reveal",
     name: "Image Hover Reveal",
-    category: "Surfaces",
+    category: "Illustrations",
     description:
       "A dual-image avatar surface implementing directional hover reveals and cursor coordinate tracking spring slices.",
     interactionType:
@@ -571,7 +570,7 @@ export const components: Component[] = [
   {
     slug: "minimal-buttons",
     name: "Minimal Buttons",
-    category: "Inputs",
+    category: "Buttons",
     description:
       "A tactile, retro-modern button component featuring beveled top-border highlights, inner gradients, and inset shadow detailing.",
     interactionType:
@@ -609,7 +608,7 @@ export const components: Component[] = [
   {
     slug: "aceternity-button",
     name: "Aceternity Button",
-    category: "Inputs",
+    category: "Buttons",
     description:
       "A soft, convex tactile button component featuring inner shadows, active scaling states, and smooth gradients for premium feedback.",
     interactionType:
@@ -652,7 +651,7 @@ export const components: Component[] = [
   {
     slug: "avatar-stack",
     name: "Avatar Stack",
-    category: "Data Display",
+    category: "Illustrations",
     description:
       "A dynamic stack of overlapping user avatars featuring custom tooltip display variants that track hover directions or coordinates with spring dynamics.",
     interactionType:
@@ -701,7 +700,7 @@ export const components: Component[] = [
   {
     slug: "diagonal-marquee-carousel",
     name: "Diagonal Marquee Carousel",
-    category: "Data Display",
+    category: "Illustrations",
     description:
       "A premium diagonally slanted, infinitely scrolling marquee showing cards or landscapes with offset speeds, alternating directions, and soft gradients.",
     interactionType:
@@ -754,7 +753,7 @@ export const components: Component[] = [
   {
     slug: "revision-timeline",
     name: "Revision Timeline",
-    category: "Data Display",
+    category: "Utilities",
     description:
       "A premium interactive document revision history log timeline featuring Gaussian-weighted dial scale indicators, spring-based sliding position centering, and parsed markdown log lists.",
     interactionType:
