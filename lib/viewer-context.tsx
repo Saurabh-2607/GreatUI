@@ -18,7 +18,7 @@ const ViewerContext = createContext<ViewerContextType | undefined>(undefined);
 
 export function ViewerProvider({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isPanelOpen, setIsPanelOpen] = useState(true);
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [isCodeOpen, setIsCodeOpen] = useState(false);
   const [activeComponent, setActiveComponent] = useState<Component | null>(
     null,
@@ -27,12 +27,9 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const savedPanelOpen = localStorage.getItem("great-ui-panel-open");
-      if (savedPanelOpen !== null) {
-        const isVal = savedPanelOpen === "true";
-        setTimeout(() => {
-          setIsPanelOpen(isVal);
-        }, 0);
-      }
+      const isVal = savedPanelOpen !== null ? savedPanelOpen === "true" : true;
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIsPanelOpen(isVal);
     } catch (e) {
       console.error("Failed to read from localStorage", e);
     }

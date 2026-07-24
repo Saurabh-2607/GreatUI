@@ -29,6 +29,17 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
     activeComponent,
   } = useViewer();
 
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsMounted(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const transitionClass = isMounted ? "transition-all duration-300" : "";
+
   const params = useParams();
   const slug = params.slug as string;
   const clientComponent = components.find((c) => c.slug === slug);
@@ -173,12 +184,12 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
       </div>
 
       <div
-        className={`relative z-10 flex flex-1 overflow-hidden transition-all duration-300 ${
+        className={`relative z-10 flex flex-1 overflow-hidden ${transitionClass} ${
           isPanelOpen ? "gap-4" : "gap-0"
         }`}
       >
         <div
-          className={`relative flex h-full shrink-0 flex-col transition-all duration-300 ${
+          className={`relative flex h-full shrink-0 flex-col ${transitionClass} ${
             isPanelOpen
               ? "w-full lg:w-[40%]"
               : "pointer-events-none w-0 overflow-hidden opacity-0"
