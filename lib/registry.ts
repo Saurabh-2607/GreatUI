@@ -751,4 +751,69 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "document-history-timeline",
+    name: "DocumentHistoryTimeline",
+    category: "Data Display",
+    description:
+      "A premium interactive document revision history log timeline featuring Gaussian-weighted dial scale indicators, spring-based sliding position centering, and parsed markdown log lists.",
+    interactionType:
+      "Gaussian scaling sliders, date hover indicators, paging click navigation, and markdown syntax parsers.",
+    dependencies: ["motion"],
+    previewFile: "DocumentHistoryTimelinePreview",
+    previewImage: "/previews/DocumentHistoryTimelinePreview.png",
+    props: [
+      {
+        name: "revisions",
+        type: ["TimelineRevision[]"],
+        description:
+          "List of document history revision items containing date, time, title, author, and markdown content log.",
+      },
+      {
+        name: "defaultActiveId",
+        type: ["string"],
+        description: "Optional ID of the revision log active by default.",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Optional class name for the root wrapper container.",
+      },
+      {
+        name: "showNavigation",
+        type: ["boolean"],
+        description: "Whether to display the previous/next navigation row.",
+      },
+      {
+        name: "showDateLabel",
+        type: ["boolean"],
+        description:
+          "Whether to display the active revision date label in the toolbar.",
+      },
+      {
+        name: "pastPaddingDays",
+        type: ["number"],
+        description:
+          "Number of past placeholder days to pad before the active revisions.",
+      },
+      {
+        name: "futurePaddingDays",
+        type: ["number"],
+        description:
+          "Number of future placeholder days to pad after the active revisions.",
+      },
+      {
+        name: "height",
+        type: ["string", "number"],
+        description:
+          "Optional height for the revision log content area, accepts CSS units or pixel numbers.",
+      },
+      {
+        name: "onActiveIdChange",
+        type: ["(activeId: string) => void"],
+        description:
+          "Callback fired when the active revision selection changes.",
+      },
+    ],
+  },
 ];
