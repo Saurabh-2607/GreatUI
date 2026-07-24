@@ -250,4 +250,55 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "webgl-shader-transition",
+    name: "WebglShaderTransition",
+    category: "Navigation",
+    description:
+      "A fullscreen page transition system that applies WebGL custom GLSL fragment shaders (Liquid Ripple, Cyber Glitch, Vortex, and Liquid Dissolve) during route changes.",
+    interactionType:
+      "Full viewport canvas shader render with custom duration, chromatic aberration levels, and automated link interceptors.",
+    dependencies: [],
+    previewFile: "WebglShaderTransitionPreview",
+    previewImage: "/previews/WebglShaderTransitionPreview.png",
+    props: [
+      {
+        name: "trigger",
+        type: ["number"],
+        description:
+          "Value key to programmatically trigger the transition overlay.",
+        default: "0",
+      },
+      {
+        name: "onViewSwap",
+        type: ["() => void"],
+        description:
+          "Callback function fired at mid-transition (covered state) to perform state/view swaps.",
+      },
+      {
+        name: "isDark",
+        type: ["boolean"],
+        description: "Toggle theme colours inside WebGL rendering context.",
+        default: "false",
+      },
+      {
+        name: "shaderMode",
+        type: ["'ripple'", "'glitch'", "'vortex'", "'liquid'"],
+        description: "Choose fragment shader animation mode.",
+        default: "'ripple'",
+      },
+      {
+        name: "duration",
+        type: ["number"],
+        description: "Total transition time in milliseconds.",
+        default: "900",
+      },
+      {
+        name: "aberration",
+        type: ["number"],
+        description: "Chromatic RGB aberration distance scale.",
+        default: "1.0",
+      },
+    ],
+  },
 ];
