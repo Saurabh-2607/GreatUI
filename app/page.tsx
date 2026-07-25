@@ -5,7 +5,7 @@ import Footer from "@/components/site/Footer";
 import BackgroundGrid from "@/components/site/BackgroundGrid";
 import AnnouncementBanner from "@/components/site/AnnouncementBanner";
 import Sponsors from "@/components/site/Sponsors";
-import BentoGrid from "@/components/site/BentoGrid";
+// import BentoGrid from "@/components/site/BentoGrid";
 
 export default function Home() {
   return (
@@ -14,7 +14,7 @@ export default function Home() {
       <Navbar />
       <AnnouncementBanner />
       <Hero />
-      <BentoGrid />
+      {/* <BentoGrid /> */}
       <Contact />
       <Sponsors />
       <Footer />
