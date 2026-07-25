@@ -1,9 +1,11 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import Footer from "@/components/Footer";
-import BackgroundGrid from "@/components/BackgroundGrid";
-import AnnouncementBanner from "@/components/AnnouncementBanner";
-// import Sponsors from "@/components/Sponsors";
+import Navbar from "@/components/site/Navbar";
+import Hero from "@/components/site/Hero";
+import Contact from "@/components/site/Contact";
+import Footer from "@/components/site/Footer";
+import BackgroundGrid from "@/components/site/BackgroundGrid";
+import AnnouncementBanner from "@/components/site/AnnouncementBanner";
+import Sponsors from "@/components/site/Sponsors";
+import BentoGrid from "@/components/site/BentoGrid";
 
 export default function Home() {
   return (
@@ -12,7 +14,9 @@ export default function Home() {
       <Navbar />
       <AnnouncementBanner />
       <Hero />
-      {/* <Sponsors /> */}
+      <BentoGrid />
+      <Contact />
+      <Sponsors />
       <Footer />
     </div>
   );

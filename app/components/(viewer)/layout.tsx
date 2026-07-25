@@ -1,0 +1,244 @@
+"use client";
+
+import React from "react";
+import { useParams } from "next/navigation";
+import Link from "next/link";
+import posthog from "posthog-js";
+import Sidebar from "@/components/site/Sidebar";
+import SidebarToggle from "@/components/site/SidebarToggle";
+import DocsPanel from "@/components/site/DocsPanel";
+import CodePanel from "@/components/site/CodePanel";
+import ThemeToggle from "@/components/site/ThemeToggle";
+import {
+  CodeIcon,
+  HomeIcon,
+  MaximizeIcon,
+  MinimizeIcon,
+} from "@/components/site/Icons";
+import { components } from "@/lib/registry";
+import { ViewerProvider, useViewer } from "@/lib/viewer-context";
+
+function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
+  const {
+    isSidebarOpen,
+    setIsSidebarOpen,
+    isPanelOpen,
+    setIsPanelOpen,
+    isCodeOpen,
+    setIsCodeOpen,
+    activeComponent,
+  } = useViewer();
+
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsMounted(true);
+  }, []);
+
+  const params = useParams();
+  const slug = params.slug as string;
+  const clientComponent = components.find((c) => c.slug === slug);
+
+  const component =
+    activeComponent?.slug === slug ? activeComponent : clientComponent;
+
+  if (!isMounted) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-white dark:bg-[#0a0a0a]">
+        <div className="text-sm text-neutral-400">Loading layout...</div>
+      </div>
+    );
+  }
+
+  if (!component) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-white dark:bg-[#0a0a0a]">
+        <div className="text-sm text-neutral-400">Loading component...</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative flex h-screen w-full flex-col overflow-hidden bg-white p-4 text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-white">
+      <div
+        className={`absolute top-9 left-9 z-[60] transition-opacity duration-300 ${isCodeOpen ? "pointer-events-none opacity-0" : "opacity-100"}`}
+      >
+        <SidebarToggle
+          isOpen={isSidebarOpen}
+          onToggle={() => {
+            const next = !isSidebarOpen;
+            setIsSidebarOpen(next);
+            posthog.capture("sidebar_toggled", {
+              state: next ? "open" : "closed",
+              component_slug: component.slug,
+            });
+          }}
+        />
+      </div>
+
+      <div className="absolute top-9 right-9 z-40 flex items-center gap-1.5 rounded-2xl border border-neutral-200 bg-white/80 p-1.5 shadow-xs backdrop-blur-xl transition-all dark:border-neutral-800/60 dark:bg-neutral-950/80">
+        <Link
+          href="/"
+          title="Back to Home"
+          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-100 text-neutral-700 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
+          aria-label="Navigate to Home"
+        >
+          <HomeIcon className="h-5 w-5" />
+        </Link>
+
+        <button
+          type="button"
+          onClick={() => {
+            if (isPanelOpen) {
+              if (isCodeOpen) {
+                setIsCodeOpen(false);
+                posthog.capture("docs_panel_toggled", {
+                  state: "open",
+                  component_slug: component.slug,
+                });
+              } else {
+                setIsPanelOpen(false);
+                posthog.capture("docs_panel_toggled", {
+                  state: "closed",
+                  component_slug: component.slug,
+                });
+              }
+            } else {
+              setIsPanelOpen(true);
+              setIsCodeOpen(false);
+              posthog.capture("docs_panel_toggled", {
+                state: "open",
+                component_slug: component.slug,
+              });
+            }
+          }}
+          title={isPanelOpen ? "Hide docs" : "Show docs"}
+          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-100 text-neutral-700 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
+          aria-label="Toggle docs panel"
+        >
+          {isPanelOpen ? (
+            <MaximizeIcon className="h-5 w-5" />
+          ) : (
+            <MinimizeIcon className="h-5 w-5" />
+          )}
+        </button>
+
+        <button
+          type="button"
+          onClick={() => {
+            if (isPanelOpen) {
+              if (isCodeOpen) {
+                setIsCodeOpen(false);
+                posthog.capture("code_panel_toggled", {
+                  state: "closed",
+                  component_slug: component.slug,
+                });
+              } else {
+                setIsCodeOpen(true);
+                setIsSidebarOpen(false);
+                posthog.capture("code_panel_toggled", {
+                  state: "open",
+                  component_slug: component.slug,
+                });
+              }
+            } else {
+              setIsPanelOpen(true);
+              setIsCodeOpen(true);
+              setIsSidebarOpen(false);
+              posthog.capture("code_panel_toggled", {
+                state: "open",
+                component_slug: component.slug,
+              });
+            }
+          }}
+          title={isPanelOpen && isCodeOpen ? "Hide code" : "Show code"}
+          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-100 text-neutral-700 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
+          aria-label="Toggle code panel"
+        >
+          <CodeIcon className="h-5 w-5" />
+        </button>
+
+        <ThemeToggle className="dark:!hover:text-white !h-10 !w-10 !rounded-xl !border-0 !bg-neutral-100 !text-neutral-700 shadow-xs hover:!bg-neutral-200 hover:!text-neutral-950 dark:!border-0 dark:!bg-neutral-900 dark:!text-neutral-300 dark:hover:!bg-neutral-800 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-neutral-700 dark:[&>svg]:text-neutral-300" />
+      </div>
+
+      <div
+        className={`absolute inset-0 z-50 flex p-4 transition-all duration-300 ${
+          isSidebarOpen
+            ? "pointer-events-auto visible"
+            : "pointer-events-none invisible"
+        }`}
+      >
+        <div
+          aria-hidden="true"
+          className={`fixed inset-0 bg-black/5 transition-opacity duration-300 dark:bg-black/20 ${
+            isSidebarOpen ? "opacity-100" : "opacity-0"
+          }`}
+          onClick={() => setIsSidebarOpen(false)}
+        />
+        <div
+          className={`pointer-events-auto relative z-10 h-full w-64 overflow-hidden rounded-2xl bg-neutral-100 p-4 transition-all duration-300 ease-in-out sm:w-72 dark:bg-[#141414] ${
+            isSidebarOpen
+              ? "translate-x-0 opacity-100"
+              : "-translate-x-[calc(100%+1.5rem)] opacity-0"
+          }`}
+        >
+          <Sidebar activeSlug={component.slug} />
+        </div>
+      </div>
+
+      <div
+        className={`relative z-10 flex flex-1 overflow-hidden transition-all duration-300 ${
+          isPanelOpen ? "gap-4" : "gap-0"
+        }`}
+      >
+        <div
+          className={`relative flex h-full shrink-0 flex-col transition-all duration-300 ${
+            isPanelOpen
+              ? "w-full lg:w-[40%]"
+              : "pointer-events-none w-0 overflow-hidden opacity-0"
+          }`}
+        >
+          <div className="relative h-full w-full overflow-hidden rounded-2xl backdrop-blur-md">
+            <div className="h-full w-full scrollbar-none overflow-y-auto px-6 pt-[25vh] pb-[10vh]">
+              <DocsPanel component={component} />
+            </div>
+
+            <div
+              className={`absolute inset-0 z-30 flex flex-col justify-end transition-transform duration-500 ease-in-out ${
+                isCodeOpen ? "translate-y-0" : "translate-y-full"
+              }`}
+            >
+              <div className="h-full w-full overflow-hidden rounded-2xl shadow-xl">
+                <CodePanel
+                  component={component}
+                  onClose={() => setIsCodeOpen(false)}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section className="relative flex h-full flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 backdrop-blur-md dark:bg-[#141414]">
+          <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden">
+            <div className="pointer-events-auto relative z-10 flex h-full w-full items-center justify-center">
+              {children}
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+}
+
+export default function ViewerLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <ViewerProvider>
+      <ViewerLayoutContent>{children}</ViewerLayoutContent>
+    </ViewerProvider>
+  );
+}

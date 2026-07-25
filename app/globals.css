@@ -7,6 +7,9 @@
   --foreground: #09090b;
   --color-decor-dots-100: rgba(9, 9, 11, 0.12);
   --color-border-100: rgba(9, 9, 11, 0.16);
+  --font-mono:
+    var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 .dark {
@@ -21,6 +24,7 @@
   --color-foreground: var(--foreground);
   --color-brand: #f6821f;
   --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 }
 
 body {
@@ -29,7 +33,6 @@ body {
   font-family: var(--font-sans);
 }
 
-/* Circular Clip-Path Theme Transition */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
@@ -44,17 +47,33 @@ body {
   z-index: 9999;
 }
 
-/* Circular Clip-Path Theme Transition */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
+/* Shiki syntax highlighting styles */
+.shiki {
+  background-color: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  overflow: visible !important;
 }
 
-::view-transition-old(root) {
-  z-index: 1;
+.shiki code {
+  background-color: transparent !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
 }
 
-::view-transition-new(root) {
-  z-index: 9999;
+/* Shiki dual-theme support */
+.dark .shiki {
+  color: var(--shiki-dark) !important;
+}
+
+.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
 }

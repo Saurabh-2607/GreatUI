@@ -1,5 +1,5 @@
-import BackgroundGrid from "@/components/BackgroundGrid";
-import Container from "@/components/Container";
+import BackgroundGrid from "@/components/site/BackgroundGrid";
+import Container from "@/components/site/Container";
 
 import type { Metadata } from "next";
 

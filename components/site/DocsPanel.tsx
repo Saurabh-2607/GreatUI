@@ -1,0 +1,163 @@
+"use client";
+
+import { useState } from "react";
+import { type Component } from "@/lib/registry";
+import { CopyIcon, CheckIcon } from "./Icons";
+import ShikiHighlight from "./ShikiHighlight";
+
+export default function DocsPanel({ component }: { component: Component }) {
+  const [copied, setCopied] = useState(false);
+
+  return (
+    <aside className="flex flex-col space-y-20 text-neutral-900 dark:text-white">
+      <div>
+        <h2 className="text-4xl font-semibold tracking-tight text-neutral-900 dark:text-white">
+          {component.name}
+        </h2>
+        <p className="leading-tighter mt-5 text-2xl text-neutral-700 dark:text-neutral-300">
+          {component.description}
+        </p>
+      </div>
+
+      {component.dependencies.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+            Dependencies
+          </p>
+          <div className="flex flex-wrap gap-2.5">
+            {component.dependencies.map((dep) => (
+              <span
+                key={dep}
+                className="inline-flex items-center rounded-xl border border-neutral-200 bg-neutral-100 px-4 py-2.5 font-mono text-lg font-medium text-neutral-800 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200"
+              >
+                {dep}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="flex flex-col gap-2">
+        <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+          Interaction
+        </p>
+        <p className="text-2xl leading-relaxed text-neutral-700 dark:text-neutral-300">
+          {component.interactionType}
+        </p>
+      </div>
+
+      {component.usageCode && (
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+              How to use
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                navigator.clipboard.writeText(component.usageCode || "");
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+              className="text-neutral-450 inline-flex cursor-pointer items-center gap-1.5 rounded-md px-2.5 py-1 text-base hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-white"
+            >
+              {copied ? (
+                <>
+                  <CheckIcon className="h-4 w-4 text-green-500" />
+                  <span>Copied!</span>
+                </>
+              ) : (
+                <>
+                  <CopyIcon className="h-4 w-4" />
+                  <span>Copy</span>
+                </>
+              )}
+            </button>
+          </div>
+          <ShikiHighlight
+            code={component.usageCode || ""}
+            lang="tsx"
+            className="relative !m-0 scrollbar-none overflow-auto rounded-xl bg-neutral-100 p-6 text-left !font-mono font-mono text-sm leading-[1.6] select-text selection:bg-[#f6821f]/30 dark:bg-[#141414]"
+          />
+        </div>
+      )}
+
+      <div className="flex flex-col gap-2">
+        <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+          Source Code
+        </p>
+        <p className="text-2xl leading-relaxed text-neutral-700 dark:text-neutral-300">
+          Click on the top right{" "}
+          <code className="rounded-lg bg-neutral-100 px-2.5 py-1 font-mono text-base font-semibold text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+            Code
+          </code>{" "}
+          button to view the source code.
+        </p>
+      </div>
+
+      {component.props.length > 0 && (
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-2">
+            <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+              Props Details
+            </p>
+            <p className="text-2xl leading-relaxed text-neutral-500 dark:text-neutral-400">
+              Configurable properties for {component.name}.
+            </p>
+          </div>
+
+          <div className="w-full scrollbar-none overflow-x-auto">
+            <table className="w-full border-collapse text-left">
+              <thead>
+                <tr>
+                  <th className="text-md text-neutral-450 py-4 pr-4 font-semibold uppercase dark:text-neutral-500">
+                    Prop
+                  </th>
+                  <th className="text-md text-neutral-450 px-4 py-4 font-semibold uppercase dark:text-neutral-500">
+                    Type
+                  </th>
+                  <th className="text-md text-neutral-450 px-4 py-4 font-semibold uppercase dark:text-neutral-500">
+                    Default
+                  </th>
+                  <th className="text-md text-neutral-450 py-4 pl-4 font-semibold uppercase dark:text-neutral-500">
+                    Description
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y-0">
+                {component.props.map((prop) => (
+                  <tr key={prop.name} className="align-top">
+                    <td className="py-4 pr-4">
+                      <code className="rounded-lg bg-neutral-100 px-3 py-1 font-mono text-xl font-semibold text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+                        {prop.name}
+                      </code>
+                    </td>
+                    <td className="px-4 py-4">
+                      <span className="font-mono text-base font-semibold whitespace-pre-wrap text-[#f6821f] dark:text-[#ff9d42]">
+                        {prop.type.join(" | ")}
+                      </span>
+                    </td>
+                    <td className="px-4 py-4">
+                      {prop.default ? (
+                        <code className="font-mono text-base text-neutral-500 dark:text-neutral-400">
+                          {prop.default}
+                        </code>
+                      ) : (
+                        <span className="text-base text-neutral-400 dark:text-neutral-600">
+                          —
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-4 pl-4 text-xl leading-relaxed text-neutral-600 dark:text-neutral-300">
+                      {prop.description}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+    </aside>
+  );
+}

@@ -2,6 +2,14 @@
   "name": "great-ui",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Saurabh-2607/GreatUI.git"
+  },
+  "homepage": "https://github.com/Saurabh-2607/GreatUI#readme",
+  "bugs": {
+    "url": "https://github.com/Saurabh-2607/GreatUI/issues"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -13,10 +21,13 @@
   },
   "dependencies": {
     "@databuddy/sdk": "^2.6.0",
+    "clsx": "^2.1.1",
+    "motion": "^12.42.2",
     "next": "16.2.10",
     "posthog-js": "^1.404.1",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -29,6 +40,7 @@
     "lint-staged": "^17.1.0",
     "prettier": "^3.9.5",
     "prettier-plugin-tailwindcss": "^0.8.1",
+    "shiki": "^4.3.1",
     "tailwindcss": "^4.3.2",
     "typescript": "^5"
   }
