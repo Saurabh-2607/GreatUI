@@ -90,6 +90,35 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
         <button
           type="button"
           onClick={() => {
+            window.dispatchEvent(new CustomEvent("open-search-menu"));
+            posthog.capture("search_trigger_clicked", {
+              location: "viewer-toolbar",
+              component_slug: component.slug,
+            });
+          }}
+          title="Search pages or components (⌘K)"
+          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-100 text-neutral-700 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
+          aria-label="Search pages or components"
+        >
+          <svg
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => {
             if (isPanelOpen) {
               if (isCodeOpen) {
                 setIsCodeOpen(false);

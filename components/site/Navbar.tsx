@@ -59,8 +59,42 @@ export function Navbar() {
               Great <span className="text-[#f6821f]">UI</span>
             </span>
           </Link>
-
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* Search Trigger Button */}
+            <button
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent("open-search-menu"));
+                posthog.capture("search_trigger_clicked", {
+                  location: "navbar",
+                });
+              }}
+              className="group hover:text-neutral-955 relative flex h-10 w-10 cursor-pointer items-center justify-center gap-3 rounded-xl bg-neutral-100 px-0 text-neutral-700 shadow-xs transition-all hover:bg-neutral-200 sm:w-44 sm:justify-between sm:px-3 md:w-56 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
+              aria-label="Open search dialog"
+            >
+              <div className="flex items-center gap-2">
+                <svg
+                  className="group-hover:text-neutral-955 h-4 w-4 text-neutral-500 dark:text-neutral-400 dark:group-hover:text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+                <span className="hidden text-sm font-medium sm:inline">
+                  Search...
+                </span>
+              </div>
+              <kbd className="group-hover:bg-neutral-350/60 hidden rounded-md bg-neutral-200/50 px-1.5 py-0.5 text-[10px] font-bold text-neutral-500 sm:block dark:bg-neutral-950/50 dark:text-neutral-400 dark:group-hover:bg-neutral-950/80">
+                ⌘K
+              </kbd>
+            </button>
+
             <a
               href="https://github.com/Saurabh-2607/GreatUI"
               target="_blank"

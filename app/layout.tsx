@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Geist_Mono } from "next/font/google";
 import { Databuddy } from "@databuddy/sdk/react";
 import ThemeProvider from "@/components/site/ThemeProvider";
+import { SearchCommand } from "@/components/site/SearchCommand";
 import "./globals.css";
 
 const geistMono = Geist_Mono({
@@ -124,6 +125,7 @@ export default function RootLayout({
             trackWebVitals
             trackErrors
           />
+          <SearchCommand />
           {children}
         </ThemeProvider>
       </body>
