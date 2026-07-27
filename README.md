@@ -2,13 +2,6 @@
   <img src="banner.png" alt="Great UI Banner" width="100%" />
 </div>
 
-<div align="center">
-  <h3>🚀 Launching on July 26</h3>
-  <p>Get ready for production-grade React components at <a href="https://great-ui.com">great-ui.com</a></p>
-</div>
-
-<hr />
-
 <h1 align="center">Great UI</h1>
 
 <p align="center">

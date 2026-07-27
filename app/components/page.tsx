@@ -6,7 +6,7 @@ import posthog from "posthog-js";
 import Navbar from "@/components/site/Navbar";
 import Footer from "@/components/site/Footer";
 import BackgroundGrid from "@/components/site/BackgroundGrid";
-import AnnouncementBanner from "@/components/site/AnnouncementBanner";
+// import AnnouncementBanner from "@/components/site/AnnouncementBanner";
 import Container from "@/components/site/Container";
 import ComponentCard from "@/components/site/ComponentCard";
 import { components } from "@/lib/registry";
@@ -25,7 +25,7 @@ export default function ComponentsPage() {
     <div className="relative min-h-screen overflow-x-hidden bg-white pb-16 text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-white">
       <BackgroundGrid />
       <Navbar />
-      <AnnouncementBanner />
+      {/* <AnnouncementBanner /> */}
 
       <main className="relative z-10">
         <Container className="py-10 md:py-16">
