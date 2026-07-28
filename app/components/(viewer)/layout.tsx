@@ -14,9 +14,28 @@ import {
   HomeIcon,
   MaximizeIcon,
   MinimizeIcon,
+  CopyIcon,
+  CheckIcon,
 } from "@/components/site/Icons";
 import { components } from "@/lib/registry";
 import { ViewerProvider, useViewer } from "@/lib/viewer-context";
+import { motion, AnimatePresence } from "motion/react";
+
+type PkgManager = "npm" | "pnpm" | "yarn" | "bun";
+
+function getInstallCommand(pm: PkgManager, url: string): string {
+  switch (pm) {
+    case "pnpm":
+      return `pnpm dlx shadcn@latest add ${url}`;
+    case "yarn":
+      return `yarn dlx shadcn@latest add ${url}`;
+    case "bun":
+      return `bunx shadcn@latest add ${url}`;
+    case "npm":
+    default:
+      return `npx shadcn@latest add ${url}`;
+  }
+}
 
 function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
   const {
@@ -30,6 +49,23 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
   } = useViewer();
 
   const [isMounted, setIsMounted] = React.useState(false);
+  const [pkgManager, setPkgManager] = React.useState<PkgManager>("pnpm");
+  const [copiedInstall, setCopiedInstall] = React.useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   React.useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -42,6 +78,19 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
 
   const component =
     activeComponent?.slug === slug ? activeComponent : clientComponent;
+
+  const origin = isMounted ? window.location.origin : "https://great-ui.com";
+  const registryUrl = component ? `${origin}/r/${component.slug}.json` : "";
+  const installCommand = component
+    ? getInstallCommand(pkgManager, registryUrl)
+    : "";
+
+  const handleCopyInstall = () => {
+    if (!installCommand) return;
+    navigator.clipboard.writeText(installCommand);
+    setCopiedInstall(true);
+    setTimeout(() => setCopiedInstall(false), 2000);
+  };
 
   if (!isMounted) {
     return (
@@ -76,7 +125,6 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
           }}
         />
       </div>
-
       <div className="absolute top-9 right-9 z-40 flex items-center gap-1.5 rounded-2xl border border-neutral-200 bg-white/80 p-1.5 shadow-xs backdrop-blur-xl transition-all dark:border-neutral-800/60 dark:bg-neutral-950/80">
         <Link
           href="/"
@@ -190,7 +238,6 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
 
         <ThemeToggle className="dark:!hover:text-white !h-10 !w-10 !rounded-xl !border-0 !bg-neutral-100 !text-neutral-700 shadow-xs hover:!bg-neutral-200 hover:!text-neutral-950 dark:!border-0 dark:!bg-neutral-900 dark:!text-neutral-300 dark:hover:!bg-neutral-800 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-neutral-700 dark:[&>svg]:text-neutral-300" />
       </div>
-
       <div
         className={`absolute inset-0 z-50 flex p-4 transition-all duration-300 ${
           isSidebarOpen
@@ -215,7 +262,6 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
           <Sidebar activeSlug={component.slug} />
         </div>
       </div>
-
       <div
         className={`relative z-10 flex flex-1 overflow-hidden transition-all duration-300 ${
           isPanelOpen ? "gap-4" : "gap-0"
@@ -255,7 +301,93 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
             </div>
           </div>
         </section>
-      </div>
+      </div>{" "}
+      <AnimatePresence>
+        {!isPanelOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="absolute bottom-6 left-1/2 z-40 flex -translate-x-1/2 items-center gap-3 rounded-xl border border-neutral-200 bg-white/80 p-1.5 shadow-md backdrop-blur-xl transition-all dark:border-neutral-800/60 dark:bg-neutral-950/80"
+          >
+            <div
+              ref={dropdownRef}
+              className="relative border-r border-neutral-200/60 pr-2.5 dark:border-neutral-800/60"
+            >
+              <button
+                type="button"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="hover:text-neutral-955 flex h-7.5 cursor-pointer items-center justify-center gap-1 rounded-lg bg-neutral-100 px-2 font-mono text-xs font-semibold text-neutral-500 shadow-xs transition-all hover:bg-neutral-200 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
+              >
+                <span>{pkgManager}</span>
+                <svg
+                  className={`h-3 w-3 text-neutral-400 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              <AnimatePresence>
+                {isDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute bottom-full left-0 z-50 mb-1.5 flex w-20 flex-col rounded-lg border border-neutral-200 bg-white/95 p-0.5 shadow-md backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/95"
+                  >
+                    {(["pnpm", "npm", "yarn", "bun"] as PkgManager[]).map(
+                      (pm) => (
+                        <button
+                          key={pm}
+                          type="button"
+                          onClick={() => {
+                            setPkgManager(pm);
+                            setIsDropdownOpen(false);
+                          }}
+                          className={`w-full cursor-pointer rounded-md px-1.5 py-1 text-left font-mono text-xs font-medium transition-colors ${
+                            pkgManager === pm
+                              ? "text-neutral-955 bg-neutral-100 dark:bg-neutral-900 dark:text-white"
+                              : "text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-900/50 dark:hover:text-white"
+                          }`}
+                        >
+                          {pm}
+                        </button>
+                      ),
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <div className="text-neutral-850 pr-1 font-mono text-xs select-all dark:text-neutral-200">
+              <code>{installCommand}</code>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleCopyInstall}
+              className="hover:text-neutral-955 flex h-7.5 w-7.5 cursor-pointer items-center justify-center rounded-lg bg-neutral-100 text-neutral-500 shadow-xs transition-all hover:bg-neutral-200 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
+              title="Copy installation command"
+            >
+              {copiedInstall ? (
+                <CheckIcon className="h-3.5 w-3.5 text-green-500" />
+              ) : (
+                <CopyIcon className="h-3.5 w-3.5" />
+              )}
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
