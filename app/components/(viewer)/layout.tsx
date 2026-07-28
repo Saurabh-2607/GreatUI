@@ -111,7 +111,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative flex h-screen w-full flex-col overflow-hidden bg-white p-4 text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-white">
       <div
-        className={`absolute top-9 left-9 z-[60] transition-opacity duration-300 ${isCodeOpen ? "pointer-events-none opacity-0" : "opacity-100"}`}
+        className={`absolute top-9 left-9 z-[60] flex items-center gap-3.5 transition-opacity duration-300 ${isCodeOpen ? "pointer-events-none opacity-0" : "opacity-100"}`}
       >
         <SidebarToggle
           isOpen={isSidebarOpen}
@@ -124,6 +124,31 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
             });
           }}
         />
+
+        <div className="flex items-center gap-2.5 text-xl font-normal tracking-tight text-neutral-500 select-none dark:text-neutral-400">
+          <Link
+            href="/components"
+            className="cursor-pointer transition-colors hover:text-neutral-900 dark:hover:text-white"
+          >
+            Components
+          </Link>
+          <svg
+            className="h-4.5 w-4.5 text-neutral-400 dark:text-neutral-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2.5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+          <span className="text-neutral-955 font-semibold dark:text-white">
+            {component.name}
+          </span>
+        </div>
       </div>
       <div className="absolute top-9 right-9 z-40 flex items-center gap-1.5 rounded-2xl border border-neutral-200 bg-white/80 p-1.5 shadow-xs backdrop-blur-xl transition-all dark:border-neutral-800/60 dark:bg-neutral-950/80">
         <Link
