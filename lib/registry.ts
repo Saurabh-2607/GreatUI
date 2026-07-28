@@ -250,15 +250,15 @@ export const components: Component[] = [
     ],
   },
   {
-    slug: "page-transition-shader",
-    name: "Page Transition Shader",
+    slug: "liquid-ripple-shader",
+    name: "Liquid Ripple Shader",
     category: "Navigation",
     description:
-      "A fullscreen page transition system that applies WebGL custom GLSL fragment shaders (Liquid Ripple, Cyber Glitch, Vortex, and Liquid Dissolve) during route changes.",
+      "A fullscreen WebGL page transition that animates a fluid concentric ripple wave expanding from the center of the viewport during route changes.",
     interactionType:
-      "Full viewport canvas shader render with custom duration, chromatic aberration levels, and automated link interceptors.",
+      "Full viewport canvas shader render triggered on navigation with configurable duration and chromatic aberration.",
     dependencies: [],
-    previewFile: "PageTransitionShaderPreview",
+    previewFile: "LiquidRippleShaderPreview",
     previewImage: "/previews/PageTransitionShaderPreview.png",
     props: [
       {
@@ -272,19 +272,148 @@ export const components: Component[] = [
         name: "onViewSwap",
         type: ["() => void"],
         description:
-          "Callback function fired at mid-transition (covered state) to perform state/view swaps.",
+          "Callback fired at mid-transition to perform state/view swaps.",
       },
       {
         name: "isDark",
         type: ["boolean"],
-        description: "Toggle theme colours inside WebGL rendering context.",
+        description: "Toggle theme colours inside the WebGL rendering context.",
         default: "false",
       },
       {
-        name: "shaderMode",
-        type: ["'ripple'", "'glitch'", "'vortex'", "'liquid'"],
-        description: "Choose fragment shader animation mode.",
-        default: "'ripple'",
+        name: "duration",
+        type: ["number"],
+        description: "Total transition time in milliseconds.",
+        default: "900",
+      },
+      {
+        name: "aberration",
+        type: ["number"],
+        description: "Chromatic RGB aberration distance scale.",
+        default: "1.0",
+      },
+    ],
+  },
+  {
+    slug: "cyber-glitch-shader",
+    name: "Cyber Glitch Shader",
+    category: "Navigation",
+    description:
+      "A fullscreen WebGL page transition that applies an RGB-split chromatic aberration glitch effect across the viewport during route changes.",
+    interactionType:
+      "Full viewport canvas shader render triggered on navigation with configurable duration and chromatic aberration.",
+    dependencies: [],
+    previewFile: "CyberGlitchShaderPreview",
+    previewImage: "/previews/PageTransitionShaderPreview.png",
+    props: [
+      {
+        name: "trigger",
+        type: ["number"],
+        description:
+          "Value key to programmatically trigger the transition overlay.",
+        default: "0",
+      },
+      {
+        name: "onViewSwap",
+        type: ["() => void"],
+        description:
+          "Callback fired at mid-transition to perform state/view swaps.",
+      },
+      {
+        name: "isDark",
+        type: ["boolean"],
+        description: "Toggle theme colours inside the WebGL rendering context.",
+        default: "false",
+      },
+      {
+        name: "duration",
+        type: ["number"],
+        description: "Total transition time in milliseconds.",
+        default: "900",
+      },
+      {
+        name: "aberration",
+        type: ["number"],
+        description: "Chromatic RGB aberration distance scale.",
+        default: "1.0",
+      },
+    ],
+  },
+  {
+    slug: "vortex-spiral-shader",
+    name: "Vortex Spiral Shader",
+    category: "Navigation",
+    description:
+      "A fullscreen WebGL page transition that spins a rotating swirl vortex wipe across the viewport during route changes.",
+    interactionType:
+      "Full viewport canvas shader render triggered on navigation with configurable duration and chromatic aberration.",
+    dependencies: [],
+    previewFile: "VortexSpiralShaderPreview",
+    previewImage: "/previews/PageTransitionShaderPreview.png",
+    props: [
+      {
+        name: "trigger",
+        type: ["number"],
+        description:
+          "Value key to programmatically trigger the transition overlay.",
+        default: "0",
+      },
+      {
+        name: "onViewSwap",
+        type: ["() => void"],
+        description:
+          "Callback fired at mid-transition to perform state/view swaps.",
+      },
+      {
+        name: "isDark",
+        type: ["boolean"],
+        description: "Toggle theme colours inside the WebGL rendering context.",
+        default: "false",
+      },
+      {
+        name: "duration",
+        type: ["number"],
+        description: "Total transition time in milliseconds.",
+        default: "900",
+      },
+      {
+        name: "aberration",
+        type: ["number"],
+        description: "Chromatic RGB aberration distance scale.",
+        default: "1.0",
+      },
+    ],
+  },
+  {
+    slug: "liquid-dissolve-shader",
+    name: "Liquid Dissolve Shader",
+    category: "Navigation",
+    description:
+      "A fullscreen WebGL page transition that melts the viewport away using organic fractal noise dissolve during route changes.",
+    interactionType:
+      "Full viewport canvas shader render triggered on navigation with configurable duration and chromatic aberration.",
+    dependencies: [],
+    previewFile: "LiquidDissolveShaderPreview",
+    previewImage: "/previews/PageTransitionShaderPreview.png",
+    props: [
+      {
+        name: "trigger",
+        type: ["number"],
+        description:
+          "Value key to programmatically trigger the transition overlay.",
+        default: "0",
+      },
+      {
+        name: "onViewSwap",
+        type: ["() => void"],
+        description:
+          "Callback fired at mid-transition to perform state/view swaps.",
+      },
+      {
+        name: "isDark",
+        type: ["boolean"],
+        description: "Toggle theme colours inside the WebGL rendering context.",
+        default: "false",
       },
       {
         name: "duration",
