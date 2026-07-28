@@ -66,28 +66,23 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
           <button
             type="button"
             onClick={handleDownload}
-            className="dark:hover:bg-neutral-850 inline-flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-neutral-200/50 px-3 text-xs font-semibold text-neutral-600 transition-colors select-none hover:bg-neutral-200 hover:text-neutral-950 dark:border dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-300 dark:hover:text-white"
-            title="Download TSX file"
+            className="flex h-10 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-neutral-100 px-3.5 text-xs font-semibold text-neutral-700 transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
+            title={`Download ${component.name}.tsx`}
           >
-            <DownloadIcon className="h-3.5 w-3.5" />
-            <span>{component.name}.tsx</span>
+            <DownloadIcon className="h-4 w-4" />
+            <span className="font-mono">{component.name}.tsx</span>
           </button>
 
           <button
             type="button"
             onClick={handleCopy}
-            className="dark:hover:bg-neutral-850 inline-flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-neutral-200/50 px-3 text-xs font-semibold text-neutral-600 transition-colors select-none hover:bg-neutral-200 hover:text-neutral-950 dark:border dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-300 dark:hover:text-white"
+            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-100 text-neutral-700 transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
+            title="Copy code"
           >
             {copied ? (
-              <>
-                <CheckIcon className="h-3.5 w-3.5 text-green-500" />
-                <span>Copied</span>
-              </>
+              <CheckIcon className="h-4 w-4 text-green-500" />
             ) : (
-              <>
-                <CopyIcon className="h-3.5 w-3.5" />
-                <span>Copy</span>
-              </>
+              <CopyIcon className="h-4 w-4" />
             )}
           </button>
         </div>

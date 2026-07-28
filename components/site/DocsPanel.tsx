@@ -1,12 +1,53 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { type Component } from "@/lib/registry";
-import { CopyIcon, CheckIcon } from "./Icons";
+import { CopyIcon, CheckIcon, CodeIcon } from "./Icons";
 import ShikiHighlight from "./ShikiHighlight";
 
+type PkgManager = "npm" | "pnpm" | "yarn" | "bun";
+
+function getInstallCommand(pm: PkgManager, url: string): string {
+  switch (pm) {
+    case "pnpm":
+      return `pnpm dlx shadcn@latest add ${url}`;
+    case "yarn":
+      return `yarn dlx shadcn@latest add ${url}`;
+    case "bun":
+      return `bunx shadcn@latest add ${url}`;
+    case "npm":
+    default:
+      return `npx shadcn@latest add ${url}`;
+  }
+}
+
 export default function DocsPanel({ component }: { component: Component }) {
-  const [copied, setCopied] = useState(false);
+  const [copiedInstall, setCopiedInstall] = useState(false);
+  const [copiedUsage, setCopiedUsage] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [pkgManager, setPkgManager] = useState<PkgManager>("pnpm");
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  const origin = mounted ? window.location.origin : "https://great-ui.com";
+  const registryUrl = `${origin}/r/${component.slug}.json`;
+
+  const installCommand = getInstallCommand(pkgManager, registryUrl);
+
+  const handleCopyInstall = () => {
+    navigator.clipboard.writeText(installCommand);
+    setCopiedInstall(true);
+    setTimeout(() => setCopiedInstall(false), 2000);
+  };
+
+  const handleCopyUsage = () => {
+    navigator.clipboard.writeText(component.usageCode || "");
+    setCopiedUsage(true);
+    setTimeout(() => setCopiedUsage(false), 2000);
+  };
 
   return (
     <aside className="flex flex-col space-y-20 text-neutral-900 dark:text-white">
@@ -28,7 +69,7 @@ export default function DocsPanel({ component }: { component: Component }) {
             {component.dependencies.map((dep) => (
               <span
                 key={dep}
-                className="inline-flex items-center rounded-xl border border-neutral-200 bg-neutral-100 px-4 py-2.5 font-mono text-lg font-medium text-neutral-800 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200"
+                className="inline-flex items-center rounded-xl border border-neutral-200 bg-neutral-100 px-4 py-2.5 font-mono text-lg font-medium text-neutral-800 dark:border-neutral-800 dark:bg-neutral-900/40 dark:text-neutral-200"
               >
                 {dep}
               </span>
@@ -46,6 +87,61 @@ export default function DocsPanel({ component }: { component: Component }) {
         </p>
       </div>
 
+      <div className="flex flex-col gap-2">
+        <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+          Installation
+        </p>
+        <div className="overflow-hidden rounded-xl bg-neutral-100 dark:bg-[#141414]">
+          <div className="flex h-11 items-center justify-between border-b border-neutral-200/60 bg-neutral-200/30 px-4 select-none dark:border-neutral-800/60 dark:bg-[#0a0a0a]/30">
+            <div className="flex items-center gap-3">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-3.5 w-3.5 text-neutral-400 dark:text-neutral-500"
+              >
+                <polyline points="4 17 10 11 4 5" />
+                <line x1="12" y1="19" x2="20" y2="19" />
+              </svg>
+              <div className="flex items-center gap-1">
+                {(["pnpm", "npm", "yarn", "bun"] as PkgManager[]).map((pm) => (
+                  <button
+                    key={pm}
+                    type="button"
+                    onClick={() => setPkgManager(pm)}
+                    className={`cursor-pointer px-2.5 py-0.5 text-xs font-semibold transition-colors ${
+                      pkgManager === pm
+                        ? "rounded-md border border-neutral-200 bg-white text-neutral-900 shadow-sm dark:border-neutral-800/60 dark:bg-neutral-900 dark:text-white"
+                        : "text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+                    }`}
+                  >
+                    {pm}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={handleCopyInstall}
+              className="cursor-pointer p-1 text-neutral-400 hover:text-neutral-900 dark:text-neutral-500 dark:hover:text-white"
+              title="Copy installation command"
+            >
+              {copiedInstall ? (
+                <CheckIcon className="h-4 w-4 text-green-500" />
+              ) : (
+                <CopyIcon className="h-4 w-4" />
+              )}
+            </button>
+          </div>
+          <div className="px-6 py-5 font-mono text-sm leading-[1.6] text-neutral-800 select-all dark:text-neutral-200">
+            <code>{installCommand}</code>
+          </div>
+        </div>
+      </div>
+
       {component.usageCode && (
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between">
@@ -54,23 +150,14 @@ export default function DocsPanel({ component }: { component: Component }) {
             </p>
             <button
               type="button"
-              onClick={() => {
-                navigator.clipboard.writeText(component.usageCode || "");
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-              }}
-              className="text-neutral-450 inline-flex cursor-pointer items-center gap-1.5 rounded-md px-2.5 py-1 text-base hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-white"
+              onClick={handleCopyUsage}
+              className="cursor-pointer p-1 text-neutral-400 hover:text-neutral-900 dark:text-neutral-500 dark:hover:text-white"
+              title="Copy code"
             >
-              {copied ? (
-                <>
-                  <CheckIcon className="h-4 w-4 text-green-500" />
-                  <span>Copied!</span>
-                </>
+              {copiedUsage ? (
+                <CheckIcon className="h-4 w-4 text-green-500" />
               ) : (
-                <>
-                  <CopyIcon className="h-4 w-4" />
-                  <span>Copy</span>
-                </>
+                <CopyIcon className="h-4 w-4" />
               )}
             </button>
           </div>
@@ -86,12 +173,12 @@ export default function DocsPanel({ component }: { component: Component }) {
         <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
           Source Code
         </p>
-        <p className="text-2xl leading-relaxed text-neutral-700 dark:text-neutral-300">
-          Click on the top right{" "}
-          <code className="rounded-lg bg-neutral-100 px-2.5 py-1 font-mono text-base font-semibold text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
-            Code
-          </code>{" "}
-          button to view the source code.
+        <p className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-2xl leading-relaxed text-neutral-700 dark:text-neutral-300">
+          <span>Click on the top right</span>
+          <span className="text-neutral-750 dark:text-neutral-250 border-neutral-250 inline-flex h-9 w-9 items-center justify-center rounded-xl border bg-neutral-100 shadow-xs dark:border-neutral-800 dark:bg-neutral-900">
+            <CodeIcon className="h-4.5 w-4.5" />
+          </span>
+          <span>button to view the source code.</span>
         </p>
       </div>
 
