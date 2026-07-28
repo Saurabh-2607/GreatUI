@@ -224,9 +224,9 @@ export default function DocsPanel({ component }: { component: Component }) {
                         {prop.type.join(" | ")}
                       </span>
                     </td>
-                    <td className="px-4 py-4">
+                    <td className="max-w-[220px] px-4 py-4 break-all">
                       {prop.default ? (
-                        <code className="font-mono text-base text-neutral-500 dark:text-neutral-400">
+                        <code className="font-mono text-base break-all whitespace-pre-wrap text-neutral-500 dark:text-neutral-400">
                           {prop.default}
                         </code>
                       ) : (
