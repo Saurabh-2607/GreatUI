@@ -20,7 +20,10 @@ export function Hero() {
         </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <Link href="/components">
+          <Link
+            href="/components"
+            onClick={() => posthog.capture("components_catalogue_opened")}
+          >
             <Button
               variant="primary"
               size="md"

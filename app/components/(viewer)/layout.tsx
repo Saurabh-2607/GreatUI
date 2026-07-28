@@ -89,6 +89,10 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
     if (!installCommand) return;
     navigator.clipboard.writeText(installCommand);
     setCopiedInstall(true);
+    posthog.capture("component_install_command_copied", {
+      component_slug: component?.slug,
+      package_manager: pkgManager,
+    });
     setTimeout(() => setCopiedInstall(false), 2000);
   };
 

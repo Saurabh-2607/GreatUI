@@ -1,3 +1,6 @@
+"use client";
+
+import posthog from "posthog-js";
 import Container from "./Container";
 
 export function Sponsors() {
@@ -34,6 +37,7 @@ export function Sponsors() {
           href="https://github.com/sponsors/Saurabh-2607"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => posthog.capture("sponsorship_link_clicked")}
           className="group flex cursor-pointer flex-col items-center justify-center gap-2 bg-transparent p-12 text-center no-underline transition-colors duration-400 ease-out hover:bg-neutral-100/50 dark:hover:bg-[#141414]/60"
         >
           <span className="text-neutral-450 text-3xl font-light transition-colors duration-300 group-hover:text-[#f6821f] dark:text-neutral-500">
@@ -49,6 +53,7 @@ export function Sponsors() {
           href="https://github.com/sponsors/Saurabh-2607"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => posthog.capture("sponsorship_link_clicked")}
           className="group flex cursor-pointer flex-col items-center justify-center gap-2 border-t border-neutral-200 bg-transparent p-12 text-center no-underline transition-colors duration-400 ease-out hover:bg-neutral-100/50 md:border-t-0 md:border-l dark:border-neutral-800 dark:hover:bg-[#141414]/60"
         >
           <span className="text-neutral-450 text-3xl font-light transition-colors duration-300 group-hover:text-[#f6821f] dark:text-neutral-500">
@@ -64,6 +69,7 @@ export function Sponsors() {
           href="https://github.com/sponsors/Saurabh-2607"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => posthog.capture("sponsorship_link_clicked")}
           className="group flex cursor-pointer flex-col items-center justify-center gap-2 border-t border-neutral-200 bg-transparent p-12 text-center no-underline transition-colors duration-400 ease-out hover:bg-neutral-100/50 md:border-t-0 md:border-l dark:border-neutral-800 dark:hover:bg-[#141414]/60"
         >
           <span className="text-neutral-450 text-3xl font-light transition-colors duration-300 group-hover:text-[#f6821f] dark:text-neutral-500">

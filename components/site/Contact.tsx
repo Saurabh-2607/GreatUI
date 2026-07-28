@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import posthog from "posthog-js";
 import Container from "./Container";
 import Button from "./ui/Button";
 
@@ -10,6 +11,7 @@ export default function Contact() {
   const handleCopy = (email: string) => {
     navigator.clipboard.writeText(email);
     setCopiedEmail(email);
+    posthog.capture("contact_email_copied");
     setTimeout(() => setCopiedEmail(null), 2000);
   };
 
