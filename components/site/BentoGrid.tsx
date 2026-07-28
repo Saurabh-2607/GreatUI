@@ -1,10 +1,18 @@
 import Container from "./Container";
+import TerminalLoader from "@/components/ui/TerminalLoader";
+import AvatarStack from "@/components/ui/AvatarStack";
+import AnimatedSelect from "@/components/ui/AnimatedSelect";
+import AceternityButton from "@/components/ui/AceternityButton";
+import MinimalButtons from "@/components/ui/MinimalButtons";
+import ImageHoverReveal from "@/components/ui/ImageHoverReveal";
+import AnimatedLink from "@/components/ui/AnimatedLink";
+import MobileMockup from "@/components/ui/MobileMockup";
+import VinylAlbumCard from "@/components/ui/VinylAlbumCard";
 
 export function BentoGrid() {
   return (
     <Container className="py-12 md:py-16">
-      <div className="relative z-10 -mx-4 grid grid-cols-1 border border-neutral-200 bg-neutral-50/10 sm:-mx-6 md:grid-cols-3 dark:border-neutral-800 dark:bg-neutral-900/5">
-        {/* Corner Anchors Overlay */}
+      <div className="relative z-10 -mx-4 border border-neutral-200 bg-neutral-50/10 sm:-mx-6 dark:border-neutral-800 dark:bg-neutral-900/5">
         <div
           className="pointer-events-none absolute inset-0 z-20 select-none"
           aria-hidden="true"
@@ -15,74 +23,74 @@ export function BentoGrid() {
           <div className="absolute -right-[7px] -bottom-[7px] h-3.5 w-3.5 rounded-[3px] border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a]" />
         </div>
 
-        {/* Cell 1: Production-Ready Code (Col Span 2) */}
-        <div className="flex h-[280px] flex-col justify-between border-b border-neutral-200 p-6 md:col-span-2 md:border-r dark:border-neutral-800">
-          <div>
-            <span className="text-[10px] font-bold tracking-widest text-[#f6821f] uppercase">
-              Production-Ready Code
-            </span>
-            <h3 className="mt-1.5 text-2xl font-semibold tracking-tight text-neutral-950 dark:text-white">
-              Copy and paste premium hooks &amp; UI components.
-            </h3>
+        <div className="grid grid-cols-1 md:grid-cols-3">
+          <div className="flex items-center justify-center border-b border-neutral-200 p-8 md:row-span-3 md:border-r md:border-b-0 dark:border-neutral-800">
+            <MobileMockup autoPlay={true} />
           </div>
-          <div className="overflow-hidden rounded-lg border border-neutral-200/60 bg-neutral-100/50 p-4 font-mono text-xs leading-relaxed text-neutral-600 shadow-xs dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400">
-            <span className="text-blue-500">const</span> [state, setState] ={" "}
-            <span className="text-purple-500">useState</span>
-            (&apos;active&apos;);
-            <br />
-            <span className="text-blue-500">const</span> registry ={" "}
-            <span className="text-purple-500">useRegistry</span>
-            (&apos;great-ui&apos;);
-          </div>
-        </div>
 
-        {/* Cell 2: Theme / Aesthetics (Col Span 1) */}
-        <div className="flex h-[280px] flex-col justify-between border-b border-neutral-200 p-6 md:col-span-1 dark:border-neutral-800">
-          <div>
-            <span className="text-neutral-450 text-[10px] font-bold tracking-widest uppercase dark:text-neutral-500">
-              Aesthetics
-            </span>
-            <h3 className="mt-1.5 text-2xl font-semibold tracking-tight text-neutral-950 dark:text-white">
-              Dark mode &amp; glassmorphism.
-            </h3>
+          <div className="flex min-h-[190px] items-center justify-center border-b border-neutral-200 p-6 md:col-span-2 dark:border-neutral-800">
+            <TerminalLoader
+              rows={5}
+              cols={35}
+              speed={60}
+              color="text-amber-500"
+              bgColor="bg-amber-500"
+            />
           </div>
-          <div className="flex items-center gap-2">
-            <div className="flex h-10 w-20 items-center justify-start rounded-full border border-neutral-200 bg-neutral-100 p-1 transition-all duration-300 dark:justify-end dark:border-neutral-800 dark:bg-neutral-900">
-              <div className="h-8 w-8 rounded-full bg-[#f6821f] shadow-xs" />
+
+          <div className="relative z-30 flex min-h-[190px] items-center justify-center border-b border-neutral-200 p-6 md:border-r dark:border-neutral-800">
+            <AnimatedSelect placeholder="Choose Option" width={180} />
+          </div>
+
+          <div className="flex min-h-[190px] items-center justify-center border-b border-neutral-200 p-6 dark:border-neutral-800">
+            <AvatarStack size="lg" variant="spring-tilt" />
+          </div>
+
+          <div className="flex min-h-[190px] items-center justify-center p-6 md:col-span-2 dark:border-neutral-800">
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <AceternityButton variant="primary" size="md">
+                Aceternity Gradient
+              </AceternityButton>
+              <MinimalButtons variant="secondary" size="default">
+                Minimal Button
+              </MinimalButtons>
+              <MinimalButtons variant="destructive" size="default">
+                Destructive
+              </MinimalButtons>
+              <MinimalButtons variant="outline" size="default" isLoading={true}>
+                Loading state
+              </MinimalButtons>
             </div>
           </div>
-        </div>
 
-        {/* Cell 3: Performance (Col Span 1) */}
-        <div className="flex h-[280px] flex-col justify-between border-b border-neutral-200 p-6 md:col-span-1 md:border-r md:border-b-0 dark:border-neutral-800">
-          <div>
-            <span className="text-neutral-450 text-[10px] font-bold tracking-widest uppercase dark:text-neutral-500">
-              Performance
-            </span>
-            <h3 className="mt-1.5 text-2xl font-semibold tracking-tight text-neutral-950 dark:text-white">
-              Zero bundle bloat. Pure utility.
-            </h3>
+          <div className="flex h-[220px] items-center justify-center border-t border-r border-neutral-200 p-6 dark:border-neutral-800">
+            <ImageHoverReveal
+              variant="directional"
+              className="h-28 w-28 rounded-2xl"
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&h=200&q=80"
+            />
           </div>
-          <div className="text-5xl font-extrabold tracking-tight text-[#f6821f]">
-            0ms
-          </div>
-        </div>
 
-        {/* Cell 4: Frameworks (Col Span 2) */}
-        <div className="flex h-[280px] flex-col justify-between p-6 md:col-span-2">
-          <div>
-            <span className="text-neutral-450 text-[10px] font-bold tracking-widest uppercase dark:text-neutral-500">
-              Frameworks
-            </span>
-            <h3 className="mt-1.5 text-2xl font-semibold tracking-tight text-neutral-950 dark:text-white">
-              First-class support for Next.js 16 and React 19.
-            </h3>
+          <div className="relative h-[220px] overflow-hidden border-t border-r border-neutral-200 dark:border-neutral-800">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="origin-center scale-[0.44]">
+                <VinylAlbumCard />
+              </div>
+            </div>
           </div>
-          <div className="text-neutral-450 flex items-center gap-4 text-xs font-semibold uppercase dark:text-neutral-500">
-            <span>• Next.js</span>
-            <span>• Vite</span>
-            <span>• Astro</span>
-            <span>• Remix</span>
+
+          <div className="flex h-[220px] items-center justify-center border-t border-neutral-200 p-6 dark:border-neutral-800">
+            <div className="flex flex-col items-center justify-center gap-4">
+              <AnimatedLink href="#" variant="underline">
+                Underline
+              </AnimatedLink>
+              <AnimatedLink href="#" variant="clipDoodle">
+                Doodle
+              </AnimatedLink>
+              <AnimatedLink href="#" variant="wavy">
+                Wavy Link
+              </AnimatedLink>
+            </div>
           </div>
         </div>
       </div>
