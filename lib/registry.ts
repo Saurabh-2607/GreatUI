@@ -259,7 +259,7 @@ export const components: Component[] = [
       "Full viewport canvas shader render triggered on navigation with configurable duration and chromatic aberration.",
     dependencies: [],
     previewFile: "LiquidRippleShaderPreview",
-    previewImage: "/previews/PageTransitionShaderPreview.png",
+    previewImage: "/previews/LiquidRippleShaderPreview.png",
     props: [
       {
         name: "trigger",
@@ -304,7 +304,7 @@ export const components: Component[] = [
       "Full viewport canvas shader render triggered on navigation with configurable duration and chromatic aberration.",
     dependencies: [],
     previewFile: "CyberGlitchShaderPreview",
-    previewImage: "/previews/PageTransitionShaderPreview.png",
+    previewImage: "/previews/CyberGlitchShaderPreview.png",
     props: [
       {
         name: "trigger",
@@ -394,7 +394,7 @@ export const components: Component[] = [
       "Full viewport canvas shader render triggered on navigation with configurable duration and chromatic aberration.",
     dependencies: [],
     previewFile: "LiquidDissolveShaderPreview",
-    previewImage: "/previews/PageTransitionShaderPreview.png",
+    previewImage: "/previews/LiquidDissolveShaderPreview.png",
     props: [
       {
         name: "trigger",
