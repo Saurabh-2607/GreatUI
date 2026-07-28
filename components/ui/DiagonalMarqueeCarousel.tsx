@@ -206,3 +206,20 @@ export default function DiagonalMarqueeCarousel({
     </div>
   );
 }
+
+/**
+ * Great UI Component
+ *
+ * Built with React, TypeScript, Tailwind CSS, and Framer Motion.
+ * Designed to be accessible, customizable, and production-ready.
+ *
+ * Website: https://great-ui.com
+ * GitHub: https://github.com/Saurabh-2607/GreatUI
+ * X (Great UI): https://x.com/GreatUIHQ
+ *
+ * Released under the MIT License.
+ * Contributions, issues, and feature requests are always welcome.
+ *
+ * Author: Saurabh Sharma
+ * X: https://x.com/srbh_s
+ */
