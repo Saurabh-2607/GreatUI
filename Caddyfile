@@ -1,0 +1,7 @@
+great-ui.com {
+	reverse_proxy app:3000
+}
+
+www.great-ui.com {
+	redir https://great-ui.com{uri}
+}
