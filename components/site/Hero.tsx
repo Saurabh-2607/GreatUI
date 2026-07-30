@@ -10,6 +10,19 @@ export function Hero() {
   return (
     <Container className="py-12">
       <div className="flex min-h-[50vh] flex-col items-center justify-center text-center">
+        <div className="mb-12 flex items-center justify-center">
+          <a
+            href="https://peerlist.io/i_saurabh/project/great-ui"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              src="https://peerlist.io/api/v1/projects/embed/PRJHR8DQERN7QEEA6IEDGRGNMPBLNL?showUpvote=true&theme=dark"
+              alt="Great UI"
+              style={{ width: "auto", height: "72px" }}
+            />
+          </a>
+        </div>
         <h1 className="animate-fade-in max-w-4xl text-4xl leading-[0.9] font-semibold tracking-tight text-balance text-neutral-950 sm:text-5xl md:text-6xl dark:text-white">
           Craft Premium React Interfaces with Absolute Speed
         </h1>
