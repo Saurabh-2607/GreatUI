@@ -225,6 +225,41 @@ export const components: Component[] = [
     ],
   },
   {
+    slug: "floating-menu",
+    name: "Floating Menu",
+    category: "Navigation",
+    description:
+      "A floating, animated capsule menu that expands into a full-screen navigation overlay.",
+    interactionType:
+      "Click to expand capsule into a full menu with staggered link animations.",
+    dependencies: ["motion"],
+    previewFile: "FloatingMenuPreview",
+    previewImage: "/previews/floating-menu.png",
+    props: [
+      {
+        name: "title",
+        type: ["ReactNode"],
+        description:
+          "The logo or title component rendered in the capsule header.",
+      },
+      {
+        name: "primaryLinks",
+        type: ["MenuLink[]"],
+        description: "Large, primary navigation links.",
+      },
+      {
+        name: "secondaryLinks",
+        type: ["MenuLink[]"],
+        description: "Smaller, secondary section links.",
+      },
+      {
+        name: "socialLinks",
+        type: ["MenuLink[]"],
+        description: "External social media links.",
+      },
+    ],
+  },
+  {
     slug: "vinyl-album-card",
     name: "Vinyl Album Card",
     category: "Illustrations",
