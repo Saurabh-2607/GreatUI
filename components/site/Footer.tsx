@@ -27,6 +27,13 @@ export function Footer() {
             </Link>
             <span className="text-neutral-300 dark:text-neutral-700/80">·</span>
             <Link
+              href="/changelog"
+              className="transition-colors hover:text-neutral-900 dark:hover:text-white"
+            >
+              Changelog
+            </Link>
+            <span className="text-neutral-300 dark:text-neutral-700/80">·</span>
+            <Link
               href="/sitemap.xml"
               className="transition-colors hover:text-neutral-900 dark:hover:text-white"
             >
