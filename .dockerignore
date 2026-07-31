@@ -20,7 +20,7 @@ out/
 .gitignore
 
 # Environment variables
-.env*.local
+.env*
 
 # Docker config
 Dockerfile

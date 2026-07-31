@@ -9,7 +9,8 @@ WORKDIR /app
 
 # Install dependencies based on package-lock.json
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci
 
 # Stage 3: Rebuild the source code
 FROM base AS builder
@@ -50,6 +51,9 @@ EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
+
+HEALTHCHECK --interval=30s --timeout=3s --retries=3 --start-period=40s \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
 
 # server.js is created by next build from the standalone output
 CMD ["node", "server.js"]

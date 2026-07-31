@@ -9,6 +9,30 @@ services:
     env_file:
       - .env
     restart: always
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1",
+        ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 40s
 
   caddy:
     image: caddy:latest
@@ -22,7 +46,16 @@ services:
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
-      - app
+      app:
+        condition: service_healthy
+    networks:
+      - frontend
+      - backend
+
+networks:
+  frontend:
+  backend:
+    internal: true
 
 volumes:
   caddy_data:
