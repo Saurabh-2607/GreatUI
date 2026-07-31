@@ -32,6 +32,26 @@ export const categories: ComponentCategory[] = [
 
 export const components: Component[] = [
   {
+    slug: "accordion",
+    name: "Accordion",
+    category: "Utilities",
+    description:
+      "An interactive Accordion component with smooth expand/collapse animations.",
+    interactionType:
+      "Accordion toggle with height animation and chevron rotation on click.",
+    dependencies: ["motion"],
+    previewFile: "AccordionPreview",
+    previewImage: "/previews/accordion.png",
+    props: [
+      {
+        name: "items",
+        type: ["AccordionItem[]"],
+        description:
+          "Array of Accordion items containing title and description.",
+      },
+    ],
+  },
+  {
     slug: "button",
     name: "Button",
     category: "Buttons",
