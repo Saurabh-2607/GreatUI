@@ -12,6 +12,8 @@ interface ViewerContextType {
   setIsCodeOpen: (open: boolean) => void;
   activeComponent: Component | null;
   setActiveComponent: (comp: Component | null) => void;
+  previewContainer: HTMLElement | null;
+  setPreviewContainer: (el: HTMLElement | null) => void;
 }
 
 const ViewerContext = createContext<ViewerContextType | undefined>(undefined);
@@ -21,6 +23,9 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [isCodeOpen, setIsCodeOpen] = useState(false);
   const [activeComponent, setActiveComponent] = useState<Component | null>(
+    null,
+  );
+  const [previewContainer, setPreviewContainer] = useState<HTMLElement | null>(
     null,
   );
 
@@ -55,6 +60,8 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
         setIsCodeOpen,
         activeComponent,
         setActiveComponent,
+        previewContainer,
+        setPreviewContainer,
       }}
     >
       {children}
