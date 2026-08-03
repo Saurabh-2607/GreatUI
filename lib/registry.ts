@@ -1038,4 +1038,59 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "card",
+    name: "Card",
+    category: "Illustrations",
+    description:
+      "A card component that displays an image, a title, and a date, and highlights custom divider lines on hover.",
+    interactionType: "Hover divider line scaling.",
+    dependencies: ["motion"],
+    previewFile: "CardPreview",
+    previewImage: "/previews/CardPreview.png",
+    props: [
+      {
+        name: "title",
+        type: ["string"],
+        description: "Title heading of the card.",
+      },
+      {
+        name: "src",
+        type: ["string"],
+        description: "Source URL of the image card.",
+      },
+      {
+        name: "date",
+        type: ["string"],
+        description: "Date string label displayed on the right of the card.",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the card container.",
+      },
+      {
+        name: "imgClassName",
+        type: ["string"],
+        description: "Additional CSS classes to style the card image element.",
+      },
+      {
+        name: "titleClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the title heading element.",
+      },
+      {
+        name: "dateClassName",
+        type: ["string"],
+        description: "Additional CSS classes to style the date label element.",
+      },
+      {
+        name: "dividerClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the animated border divider elements.",
+      },
+    ],
+  },
 ];
