@@ -19,6 +19,7 @@ import {
 } from "@/components/site/Icons";
 import { components } from "@/lib/registry";
 import { ViewerProvider, useViewer } from "@/lib/viewer-context";
+import { ProgressiveBlur } from "@/components/site/ProgressiveBlur";
 import { motion, AnimatePresence } from "motion/react";
 
 type PkgManager = "npm" | "pnpm" | "yarn" | "bun";
@@ -130,7 +131,9 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
           }}
         />
 
-        <div className="flex items-center gap-2.5 text-xl font-normal tracking-tight text-neutral-500 select-none dark:text-neutral-400">
+        <div
+          className={`flex items-center gap-2.5 text-xl font-normal tracking-tight text-neutral-500 transition-all duration-300 select-none dark:text-neutral-400 ${isSidebarOpen ? "pointer-events-none invisible opacity-0" : "visible opacity-100"}`}
+        >
           <Link
             href="/components"
             className="cursor-pointer transition-colors hover:text-neutral-900 dark:hover:text-white"
@@ -305,6 +308,11 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
           }`}
         >
           <div className="relative h-full w-full overflow-hidden rounded-2xl backdrop-blur-md">
+            <ProgressiveBlur
+              position="top"
+              height="140px"
+              className="z-20 bg-gradient-to-b from-white via-white/90 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a]/90 dark:to-transparent"
+            />
             <div className="h-full w-full scrollbar-none overflow-y-auto px-6 pt-[25vh] pb-[10vh]">
               <DocsPanel component={component} />
             </div>
@@ -325,6 +333,12 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
         </div>
 
         <section className="relative flex h-full flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 backdrop-blur-md dark:bg-[#141414]">
+          {/* Progressive blur mask stack */}
+          <ProgressiveBlur
+            position="top"
+            height="112px"
+            className="z-20 bg-gradient-to-b from-neutral-100 via-neutral-100/80 to-transparent dark:from-[#141414] dark:via-[#141414]/80 dark:to-transparent"
+          />
           <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden">
             <div
               ref={setPreviewContainer}

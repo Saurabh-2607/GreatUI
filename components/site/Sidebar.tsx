@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import posthog from "posthog-js";
 import { components } from "@/lib/registry";
+import { animate } from "motion/react";
 
 interface SidebarProps {
   activeSlug: string;
@@ -16,6 +17,56 @@ const TickRow = () => (
 );
 
 export default function Sidebar({ activeSlug }: SidebarProps) {
+  const activeRef = React.useRef<HTMLAnchorElement>(null);
+  const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+  const [paddings, setPaddings] = React.useState({ top: 200, bottom: 200 });
+
+  React.useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      const containerHeight = container.clientHeight;
+      setPaddings({
+        top: Math.max(0, containerHeight * 0.35 - 20),
+        bottom: Math.max(0, containerHeight * 0.35 - 20),
+      });
+    }
+  }, []);
+
+  React.useEffect(() => {
+    let animationControls: { stop: () => void } | null = null;
+    const timer = setTimeout(() => {
+      const container = scrollContainerRef.current;
+      const element = activeRef.current;
+      if (container && element) {
+        const containerHeight = container.clientHeight;
+        const elementTop = element.offsetTop;
+        const elementHeight = element.clientHeight;
+
+        const activeIndex = components.findIndex((c) => c.slug === activeSlug);
+        const N = components.length;
+        const ratio = N > 1 ? 0.35 + 0.3 * (activeIndex / (N - 1)) : 0.35;
+
+        const targetScrollTop =
+          elementTop + elementHeight / 2 - containerHeight * ratio;
+
+        animationControls = animate(container.scrollTop, targetScrollTop, {
+          type: "spring",
+          stiffness: 80,
+          damping: 18,
+          onUpdate: (latest) => {
+            container.scrollTop = latest;
+          },
+        });
+      }
+    }, 100);
+    return () => {
+      clearTimeout(timer);
+      if (animationControls) {
+        animationControls.stop();
+      }
+    };
+  }, [activeSlug]);
+
   return (
     <aside className="relative flex h-full w-full flex-col overflow-hidden bg-transparent text-neutral-900 select-none dark:text-white">
       <div
@@ -28,8 +79,17 @@ export default function Sidebar({ activeSlug }: SidebarProps) {
         className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-28 bg-gradient-to-t from-neutral-100 via-neutral-100/80 to-transparent dark:from-[#141414] dark:via-[#141414]/80 dark:to-transparent"
       />
 
-      <div className="relative flex-1 scrollbar-none overflow-x-clip overflow-y-auto pr-2 pl-1 tracking-tight">
-        <div className="relative flex h-fit flex-col pt-[28vh] pb-[10vh]">
+      <div
+        ref={scrollContainerRef}
+        className="relative flex-1 scrollbar-none overflow-x-clip overflow-y-auto pr-2 pl-1 tracking-tight"
+      >
+        <div
+          style={{
+            paddingTop: `${paddings.top}px`,
+            paddingBottom: `${paddings.bottom}px`,
+          }}
+          className="relative flex h-fit flex-col"
+        >
           {components.length === 0 ? (
             <div className="flex items-center justify-center p-4 text-center">
               <span className="text-xs text-neutral-400">No components</span>
@@ -44,6 +104,7 @@ export default function Sidebar({ activeSlug }: SidebarProps) {
               return (
                 <Link
                   key={c.slug}
+                  ref={active ? activeRef : undefined}
                   href={`/components/${c.slug}`}
                   onClick={() => {
                     posthog.capture("sidebar_component_navigated", {
