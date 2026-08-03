@@ -1093,4 +1093,66 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "text-reveal",
+    name: "Text Reveal",
+    category: "Illustrations",
+    description:
+      "A scroll-driven text mask reveal component that animates words and characters letter-by-letter as the viewport scrolls.",
+    interactionType:
+      "Scroll-driven character color shifts, character blur transitions, and watermark opacity fades.",
+    dependencies: ["motion"],
+    previewFile: "TextRevealPreview",
+    previewImage: "/previews/TextRevealPreview.png",
+    props: [
+      {
+        name: "paragraphs",
+        type: ["string[]"],
+        description:
+          "An array of text paragraphs to scroll through and animate.",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the text container wrapper.",
+      },
+      {
+        name: "paragraphClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style each individual paragraph element.",
+      },
+      {
+        name: "highlightColor",
+        type: ["string"],
+        description:
+          "Text reveal progress highlight color (RGB values format recommended).",
+      },
+      {
+        name: "lightWatermarkColor",
+        type: ["string"],
+        description:
+          "Watermark color in light theme mode (RGB values format recommended).",
+      },
+      {
+        name: "darkWatermarkColor",
+        type: ["string"],
+        description:
+          "Watermark color in dark theme mode (RGB values format recommended).",
+      },
+      {
+        name: "lightTextColor",
+        type: ["string"],
+        description:
+          "Final revealed text color in light theme mode (RGB values format recommended).",
+      },
+      {
+        name: "darkTextColor",
+        type: ["string"],
+        description:
+          "Final revealed text color in dark theme mode (RGB values format recommended).",
+      },
+    ],
+  },
 ];
