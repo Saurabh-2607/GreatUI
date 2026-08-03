@@ -6,6 +6,15 @@ export type ChangelogItem = {
 
 export const changelogData: ChangelogItem[] = [
   {
+    date: "August 4, 2026",
+    description:
+      "Added the premium Card and scroll-driven Text Reveal components.",
+    features: [
+      "Added [Card](/components/card) component with a minimal hover effect",
+      "Added [Text Reveal](/components/text-reveal) component featuring scroll-driven letter-by-letter reveal.",
+    ],
+  },
+  {
     date: "August 1, 2026",
     description:
       "Added highly requested premium visual components and interactive layouts.",
