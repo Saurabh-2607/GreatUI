@@ -15,6 +15,7 @@ export type Component = {
   description: string;
   interactionType: string;
   dependencies: string[];
+  dependencyNotes?: string;
   props: Prop[];
   previewFile?: string;
   previewImage?: string;
@@ -1152,6 +1153,106 @@ export const components: Component[] = [
         type: ["string"],
         description:
           "Final revealed text color in dark theme mode (RGB values format recommended).",
+      },
+    ],
+  },
+  {
+    slug: "github-card",
+    name: "Github Card",
+    category: "Navigation",
+    description:
+      "A customizable hover link component that reveals a realistic 3D-tilted GitHub contributions calendar popup with interactive tooltips.",
+    interactionType:
+      "Hover-triggered 3D card rotation, coordinate tracking, contribution block micro-scaling, and interactive cell tooltips.",
+    dependencies: ["motion"],
+    dependencyNotes:
+      "This component uses a 3rd party API (https://github-contributions-api.jogruber.de) to fetch public contributions. You can also configure it to use the official GitHub REST API by providing a GitHub Personal Access Token.",
+    previewFile: "GithubCardPreview",
+    previewImage: "/previews/GithubCardPreview.png",
+    props: [
+      {
+        name: "username",
+        type: ["string"],
+        description:
+          "The target GitHub username to display and seed the contributions map.",
+      },
+      {
+        name: "name",
+        type: ["string"],
+        description: "The full display name inside the profile card header.",
+        default: "'GitHub User'",
+      },
+      {
+        name: "avatarUrl",
+        type: ["string"],
+        description:
+          "Custom URL for the profile avatar image (defaults to GitHub profile avatar).",
+      },
+      {
+        name: "year",
+        type: ["number | string"],
+        description:
+          "The calendar year displayed in the contribution count details.",
+        default: "2026",
+      },
+      {
+        name: "text",
+        type: ["string"],
+        description: "Preceding label text for the hover link wrapper.",
+        default: "'Follow me on'",
+      },
+      {
+        name: "linkText",
+        type: ["string"],
+        description: "The clickable anchor text triggering the popover card.",
+        default: "'GitHub'",
+      },
+      {
+        name: "href",
+        type: ["string"],
+        description: "Custom target URL for the profile anchor link.",
+      },
+      {
+        name: "themeScheme",
+        type: ["'monochrome' | 'green' | 'blue' | 'purple'"],
+        description: "Predefined color palette scheme for contribution levels.",
+        default: "'monochrome'",
+      },
+      {
+        name: "enableTilt",
+        type: ["boolean"],
+        description:
+          "Whether to enable mouse tracking 3D tilt effect on hover.",
+        default: "true",
+      },
+      {
+        name: "tiltMaxRotate",
+        type: ["number"],
+        description: "Maximum tilt angle in degrees for the 3D card rotation.",
+        default: "5",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the outer container.",
+      },
+      {
+        name: "popoverClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the popup card container.",
+      },
+      {
+        name: "linkClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the anchor trigger element.",
+      },
+      {
+        name: "labelClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the label description text.",
       },
     ],
   },

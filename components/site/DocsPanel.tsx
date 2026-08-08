@@ -75,6 +75,28 @@ export default function DocsPanel({ component }: { component: Component }) {
               </span>
             ))}
           </div>
+          {component.dependencyNotes && (
+            <p className="mt-3 text-xl leading-snug text-neutral-600 dark:text-neutral-400">
+              {component.dependencyNotes
+                .split(/(https?:\/\/[^\s\)]+)/g)
+                .map((part, idx) => {
+                  if (/(https?:\/\/[^\s\)]+)/.test(part)) {
+                    return (
+                      <a
+                        key={idx}
+                        href={part}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-neutral-600 underline underline-offset-4 transition-colors hover:text-neutral-950 dark:text-neutral-400 dark:hover:text-white"
+                      >
+                        {part}
+                      </a>
+                    );
+                  }
+                  return part;
+                })}
+            </p>
+          )}
         </div>
       )}
 
