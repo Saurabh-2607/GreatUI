@@ -55,10 +55,6 @@ export default function ChangelogTimeline() {
             </div>
 
             <div className="mt-2 flex flex-1 flex-col pl-4 md:pl-8">
-              <p className="mb-6 text-neutral-600 sm:text-lg dark:text-neutral-400">
-                {log.description}
-              </p>
-
               <ul className="flex flex-col gap-3">
                 {log.features.map((feature, fIndex) => (
                   <li key={fIndex} className="flex items-start gap-3">

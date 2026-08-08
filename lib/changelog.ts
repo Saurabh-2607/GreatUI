@@ -1,21 +1,18 @@
 export type ChangelogItem = {
   date: string;
-  description: string;
   features: string[];
 };
 
 export const changelogData: ChangelogItem[] = [
   {
     date: "August 9, 2026",
-    description: "Added the premium Github Card component.",
     features: [
+      "Added [Team Section](/components/team-section) component featuring layout reveals, grayscale-to-color hovers, and a floating preview layout.",
       "Added [Github Card](/components/github-card) component featuring 3D hover tilt, live contributions calendar fetching, and interactive tooltips.",
     ],
   },
   {
     date: "August 4, 2026",
-    description:
-      "Added the premium Card and scroll-driven Text Reveal components.",
     features: [
       "Added [Card](/components/card) component with a minimal hover effect",
       "Added [Text Reveal](/components/text-reveal) component featuring scroll-driven letter-by-letter reveal.",
@@ -23,8 +20,6 @@ export const changelogData: ChangelogItem[] = [
   },
   {
     date: "August 1, 2026",
-    description:
-      "Added highly requested premium visual components and interactive layouts.",
     features: [
       "Added [Frosted Glass Reveal](/components/frosted-glass-reveal) component with dynamic cursor tracking and SVG displacement.",
       "Added [Floating Menu](/components/floating-menu) component with staggering spring animations.",
@@ -33,8 +28,6 @@ export const changelogData: ChangelogItem[] = [
   },
   {
     date: "July 29, 2026",
-    description:
-      "Major documentation overhaul adding shadcn-like registry commands and CLI tooling.",
     features: [
       "Added a floating installation command generator with package manager selection.",
       "Added component registry API routes to power dynamic documentation.",
@@ -43,8 +36,6 @@ export const changelogData: ChangelogItem[] = [
   },
   {
     date: "July 25, 2026",
-    description:
-      "The foundational release featuring the initial batch of 15+ UI building blocks.",
     features: [
       "Released [Revision Timeline](/components/revision-timeline) component with interactive revision logging.",
       "Added [Diagonal Marquee Carousel](/components/diagonal-marquee-carousel) for infinite angled scrolling.",

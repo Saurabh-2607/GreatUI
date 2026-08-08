@@ -1219,4 +1219,61 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "team-section",
+    name: "Team Section",
+    description:
+      "A premium interactive team listing component featuring custom layout reveals, grayscale-to-color hover effects, and responsive layout.",
+    interactionType:
+      "Hover-triggered grayscale-to-color active states, slide-in designations, and absolute floating team member image preview.",
+    dependencies: ["motion"],
+    previewFile: "TeamSectionPreview",
+    previewImage: "/previews/TeamSectionPreview.png",
+    props: [
+      {
+        name: "speakers",
+        type: ["Speaker[]"],
+        description:
+          "An array of speaker details: name, position, company, image, and optional social URL.",
+      },
+      {
+        name: "grayscale",
+        type: ["boolean"],
+        description:
+          "Toggle the grayscale filter on the speaker avatar images.",
+        default: "true",
+      },
+      {
+        name: "align",
+        type: ["'center' | 'baseline' | 'end'"],
+        description:
+          "The vertical alignment of speaker name and designation in desktop rows.",
+        default: "'baseline'",
+      },
+      {
+        name: "slideDistance",
+        type: ["number"],
+        description:
+          "The transition offset distance in pixels for the slide animations.",
+        default: "20",
+      },
+      {
+        name: "activeImageClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the floating active speaker image container.",
+      },
+      {
+        name: "rowClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the individual desktop rows.",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the speakers container.",
+      },
+    ],
+  },
 ];

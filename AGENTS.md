@@ -12,6 +12,7 @@ When adding a new component to this codebase, follow these rules:
 1. **Component File**:
    - Save the component file under `components/ui/[ComponentName].tsx`.
    - Ensure the component utilizes the `cn` utility from `lib/utils.ts` for class merging and styling.
+   - always use "motion/react" never use "framer-motion"
    - Remove any incorrect, placeholder, or temporary comments.
    - You **MUST** ask the user to enter their name and social link (e.g., X profile URL), and then append the following Great UI disclaimer block (with their details dynamically filled in, defaulting to "Saurabh Sharma" and "https://x.com/srbh_here" if not specified) at the end of the file:
      ```typescript
@@ -37,7 +38,15 @@ When adding a new component to this codebase, follow these rules:
    - Save the preview file under `components/site/previews/[ComponentName]Preview.tsx`.
    - The preview file should demonstrate how the component works.
 
-3. **Registry Update**:
+3. **Image Assets**:
+   - If the component or its preview file requires any image assets (e.g. user avatars, placeholder photos, backgrounds), do **NOT** use external third-party URLs.
+   - Upload those image assets to ImageKit using the helper script:
+     ```bash
+     node scripts/upload-imagekit.js <file_path>
+     ```
+   - Use the returned ImageKit public URLs in your component/preview code.
+
+4. **Registry Update**:
    - Register the component in `lib/registry.ts`.
    - Add a new object representing the component to the `components` array:
      ```typescript
@@ -48,6 +57,7 @@ When adding a new component to this codebase, follow these rules:
        interactionType: "Details of animations or interactions.",
        dependencies: [], // e.g. ["motion"] for Framer Motion, or ["lucide"] for Lucide
        previewFile: "ComponentNamePreview",
+       previewImage: "/imaegpath.png",
        props: [
          {
            name: "propName",
@@ -59,13 +69,12 @@ When adding a new component to this codebase, follow these rules:
      }
      ```
 
-4. **Changelog Update**:
+5. **Changelog Update**:
    - Update `lib/changelog.ts`.
    - Prepend a new entry (or update the latest entry if it's the same date) detailing the addition or modification of the component in the following format:
      ```typescript
      {
        date: "Month Day, Year",
-       description: "A short description of what was changed or added.",
        features: [
          "Added [ComponentName](/components/component-slug) component featuring...",
        ],
