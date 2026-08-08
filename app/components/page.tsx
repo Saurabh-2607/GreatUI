@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import posthog from "posthog-js";
 import Navbar from "@/components/site/Navbar";
 import Footer from "@/components/site/Footer";
 import BackgroundGrid from "@/components/site/BackgroundGrid";
@@ -9,6 +6,23 @@ import BackgroundGrid from "@/components/site/BackgroundGrid";
 import Container from "@/components/site/Container";
 import ComponentCard from "@/components/site/ComponentCard";
 import { components } from "@/lib/registry";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Components",
+  description:
+    "Explore our collection of production-grade React & Tailwind CSS components. Copy, paste, and build interfaces instantly.",
+  openGraph: {
+    title: "Components - Great UI",
+    description:
+      "Explore our collection of production-grade React & Tailwind CSS components. Copy, paste, and build interfaces instantly.",
+    url: "https://great-ui.com/components",
+    type: "website",
+  },
+  alternates: {
+    canonical: "/components",
+  },
+};
 
 export default function ComponentsPage() {
   return (
@@ -43,12 +57,6 @@ export default function ComponentsPage() {
                     href={`/components/${c.slug}`}
                     key={c.slug}
                     className="group relative block cursor-pointer border border-neutral-200 bg-neutral-50/10 no-underline transition-colors duration-300 hover:bg-neutral-100/50 dark:border-neutral-800 dark:bg-neutral-900/5 dark:hover:bg-[#141414]/60"
-                    onClick={() =>
-                      posthog.capture("component_card_clicked", {
-                        component_slug: c.slug,
-                        component_name: c.name,
-                      })
-                    }
                   >
                     {/* Individual Card Corner Anchors */}
                     <div

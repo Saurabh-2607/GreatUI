@@ -30,6 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.5,
     },
+    {
+      url: `${baseUrl}/changelog`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    },
     ...componentUrls,
   ];
 }

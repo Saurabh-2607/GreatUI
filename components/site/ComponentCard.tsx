@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import posthog from "posthog-js";
 import ComponentPreviewRenderer from "./ComponentPreviewRenderer";
 import { type Component } from "@/lib/registry";
 
@@ -9,8 +10,18 @@ interface ComponentCardProps {
 }
 
 export default function ComponentCard({ component }: ComponentCardProps) {
+  const handleClick = () => {
+    posthog.capture("component_card_clicked", {
+      component_slug: component.slug,
+      component_name: component.name,
+    });
+  };
+
   return (
-    <div className="group flex h-full w-full flex-col select-none">
+    <div
+      onClick={handleClick}
+      className="group flex h-full w-full flex-col select-none"
+    >
       <div className="relative flex h-56 w-full items-center justify-center overflow-hidden bg-[#0d0d0d] p-3">
         {component.previewImage ? (
           <img

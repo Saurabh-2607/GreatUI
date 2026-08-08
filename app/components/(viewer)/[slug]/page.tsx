@@ -26,19 +26,41 @@ export async function generateMetadata({
   const title = `${component.name} Component`;
   const description = `${component.description} Copy and paste this accessible React component built with Tailwind CSS into your project.`;
 
+  const ogImages = component.previewImage
+    ? [
+        {
+          url: component.previewImage.startsWith("http")
+            ? component.previewImage
+            : `https://great-ui.com${component.previewImage}`,
+          width: 1200,
+          height: 630,
+          alt: `${component.name} Preview`,
+        },
+      ]
+    : [
+        {
+          url: "https://great-ui.com/Great-UI.png",
+          width: 1200,
+          height: 630,
+          alt: "Great UI Logo",
+        },
+      ];
+
   return {
     title,
     description,
     openGraph: {
-      title: `${title} - Great UI`,
+      title: `${title} | Great UI`,
       description,
       url: `https://great-ui.com/components/${slug}`,
       type: "article",
+      images: ogImages,
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} - Great UI`,
+      title: `${title} | Great UI`,
       description,
+      images: ogImages.map((img) => img.url),
     },
     alternates: {
       canonical: `/components/${slug}`,

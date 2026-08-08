@@ -5,7 +5,7 @@ import Container from "@/components/site/Container";
 import ChangelogTimeline from "@/components/site/ChangelogTimeline";
 
 export const metadata = {
-  title: "Changelog | Great UI",
+  title: "Changelog",
   description:
     "Stay up to date with the latest additions, improvements, and fixes in Great UI.",
 };
