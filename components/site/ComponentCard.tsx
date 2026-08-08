@@ -25,15 +25,12 @@ export default function ComponentCard({ component }: ComponentCardProps) {
         )}
       </div>
 
-      <div className="flex flex-col p-6">
+      <div className="flex flex-col p-4">
         <div className="flex items-center justify-between gap-2">
-          <span className="text-2xl font-semibold text-neutral-900 transition-colors group-hover:text-[#f6821f] dark:text-white">
+          <span className="text-xl font-semibold text-neutral-900 transition-colors group-hover:text-[#f6821f] dark:text-white">
             {component.name}
           </span>
         </div>
-        <p className="mt-2 line-clamp-2 text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
-          {component.description}
-        </p>
       </div>
     </div>
   );
