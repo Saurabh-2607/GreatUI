@@ -44,7 +44,6 @@ When adding a new component to this codebase, follow these rules:
      {
        slug: "component-slug",
        name: "ComponentName",
-       category: "Buttons" | "Inputs" | "Navigation" | "Illustrations" | "Utilities",
        description: "A description of what the component does.",
        interactionType: "Details of animations or interactions.",
        dependencies: [], // e.g. ["motion"] for Framer Motion, or ["lucide"] for Lucide

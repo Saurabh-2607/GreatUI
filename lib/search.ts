@@ -75,10 +75,10 @@ export const getSearchIndex = (): SearchEntry[] => {
     title: c.name,
     description: c.description,
     url: `/components/${c.slug}`,
-    category: c.category,
+    category: "Components",
     keywords: [
       c.name.toLowerCase(),
-      c.category.toLowerCase(),
+      "components",
       c.interactionType.toLowerCase(),
       ...(c.dependencies || []),
       ...(c.props?.map((p) => p.name.toLowerCase()) || []),

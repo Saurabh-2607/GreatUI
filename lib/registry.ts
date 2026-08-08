@@ -5,13 +5,9 @@ export type Prop = {
   default?: string;
 };
 
-export type ComponentCategory =
-  "Buttons" | "Inputs" | "Navigation" | "Illustrations" | "Utilities";
-
 export type Component = {
   slug: string;
   name: string;
-  category: ComponentCategory;
   description: string;
   interactionType: string;
   dependencies: string[];
@@ -23,19 +19,10 @@ export type Component = {
   usageCode?: string;
 };
 
-export const categories: ComponentCategory[] = [
-  "Buttons",
-  "Inputs",
-  "Navigation",
-  "Illustrations",
-  "Utilities",
-];
-
 export const components: Component[] = [
   {
     slug: "accordion",
     name: "Accordion",
-    category: "Utilities",
     description:
       "An interactive Accordion component with smooth expand/collapse animations.",
     interactionType:
@@ -55,7 +42,6 @@ export const components: Component[] = [
   {
     slug: "button",
     name: "Button",
-    category: "Buttons",
     description:
       "A versatile button component supporting multiple variants, sizes, icons, and a loading state.",
     interactionType:
@@ -109,7 +95,6 @@ export const components: Component[] = [
   {
     slug: "mobile-mockup",
     name: "Mobile Mockup",
-    category: "Illustrations",
     description:
       "An interactive mobile device frame mockup with a realistic smartphone chassis, status bar, and WhatsApp mobile chat UI.",
     interactionType:
@@ -159,7 +144,6 @@ export const components: Component[] = [
   {
     slug: "macbook-mockup",
     name: "Macbook Mockup",
-    category: "Illustrations",
     description:
       "A realistic 3D Macbook Pro device frame mockup with aluminum casing, keyboard base, and dual-pane WhatsApp Web chat UI.",
     interactionType:
@@ -208,7 +192,6 @@ export const components: Component[] = [
   {
     slug: "deployment-checklist",
     name: "Deployment Checklist",
-    category: "Utilities",
     description:
       "An interactive CI/CD pipeline protocol checklist depicting git clone, install, build, and deploy stages with custom animated status icons.",
     interactionType:
@@ -228,7 +211,6 @@ export const components: Component[] = [
   {
     slug: "floating-menu",
     name: "Floating Menu",
-    category: "Navigation",
     description:
       "A floating, animated capsule menu that expands into a full-screen navigation overlay.",
     interactionType:
@@ -263,7 +245,6 @@ export const components: Component[] = [
   {
     slug: "vinyl-album-card",
     name: "Vinyl Album Card",
-    category: "Illustrations",
     description:
       "An interactive music album card with a spinning vinyl record that emerges from the cover sleeve upon hover.",
     interactionType:
@@ -308,7 +289,6 @@ export const components: Component[] = [
   {
     slug: "liquid-ripple-shader",
     name: "Liquid Ripple Shader",
-    category: "Navigation",
     description:
       "A fullscreen WebGL page transition that animates a fluid concentric ripple wave expanding from the center of the viewport during route changes.",
     interactionType:
@@ -353,7 +333,6 @@ export const components: Component[] = [
   {
     slug: "cyber-glitch-shader",
     name: "Cyber Glitch Shader",
-    category: "Navigation",
     description:
       "A fullscreen WebGL page transition that applies an RGB-split chromatic aberration glitch effect across the viewport during route changes.",
     interactionType:
@@ -398,7 +377,6 @@ export const components: Component[] = [
   {
     slug: "vortex-spiral-shader",
     name: "Vortex Spiral Shader",
-    category: "Navigation",
     description:
       "A fullscreen WebGL page transition that spins a rotating swirl vortex wipe across the viewport during route changes.",
     interactionType:
@@ -443,7 +421,6 @@ export const components: Component[] = [
   {
     slug: "liquid-dissolve-shader",
     name: "Liquid Dissolve Shader",
-    category: "Navigation",
     description:
       "A fullscreen WebGL page transition that melts the viewport away using organic fractal noise dissolve during route changes.",
     interactionType:
@@ -488,7 +465,6 @@ export const components: Component[] = [
   {
     slug: "animated-select",
     name: "Animated Select",
-    category: "Inputs",
     description:
       "A premium interactive dropdown component with dynamic spring-based menu expanding animations and sequenced staggering list items.",
     interactionType:
@@ -548,7 +524,6 @@ export const components: Component[] = [
   {
     slug: "animated-link",
     name: "Animated Link",
-    category: "Navigation",
     description:
       "An interactive link component supporting 13 premium hover variants including custom clipping masks, SVG sine waves, and text marquee animations.",
     interactionType:
@@ -584,7 +559,6 @@ export const components: Component[] = [
   {
     slug: "ascii-image",
     name: "ASCII Image",
-    category: "Illustrations",
     description:
       "A real-time hardware-accelerated WebGL shader component that proceduralizes any image into customizable density-based ASCII art with masking overlays.",
     interactionType:
@@ -640,7 +614,6 @@ export const components: Component[] = [
   {
     slug: "terminal-loader",
     name: "Terminal Loader",
-    category: "Utilities",
     description:
       "A retro, terminal-inspired monospace loading indicator that animates character blocks and trailing density particles in real-time.",
     interactionType:
@@ -709,7 +682,6 @@ export const components: Component[] = [
   {
     slug: "image-hover-reveal",
     name: "Image Hover Reveal",
-    category: "Illustrations",
     description:
       "A dual-image avatar surface implementing directional hover reveals and cursor coordinate tracking spring slices.",
     interactionType:
@@ -755,7 +727,6 @@ export const components: Component[] = [
   {
     slug: "minimal-buttons",
     name: "Minimal Buttons",
-    category: "Buttons",
     description:
       "A tactile, retro-modern button component featuring beveled top-border highlights, inner gradients, and inset shadow detailing.",
     interactionType:
@@ -793,7 +764,6 @@ export const components: Component[] = [
   {
     slug: "aceternity-button",
     name: "Aceternity Button",
-    category: "Buttons",
     description:
       "A soft, convex tactile button component featuring inner shadows, active scaling states, and smooth gradients for premium feedback.",
     interactionType:
@@ -836,7 +806,6 @@ export const components: Component[] = [
   {
     slug: "avatar-stack",
     name: "Avatar Stack",
-    category: "Illustrations",
     description:
       "A dynamic stack of overlapping user avatars featuring custom tooltip display variants that track hover directions or coordinates with spring dynamics.",
     interactionType:
@@ -885,7 +854,6 @@ export const components: Component[] = [
   {
     slug: "diagonal-marquee-carousel",
     name: "Diagonal Marquee Carousel",
-    category: "Illustrations",
     description:
       "A premium diagonally slanted, infinitely scrolling marquee showing cards or landscapes with offset speeds, alternating directions, and soft gradients.",
     interactionType:
@@ -938,7 +906,6 @@ export const components: Component[] = [
   {
     slug: "revision-timeline",
     name: "Revision Timeline",
-    category: "Utilities",
     description:
       "A premium interactive document revision history log timeline featuring Gaussian-weighted dial scale indicators, spring-based sliding position centering, and parsed markdown log lists.",
     interactionType:
@@ -1003,7 +970,6 @@ export const components: Component[] = [
   {
     slug: "frosted-glass-reveal",
     name: "Frosted Glass Reveal",
-    category: "Illustrations",
     description:
       "An interactive frosted glass image reveal effect that simulates realistic light refraction and tracks the user's cursor.",
     interactionType:
@@ -1042,7 +1008,6 @@ export const components: Component[] = [
   {
     slug: "card",
     name: "Card",
-    category: "Illustrations",
     description:
       "A card component that displays an image, a title, and a date, and highlights custom divider lines on hover.",
     interactionType: "Hover divider line scaling.",
@@ -1097,7 +1062,6 @@ export const components: Component[] = [
   {
     slug: "text-reveal",
     name: "Text Reveal",
-    category: "Illustrations",
     description:
       "A scroll-driven text mask reveal component that animates words and characters letter-by-letter as the viewport scrolls.",
     interactionType:
@@ -1159,7 +1123,6 @@ export const components: Component[] = [
   {
     slug: "github-card",
     name: "Github Card",
-    category: "Navigation",
     description:
       "A customizable hover link component that reveals a realistic 3D-tilted GitHub contributions calendar popup with interactive tooltips.",
     interactionType:
