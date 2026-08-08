@@ -21,6 +21,60 @@ function getInstallCommand(pm: PkgManager, url: string): string {
   }
 }
 
+const dependencyUrls: Record<string, string> = {
+  motion: "https://www.framer.com/motion/",
+  tailwind: "https://tailwindcss.com",
+  lucide: "https://lucide.dev",
+};
+
+const dependencyIcons: Record<string, React.ReactNode> = {
+  motion: (
+    <svg
+      width="24"
+      height="8.516006938968616"
+      viewBox="0 0 25.364 9"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      className="text-neutral-800 dark:text-neutral-200"
+    >
+      <path
+        d="M 9.587 0 L 4.57 9 L 0 9 L 3.917 1.972 C 4.524 0.883 6.039 0 7.301 0 Z M 20.794 2.25 C 20.794 1.007 21.817 0 23.079 0 C 24.341 0 25.364 1.007 25.364 2.25 C 25.364 3.493 24.341 4.5 23.079 4.5 C 21.817 4.5 20.794 3.493 20.794 2.25 Z M 10.443 0 L 15.013 0 L 9.997 9 L 5.427 9 Z M 15.841 0 L 20.411 0 L 16.494 7.028 C 15.887 8.117 14.372 9 13.11 9 L 10.825 9 Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  ),
+  tailwind: (
+    <svg
+      width="20"
+      height="12"
+      viewBox="0 0 34.4 20.6"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      className="text-sky-400"
+    >
+      <path
+        fill="currentColor"
+        d="M17.183 0C12.6 0 9.737 2.291 8.59 6.873c1.719-2.29 3.723-3.15 6.014-2.577 1.307.326 2.242 1.274 3.275 2.324 1.685 1.71 3.635 3.689 7.894 3.689 4.582 0 7.445-2.291 8.591-6.872-1.718 2.29-3.723 3.15-6.013 2.576-1.308-.326-2.243-1.274-3.276-2.324C23.39 1.98 21.44 0 17.183 0ZM8.59 10.309C4.01 10.309 1.145 12.6 0 17.182c1.718-2.291 3.723-3.15 6.013-2.577 1.308.326 2.243 1.274 3.276 2.324 1.685 1.71 3.635 3.689 7.894 3.689 4.582 0 7.445-2.29 8.59-6.872-1.718 2.29-3.722 3.15-6.013 2.577-1.307-.327-2.242-1.276-3.276-2.325-1.684-1.71-3.634-3.689-7.893-3.689Z"
+      />
+    </svg>
+  ),
+  tailwindcss: (
+    <svg
+      width="20"
+      height="12"
+      viewBox="0 0 34.4 20.6"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      className="text-sky-400"
+    >
+      <path
+        fill="currentColor"
+        d="M17.183 0C12.6 0 9.737 2.291 8.59 6.873c1.719-2.29 3.723-3.15 6.014-2.577 1.307.326 2.242 1.274 3.275 2.324 1.685 1.71 3.635 3.689 7.894 3.689 4.582 0 7.445-2.291 8.591-6.872-1.718 2.29-3.723 3.15-6.013 2.576-1.308-.326-2.243-1.274-3.276-2.324C23.39 1.98 21.44 0 17.183 0ZM8.59 10.309C4.01 10.309 1.145 12.6 0 17.182c1.718-2.291 3.723-3.15 6.013-2.577 1.308.326 2.243 1.274 3.276 2.324 1.685 1.71 3.635 3.689 7.894 3.689 4.582 0 7.445-2.29 8.59-6.872-1.718 2.29-3.722 3.15-6.013 2.577-1.307-.327-2.242-1.276-3.276-2.325-1.684-1.71-3.634-3.689-7.893-3.689Z"
+      />
+    </svg>
+  ),
+};
+
 export default function DocsPanel({ component }: { component: Component }) {
   const [copiedInstall, setCopiedInstall] = useState(false);
   const [copiedUsage, setCopiedUsage] = useState(false);
@@ -66,14 +120,23 @@ export default function DocsPanel({ component }: { component: Component }) {
             Dependencies
           </p>
           <div className="flex flex-wrap gap-2.5">
-            {component.dependencies.map((dep) => (
-              <span
-                key={dep}
-                className="inline-flex items-center rounded-xl border border-neutral-200 bg-neutral-100 px-4 py-2.5 font-mono text-lg font-medium text-neutral-800 dark:border-neutral-800 dark:bg-neutral-900/40 dark:text-neutral-200"
-              >
-                {dep}
-              </span>
-            ))}
+            {component.dependencies.map((dep) => {
+              const url =
+                dependencyUrls[dep.toLowerCase()] ||
+                `https://www.npmjs.com/package/${dep}`;
+              return (
+                <a
+                  key={dep}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 rounded-xl border border-neutral-200 bg-neutral-100 px-4 py-2.5 font-mono text-lg font-medium text-neutral-800 transition-all duration-200 hover:bg-neutral-200/50 hover:text-neutral-950 dark:border-neutral-800 dark:bg-neutral-900/40 dark:text-neutral-200 dark:hover:bg-neutral-800/50 dark:hover:text-white"
+                >
+                  {dependencyIcons[dep.toLowerCase()]}
+                  {dep}
+                </a>
+              );
+            })}
           </div>
           {component.dependencyNotes && (
             <p className="mt-3 text-xl leading-snug text-neutral-600 dark:text-neutral-400">
