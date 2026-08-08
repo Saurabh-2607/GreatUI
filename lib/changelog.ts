@@ -6,6 +6,13 @@ export type ChangelogItem = {
 
 export const changelogData: ChangelogItem[] = [
   {
+    date: "August 9, 2026",
+    description: "Added the premium Github Card component.",
+    features: [
+      "Added [Github Card](/components/github-card) component featuring 3D hover tilt, live contributions calendar fetching, and interactive tooltips.",
+    ],
+  },
+  {
     date: "August 4, 2026",
     description:
       "Added the premium Card and scroll-driven Text Reveal components.",
