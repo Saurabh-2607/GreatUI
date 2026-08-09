@@ -25,6 +25,8 @@ export const metadata: Metadata = {
 };
 
 export default function ComponentsPage() {
+  const sortedComponents = [...components].reverse();
+
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-white pb-16 text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-white">
       <BackgroundGrid />
@@ -52,7 +54,7 @@ export default function ComponentsPage() {
               </div>
             ) : (
               <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {components.map((c) => (
+                {sortedComponents.map((c) => (
                   <Link
                     href={`/components/${c.slug}`}
                     key={c.slug}
