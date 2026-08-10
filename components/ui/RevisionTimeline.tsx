@@ -582,7 +582,7 @@ export default function RevisionTimeline({
       });
     }
 
-    if (revisions.length > 0) {
+    if (orderedRevisions.length > 0) {
       const activeRevisionsMap = new Map<string, TimelineRevision>();
       let minTime = Infinity;
       let maxTime = -Infinity;
@@ -751,7 +751,7 @@ export default function RevisionTimeline({
             {/* Next Button */}
             <button
               onClick={handleNext}
-              disabled={activeIndexInRevisions === revisions.length - 1}
+              disabled={activeIndexInRevisions === orderedRevisions.length - 1}
               className="shrink-0 cursor-pointer rounded-lg border border-neutral-200 p-2 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-700 disabled:opacity-30 dark:border-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
               title="Next Day"
             >

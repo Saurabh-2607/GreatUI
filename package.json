@@ -24,10 +24,10 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "motion": "^12.42.2",
-    "next": "16.2.10",
+    "next": "^16.3.0",
     "posthog-js": "^1.404.1",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
@@ -36,7 +36,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.10",
+    "eslint-config-next": "^16.3.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.1.0",
     "prettier": "^3.9.5",
