@@ -252,7 +252,7 @@ export function SearchCommand() {
             }
             className="relative z-10 w-full px-0 sm:max-w-2xl sm:px-4"
           >
-            <div className="relative overflow-hidden rounded-t-3xl rounded-b-none bg-neutral-100/70 p-3 shadow-2xl sm:rounded-3xl sm:p-3.5 dark:bg-neutral-900">
+            <div className="relative overflow-hidden rounded-t-3xl rounded-b-none bg-neutral-100/70 px-3 pt-3 pb-0 shadow-2xl sm:rounded-3xl sm:p-3.5 dark:bg-neutral-900">
               <div
                 className="pointer-events-none absolute inset-0 opacity-[0.12] dark:opacity-[0.08]"
                 style={{
@@ -269,7 +269,7 @@ export function SearchCommand() {
               />
 
               <Command
-                className="relative z-10 flex h-full w-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-colors dark:bg-neutral-950"
+                className="relative z-10 flex h-full w-full flex-col overflow-hidden rounded-t-2xl rounded-b-none bg-white shadow-sm transition-colors sm:rounded-2xl dark:bg-neutral-950"
                 label="Global Search"
                 filter={customFilter}
               >

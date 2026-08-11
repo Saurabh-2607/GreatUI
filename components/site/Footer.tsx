@@ -106,7 +106,6 @@ export function Footer() {
       <Container className="relative px-4 pt-16 pb-24 sm:px-6 sm:pb-32 md:pb-40 lg:pb-56">
         <div className="relative z-10 text-center select-none">
           <div className="flex flex-col items-center justify-center gap-y-3 md:gap-y-4">
-            {/* Row 1: Components and Changelog */}
             <div className="flex items-center gap-x-6 text-lg font-medium text-neutral-900 sm:text-xl dark:text-white">
               <Link
                 href="/components"
@@ -122,16 +121,13 @@ export function Footer() {
               </Link>
             </div>
 
-            {/* Row 2 on md: Copyright Text & Other Links */}
             <div className="flex flex-col items-center gap-y-2 md:flex-row md:gap-x-6">
-              {/* Copyright Text */}
               <div className="text-base text-neutral-500 dark:text-neutral-400">
                 © {new Date().getFullYear()} Great{" "}
                 <span className="text-[#f6821f]">UI</span>. Built for developers
                 with taste.
               </div>
 
-              {/* Other Links */}
               <div className="flex items-center gap-x-4 text-sm text-neutral-400 sm:text-base dark:text-neutral-500">
                 <Link
                   href="/logo"
