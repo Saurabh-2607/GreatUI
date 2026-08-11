@@ -203,8 +203,8 @@ export default function Contact() {
             title="@GreatUIHQ"
             description="DMs are best for quick questions and early ideas."
             mockup={
-              <div className="flex h-full w-full flex-col bg-[#050505] text-left font-sans text-xs select-none">
-                <div className="relative flex h-24 w-full shrink-0 items-center justify-center overflow-hidden bg-neutral-950">
+              <div className="flex h-full w-full flex-col bg-white text-left font-sans text-xs select-none dark:bg-[#050505]">
+                <div className="relative flex h-24 w-full shrink-0 items-center justify-center overflow-hidden bg-neutral-100 dark:bg-neutral-950">
                   <img
                     src="https://ik.imagekit.io/ybq4azred/banner.png"
                     alt="Great UI Banner"
@@ -216,11 +216,11 @@ export default function Contact() {
                   <img
                     src="https://ik.imagekit.io/ybq4azred/Great-UI.png"
                     alt="Great UI Avatar"
-                    className="absolute -top-10 left-4 h-20 w-20 rounded-full border-4 border-[#050505] bg-[#050505] object-cover shadow transition-transform duration-300 group-hover:scale-[1.02]"
+                    className="absolute -top-10 left-4 h-20 w-20 rounded-full border-4 border-white bg-white object-cover shadow transition-transform duration-300 group-hover:scale-[1.02] dark:border-[#050505] dark:bg-[#050505]"
                   />
 
                   <div className="space-y-0">
-                    <div className="h-1h text-base leading-5 font-bold tracking-tight text-white sm:text-lg">
+                    <div className="h-1h text-base leading-5 font-bold tracking-tight text-neutral-900 sm:text-lg dark:text-white">
                       Great UI
                     </div>
                     <div className="h-1h text-xs text-neutral-500">

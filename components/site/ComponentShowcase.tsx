@@ -322,7 +322,7 @@ export function ComponentShowcase() {
                   transition={{ duration: 0.25, ease: "easeInOut" }}
                   className="pointer-events-auto flex h-full w-full items-center justify-center"
                 >
-                  <div className="w-full overflow-hidden rounded-2xl border border-neutral-200/30 bg-neutral-50 shadow-2xl dark:border-neutral-800/50 dark:bg-neutral-950/80">
+                  <div className="w-full overflow-hidden rounded-2xl border border-neutral-200/30 bg-neutral-50 dark:border-neutral-800/50 dark:bg-neutral-950/80">
                     <video
                       src={activeTab.videoLink}
                       autoPlay
