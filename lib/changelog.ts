@@ -5,6 +5,12 @@ export type ChangelogItem = {
 
 export const changelogData: ChangelogItem[] = [
   {
+    date: "August 12, 2026",
+    features: [
+      "Overhaul of the styling and overall aesthetics of great-ui.com",
+    ],
+  },
+  {
     date: "August 9, 2026",
     features: [
       "Added [Team Section](/components/team-section) component featuring layout reveals, grayscale-to-color hovers, and a floating preview layout.",
