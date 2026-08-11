@@ -14,7 +14,7 @@ export type Component = {
   dependencyNotes?: string;
   props: Prop[];
   previewFile?: string;
-  previewImage?: string;
+  preview?: string;
   code?: string;
   usageCode?: string;
 };
@@ -22,6 +22,7 @@ export type Component = {
 export const components: Component[] = [
   {
     slug: "accordion",
+    preview: "https://ik.imagekit.io/greatui/accordian.mp4",
     name: "Accordion",
     description:
       "An interactive Accordion component with smooth expand/collapse animations.",
@@ -29,7 +30,6 @@ export const components: Component[] = [
       "Accordion toggle with height animation and chevron rotation on click.",
     dependencies: ["motion"],
     previewFile: "AccordionPreview",
-    previewImage: "/previews/accordion.png",
     props: [
       {
         name: "items",
@@ -41,6 +41,7 @@ export const components: Component[] = [
   },
   {
     slug: "button",
+    preview: "https://ik.imagekit.io/greatui/button.mp4",
     name: "Button",
     description:
       "A versatile button component supporting multiple variants, sizes, icons, and a loading state.",
@@ -48,7 +49,6 @@ export const components: Component[] = [
       "Clickable element with hover, active, focus, and loading states.",
     dependencies: [],
     previewFile: "ButtonPreview",
-    previewImage: "/previews/button.png",
     props: [
       {
         name: "variant",
@@ -94,6 +94,7 @@ export const components: Component[] = [
   },
   {
     slug: "mobile-mockup",
+    preview: "https://ik.imagekit.io/greatui/mobileMockup.mp4",
     name: "Mobile Mockup",
     description:
       "An interactive mobile device frame mockup with a realistic smartphone chassis, status bar, and WhatsApp mobile chat UI.",
@@ -101,7 +102,6 @@ export const components: Component[] = [
       "Animated message stream, interactive audio notes, and responsive dark/light mode device chassis.",
     dependencies: ["motion"],
     previewFile: "MobileMockupPreview",
-    previewImage: "/previews/MobileMockupPreview.png",
     props: [
       {
         name: "headerTitle",
@@ -143,6 +143,7 @@ export const components: Component[] = [
   },
   {
     slug: "macbook-mockup",
+    preview: "https://ik.imagekit.io/greatui/macbookMockup.mp4",
     name: "Macbook Mockup",
     description:
       "A realistic 3D Macbook Pro device frame mockup with aluminum casing, keyboard base, and dual-pane WhatsApp Web chat UI.",
@@ -150,7 +151,6 @@ export const components: Component[] = [
       "Interactive dual-pane sidebar & chat stream, voice notes, and desktop laptop frame animations.",
     dependencies: ["motion"],
     previewFile: "MacbookMockupPreview",
-    previewImage: "/previews/MacbookMockupPreview.png",
     props: [
       {
         name: "headerTitle",
@@ -191,6 +191,7 @@ export const components: Component[] = [
   },
   {
     slug: "deployment-checklist",
+    preview: "https://ik.imagekit.io/greatui/deploymentchecklist.mp4",
     name: "Deployment Checklist",
     description:
       "An interactive CI/CD pipeline protocol checklist depicting git clone, install, build, and deploy stages with custom animated status icons.",
@@ -198,7 +199,6 @@ export const components: Component[] = [
       "Sequentially executable checklist with running spin state, skipped items, error logs, and detailed step drawer toggling.",
     dependencies: ["motion"],
     previewFile: "DeploymentChecklistPreview",
-    previewImage: "/previews/DeploymentChecklistPreview.png",
     props: [
       {
         name: "initialTasks",
@@ -210,6 +210,7 @@ export const components: Component[] = [
   },
   {
     slug: "floating-menu",
+    preview: "https://ik.imagekit.io/greatui/floatingmenu.mp4",
     name: "Floating Menu",
     description:
       "A floating, animated capsule menu that expands into a full-screen navigation overlay.",
@@ -217,7 +218,6 @@ export const components: Component[] = [
       "Click to expand capsule into a full menu with staggered link animations.",
     dependencies: ["motion"],
     previewFile: "FloatingMenuPreview",
-    previewImage: "/previews/floating-menu.png",
     props: [
       {
         name: "title",
@@ -244,6 +244,7 @@ export const components: Component[] = [
   },
   {
     slug: "vinyl-album-card",
+    preview: "https://ik.imagekit.io/greatui/vinyl.mp4",
     name: "Vinyl Album Card",
     description:
       "An interactive music album card with a spinning vinyl record that emerges from the cover sleeve upon hover.",
@@ -251,7 +252,6 @@ export const components: Component[] = [
       "Hover-triggered card sleeve scale, tilt rotations, record sliding offset, and vinyl spin animations.",
     dependencies: ["motion"],
     previewFile: "VinylAlbumCardPreview",
-    previewImage: "/previews/VinylAlbumCardPreview.png",
     props: [
       {
         name: "title",
@@ -288,6 +288,7 @@ export const components: Component[] = [
   },
   {
     slug: "liquid-ripple-shader",
+    preview: "https://ik.imagekit.io/greatui/liquidRiple.mp4",
     name: "Liquid Ripple Shader",
     description:
       "A fullscreen WebGL page transition that animates a fluid concentric ripple wave expanding from the center of the viewport during route changes.",
@@ -295,7 +296,6 @@ export const components: Component[] = [
       "Full viewport canvas shader render triggered on navigation with configurable duration and chromatic aberration.",
     dependencies: [],
     previewFile: "LiquidRippleShaderPreview",
-    previewImage: "/previews/LiquidRippleShaderPreview.png",
     props: [
       {
         name: "trigger",
@@ -332,6 +332,7 @@ export const components: Component[] = [
   },
   {
     slug: "cyber-glitch-shader",
+    preview: "https://ik.imagekit.io/greatui/cyberglitch.mp4",
     name: "Cyber Glitch Shader",
     description:
       "A fullscreen WebGL page transition that applies an RGB-split chromatic aberration glitch effect across the viewport during route changes.",
@@ -339,7 +340,6 @@ export const components: Component[] = [
       "Full viewport canvas shader render triggered on navigation with configurable duration and chromatic aberration.",
     dependencies: [],
     previewFile: "CyberGlitchShaderPreview",
-    previewImage: "/previews/CyberGlitchShaderPreview.png",
     props: [
       {
         name: "trigger",
@@ -376,6 +376,7 @@ export const components: Component[] = [
   },
   {
     slug: "vortex-spiral-shader",
+    preview: "https://ik.imagekit.io/greatui/swirl.mp4",
     name: "Vortex Spiral Shader",
     description:
       "A fullscreen WebGL page transition that spins a rotating swirl vortex wipe across the viewport during route changes.",
@@ -383,7 +384,6 @@ export const components: Component[] = [
       "Full viewport canvas shader render triggered on navigation with configurable duration and chromatic aberration.",
     dependencies: [],
     previewFile: "VortexSpiralShaderPreview",
-    previewImage: "/previews/PageTransitionShaderPreview.png",
     props: [
       {
         name: "trigger",
@@ -420,6 +420,7 @@ export const components: Component[] = [
   },
   {
     slug: "liquid-dissolve-shader",
+    preview: "https://ik.imagekit.io/greatui/liquidDisolve.mp4",
     name: "Liquid Dissolve Shader",
     description:
       "A fullscreen WebGL page transition that melts the viewport away using organic fractal noise dissolve during route changes.",
@@ -427,7 +428,6 @@ export const components: Component[] = [
       "Full viewport canvas shader render triggered on navigation with configurable duration and chromatic aberration.",
     dependencies: [],
     previewFile: "LiquidDissolveShaderPreview",
-    previewImage: "/previews/LiquidDissolveShaderPreview.png",
     props: [
       {
         name: "trigger",
@@ -464,6 +464,7 @@ export const components: Component[] = [
   },
   {
     slug: "animated-select",
+    preview: "https://ik.imagekit.io/greatui/dropdown.mp4",
     name: "Animated Select",
     description:
       "A premium interactive dropdown component with dynamic spring-based menu expanding animations and sequenced staggering list items.",
@@ -471,7 +472,6 @@ export const components: Component[] = [
       "Hover and click active states, chevron micro-rotation, stagger item animations, and responsive layout.",
     dependencies: ["motion"],
     previewFile: "AnimatedSelectPreview",
-    previewImage: "/previews/AnimatedSelectPreview.png",
     props: [
       {
         name: "placeholder",
@@ -523,6 +523,7 @@ export const components: Component[] = [
   },
   {
     slug: "animated-link",
+    preview: "https://ik.imagekit.io/greatui/links.mp4",
     name: "Animated Link",
     description:
       "An interactive link component supporting 13 premium hover variants including custom clipping masks, SVG sine waves, and text marquee animations.",
@@ -530,7 +531,6 @@ export const components: Component[] = [
       "Hover text fill, SVG loops, marquee transition, doodle draw underline, overline, and dash arrow reveals.",
     dependencies: ["motion"],
     previewFile: "AnimatedLinkPreview",
-    previewImage: "/previews/AnimatedLinkPreview.png",
     props: [
       {
         name: "href",
@@ -558,6 +558,7 @@ export const components: Component[] = [
   },
   {
     slug: "ascii-image",
+    preview: "/previews/AsciiImagePreview.png",
     name: "ASCII Image",
     description:
       "A real-time hardware-accelerated WebGL shader component that proceduralizes any image into customizable density-based ASCII art with masking overlays.",
@@ -565,7 +566,6 @@ export const components: Component[] = [
       "WebGL fragment shader rendering, linear alpha gradient overlay masking, and content container placement.",
     dependencies: [],
     previewFile: "AsciiImagePreview",
-    previewImage: "/previews/AsciiImagePreview.png",
     props: [
       {
         name: "src",
@@ -613,6 +613,7 @@ export const components: Component[] = [
   },
   {
     slug: "terminal-loader",
+    preview: "https://ik.imagekit.io/greatui/terminalLoader.mp4",
     name: "Terminal Loader",
     description:
       "A retro, terminal-inspired monospace loading indicator that animates character blocks and trailing density particles in real-time.",
@@ -620,7 +621,6 @@ export const components: Component[] = [
       "Continuous procedural loop animation with customizable speed, matrix dimensions, character glyph trails, and colors.",
     dependencies: [],
     previewFile: "TerminalLoaderPreview",
-    previewImage: "/previews/TerminalLoaderPreview.png",
     props: [
       {
         name: "rows",
@@ -681,6 +681,7 @@ export const components: Component[] = [
   },
   {
     slug: "image-hover-reveal",
+    preview: "https://ik.imagekit.io/greatui/avatarhover.mp4",
     name: "Image Hover Reveal",
     description:
       "A dual-image avatar surface implementing directional hover reveals and cursor coordinate tracking spring slices.",
@@ -688,7 +689,6 @@ export const components: Component[] = [
       "Hover entry angle detection, coordinate tracking springs, clip path interpolation, and dual state cross-fade reveals.",
     dependencies: ["motion"],
     previewFile: "ImageHoverRevealPreview",
-    previewImage: "/previews/ImageHoverRevealPreview.png",
     props: [
       {
         name: "src",
@@ -726,6 +726,7 @@ export const components: Component[] = [
   },
   {
     slug: "minimal-buttons",
+    preview: "https://ik.imagekit.io/greatui/shadowButton.mp4",
     name: "Minimal Buttons",
     description:
       "A tactile, retro-modern button component featuring beveled top-border highlights, inner gradients, and inset shadow detailing.",
@@ -733,7 +734,6 @@ export const components: Component[] = [
       "Press animation and smooth theme-aligned tactile hover state shifts.",
     dependencies: [],
     previewFile: "MinimalButtonsPreview",
-    previewImage: "/previews/MinimalButtonsPreview.png",
     props: [
       {
         name: "href",
@@ -763,6 +763,7 @@ export const components: Component[] = [
   },
   {
     slug: "aceternity-button",
+    preview: "https://ik.imagekit.io/greatui/aceternitybutton.mp4",
     name: "Aceternity Button",
     description:
       "A soft, convex tactile button component featuring inner shadows, active scaling states, and smooth gradients for premium feedback.",
@@ -770,7 +771,6 @@ export const components: Component[] = [
       "Hover offset transitions, inset shadow focus states, and press-down scale animations.",
     dependencies: [],
     previewFile: "AceternityButtonPreview",
-    previewImage: "/previews/AceternityButtonPreview.png",
     props: [
       {
         name: "href",
@@ -805,6 +805,7 @@ export const components: Component[] = [
   },
   {
     slug: "avatar-stack",
+    preview: "https://ik.imagekit.io/greatui/avatarstack.mp4",
     name: "Avatar Stack",
     description:
       "A dynamic stack of overlapping user avatars featuring custom tooltip display variants that track hover directions or coordinates with spring dynamics.",
@@ -812,7 +813,6 @@ export const components: Component[] = [
       "Hover animations: spring-tilt (follows coordinate movements), spring-box (tilts the box container), and slide-blur (directional blur reveal).",
     dependencies: ["motion"],
     previewFile: "AvatarStackPreview",
-    previewImage: "/previews/AvatarStackPreview.png",
     props: [
       {
         name: "users",
@@ -853,6 +853,7 @@ export const components: Component[] = [
   },
   {
     slug: "diagonal-marquee-carousel",
+    preview: "https://ik.imagekit.io/greatui/marquee.mp4",
     name: "Diagonal Marquee Carousel",
     description:
       "A premium diagonally slanted, infinitely scrolling marquee showing cards or landscapes with offset speeds, alternating directions, and soft gradients.",
@@ -860,7 +861,6 @@ export const components: Component[] = [
       "Infinite linear scroll with custom angles, layout parameters, and card-zoom states.",
     dependencies: ["motion"],
     previewFile: "DiagonalMarqueeCarouselPreview",
-    previewImage: "/previews/DiagonalMarqueeCarouselPreview.png",
     props: [
       {
         name: "cards",
@@ -905,6 +905,7 @@ export const components: Component[] = [
   },
   {
     slug: "revision-timeline",
+    preview: "https://ik.imagekit.io/greatui/timeline.mp4",
     name: "Revision Timeline",
     description:
       "A premium interactive document revision history log timeline featuring Gaussian-weighted dial scale indicators, spring-based sliding position centering, and parsed markdown log lists.",
@@ -912,7 +913,6 @@ export const components: Component[] = [
       "Gaussian scaling sliders, date hover indicators, paging click navigation, and markdown syntax parsers.",
     dependencies: ["motion"],
     previewFile: "RevisionTimelinePreview",
-    previewImage: "/previews/RevisionTimelinePreview.png",
     props: [
       {
         name: "revisions",
@@ -969,6 +969,7 @@ export const components: Component[] = [
   },
   {
     slug: "frosted-glass-reveal",
+    preview: "https://ik.imagekit.io/greatui/frostedglass.mp4",
     name: "Frosted Glass Reveal",
     description:
       "An interactive frosted glass image reveal effect that simulates realistic light refraction and tracks the user's cursor.",
@@ -976,7 +977,6 @@ export const components: Component[] = [
       "Hover entry detection, cursor coordinate spring tracking, SVG fractal noise displacement filter, and masked reveal lens.",
     dependencies: ["motion"],
     previewFile: "FrostedGlassRevealPreview",
-    previewImage: "/previews/FrostedGlassRevealPreview.png",
     props: [
       {
         name: "imageUrl",
@@ -1007,13 +1007,13 @@ export const components: Component[] = [
   },
   {
     slug: "card",
+    preview: "https://ik.imagekit.io/greatui/card.mp4",
     name: "Card",
     description:
       "A card component that displays an image, a title, and a date, and highlights custom divider lines on hover.",
     interactionType: "Hover divider line scaling.",
     dependencies: ["motion"],
     previewFile: "CardPreview",
-    previewImage: "/previews/CardPreview.png",
     props: [
       {
         name: "title",
@@ -1061,6 +1061,7 @@ export const components: Component[] = [
   },
   {
     slug: "text-reveal",
+    preview: "https://ik.imagekit.io/greatui/textscroll.mp4",
     name: "Text Reveal",
     description:
       "A scroll-driven text mask reveal component that animates words and characters letter-by-letter as the viewport scrolls.",
@@ -1068,7 +1069,6 @@ export const components: Component[] = [
       "Scroll-driven character color shifts, character blur transitions, and watermark opacity fades.",
     dependencies: ["motion"],
     previewFile: "TextRevealPreview",
-    previewImage: "/previews/TextRevealPreview.png",
     props: [
       {
         name: "paragraphs",
@@ -1122,6 +1122,7 @@ export const components: Component[] = [
   },
   {
     slug: "github-card",
+    preview: "/previews/GithubCardPreview.png",
     name: "Github Card",
     description:
       "A customizable hover link component that reveals a realistic 3D-tilted GitHub contributions calendar popup with interactive tooltips.",
@@ -1131,7 +1132,6 @@ export const components: Component[] = [
     dependencyNotes:
       "This component uses a 3rd party API (https://github-contributions-api.jogruber.de) to fetch public contributions. You can also configure it to use the official GitHub REST API by providing a GitHub Personal Access Token.",
     previewFile: "GithubCardPreview",
-    previewImage: "/previews/GithubCardPreview.png",
     props: [
       {
         name: "username",
@@ -1221,6 +1221,7 @@ export const components: Component[] = [
   },
   {
     slug: "team-section",
+    preview: "https://ik.imagekit.io/greatui/teamSection.mp4",
     name: "Team Section",
     description:
       "A premium interactive team listing component featuring custom layout reveals, grayscale-to-color hover effects, and responsive layout.",
@@ -1228,7 +1229,6 @@ export const components: Component[] = [
       "Hover-triggered grayscale-to-color active states, slide-in designations, and absolute floating team member image preview.",
     dependencies: ["motion"],
     previewFile: "TeamSectionPreview",
-    previewImage: "/previews/TeamSectionPreview.png",
     props: [
       {
         name: "speakers",

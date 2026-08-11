@@ -8,33 +8,45 @@ import { SectionIcon } from "./Icons";
 
 export function Hero() {
   return (
-    <Container className="py-12">
-      <div className="flex min-h-[50vh] flex-col items-center justify-center text-center">
-        <h1 className="animate-fade-in max-w-4xl text-4xl leading-[0.9] font-semibold tracking-tight text-balance text-neutral-950 sm:text-5xl md:text-6xl dark:text-white">
-          Craft Premium React Interfaces with Absolute Speed
-        </h1>
-        <p className="leading-tighter mt-4 max-w-[60%] text-lg tracking-normal text-pretty text-neutral-600 sm:text-xl md:text-2xl dark:text-neutral-400">
-          Beautiful, accessible, and high-performance React components built
-          with Tailwind CSS. Copy, paste, and build premium interfaces
-          instantly.
-        </p>
+    <div className="relative mx-auto max-w-[1360px]">
+      <Container className="max-w-[1360px] bg-white px-4 pt-28 pb-12 sm:px-6 dark:bg-neutral-950">
+        <div className="flex flex-col gap-8 py-4 text-left md:flex-row md:items-end md:justify-between">
+          <div className="max-w-3xl">
+            <h1 className="animate-fade-in text-4xl leading-[1.05] font-semibold tracking-tight text-neutral-950 sm:text-5xl dark:text-white">
+              Build Premium React Interfaces
+            </h1>
+            <p className="mt-2.5 max-w-2xl text-base text-neutral-600 sm:text-lg dark:text-neutral-400">
+              Beautiful, accessible, and high-performance Tailwind CSS
+              components designed to build stunning web applications instantly.
+            </p>
+          </div>
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <Link
-            href="/components"
-            onClick={() => posthog.capture("components_catalogue_opened")}
-          >
-            <Button
-              variant="primary"
-              size="md"
-              leftIcon={<SectionIcon className="h-4 w-4" />}
+          <div className="flex shrink-0 items-center justify-start md:justify-end">
+            <Link
+              href="/components"
+              onClick={() => posthog.capture("components_catalogue_opened")}
             >
-              Browse Components
-            </Button>
-          </Link>
+              <Button
+                variant="primary"
+                size="md"
+                leftIcon={<SectionIcon className="h-4 w-4" />}
+              >
+                Browse Components
+              </Button>
+            </Link>
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+      <div
+        className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-px select-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, var(--color-border-100) 50%, transparent 50%)",
+          backgroundSize: "32px 1px",
+          backgroundRepeat: "repeat-x",
+        }}
+      />
+    </div>
   );
 }
 

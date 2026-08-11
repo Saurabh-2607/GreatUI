@@ -44,7 +44,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-transparent transition-colors">
-      <Container className="py-3">
+      <Container className="max-w-[1360px] bg-white px-4 py-3 sm:px-6 dark:bg-neutral-950">
         <div className="flex w-full items-center justify-between">
           <Link
             href="/"
@@ -60,7 +60,6 @@ export function Navbar() {
             </span>
           </Link>
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Search Trigger Button */}
             <button
               onClick={() => {
                 window.dispatchEvent(new CustomEvent("open-search-menu"));
@@ -151,16 +150,16 @@ export function Navbar() {
             <ThemeToggle className="dark:!hover:text-white !h-10 !w-10 !rounded-xl !border-0 !bg-neutral-100 !text-neutral-700 shadow-xs hover:!bg-neutral-200 hover:!text-neutral-950 dark:!border-0 dark:!bg-neutral-900 dark:!text-neutral-300 dark:hover:!bg-neutral-800 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-neutral-700 dark:[&>svg]:text-neutral-300" />
           </div>
         </div>
+        <div
+          className="pointer-events-none absolute -right-4 -bottom-4 -left-4 z-20 h-px select-none sm:-right-6 sm:-left-6"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, var(--color-border-100) 50%, transparent 50%)",
+            backgroundSize: "32px 1px",
+            backgroundRepeat: "repeat-x",
+          }}
+        />
       </Container>
-      <div
-        className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-px select-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, var(--color-border-100) 50%, transparent 50%)",
-          backgroundSize: "32px 1px",
-          backgroundRepeat: "repeat-x",
-        }}
-      />
     </header>
   );
 }

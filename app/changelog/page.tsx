@@ -16,7 +16,7 @@ export default function ChangelogPage() {
       <BackgroundGrid />
       <Navbar />
 
-      <Container>
+      <Container className="bg-white px-4 sm:px-6 dark:bg-neutral-950">
         <main className="relative mx-auto max-w-5xl py-24 md:py-32">
           <div className="mb-20">
             <h1 className="mb-4 text-4xl font-black tracking-tight text-neutral-900 sm:text-6xl dark:text-white">
