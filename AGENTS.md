@@ -10,7 +10,8 @@ This version has breaking changes — APIs, conventions, and file structure may 
 When adding a new component to this codebase, follow these rules:
 
 1. **Component File**:
-   - Save the component file under `components/ui/[ComponentName].tsx`.
+   - Save UI library components under `components/ui/[ComponentName].tsx`.
+   - Save site-specific components (e.g., used only for the landing page/website) under `components/site/[ComponentName].tsx`.
    - Ensure the component utilizes the `cn` utility from `lib/utils.ts` for class merging and styling.
    - always use "motion/react" never use "framer-motion"
    - Remove any incorrect, placeholder, or temporary comments.

@@ -231,17 +231,15 @@ export function ComponentShowcase() {
                 const isActive = idx === activeTabIdx;
                 return (
                   <React.Fragment key={tab.id}>
-                    {idx > 0 && (
-                      <div
-                        className="w-px shrink-0 self-stretch select-none"
-                        style={{
-                          backgroundImage:
-                            "linear-gradient(to bottom, var(--color-border-100) 50%, transparent 50%)",
-                          backgroundSize: "1px 16px",
-                          backgroundRepeat: "repeat-y",
-                        }}
-                      />
-                    )}
+                    <div
+                      className="w-px shrink-0 self-stretch select-none"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(to bottom, var(--color-border-100) 50%, transparent 50%)",
+                        backgroundSize: "1px 16px",
+                        backgroundRepeat: "repeat-y",
+                      }}
+                    />
                     <button
                       onClick={() => handleTabClick(idx)}
                       className={cn(
@@ -279,6 +277,17 @@ export function ComponentShowcase() {
                         </>
                       )}
                     </button>
+                    {idx === SHOWCASE_ITEMS.length - 1 && (
+                      <div
+                        className="w-px shrink-0 self-stretch select-none"
+                        style={{
+                          backgroundImage:
+                            "linear-gradient(to bottom, var(--color-border-100) 50%, transparent 50%)",
+                          backgroundSize: "1px 16px",
+                          backgroundRepeat: "repeat-y",
+                        }}
+                      />
+                    )}
                   </React.Fragment>
                 );
               })}
