@@ -89,7 +89,7 @@ export default function ComponentCard({ component }: ComponentCardProps) {
               <img
                 src={component.preview}
                 alt={component.name}
-                className="relative z-10 h-full w-full object-cover"
+                className="relative z-10 h-full w-full scale-120 object-cover"
               />
             )}
           </motion.div>
@@ -102,22 +102,21 @@ export default function ComponentCard({ component }: ComponentCardProps) {
         )}
       </motion.div>
 
-      <div className="flex flex-col p-3">
+      <div className="flex flex-col px-4 pt-3 pb-2">
         <div className="flex items-center justify-between gap-2">
           <span className="text-base font-semibold tracking-tight text-neutral-900 dark:text-white">
             {component.name}
           </span>
           <svg
-            className="h-4 w-4 text-neutral-400 transition-all duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#f6821f] dark:text-neutral-600"
+            className="h-4 w-4 text-neutral-400 transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:text-[#f6821f] dark:text-neutral-600"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2.5"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           >
-            <line x1="7" y1="17" x2="17" y2="7" />
-            <polyline points="7 7 17 7 17 17" />
+            <polyline points="9 18 15 12 9 6" />
           </svg>
         </div>
       </div>
