@@ -11,13 +11,12 @@ export type ContainerProps = React.HTMLAttributes<HTMLDivElement> & {
 
 export function Container({ children, className, ...props }: ContainerProps) {
   const containerClasses = cn(
-    "relative w-full max-w-[1280px] mx-auto px-4 bg-white dark:bg-neutral-950 sm:px-6",
+    "relative mx-auto w-[calc(100%-2rem)] max-w-[1280px] sm:w-[calc(100%-3rem)] md:w-[calc(100%-4rem)] lg:w-[calc(100%-6rem)] xl:w-full",
     className,
   );
 
   return (
     <div className={containerClasses} {...props}>
-      {/* Left Dashed Border */}
       <div
         className="pointer-events-none absolute top-0 bottom-0 left-0 w-px select-none"
         style={{
@@ -27,7 +26,6 @@ export function Container({ children, className, ...props }: ContainerProps) {
           backgroundRepeat: "repeat-y",
         }}
       />
-      {/* Right Dashed Border */}
       <div
         className="pointer-events-none absolute top-0 right-0 bottom-0 w-px select-none"
         style={{

@@ -357,3 +357,209 @@ export function MaximizeIcon(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+// Solid Sun Icon
+export function SunIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM6.161 5.1a.75.75 0 0 1 1.06 0l1.591 1.592a.75.75 0 1 1-1.06 1.061L6.161 6.16a.75.75 0 0 1 0-1.06Zm11.678 0a.75.75 0 0 1 0 1.06l-1.591 1.592a.75.75 0 1 1-1.061-1.061L16.778 5.1a.75.75 0 0 1 1.06 0ZM12.75 18.75a.75.75 0 0 1-.75.75V21a.75.75 0 0 1-1.5 0v-2.25a.75.75 0 0 1 1.5 0ZM6.161 17.839a.75.75 0 0 1 0 1.061l-1.591 1.591a.75.75 0 1 1-1.061-1.06l1.591-1.592a.75.75 0 0 1 1.06 0Zm11.678 0a.75.75 0 0 1 1.06 0l1.591 1.592a.75.75 0 1 1-1.061 1.06l-1.59-1.591a.75.75 0 0 1 0-1.061ZM3 12.75a.75.75 0 0 1-.75-.75H2.25a.75.75 0 0 1 0-1.5h2.25a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75.75Zm18 0a.75.75 0 0 1-.75-.75H18a.75.75 0 0 1 0-1.5h2.25a.75.75 0 0 1 0 1.5H21ZM12 8.25a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Z" />
+    </svg>
+  );
+}
+
+// Solid Moon Icon
+export function MoonIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 1 1-12.916-12.915.75.75 0 0 1 .818.162Z"
+      />
+    </svg>
+  );
+}
+
+// Solid Duplicate Icon
+export function DuplicateIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path d="M7.5 3.375c0-1.04.84-1.875 1.875-1.875h.375a3.75 3.75 0 0 1 3.75 3.75v1.875h1.875a3.75 3.75 0 0 1 3.75 3.75v6.75a3.375 3.375 0 0 1-3.375 3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9A1.125 1.125 0 0 1 7.875 12V3.375Z" />
+      <path d="M6 10.5h1.875a1.875 1.875 0 0 1 1.875 1.875v6.75A1.875 1.875 0 0 1 7.875 21H3.375A1.875 1.875 0 0 1 1.5 19.125V15A4.5 4.5 0 0 1 6 10.5Z" />
+    </svg>
+  );
+}
+
+// Solid Cube Icon
+export function CubeIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path d="M12.378 1.602a.75.75 0 0 0-.756 0L3 6.632l9 5.25 9-5.25-8.622-5.03ZM21.75 7.93l-9 5.25v9l8.628-5.032a.75.75 0 0 0 .372-.65V7.93ZM11.25 22.18v-9l-9-5.25v8.138a.75.75 0 0 0 .372.65l8.628 5.032Z" />
+    </svg>
+  );
+}
+
+// Solid Laptop Icon
+export function LaptopIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        d="M2.25 5.25a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3V15a3 3 0 0 1-3 3h-3v.257c0 .597.237 1.17.659 1.591l.621.622a.75.75 0 0 1-.53 1.28h-9a.75.75 0 0 1-.53-1.28l.622-.622a2.25 2.25 0 0 0 .659-1.59V18h-3a3 3 0 0 1-3-3V5.25zm1.5 0v9.75a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V5.25a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
+// Solid Phone Icon
+export function PhoneIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        d="M17 2H7a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3zM12 20a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5zM6 16V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
+// Solid Checklist Icon
+export function ChecklistIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
+      />
+      <path
+        fillRule="evenodd"
+        d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875H4.875A1.875 1.875 0 0 1 3 20.625V9.375Zm9.97 4.72a.75.75 0 0 0-1.06-1.06L9 15.94l-1.66-1.66a.75.75 0 0 0-1.06 1.06l2.19 2.19a.75.75 0 0 0 1.06 0l3.44-3.44Z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
+// Solid Clock Icon
+export function ClockIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
+// Solid Users Icon
+export function UsersIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-13.524 0 .75.75 0 0 1-.362-.63v-.003ZM16.5 19.125a7.103 7.103 0 0 0-1.89-4.821 8.625 8.625 0 0 1 7.89 4.821v.003l-.001.119a.75.75 0 0 1-.363.63 13.065 13.065 0 0 1-5.273.743.75.75 0 0 1-.363-.63v-.003Z" />
+    </svg>
+  );
+}
+
+// Solid Sparkles Icon
+export function SparklesIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258.903a2.25 2.25 0 0 0 1.546 1.546l.903.258a.75.75 0 0 1 0 1.452l-.903.258a2.25 2.25 0 0 0-1.546 1.546l-.258.903a.75.75 0 0 1-1.456 0l-.258-.903a2.25 2.25 0 0 0-1.546-1.546l-.903-.258a.75.75 0 0 1 0-1.452l.903-.258a2.25 2.25 0 0 0 1.546-1.546l.258-.903A.75.75 0 0 1 18 1.5ZM19.75 18.625a.75.75 0 0 0-1.5 0v1.125H17.125a.75.75 0 0 0 0 1.5h1.125v1.125a.75.75 0 0 0 1.5 0v-1.125h1.125a.75.75 0 0 0 0-1.5h-1.125v-1.125Z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
+// Solid Music Icon
+export function MusicIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        d="M19.952 1.651a.75.75 0 0 1 .298.599V16.303a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.403-4.909l2.311-.66a1.5 1.5 0 0 0 1.088-1.442V6.998l-12 2.727v9.578a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.402-4.909l2.31-.66a1.5 1.5 0 0 0 1.088-1.442V5.25a.75.75 0 0 1 .586-.73l15-3.41a.75.75 0 0 1 .837.541Z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
+// Solid Document Text Icon
+export function DocumentTextIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625ZM7.5 15a.75.75 0 0 1 .75-.75h8.25a.75.75 0 0 1 0 1.5H8.25a.75.75 0 0 1-.75-.75Zm.75-2.25a.75.75 0 0 0 0 1.5h8.25a.75.75 0 0 0 0-1.5H8.25ZM6.75 9a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 6.75 9Z"
+        clipRule="evenodd"
+      />
+      <path d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z" />
+    </svg>
+  );
+}

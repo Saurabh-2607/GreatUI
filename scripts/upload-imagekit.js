@@ -3,25 +3,42 @@ const { execSync } = require("child_process");
 const path = require("path");
 const fs = require("fs");
 
-const envPath = path.join(__dirname, "../.env.local");
-let imagekitPrivateKey = "";
-
-if (fs.existsSync(envPath)) {
-  const envContent = fs.readFileSync(envPath, "utf8");
-  const match = envContent.match(/^IMAGEKIT_PRIVATE_KEY=(.*)$/m);
-  if (match) {
-    imagekitPrivateKey = match[1].trim();
+function getEnvVar(varName) {
+  const paths = [
+    path.join(__dirname, "../.env.local"),
+    path.join(__dirname, "../.env"),
+  ];
+  for (const envPath of paths) {
+    if (fs.existsSync(envPath)) {
+      const envContent = fs.readFileSync(envPath, "utf8");
+      const regex = new RegExp(`^${varName}=(.*)$`, "m");
+      const match = envContent.match(regex);
+      if (match) {
+        return match[1].trim();
+      }
+    }
   }
+  return "";
 }
 
+const isPreview = process.argv.includes("--preview");
+const keyName = isPreview
+  ? "IMAGEKIT_PRIVATE_KEY_PREVIEW"
+  : "IMAGEKIT_PRIVATE_KEY";
+const imagekitPrivateKey = getEnvVar(keyName);
+
 if (!imagekitPrivateKey) {
-  console.error("Error: IMAGEKIT_PRIVATE_KEY not found in .env.local");
+  console.error(`Error: ${keyName} not found in .env.local or .env`);
   process.exit(1);
 }
 
-const inputPath = process.argv[2];
+const args = process.argv.slice(2).filter((arg) => arg !== "--preview");
+const inputPath = args[0];
+
 if (!inputPath) {
-  console.error("Usage: node scripts/upload-imagekit.js <file_path>");
+  console.error(
+    "Usage: node scripts/upload-imagekit.js <file_path> [--preview]",
+  );
   process.exit(1);
 }
 
@@ -33,7 +50,9 @@ if (!fs.existsSync(filePath)) {
 
 const fileName = path.basename(filePath);
 
-console.log(`Uploading "${fileName}" to ImageKit root...`);
+console.log(
+  `Uploading "${fileName}" to ImageKit root using ${isPreview ? "Preview" : "Production"} credentials...`,
+);
 
 const cmd = `curl -s -u "${imagekitPrivateKey}:" \
   -F "file=@${filePath}" \

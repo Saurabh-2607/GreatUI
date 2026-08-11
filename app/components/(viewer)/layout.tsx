@@ -117,7 +117,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative flex h-screen w-full flex-col overflow-hidden bg-white p-4 text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-white">
       <div
-        className={`absolute top-9 left-9 z-[60] flex items-center gap-3.5 transition-opacity duration-300 ${isCodeOpen ? "pointer-events-none opacity-0" : "opacity-100"}`}
+        className={`absolute top-4 left-4 z-[60] flex items-center gap-3.5 transition-opacity duration-300 sm:top-9 sm:left-9 ${isCodeOpen ? "pointer-events-none opacity-0" : "opacity-100"}`}
       >
         <SidebarToggle
           isOpen={isSidebarOpen}
@@ -132,7 +132,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
         />
 
         <div
-          className={`flex items-center gap-2.5 text-xl font-normal tracking-tight text-neutral-500 transition-all duration-300 select-none dark:text-neutral-400 ${isSidebarOpen ? "pointer-events-none invisible opacity-0" : "visible opacity-100"}`}
+          className={`hidden items-center gap-2.5 text-xl font-normal tracking-tight text-neutral-500 transition-all duration-300 select-none sm:flex dark:text-neutral-400 ${isSidebarOpen ? "pointer-events-none invisible opacity-0" : "visible opacity-100"}`}
         >
           <Link
             href="/components"
@@ -158,7 +158,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
           </span>
         </div>
       </div>
-      <div className="absolute top-9 right-9 z-40 flex items-center gap-1.5 rounded-2xl border border-neutral-200 bg-white/80 p-1.5 shadow-xs backdrop-blur-xl transition-all dark:border-neutral-800/60 dark:bg-neutral-950/80">
+      <div className="absolute top-4 right-4 z-40 flex items-center gap-1.5 rounded-2xl border border-neutral-200 bg-white/80 p-1.5 shadow-xs backdrop-blur-xl transition-all sm:top-9 sm:right-9 dark:border-neutral-800/60 dark:bg-neutral-950/80">
         <Link
           href="/"
           title="Back to Home"
