@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import posthog from "posthog-js";
 import { type Component } from "@/lib/registry";
 import { CopyIcon, CheckIcon, CodeIcon } from "./Icons";
 import ShikiHighlight from "./ShikiHighlight";
@@ -94,12 +95,19 @@ export default function DocsPanel({ component }: { component: Component }) {
   const handleCopyInstall = () => {
     navigator.clipboard.writeText(installCommand);
     setCopiedInstall(true);
+    posthog.capture("documentation_install_command_copied", {
+      component_slug: component.slug,
+      package_manager: pkgManager,
+    });
     setTimeout(() => setCopiedInstall(false), 2000);
   };
 
   const handleCopyUsage = () => {
     navigator.clipboard.writeText(component.usageCode || "");
     setCopiedUsage(true);
+    posthog.capture("documentation_usage_code_copied", {
+      component_slug: component.slug,
+    });
     setTimeout(() => setCopiedUsage(false), 2000);
   };
 
