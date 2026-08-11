@@ -5,7 +5,7 @@ import Link from "next/link";
 import posthog from "posthog-js";
 import Container from "./Container";
 import ThemeToggle from "./ThemeToggle";
-import { GithubIcon, StarIcon } from "./Icons";
+import { GithubIcon, StarIcon, CommandIcon } from "./Icons";
 
 export function Navbar() {
   const [isHovered, setIsHovered] = useState(false);
@@ -89,8 +89,8 @@ export function Navbar() {
                   Search...
                 </span>
               </div>
-              <kbd className="group-hover:bg-neutral-350/60 hidden rounded-md bg-neutral-200/50 px-1.5 py-0.5 text-[10px] font-bold text-neutral-500 sm:block dark:bg-neutral-950/50 dark:text-neutral-400 dark:group-hover:bg-neutral-950/80">
-                ⌘K
+              <kbd className="group-hover:bg-neutral-350/60 pointer-events-none hidden h-5 items-center gap-0.5 rounded-md bg-neutral-200/50 px-1.5 font-sans text-[10px] font-medium text-neutral-500 select-none sm:inline-flex dark:bg-neutral-950/50 dark:text-neutral-400 dark:group-hover:bg-neutral-950/80">
+                <span className="mt-[1px] text-xs">⌘</span>K
               </kbd>
             </button>
 
