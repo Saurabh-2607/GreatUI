@@ -5,23 +5,25 @@ import Link from "next/link";
 import Container from "./Container";
 
 export function Footer() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLElement>(null);
+  const watermarkRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const footer = footerRef.current;
+    const watermark = watermarkRef.current;
+    if (!footer || !watermark) return;
 
     let frameId: number;
     let latestX = -999;
     let latestY = -999;
 
     const updateStyle = () => {
-      container.style.setProperty("--mouse-x", `${latestX}px`);
-      container.style.setProperty("--mouse-y", `${latestY}px`);
+      watermark.style.setProperty("--mouse-x", `${latestX}px`);
+      watermark.style.setProperty("--mouse-y", `${latestY}px`);
     };
 
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
+      const rect = watermark.getBoundingClientRect();
       latestX = e.clientX - rect.left;
       latestY = e.clientY - rect.top;
       cancelAnimationFrame(frameId);
@@ -35,21 +37,33 @@ export function Footer() {
       frameId = requestAnimationFrame(updateStyle);
     };
 
-    container.addEventListener("mousemove", handleMouseMove, { passive: true });
-    container.addEventListener("mouseleave", handleMouseLeave, {
-      passive: true,
-    });
+    footer.addEventListener("mousemove", handleMouseMove, { passive: true });
+    footer.addEventListener("mouseleave", handleMouseLeave, { passive: true });
 
     return () => {
-      container.removeEventListener("mousemove", handleMouseMove);
-      container.removeEventListener("mouseleave", handleMouseLeave);
+      footer.removeEventListener("mousemove", handleMouseMove);
+      footer.removeEventListener("mouseleave", handleMouseLeave);
       cancelAnimationFrame(frameId);
     };
   }, []);
 
   return (
-    <footer className="relative z-10 mx-auto w-full max-w-[1360px] overflow-hidden bg-transparent transition-colors">
-      <Container className="relative bg-white px-4 pt-16 pb-56 sm:px-6 dark:bg-neutral-950">
+    <footer
+      ref={footerRef}
+      className="group relative z-10 mx-auto w-full max-w-[1360px] overflow-hidden bg-transparent transition-colors"
+    >
+      <div
+        className="pointer-events-none absolute top-0 right-0 left-0 z-20 h-px select-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, var(--color-border-100) 50%, transparent 50%)",
+          backgroundSize: "32px 1px",
+          backgroundRepeat: "repeat-x",
+        }}
+      />
+      <div className="absolute inset-y-0 left-1/2 z-0 w-full max-w-[1280px] -translate-x-1/2 bg-white dark:bg-neutral-950" />
+
+      <Container className="relative px-4 pt-16 pb-56 sm:px-6">
         <div className="relative z-10 text-center select-none">
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-neutral-500 sm:gap-x-6 sm:gap-y-3 sm:text-base dark:text-neutral-400">
             <span>
@@ -89,60 +103,43 @@ export function Footer() {
         </div>
       </Container>
 
-      <div
-        ref={containerRef}
-        className="group absolute right-0 bottom-0 left-0 z-0 translate-y-[35%] cursor-default select-none"
-      >
+      <div className="pointer-events-none absolute right-0 bottom-0 left-0 z-0 translate-y-[35%] select-none">
         <div className="text-center text-[18vw] leading-none font-black tracking-tighter text-neutral-100 uppercase sm:text-[20vw] md:text-[22vw] lg:text-[300px] dark:text-neutral-900/30">
           GREAT <span className="text-[#f6821f]/85">UI</span>
         </div>
+      </div>
 
-        <div
-          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-50"
-          style={{
-            maskImage: `radial-gradient(circle 200px at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, black 30%, transparent 100%)`,
-            WebkitMaskImage: `radial-gradient(circle 200px at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, black 30%, transparent 100%)`,
-            maskRepeat: "no-repeat",
-            WebkitMaskRepeat: "no-repeat",
-            willChange: "transform",
-            transform: "translateZ(0)",
-            backfaceVisibility: "hidden",
-          }}
-        >
-          <div
-            className="text-center text-[18vw] leading-none font-black tracking-tighter text-transparent uppercase select-none sm:text-[20vw] md:text-[22vw] lg:text-[300px]"
+      <div
+        ref={watermarkRef}
+        className="pointer-events-none absolute right-0 bottom-0 left-0 z-0 translate-y-[35%] opacity-0 transition-opacity duration-300 select-none group-hover:opacity-20"
+        style={{
+          maskImage: `radial-gradient(circle 160px at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, black 30%, transparent 100%)`,
+          WebkitMaskImage: `radial-gradient(circle 160px at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, black 30%, transparent 100%)`,
+          maskRepeat: "no-repeat",
+          WebkitMaskRepeat: "no-repeat",
+        }}
+      >
+        <div className="w-full text-center text-[18vw] leading-none font-black tracking-tighter text-neutral-900 uppercase sm:text-[20vw] md:text-[22vw] lg:text-[300px] dark:text-white">
+          <span
+            className="text-transparent"
             style={{
               backgroundImage: `repeating-linear-gradient(-45deg, #f6821f 0, #f6821f 1.5px, transparent 1.5px, transparent 10px)`,
               WebkitBackgroundClip: "text",
               backgroundClip: "text",
             }}
           >
-            GREAT <span style={{ visibility: "hidden" }}>UI</span>
-          </div>
-        </div>
-
-        <div
-          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-50"
-          style={{
-            maskImage: `radial-gradient(circle 200px at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, black 30%, transparent 100%)`,
-            WebkitMaskImage: `radial-gradient(circle 200px at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, black 30%, transparent 100%)`,
-            maskRepeat: "no-repeat",
-            WebkitMaskRepeat: "no-repeat",
-            willChange: "transform",
-            transform: "translateZ(0)",
-            backfaceVisibility: "hidden",
-          }}
-        >
-          <div
-            className="text-center text-[18vw] leading-none font-black tracking-tighter text-transparent uppercase select-none sm:text-[20vw] md:text-[22vw] lg:text-[300px]"
+            GREAT{" "}
+          </span>
+          <span
+            className="text-transparent"
             style={{
-              backgroundImage: `repeating-linear-gradient(-45deg, var(--foreground) 0, var(--foreground) 1.5px, transparent 1.5px, transparent 10px)`,
+              backgroundImage: `repeating-linear-gradient(-45deg, #fff 0, #fff 1.5px, transparent 1.5px, transparent 10px)`,
               WebkitBackgroundClip: "text",
               backgroundClip: "text",
             }}
           >
-            <span style={{ visibility: "hidden" }}>GREAT </span>UI
-          </div>
+            UI
+          </span>
         </div>
       </div>
     </footer>

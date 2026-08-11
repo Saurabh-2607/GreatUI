@@ -113,16 +113,6 @@ export function Sponsors() {
           </a>
         </div>
       </Container>
-
-      <div
-        className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-px select-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, var(--color-border-100) 50%, transparent 50%)",
-          backgroundSize: "32px 1px",
-          backgroundRepeat: "repeat-x",
-        }}
-      />
     </div>
   );
 }
