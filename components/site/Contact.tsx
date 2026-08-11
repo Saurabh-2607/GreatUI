@@ -106,7 +106,7 @@ function ContactCard({
             )}
           </div>
           <svg
-            className="h-4.5 w-4.5 text-neutral-400 transition-all duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#f6821f] dark:text-neutral-600"
+            className="h-5 w-5 text-neutral-400 transition-all duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#f6821f] dark:text-neutral-600"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -138,7 +138,7 @@ export default function Contact() {
 
   return (
     <div className="relative mx-auto max-w-[1360px]">
-      <Container className="relative bg-white px-4 py-20 sm:px-6 md:py-28 dark:bg-neutral-950">
+      <Container className="relative bg-white px-4 py-10 sm:px-6 md:py-16 dark:bg-neutral-950">
         <div className="flex flex-col items-start text-left">
           <h2 className="mt-2 max-w-4xl text-4xl leading-[1.05] font-semibold tracking-tight text-neutral-950 sm:text-5xl md:text-6xl dark:text-white">
             Get in touch.
@@ -220,15 +220,13 @@ export default function Contact() {
                   />
 
                   <div className="space-y-0">
-                    <div className="h-1h text-base leading-5 font-bold tracking-tight text-neutral-900 sm:text-lg dark:text-white">
+                    <div className="text-base leading-5 font-bold tracking-tight text-neutral-900 sm:text-lg dark:text-white">
                       Great UI
                     </div>
-                    <div className="h-1h text-xs text-neutral-500">
-                      @GreatUIHQ
-                    </div>
+                    <div className="text-xs text-neutral-500">@GreatUIHQ</div>
                   </div>
                   <div className="space-y-0 pt-1">
-                    <div className="h-1h text-sm leading-5 tracking-tight text-neutral-500">
+                    <div className="text-sm leading-5 tracking-tight text-neutral-500">
                       Great UI is an open-source React component library focused
                       on beautiful design, smooth animations, and exceptional
                       developer experience by @srbh_here
@@ -302,7 +300,7 @@ export default function Contact() {
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <div className="h-3 w-4.5 shrink-0 rounded-sm bg-neutral-200 dark:bg-neutral-800" />
+                        <div className="h-3 w-5 shrink-0 rounded-sm bg-neutral-200 dark:bg-neutral-800" />
                         <div className="h-2 w-10 rounded-full bg-neutral-200 dark:bg-neutral-800" />
                         <div className="h-2 w-28 rounded-full bg-neutral-100 dark:bg-neutral-900" />
                       </div>

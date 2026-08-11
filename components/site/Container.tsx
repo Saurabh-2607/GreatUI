@@ -11,7 +11,7 @@ export type ContainerProps = React.HTMLAttributes<HTMLDivElement> & {
 
 export function Container({ children, className, ...props }: ContainerProps) {
   const containerClasses = cn(
-    "relative w-full max-w-[1280px] mx-auto",
+    "relative mx-auto w-[calc(100%-2rem)] max-w-[1280px] sm:w-[calc(100%-3rem)] md:w-[calc(100%-4rem)] lg:w-[calc(100%-6rem)] xl:w-full",
     className,
   );
 

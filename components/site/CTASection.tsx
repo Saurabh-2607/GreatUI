@@ -21,7 +21,7 @@ export default function CTASection() {
           backgroundRepeat: "repeat-x",
         }}
       />
-      <Container className="relative bg-white px-4 py-20 sm:px-6 md:py-28 dark:bg-neutral-950">
+      <Container className="relative bg-white px-4 py-10 sm:px-6 md:py-16 dark:bg-neutral-950">
         <div className="flex flex-col items-start text-left">
           <h2 className="mt-2 max-w-4xl text-4xl leading-[1.05] font-semibold tracking-tight text-neutral-950 sm:text-5xl md:text-6xl dark:text-white">
             Ready to build something great?

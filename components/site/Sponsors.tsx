@@ -7,7 +7,7 @@ import Container from "./Container";
 export function Sponsors() {
   return (
     <div className="relative mx-auto max-w-[1360px]">
-      <Container className="relative bg-white px-4 py-20 sm:px-6 md:py-28 dark:bg-neutral-950">
+      <Container className="relative bg-white px-4 py-10 sm:px-6 md:py-16 dark:bg-neutral-950">
         <div className="flex flex-col items-start text-left">
           <h2 className="mt-2 max-w-4xl text-4xl leading-[1.05] font-semibold tracking-tight text-neutral-950 sm:text-5xl md:text-6xl dark:text-white">
             Sponsors
@@ -55,7 +55,7 @@ export function Sponsors() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => posthog.capture("sponsorship_link_clicked")}
-            className="group relative block h-40 cursor-pointer overflow-hidden rounded-3xl bg-neutral-100/70 p-3.5 text-center no-underline transition-all duration-300 hover:bg-neutral-200/50 dark:bg-neutral-900 dark:hover:bg-neutral-800/80"
+            className="group relative hidden h-40 cursor-pointer overflow-hidden rounded-3xl bg-neutral-100/70 p-3.5 text-center no-underline transition-all duration-300 hover:bg-neutral-200/50 md:block dark:bg-neutral-900 dark:hover:bg-neutral-800/80"
           >
             <div
               className="pointer-events-none absolute inset-0 opacity-[0.12] dark:opacity-[0.08]"
@@ -86,7 +86,7 @@ export function Sponsors() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => posthog.capture("sponsorship_link_clicked")}
-            className="group relative block h-40 cursor-pointer overflow-hidden rounded-3xl bg-neutral-100/70 p-3.5 text-center no-underline transition-all duration-300 hover:bg-neutral-200/50 dark:bg-neutral-900 dark:hover:bg-neutral-800/80"
+            className="group relative hidden h-40 cursor-pointer overflow-hidden rounded-3xl bg-neutral-100/70 p-3.5 text-center no-underline transition-all duration-300 hover:bg-neutral-200/50 md:block dark:bg-neutral-900 dark:hover:bg-neutral-800/80"
           >
             <div
               className="pointer-events-none absolute inset-0 opacity-[0.12] dark:opacity-[0.08]"

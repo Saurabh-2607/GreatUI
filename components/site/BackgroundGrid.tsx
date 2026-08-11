@@ -4,7 +4,7 @@ import React from "react";
 
 export function BackgroundGrid() {
   return (
-    <div className="pointer-events-none absolute inset-y-0 right-0 left-0 z-0 mx-auto w-[1360px]">
+    <div className="pointer-events-none absolute inset-y-0 right-0 left-0 z-0 mx-auto w-full max-w-[1360px]">
       <svg
         className="pointer-events-none absolute top-0 left-0 z-0 h-full w-full"
         data-testid="rf__background"
@@ -42,11 +42,12 @@ export function BackgroundGrid() {
         />
 
         <rect
-          x="1320"
+          x="100%"
           y="0"
           width="40"
           height="100%"
           fill="url(#pattern-hxlvne)"
+          transform="translate(-40, 0)"
           style={{ strokeDasharray: "none", strokeDashoffset: 0 }}
         />
 
@@ -61,13 +62,14 @@ export function BackgroundGrid() {
         />
 
         <line
-          x1="1359.5"
+          x1="100%"
           y1="0"
-          x2="1359.5"
+          x2="100%"
           y2="100%"
           stroke="var(--color-border-100)"
           strokeWidth="1"
           strokeDasharray="16 16"
+          transform="translate(-0.5, 0)"
         />
       </svg>
     </div>

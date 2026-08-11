@@ -9,8 +9,8 @@ import { SectionIcon } from "./Icons";
 export function Hero() {
   return (
     <div className="relative mx-auto max-w-[1360px]">
-      <Container className="max-w-[1360px] bg-white px-4 pt-28 pb-12 sm:px-6 dark:bg-neutral-950">
-        <div className="flex flex-col gap-8 py-4 text-left md:flex-row md:items-end md:justify-between">
+      <Container className="max-w-[1360px] bg-white px-4 pt-48 pb-6 sm:px-6 md:pt-16 dark:bg-neutral-950">
+        <div className="flex flex-col gap-6 py-4 text-left md:flex-row md:items-end md:justify-between md:gap-8">
           <div className="max-w-3xl">
             <h1 className="animate-fade-in text-4xl leading-[1.05] font-semibold tracking-tight text-neutral-950 sm:text-5xl dark:text-white">
               Build Premium React Interfaces
@@ -21,14 +21,16 @@ export function Hero() {
             </p>
           </div>
 
-          <div className="flex shrink-0 items-center justify-start md:justify-end">
+          <div className="flex w-full shrink-0 items-center justify-start md:w-auto md:justify-end">
             <Link
               href="/components"
               onClick={() => posthog.capture("components_catalogue_opened")}
+              className="w-full md:w-auto"
             >
               <Button
                 variant="primary"
                 size="md"
+                className="w-full justify-center md:w-auto"
                 leftIcon={<SectionIcon className="h-4 w-4" />}
               >
                 Browse Components

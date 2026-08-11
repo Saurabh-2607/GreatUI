@@ -312,7 +312,7 @@ export function ComponentShowcase() {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            <div className="relative flex h-[480px] items-center justify-center py-10 md:h-[680px] md:py-16">
+            <div className="relative flex w-full items-center justify-center">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeTab.id}
@@ -322,14 +322,14 @@ export function ComponentShowcase() {
                   transition={{ duration: 0.25, ease: "easeInOut" }}
                   className="pointer-events-auto flex h-full w-full items-center justify-center"
                 >
-                  <div className="w-full overflow-hidden rounded-2xl border border-neutral-200/30 bg-neutral-50 dark:border-neutral-800/50 dark:bg-neutral-950/80">
+                  <div className="aspect-video w-full overflow-hidden border border-neutral-200/30 bg-neutral-50 dark:border-neutral-800/50 dark:bg-neutral-950/80">
                     <video
                       src={activeTab.videoLink}
                       autoPlay
                       loop
                       muted
                       playsInline
-                      className="h-auto w-full"
+                      className="block h-full w-full object-cover"
                     />
                   </div>
                 </motion.div>
