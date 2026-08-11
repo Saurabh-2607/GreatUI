@@ -39,7 +39,10 @@ export default function ComponentsPage() {
             </h1>
             <p className="mt-4 max-w-2xl text-lg text-neutral-600 sm:text-xl md:text-2xl dark:text-neutral-400">
               Explore our collection of production-grade React &amp; Tailwind
-              CSS components.
+              CSS components.{" "}
+              <span className="font-medium text-[#f6821f]/80">
+                [Hover to Preview]
+              </span>
             </p>
           </div>
 
