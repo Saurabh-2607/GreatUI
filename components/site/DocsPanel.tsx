@@ -330,6 +330,46 @@ export default function DocsPanel({ component }: { component: Component }) {
           </div>
         </div>
       )}
+
+      <div className="flex flex-col gap-2">
+        <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+          Keep in mind
+        </p>
+        <p className="text-2xl leading-relaxed text-neutral-700 dark:text-neutral-300">
+          Some of the components here are inspired by or recreated from
+          incredible designs across the web. I don&apos;t claim to be the
+          original creator these are my attempts to reverse-engineer, replicate,
+          and add my own features to them. I&apos;ve done my best to credit the
+          original authors, but if I&apos;ve missed anyone, please let me know.
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+          License & Usage
+        </p>
+        <div className="flex flex-col gap-2 text-2xl leading-relaxed text-neutral-700 dark:text-neutral-300">
+          <p className="flex items-start gap-3">
+            <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-400 dark:bg-neutral-600" />
+            <span>
+              Free to use and modify in both personal and commercial projects.
+            </span>
+          </p>
+          <p className="flex items-start gap-3">
+            <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-400 dark:bg-neutral-600" />
+            <span>
+              Attribution to Great UI is highly appreciated when using a
+              component.
+            </span>
+          </p>
+          <p className="flex items-start gap-3">
+            <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-400 dark:bg-neutral-600" />
+            <span>
+              Please don&apos;t resell the components as your own kit.
+            </span>
+          </p>
+        </div>
+      </div>
     </aside>
   );
 }

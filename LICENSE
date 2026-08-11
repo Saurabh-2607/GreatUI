@@ -1,0 +1,21 @@
+Great UI Custom License Agreement
+
+Copyright (c) 2024-2026 Saurabh Sharma
+
+This License Agreement ("Agreement") governs the use of the Great UI component library and associated documentation files (the "Software"). By using the Software, you agree to be bound by the terms of this Agreement.
+
+1. GRANT OF LICENSE
+Subject to the terms and conditions of this Agreement, permission is hereby granted, free of charge, to any person obtaining a copy of this Software, to use, copy, modify, and merge the Software for both personal and commercial projects. 
+
+2. RESTRICTIONS ON REDISTRIBUTION
+You are explicitly NOT permitted to:
+a. Resell, redistribute, sublicense, or publish the Software (or modified versions thereof) as a standalone UI kit, template, or component library.
+b. Package the Software as part of a derivative UI library, theme, or framework meant for redistribution or sale.
+
+(Note: You are completely free to use the components to build end-user applications, SaaS products, and websites, including commercial ones.)
+
+3. ATTRIBUTION
+While not strictly required, attribution to Great UI is highly appreciated when utilizing components from the Software in your projects.
+
+4. DISCLAIMER OF WARRANTY
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
