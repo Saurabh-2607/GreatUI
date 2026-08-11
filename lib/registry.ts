@@ -681,7 +681,7 @@ export const components: Component[] = [
   },
   {
     slug: "image-hover-reveal",
-    preview: "https://ik.imagekit.io/greatui/avatarhover.mp4",
+    preview: "/previews/ImageHoverRevealPreview.png",
     name: "Image Hover Reveal",
     description:
       "A dual-image avatar surface implementing directional hover reveals and cursor coordinate tracking spring slices.",
@@ -805,7 +805,7 @@ export const components: Component[] = [
   },
   {
     slug: "avatar-stack",
-    preview: "https://ik.imagekit.io/greatui/avatarstack.mp4",
+    preview: "/previews/AvatarStackPreview.png",
     name: "Avatar Stack",
     description:
       "A dynamic stack of overlapping user avatars featuring custom tooltip display variants that track hover directions or coordinates with spring dynamics.",
@@ -1122,7 +1122,7 @@ export const components: Component[] = [
   },
   {
     slug: "github-card",
-    preview: "/previews/GithubCardPreview.png",
+    preview: "https://ik.imagekit.io/greatui/avatarhover.mp4",
     name: "Github Card",
     description:
       "A customizable hover link component that reveals a realistic 3D-tilted GitHub contributions calendar popup with interactive tooltips.",
