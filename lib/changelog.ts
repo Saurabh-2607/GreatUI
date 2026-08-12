@@ -5,6 +5,12 @@ export type ChangelogItem = {
 
 export const changelogData: ChangelogItem[] = [
   {
+    date: "August 13, 2026",
+    features: [
+      "Added [Scrambled Install Command](/components/scrambled-install-command) component featuring an animated scramble text effect.",
+    ],
+  },
+  {
     date: "August 12, 2026",
     features: [
       "Overhaul of the styling and overall aesthetics of great-ui.com",

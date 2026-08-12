@@ -1276,4 +1276,101 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "scrambled-install-command",
+    preview: "https://ik.imagekit.io/ybq4azred/command-copy-scramble-text.mp4",
+    name: "Scrambled Install Command",
+    description:
+      "A copy-to-clipboard command installation component featuring an animated scramble text effect.",
+    interactionType:
+      "Scrambles text on change, copy to clipboard, package manager selection.",
+    dependencies: [],
+    previewFile: "ScrambledInstallCommandPreview",
+    props: [
+      {
+        name: "installCommand",
+        type: ["string"],
+        description: "The base command to be displayed and copied.",
+      },
+      {
+        name: "pkgManager",
+        type: ["PkgManager"],
+        description: "The currently selected package manager.",
+      },
+      {
+        name: "setPkgManager",
+        type: ["(pm: PkgManager) => void"],
+        description: "State setter for changing package manager.",
+      },
+      {
+        name: "animationVariant",
+        type: ["'full' | 'smart'"],
+        description:
+          "Whether to scramble the whole text or just the changed part.",
+        default: "'full'",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the main container.",
+      },
+      {
+        name: "headerClassName",
+        type: ["string"],
+        description: "Additional CSS classes to style the header bar.",
+      },
+      {
+        name: "codeClassName",
+        type: ["string"],
+        description: "Additional CSS classes to style the code block area.",
+      },
+      {
+        name: "buttonContainerClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the package manager buttons container.",
+      },
+      {
+        name: "buttonClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes applied to all package manager buttons.",
+      },
+      {
+        name: "activeButtonClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes applied to the active package manager button.",
+      },
+      {
+        name: "inactiveButtonClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes applied to inactive package manager buttons.",
+      },
+      {
+        name: "copyButtonClassName",
+        type: ["string"],
+        description: "Additional CSS classes applied to the copy button.",
+      },
+      {
+        name: "terminalIcon",
+        type: ["React.ReactNode"],
+        description:
+          "Custom SVG icon element to replace the default terminal icon.",
+      },
+      {
+        name: "availableManagers",
+        type: ["PkgManager[]"],
+        description: "Array of available package managers to display.",
+        default: "['pnpm', 'npm', 'yarn', 'bun']",
+      },
+      {
+        name: "scrambleIntervalMs",
+        type: ["number"],
+        description: "Interval in milliseconds between each scramble frame.",
+        default: "32",
+      },
+    ],
+  },
 ];
