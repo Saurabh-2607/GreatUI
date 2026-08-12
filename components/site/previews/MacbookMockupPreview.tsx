@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import MacbookMockup from "@/components/ui/MacbookMockup";
+import MacbookMockup from "../../ui/MacbookMockup";
 
 export default function MacbookMockupPreview() {
   return (

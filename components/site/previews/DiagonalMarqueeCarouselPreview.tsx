@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import DiagonalMarqueeCarousel from "@/components/ui/DiagonalMarqueeCarousel";
+import DiagonalMarqueeCarousel from "../../ui/DiagonalMarqueeCarousel";
 
 export default function DiagonalMarqueeCarouselPreview() {
   return (

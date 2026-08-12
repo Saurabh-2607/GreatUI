@@ -3,7 +3,7 @@
 import {
   WebglTransitionProvider,
   useWebglTransition,
-} from "@/components/ui/PageTransitionShader";
+} from "../../ui/PageTransitionShader";
 
 function GlitchControl() {
   const { setShaderMode, triggerTransition } = useWebglTransition();

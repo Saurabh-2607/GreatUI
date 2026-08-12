@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import AsciiImage from "@/components/ui/AsciiImage";
+import AsciiImage from "../../ui/AsciiImage";
 
 const MailIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg

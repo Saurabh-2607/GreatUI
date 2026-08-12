@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import ImageHoverReveal from "@/components/ui/ImageHoverReveal";
+import ImageHoverReveal from "../../ui/ImageHoverReveal";
 
 export default function ImageHoverRevealPreview() {
   const sharedSrc =

@@ -1,4 +1,4 @@
-import FloatingMenu from "@/components/ui/FloatingMenu";
+import FloatingMenu from "../../ui/FloatingMenu";
 
 const primaryLinks = [
   { label: "Work", href: "#" },

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import MinimalButtons from "@/components/ui/MinimalButtons";
+import MinimalButtons from "../../ui/MinimalButtons";
 
 export default function MinimalButtonsPreview() {
   return (

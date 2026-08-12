@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Card } from "@/components/ui/Card";
+import { Card } from "../../ui/Card";
 
 export default function CardPreview() {
   const cardData = {

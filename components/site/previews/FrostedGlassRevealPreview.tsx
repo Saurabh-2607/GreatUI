@@ -1,6 +1,6 @@
 "use client";
 
-import { FrostedGlassReveal } from "@/components/ui/FrostedGlassReveal";
+import { FrostedGlassReveal } from "../../ui/FrostedGlassReveal";
 
 export default function FrostedGlassRevealPreview() {
   return (

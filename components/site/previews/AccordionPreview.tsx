@@ -1,4 +1,4 @@
-import Accordion from "@/components/ui/Accordion";
+import Accordion from "../../ui/Accordion";
 
 const accordionData = [
   {

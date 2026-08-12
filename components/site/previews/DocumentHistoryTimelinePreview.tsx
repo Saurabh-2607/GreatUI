@@ -1,9 +1,7 @@
 "use client";
 
 import React from "react";
-import RevisionTimeline, {
-  TimelineRevision,
-} from "@/components/ui/RevisionTimeline";
+import RevisionTimeline, { TimelineRevision } from "../../ui/RevisionTimeline";
 
 const MOCK_REVISIONS: TimelineRevision[] = [
   {

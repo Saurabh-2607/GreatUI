@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import TerminalLoader from "@/components/ui/TerminalLoader";
+import TerminalLoader from "../../ui/TerminalLoader";
 
 export default function TerminalLoaderPreview() {
   return (

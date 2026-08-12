@@ -1,9 +1,7 @@
 "use client";
 
 import React from "react";
-import AnimatedLink, {
-  AnimatedLinkVariant,
-} from "@/components/ui/AnimatedLink";
+import AnimatedLink, { AnimatedLinkVariant } from "../../ui/AnimatedLink";
 
 const previewVariants: {
   label: string;

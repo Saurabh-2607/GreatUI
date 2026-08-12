@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import AvatarStack from "@/components/ui/AvatarStack";
+import AvatarStack from "../../ui/AvatarStack";
 
 export default function AvatarStackPreview() {
   return (

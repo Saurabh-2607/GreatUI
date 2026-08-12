@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import AceternityButton from "@/components/ui/AceternityButton";
+import AceternityButton from "../../ui/AceternityButton";
 
 export default function AceternityButtonPreview() {
   return (

@@ -1,4 +1,4 @@
-import VinylAlbumCard from "@/components/ui/VinylAlbumCard";
+import VinylAlbumCard from "../../ui/VinylAlbumCard";
 
 export default function VinylAlbumCardPreview() {
   return (

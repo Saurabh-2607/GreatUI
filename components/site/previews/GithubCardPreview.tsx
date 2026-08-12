@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { GithubCard } from "@/components/ui/GithubCard";
+import { GithubCard } from "../../ui/GithubCard";
 
 export default function GithubCardPreview() {
   return (

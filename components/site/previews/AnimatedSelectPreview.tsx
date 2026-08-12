@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import AnimatedSelect from "@/components/ui/AnimatedSelect";
+import AnimatedSelect from "../../ui/AnimatedSelect";
 
 export default function AnimatedSelectPreview() {
   return (

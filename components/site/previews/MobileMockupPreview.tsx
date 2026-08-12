@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import MobileMockup from "@/components/ui/MobileMockup";
+import MobileMockup from "../../ui/MobileMockup";
 
 export default function MobileMockupPreview() {
   return (

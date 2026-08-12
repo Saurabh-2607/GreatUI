@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { TextReveal } from "@/components/ui/TextReveal";
+import { TextReveal } from "../../ui/TextReveal";
 import { useViewer } from "@/lib/viewer-context";
 
 export default function TextRevealPreview() {

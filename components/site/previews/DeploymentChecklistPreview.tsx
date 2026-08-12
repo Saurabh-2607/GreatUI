@@ -1,4 +1,4 @@
-import DeploymentChecklist from "@/components/ui/DeploymentChecklist";
+import DeploymentChecklist from "../../ui/DeploymentChecklist";
 
 export default function DeploymentChecklistPreview() {
   return (

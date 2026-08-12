@@ -3,7 +3,7 @@
 import {
   WebglTransitionProvider,
   useWebglTransition,
-} from "@/components/ui/PageTransitionShader";
+} from "../../ui/PageTransitionShader";
 
 function DissolveControl() {
   const { setShaderMode, triggerTransition } = useWebglTransition();

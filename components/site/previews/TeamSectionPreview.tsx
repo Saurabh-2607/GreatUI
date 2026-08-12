@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import TeamSection from "@/components/ui/TeamSection";
+import TeamSection from "../../ui/TeamSection";
 
 const mockSpeakers = [
   {
