@@ -80,7 +80,7 @@ export default function DocsPanel({ component }: { component: Component }) {
   const [copiedInstall, setCopiedInstall] = useState(false);
   const [copiedUsage, setCopiedUsage] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [pkgManager, setPkgManager] = useState<PkgManager>("pnpm");
+  const [pkgManager, setPkgManager] = useState<PkgManager>("npm");
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => setMounted(true));
