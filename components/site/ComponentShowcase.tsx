@@ -15,6 +15,28 @@ interface ShowcaseItem {
 
 const SHOWCASE_ITEMS: ShowcaseItem[] = [
   {
+    id: "scrambled-install-command",
+    title: "Scrambled Install Command",
+    videoLink:
+      "https://ik.imagekit.io/ybq4azred/command-copy-scramble-text.mp4",
+    icon: (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="size-4"
+      >
+        <polyline points="4 17 10 11 4 5" />
+        <line x1="12" y1="19" x2="20" y2="19" />
+      </svg>
+    ),
+  },
+  {
     id: "macbook",
     title: "Macbook Mockup",
     videoLink: "https://ik.imagekit.io/greatui/macbookMockup.mp4",
@@ -111,26 +133,6 @@ const SHOWCASE_ITEMS: ShowcaseItem[] = [
         className="size-4"
       >
         <path d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-13.524 0 .75.75 0 0 1-.362-.63v-.003ZM16.5 19.125a7.103 7.103 0 0 0-1.89-4.821 8.625 8.625 0 0 1 7.89 4.821v.003l-.001.119a.75.75 0 0 1-.363.63 13.065 13.065 0 0 1-5.273.743.75.75 0 0 1-.363-.63v-.003Z" />
-      </svg>
-    ),
-  },
-  {
-    id: "vortex",
-    title: "Vortex Spiral Shader",
-    videoLink: "https://ik.imagekit.io/greatui/swirl.mp4",
-    icon: (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="size-4"
-      >
-        <path
-          fillRule="evenodd"
-          d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258.903a2.25 2.25 0 0 0 1.546 1.546l.903.258a.75.75 0 0 1 0 1.452l-.903.258a2.25 2.25 0 0 0-1.546 1.546l-.258.903a.75.75 0 0 1-1.456 0l-.258-.903a2.25 2.25 0 0 0-1.546-1.546l-.903-.258a.75.75 0 0 1 0-1.452l.903-.258a2.25 2.25 0 0 0 1.546-1.546l.258-.903A.75.75 0 0 1 18 1.5ZM19.75 18.625a.75.75 0 0 0-1.5 0v1.125H17.125a.75.75 0 0 0 0 1.5h1.125v1.125a.75.75 0 0 0 1.5 0v-1.125h1.125a.75.75 0 0 0 0-1.5h-1.125v-1.125Z"
-          clipRule="evenodd"
-        />
       </svg>
     ),
   },
