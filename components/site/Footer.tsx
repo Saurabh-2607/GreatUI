@@ -155,6 +155,18 @@ export function Footer() {
                 </Link>
               </div>
             </div>
+
+            <div className="text-sm text-neutral-500 dark:text-neutral-400">
+              Made by{" "}
+              <a
+                href="https://srh.site"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium transition-colors hover:text-neutral-900 dark:hover:text-white"
+              >
+                Saurabh Sharma
+              </a>
+            </div>
           </div>
         </div>
       </Container>
