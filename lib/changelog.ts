@@ -5,6 +5,12 @@ export type ChangelogItem = {
 
 export const changelogData: ChangelogItem[] = [
   {
+    date: "August 14, 2026",
+    features: [
+      "Added [Multilingual Quote](/components/multilingual-quote) component featuring animated quotes, language toggles, and fully customizable props.",
+    ],
+  },
+  {
     date: "August 13, 2026",
     features: [
       "Added [Text on Path Scroll](/components/text-on-path-scroll) component featuring scroll-driven animations along an SVG path.",

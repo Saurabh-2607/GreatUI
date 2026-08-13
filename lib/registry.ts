@@ -1445,4 +1445,47 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "multilingual-quote",
+    inspiration: "",
+    name: "Multilingual Quote",
+    description:
+      "An animated quote section component with multi-language support.",
+    interactionType: "Language toggle with smooth animated text transitions.",
+    dependencies: ["motion"],
+    previewFile: "MultilingualQuotePreview",
+    preview: "https://ik.imagekit.io/ybq4azred/quote-multilingual.mp4",
+    props: [
+      {
+        name: "quotes",
+        type: ["Quote[]"],
+        description: "Array of quote objects containing id, label, and text.",
+      },
+      {
+        name: "defaultLanguage",
+        type: ["string"],
+        description: "The id of the language quote to show by default.",
+      },
+      {
+        name: "authorName",
+        type: ["string"],
+        description: "The name of the quote author.",
+      },
+      {
+        name: "authorLink",
+        type: ["string"],
+        description: "Optional URL for the author's link.",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Optional CSS classes to apply to the container.",
+      },
+      {
+        name: "quoteClassName",
+        type: ["string"],
+        description: "Optional CSS classes to apply to the quote text.",
+      },
+    ],
+  },
 ];

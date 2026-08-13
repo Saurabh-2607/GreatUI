@@ -13,6 +13,7 @@ When adding a new component to this codebase, follow these rules:
    - Save UI library components under `components/ui/[ComponentName].tsx`.
    - Save site-specific components (e.g., used only for the landing page/website) under `components/site/[ComponentName].tsx`.
    - Ensure the component utilizes the `cn` utility from `lib/utils.ts` for class merging and styling.
+   - Make sure the component is fully customizable using props (e.g., data arrays, classNames, optional toggles) rather than hardcoded values.
    - always use "motion/react" never use "framer-motion"
    - Remove any incorrect, placeholder, or temporary comments.
    - You **MUST** ask the user to enter their name and social link (e.g., X profile URL), and then append the following Great UI disclaimer block (with their details dynamically filled in, defaulting to "Saurabh Sharma" and "https://x.com/srbh_here" if not specified) at the end of the file:
