@@ -1401,4 +1401,48 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "text-on-path-scroll",
+    inspiration: "",
+    preview: "https://ik.imagekit.io/ybq4azred/preview-s_rollsvgtext.mp4",
+    name: "Text On Path Scroll",
+    description:
+      "A scroll-driven text animation that follows a custom SVG path as the user scrolls.",
+    interactionType: "Scroll-driven text offset animation along an SVG path.",
+    dependencies: ["motion"],
+    previewFile: "TextOnPathScrollPreview",
+    props: [
+      {
+        name: "text",
+        type: ["string"],
+        description:
+          "The text to display on the path. Recommend appending special characters like • or · between repetitions.",
+        default:
+          "'CRAFTING BEAUTIFUL DIGITAL EXPERIENCES • PUSHING THE BOUNDARIES OF WEB DESIGN • WRITING CLEAN CODE • BUILDING EXCEPTIONAL INTERFACES • '",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to apply to the container.",
+      },
+      {
+        name: "scrollContainerRef",
+        type: ["React.RefObject<HTMLElement | null>"],
+        description:
+          "Optional ref for a custom scroll container (e.g. for preview panels).",
+      },
+      {
+        name: "path",
+        type: ["React.ReactNode"],
+        description:
+          'The SVG element containing the path. Must include a <path id="scroll-path" />.',
+      },
+      {
+        name: "textProps",
+        type: ["React.SVGProps<SVGTextElement>"],
+        description:
+          "Additional props to pass to the `<text>` SVG element. Useful for changing fontSize.",
+      },
+    ],
+  },
 ];

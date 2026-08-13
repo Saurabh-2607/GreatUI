@@ -7,6 +7,7 @@ export const changelogData: ChangelogItem[] = [
   {
     date: "August 13, 2026",
     features: [
+      "Added [Text on Path Scroll](/components/text-on-path-scroll) component featuring scroll-driven animations along an SVG path.",
       "Added [Scrambled Install Command](/components/scrambled-install-command) component featuring an animated scramble text effect.",
     ],
   },
