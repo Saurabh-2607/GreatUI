@@ -17,11 +17,13 @@ export type Component = {
   preview?: string;
   code?: string;
   usageCode?: string;
+  inspiration?: string;
 };
 
 export const components: Component[] = [
   {
     slug: "accordion",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/accordian.mp4",
     name: "Accordion",
     description:
@@ -41,6 +43,7 @@ export const components: Component[] = [
   },
   {
     slug: "button",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/button.mp4",
     name: "Button",
     description:
@@ -94,6 +97,7 @@ export const components: Component[] = [
   },
   {
     slug: "mobile-mockup",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/mobileMockup.mp4",
     name: "Mobile Mockup",
     description:
@@ -143,6 +147,7 @@ export const components: Component[] = [
   },
   {
     slug: "macbook-mockup",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/macbookMockup.mp4",
     name: "Macbook Mockup",
     description:
@@ -191,6 +196,7 @@ export const components: Component[] = [
   },
   {
     slug: "deployment-checklist",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/deploymentchecklist.mp4",
     name: "Deployment Checklist",
     description:
@@ -210,6 +216,7 @@ export const components: Component[] = [
   },
   {
     slug: "floating-menu",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/floatingmenu.mp4",
     name: "Floating Menu",
     description:
@@ -244,6 +251,7 @@ export const components: Component[] = [
   },
   {
     slug: "vinyl-album-card",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/vinyl.mp4",
     name: "Vinyl Album Card",
     description:
@@ -288,6 +296,7 @@ export const components: Component[] = [
   },
   {
     slug: "liquid-ripple-shader",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/liquidRiple.mp4",
     name: "Liquid Ripple Shader",
     description:
@@ -332,6 +341,7 @@ export const components: Component[] = [
   },
   {
     slug: "cyber-glitch-shader",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/cyberglitch.mp4",
     name: "Cyber Glitch Shader",
     description:
@@ -376,6 +386,7 @@ export const components: Component[] = [
   },
   {
     slug: "vortex-spiral-shader",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/swirl.mp4",
     name: "Vortex Spiral Shader",
     description:
@@ -420,6 +431,7 @@ export const components: Component[] = [
   },
   {
     slug: "liquid-dissolve-shader",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/liquidDisolve.mp4",
     name: "Liquid Dissolve Shader",
     description:
@@ -464,6 +476,7 @@ export const components: Component[] = [
   },
   {
     slug: "animated-select",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/dropdown.mp4",
     name: "Animated Select",
     description:
@@ -523,6 +536,7 @@ export const components: Component[] = [
   },
   {
     slug: "animated-link",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/links.mp4",
     name: "Animated Link",
     description:
@@ -558,6 +572,7 @@ export const components: Component[] = [
   },
   {
     slug: "ascii-image",
+    inspiration: "",
     preview: "/previews/AsciiImagePreview.png",
     name: "ASCII Image",
     description:
@@ -613,6 +628,7 @@ export const components: Component[] = [
   },
   {
     slug: "terminal-loader",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/terminalLoader.mp4",
     name: "Terminal Loader",
     description:
@@ -681,6 +697,7 @@ export const components: Component[] = [
   },
   {
     slug: "image-hover-reveal",
+    inspiration: "",
     preview: "/previews/ImageHoverRevealPreview.png",
     name: "Image Hover Reveal",
     description:
@@ -726,6 +743,7 @@ export const components: Component[] = [
   },
   {
     slug: "minimal-buttons",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/shadowButton.mp4",
     name: "Minimal Buttons",
     description:
@@ -763,6 +781,7 @@ export const components: Component[] = [
   },
   {
     slug: "aceternity-button",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/aceternitybutton.mp4",
     name: "Aceternity Button",
     description:
@@ -805,6 +824,7 @@ export const components: Component[] = [
   },
   {
     slug: "avatar-stack",
+    inspiration: "",
     preview: "/previews/AvatarStackPreview.png",
     name: "Avatar Stack",
     description:
@@ -853,6 +873,7 @@ export const components: Component[] = [
   },
   {
     slug: "diagonal-marquee-carousel",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/marquee.mp4",
     name: "Diagonal Marquee Carousel",
     description:
@@ -905,6 +926,7 @@ export const components: Component[] = [
   },
   {
     slug: "revision-timeline",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/timeline.mp4",
     name: "Revision Timeline",
     description:
@@ -969,6 +991,7 @@ export const components: Component[] = [
   },
   {
     slug: "frosted-glass-reveal",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/frostedglass.mp4",
     name: "Frosted Glass Reveal",
     description:
@@ -1007,6 +1030,7 @@ export const components: Component[] = [
   },
   {
     slug: "card",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/card.mp4",
     name: "Card",
     description:
@@ -1061,6 +1085,7 @@ export const components: Component[] = [
   },
   {
     slug: "text-reveal",
+    inspiration: "https://x.com/samitkapoorr",
     preview: "https://ik.imagekit.io/greatui/textscroll.mp4",
     name: "Text Reveal",
     description:
@@ -1122,6 +1147,7 @@ export const components: Component[] = [
   },
   {
     slug: "github-card",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/avatarhover.mp4",
     name: "Github Card",
     description:
@@ -1221,6 +1247,7 @@ export const components: Component[] = [
   },
   {
     slug: "team-section",
+    inspiration: "",
     preview: "https://ik.imagekit.io/greatui/teamSection.mp4",
     name: "Team Section",
     description:
@@ -1278,6 +1305,7 @@ export const components: Component[] = [
   },
   {
     slug: "scrambled-install-command",
+    inspiration: "",
     preview: "https://ik.imagekit.io/ybq4azred/command-copy-scramble-text.mp4",
     name: "Scrambled Install Command",
     description:

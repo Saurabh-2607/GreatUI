@@ -352,6 +352,45 @@ export default function DocsPanel({ component }: { component: Component }) {
         </p>
       </div>
 
+      {component.inspiration && (
+        <div className="flex flex-col gap-2">
+          <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+            Inspiration / Source
+          </p>
+          <p className="text-2xl leading-relaxed text-neutral-700 dark:text-neutral-300">
+            {component.inspiration.startsWith("http") ? (
+              <a
+                href={component.inspiration}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold break-all text-neutral-600 underline underline-offset-4 transition-colors hover:text-neutral-950 dark:text-neutral-400 dark:hover:text-white"
+              >
+                {component.inspiration}
+              </a>
+            ) : (
+              component.inspiration
+                .split(/(https?:\/\/[^\s\)]+)/g)
+                .map((part, idx) => {
+                  if (/(https?:\/\/[^\s\)]+)/.test(part)) {
+                    return (
+                      <a
+                        key={idx}
+                        href={part}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold break-all text-neutral-600 underline underline-offset-4 transition-colors hover:text-neutral-950 dark:text-neutral-400 dark:hover:text-white"
+                      >
+                        {part}
+                      </a>
+                    );
+                  }
+                  return part;
+                })
+            )}
+          </p>
+        </div>
+      )}
+
       <div className="flex flex-col gap-2">
         <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
           License & Usage
