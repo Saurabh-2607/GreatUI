@@ -1488,4 +1488,46 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "pixel-to-ascii-image",
+    name: "Pixel To Ascii Image",
+    inspiration: "https://razorpay.com/ai-builders/",
+    description:
+      "An image component that pixelates and then converts into ASCII art on hover.",
+    interactionType:
+      "Hover triggers a procedural pixelation followed by an ASCII art conversion.",
+    dependencies: ["motion"],
+    previewFile: "PixelToAsciiImagePreview",
+    preview: "https://ik.imagekit.io/ybq4azred/pixel-to-ascii.mp4",
+    props: [
+      {
+        name: "src",
+        type: ["string"],
+        description: "The source URL of the image.",
+      },
+      {
+        name: "width",
+        type: ["number"],
+        description: "The width of the canvas.",
+        default: "500",
+      },
+      {
+        name: "height",
+        type: ["number"],
+        description: "The height of the canvas.",
+        default: "500",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes.",
+      },
+      {
+        name: "charSize",
+        type: ["number"],
+        description: "The size of the ASCII characters in pixels.",
+        default: "10",
+      },
+    ],
+  },
 ];
