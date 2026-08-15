@@ -35,18 +35,20 @@ export function getRegistryComponent(slug: string): Component | null {
   }
 
   const previewFile = getPreviewFileName(component.previewFile, component.name);
-  let usageCode = "";
-  try {
-    const previewPath = path.join(
-      process.cwd(),
-      "components",
-      "site",
-      "previews",
-      previewFile,
-    );
-    usageCode = fs.readFileSync(previewPath, "utf8");
-  } catch (err) {
-    console.error(`Error reading preview file for ${component.name}:`, err);
+  let usageCode = component.usageCode || "";
+  if (!usageCode) {
+    try {
+      const previewPath = path.join(
+        process.cwd(),
+        "components",
+        "site",
+        "previews",
+        previewFile,
+      );
+      usageCode = fs.readFileSync(previewPath, "utf8");
+    } catch (err) {
+      console.error(`Error reading preview file for ${component.name}:`, err);
+    }
   }
 
   return {
@@ -68,18 +70,20 @@ export function getRegistryComponents(): Component[] {
     }
 
     const previewFile = getPreviewFileName(c.previewFile, c.name);
-    let usageCode = "";
-    try {
-      const previewPath = path.join(
-        process.cwd(),
-        "components",
-        "site",
-        "previews",
-        previewFile,
-      );
-      usageCode = fs.readFileSync(previewPath, "utf8");
-    } catch (err) {
-      console.error(`Error reading preview file for ${c.name}:`, err);
+    let usageCode = c.usageCode || "";
+    if (!usageCode) {
+      try {
+        const previewPath = path.join(
+          process.cwd(),
+          "components",
+          "site",
+          "previews",
+          previewFile,
+        );
+        usageCode = fs.readFileSync(previewPath, "utf8");
+      } catch (err) {
+        console.error(`Error reading preview file for ${c.name}:`, err);
+      }
     }
 
     return {
