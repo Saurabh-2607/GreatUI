@@ -355,7 +355,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
-            className="absolute bottom-6 left-1/2 z-40 flex -translate-x-1/2 items-center gap-3 rounded-xl border border-neutral-200 bg-white/80 p-1.5 shadow-md backdrop-blur-xl transition-all dark:border-neutral-800/60 dark:bg-neutral-950/80"
+            className="absolute bottom-6 left-1/2 z-40 hidden -translate-x-1/2 items-center gap-3 rounded-xl border border-neutral-200 bg-white/80 p-1.5 shadow-md backdrop-blur-xl transition-all sm:flex dark:border-neutral-800/60 dark:bg-neutral-950/80"
           >
             <div
               ref={dropdownRef}
