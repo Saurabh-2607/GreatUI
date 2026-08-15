@@ -1530,4 +1530,138 @@ export const components: Component[] = [
       },
     ],
   },
+  {
+    slug: "staggered-page-transition",
+    name: "Staggered Page Transition",
+    description:
+      "A gorgeous staggered layout transition built with Framer Motion.",
+    interactionType:
+      "Triggered on route change or programmatically. Covers the viewport in staggered animated panels, seamlessly revealing the next view underneath.",
+    dependencies: ["motion"],
+    previewFile: "StaggeredPageTransitionPreview",
+    preview: "https://ik.imagekit.io/ybq4azred/staggering-page-transition.mp4",
+    props: [
+      {
+        name: "trigger",
+        type: ["number"],
+        description:
+          "Value key to programmatically trigger the transition overlay.",
+        default: "0",
+      },
+      {
+        name: "onViewSwap",
+        type: ["() => void"],
+        description:
+          "Callback fired at mid-transition to perform state/view swaps.",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the container wrapper.",
+      },
+      {
+        name: "panelClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the individual transitioning panels.",
+      },
+      {
+        name: "columns",
+        type: ["number"],
+        description: "The number of vertical columns the curtain splits into.",
+        default: "5",
+      },
+      {
+        name: "duration",
+        type: ["number"],
+        description: "The duration of the animation for each panel in seconds.",
+        default: "0.75",
+      },
+      {
+        name: "staggerDelay",
+        type: ["number"],
+        description: "The delay between each panel's animation in seconds.",
+        default: "0.075",
+      },
+      {
+        name: "ease",
+        type: ["string", "number[]"],
+        description:
+          "The bezier curve easing array or string for the animation.",
+        default: "[0.85, 0, 0.15, 1]",
+      },
+      {
+        name: "direction",
+        type: ["'top'", "'bottom'", "'left'", "'right'"],
+        description:
+          "The direction the curtain enters from. Also determines if panels are vertical or horizontal.",
+        default: '"top"',
+      },
+      {
+        name: "exitOpposite",
+        type: ["boolean"],
+        description:
+          "If true, the curtain will exit in the opposite direction it entered.",
+        default: "true",
+      },
+    ],
+    usageCode: `// 1. General Setup (All React Frameworks)
+// The RouteTransitionProvider is framework-agnostic. Wrap your app with it 
+// and pass your router's navigation function to the 'navigate' prop.
+import { RouteTransitionProvider } from "@/components/ui/StaggeredPageTransition";
+
+export function AppWrapper({ children }) {
+  // Get your framework's router hook here (e.g. useRouter, useNavigate, useLocation)
+  const navigate = (url: string) => { /* your router push function */ };
+  
+  return (
+    <RouteTransitionProvider navigate={navigate}>
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+
+// 2. Next.js App Router Setup
+// Create a client-side wrapper in a new file (e.g. components/TransitionWrapper.tsx):
+"use client";
+import { useRouter } from "next/navigation";
+import { RouteTransitionProvider } from "@/components/ui/StaggeredPageTransition";
+
+export function TransitionWrapper({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  
+  return (
+    <RouteTransitionProvider navigate={(url) => router.push(url)} panelClassName="bg-rose-500">
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+// Then wrap your application in layout.tsx:
+// <TransitionWrapper>{children}</TransitionWrapper>
+
+
+// 3. React Router (Vite / Remix) Setup
+// Simply wrap your Routes with the provider and pass the navigate hook:
+import { useNavigate, Routes, Route } from "react-router-dom";
+import { RouteTransitionProvider } from "@/components/ui/StaggeredPageTransition";
+
+export function AppShell() {
+  const navigate = useNavigate();
+
+  return (
+    <RouteTransitionProvider navigate={navigate}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+      </Routes>
+    </RouteTransitionProvider>
+  );
+}
+
+
+
+}`,
+  },
 ];

@@ -5,6 +5,12 @@ export type ChangelogItem = {
 
 export const changelogData: ChangelogItem[] = [
   {
+    date: "August 16, 2026",
+    features: [
+      "Added [Staggered Page Transition](/components/staggered-page-transition) component featuring a smooth staggered wipe effect for route transitions.",
+    ],
+  },
+  {
     date: "August 15, 2026",
     features: [
       "Added [Pixel To Ascii Image](/components/pixel-to-ascii-image) component that pixelates and turns into ASCII art on hover.",
