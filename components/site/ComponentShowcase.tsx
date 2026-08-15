@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import Container from "./Container";
 import { cn } from "@/lib/utils";
 import { ViewerProvider } from "@/lib/viewer-context";
+import Link from "next/link";
 
 interface ShowcaseItem {
   id: string;
@@ -37,7 +38,7 @@ const SHOWCASE_ITEMS: ShowcaseItem[] = [
     ),
   },
   {
-    id: "macbook",
+    id: "macbook-mockup",
     title: "Macbook Mockup",
     videoLink: "https://ik.imagekit.io/greatui/macbookMockup.mp4",
     icon: (
@@ -57,7 +58,7 @@ const SHOWCASE_ITEMS: ShowcaseItem[] = [
     ),
   },
   {
-    id: "mobile",
+    id: "mobile-mockup",
     title: "Mobile Mockup",
     videoLink: "https://ik.imagekit.io/greatui/mobileMockup.mp4",
     icon: (
@@ -77,7 +78,7 @@ const SHOWCASE_ITEMS: ShowcaseItem[] = [
     ),
   },
   {
-    id: "bento",
+    id: "deployment-checklist",
     title: "Deployment Checklist",
     videoLink: "https://ik.imagekit.io/greatui/deploymentchecklist.mp4",
     icon: (
@@ -101,7 +102,7 @@ const SHOWCASE_ITEMS: ShowcaseItem[] = [
     ),
   },
   {
-    id: "timeline",
+    id: "revision-timeline",
     title: "Revision Timeline",
     videoLink: "https://ik.imagekit.io/greatui/timeline.mp4",
     icon: (
@@ -121,7 +122,7 @@ const SHOWCASE_ITEMS: ShowcaseItem[] = [
     ),
   },
   {
-    id: "team",
+    id: "team-section",
     title: "Team Section",
     videoLink: "https://ik.imagekit.io/greatui/teamSection.mp4",
     icon: (
@@ -137,7 +138,7 @@ const SHOWCASE_ITEMS: ShowcaseItem[] = [
     ),
   },
   {
-    id: "vinyl",
+    id: "vinyl-album-card",
     title: "Vinyl Card",
     videoLink: "https://ik.imagekit.io/greatui/vinyl.mp4",
     icon: (
@@ -324,7 +325,10 @@ export function ComponentShowcase() {
                   transition={{ duration: 0.25, ease: "easeInOut" }}
                   className="pointer-events-auto flex h-full w-full items-center justify-center"
                 >
-                  <div className="aspect-video w-full overflow-hidden border border-neutral-200/30 bg-neutral-50 dark:border-neutral-800/50 dark:bg-neutral-950/80">
+                  <Link
+                    href={`/components/${activeTab.id}`}
+                    className="block aspect-video w-full cursor-alias overflow-hidden border border-neutral-200/30 bg-neutral-50 dark:border-neutral-800/50 dark:bg-neutral-950/80"
+                  >
                     <video
                       src={activeTab.videoLink}
                       autoPlay
@@ -333,7 +337,7 @@ export function ComponentShowcase() {
                       playsInline
                       className="block h-full w-full object-cover"
                     />
-                  </div>
+                  </Link>
                 </motion.div>
               </AnimatePresence>
             </div>

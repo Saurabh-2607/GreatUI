@@ -5,9 +5,14 @@ export type ChangelogItem = {
 
 export const changelogData: ChangelogItem[] = [
   {
-    date: "August 14, 2026",
+    date: "August 15, 2026",
     features: [
       "Added [Pixel To Ascii Image](/components/pixel-to-ascii-image) component that pixelates and turns into ASCII art on hover.",
+    ],
+  },
+  {
+    date: "August 14, 2026",
+    features: [
       "Added [Multilingual Quote](/components/multilingual-quote) component featuring animated quotes, language toggles, and fully customizable props.",
     ],
   },
