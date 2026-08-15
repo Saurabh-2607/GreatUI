@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 
 type Theme = "dark" | "light";
 
@@ -32,7 +38,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     setTheme((prev) => {
       const nextTheme = prev === "dark" ? "light" : "dark";
       const root = document.documentElement;
@@ -44,7 +50,32 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       localStorage.setItem("great-ui-theme", nextTheme);
       return nextTheme;
     });
-  };
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        e.target instanceof HTMLElement &&
+        (e.target.tagName === "INPUT" ||
+          e.target.tagName === "TEXTAREA" ||
+          e.target.tagName === "SELECT" ||
+          e.target.isContentEditable)
+      ) {
+        return;
+      }
+
+      if (
+        e.key === "d" ||
+        (e.key.toLowerCase() === "d" && (e.metaKey || e.ctrlKey) && e.shiftKey)
+      ) {
+        e.preventDefault();
+        toggleTheme();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [toggleTheme]);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

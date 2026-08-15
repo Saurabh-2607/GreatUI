@@ -28,12 +28,7 @@ function ContactCard({
   rel,
 }: ContactCardProps) {
   return (
-    <a
-      href={href}
-      target={target}
-      rel={rel}
-      className="group relative block cursor-pointer overflow-hidden rounded-3xl bg-neutral-100 no-underline dark:bg-neutral-900"
-    >
+    <div className="group relative block cursor-pointer overflow-hidden rounded-3xl bg-neutral-100 no-underline dark:bg-neutral-900">
       <div className="relative flex h-56 w-full items-center justify-center overflow-hidden bg-neutral-200/40 px-3.5 pt-3.5 pb-0 dark:bg-neutral-950/40">
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.12] dark:opacity-[0.08]"
@@ -58,9 +53,14 @@ function ContactCard({
       <div className="flex flex-col p-4">
         <div className="flex items-center justify-between gap-2">
           <div className="z-20 flex items-center gap-1.5">
-            <span className="text-lg font-semibold tracking-tight text-neutral-900 dark:text-white">
+            <a
+              href={href}
+              target={target}
+              rel={rel}
+              className="text-lg font-semibold tracking-tight text-neutral-900 before:absolute before:inset-0 before:z-10 dark:text-white"
+            >
               {title}
-            </span>
+            </a>
             {isEmail && handleCopy && (
               <button
                 onClick={(e) => {
@@ -68,7 +68,7 @@ function ContactCard({
                   e.stopPropagation();
                   handleCopy(title);
                 }}
-                className="rounded p-1 text-neutral-400 transition-colors hover:bg-neutral-200 hover:text-neutral-600 dark:text-neutral-500 dark:hover:bg-neutral-800 dark:hover:text-neutral-300"
+                className="relative z-30 ml-1 rounded-md p-1.5 text-neutral-400 transition-colors hover:bg-neutral-200 hover:text-neutral-900 dark:text-neutral-500 dark:hover:bg-neutral-800 dark:hover:text-white"
                 title={`Copy ${title}`}
               >
                 {copiedEmail === title ? (
@@ -122,7 +122,7 @@ function ContactCard({
           {description}
         </p>
       </div>
-    </a>
+    </div>
   );
 }
 

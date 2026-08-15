@@ -279,6 +279,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
         }`}
       >
         <div
+          role="presentation"
           aria-hidden="true"
           className={`fixed inset-0 bg-black/5 transition-opacity duration-300 dark:bg-black/20 ${
             isSidebarOpen ? "opacity-100" : "opacity-0"

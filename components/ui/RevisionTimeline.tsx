@@ -181,7 +181,7 @@ const Dash = ({
         aria-label={`Go to log for ${revision.date}`}
         title={revision.date}
         className={cn(
-          "group flex h-20 w-[10px] shrink-0 items-end justify-center border-0 bg-transparent p-0 outline-none",
+          "group flex h-20 w-[10px] shrink-0 items-end justify-center border-0 bg-transparent p-0 outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
           isDisabled ? "pointer-events-none cursor-default" : "cursor-pointer",
         )}
         onClick={() => !isDisabled && onSelect(revision.id)}

@@ -4,7 +4,7 @@ import { useState } from "react";
 import {
   ScrambledInstallCommand,
   PkgManager,
-} from "@/components/ui/scrambled-install-command";
+} from "@/components/ui/ScrambledInstallCommand";
 
 export default function ScrambledInstallCommandPreview() {
   const [pkgManager, setPkgManager] = useState<PkgManager>("npm");

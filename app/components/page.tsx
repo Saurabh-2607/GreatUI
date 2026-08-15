@@ -59,6 +59,7 @@ export default function ComponentsPage() {
                   <Link
                     href={`/components/${c.slug}`}
                     key={c.slug}
+                    aria-label={`View ${c.name} component`}
                     className="group relative block cursor-pointer overflow-hidden rounded-t-3xl rounded-b-2xl bg-neutral-100/70 no-underline dark:bg-neutral-900"
                   >
                     <ComponentCard component={c} />

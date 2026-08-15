@@ -389,12 +389,14 @@ export function MacbookMockup({
               <div className="flex items-center gap-2.5 text-neutral-600 dark:text-neutral-400">
                 <button
                   type="button"
+                  aria-label="Status"
                   className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400"
                 >
                   <StatusCircleIcon />
                 </button>
                 <button
                   type="button"
+                  aria-label="New chat"
                   className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400"
                 >
                   <NewChatIcon />
