@@ -25,7 +25,8 @@
     "cmdk": "^1.1.1",
     "motion": "^12.42.2",
     "next": "^16.3.0",
-    "posthog-js": "^1.404.1",
+    "posthog-js": "^1.417.1",
+    "posthog-node": "^5.49.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "tailwind-merge": "^3.6.0"

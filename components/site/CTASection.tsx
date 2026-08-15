@@ -33,6 +33,11 @@ export default function CTASection() {
           <div className="relative z-10 mt-12 grid w-full grid-cols-1 gap-6 md:grid-cols-3">
             <Link
               href="/components"
+              onClick={() =>
+                posthog.capture("components_catalogue_opened", {
+                  location: "homepage_cta",
+                })
+              }
               className="group relative block h-44 cursor-pointer overflow-hidden rounded-3xl bg-neutral-100/70 p-3.5 no-underline transition-all duration-300 hover:bg-neutral-200/50 dark:bg-neutral-900 dark:hover:bg-neutral-800/80"
             >
               <div

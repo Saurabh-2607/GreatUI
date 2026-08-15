@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import posthog from "posthog-js";
 import { type Component } from "@/lib/registry";
 import { getComponentMarkdown } from "@/lib/markdown";
 import { useViewer } from "@/lib/viewer-context";
@@ -39,6 +40,9 @@ export default function ComponentActions({
 
   const handleCopyPage = () => {
     navigator.clipboard.writeText(window.location.href);
+    posthog.capture("component_page_link_copied", {
+      component_slug: component.slug,
+    });
     setCopiedPage(true);
     setTimeout(() => setCopiedPage(false), 2000);
   };
@@ -51,6 +55,10 @@ export default function ComponentActions({
     url.searchParams.set("q", md);
 
     window.open(url.toString(), "_blank");
+    posthog.capture("component_markdown_export_opened", {
+      component_slug: component.slug,
+      destination: new URL(baseUrl).hostname,
+    });
     setIsCopyDropdownOpen(false);
   };
 

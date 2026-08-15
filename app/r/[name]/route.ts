@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { components } from "@/lib/registry";
 import { getRegistryComponent } from "@/lib/registry-server";
+import getPostHogClient from "@/lib/posthog-server";
 
 function getComponentFileName(name: string): string {
   if (name.toLowerCase().includes("shader")) {
@@ -59,6 +60,23 @@ export async function GET(
       },
     ],
   };
+
+  const posthog = getPostHogClient();
+  const userAgent = request.headers.get("user-agent") || "unknown";
+  const distinctId =
+    request.headers.get("x-posthog-distinct-id") || crypto.randomUUID();
+
+  posthog.capture({
+    distinctId: distinctId,
+    event: "cli_component_download",
+    properties: {
+      component_slug: component.slug,
+      component_name: component.name,
+      user_agent: userAgent,
+    },
+  });
+
+  await posthog.flush();
 
   return NextResponse.json(registryItem);
 }
