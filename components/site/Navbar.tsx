@@ -5,7 +5,7 @@ import Link from "next/link";
 import posthog from "posthog-js";
 import Container from "./Container";
 import ThemeToggle from "./ThemeToggle";
-import { GithubIcon, StarIcon, CommandIcon } from "./Icons";
+import { GithubIcon, StarIcon } from "./Icons";
 
 export function Navbar() {
   const [isHovered, setIsHovered] = useState(false);

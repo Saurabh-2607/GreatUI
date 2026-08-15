@@ -322,7 +322,12 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                 isCodeOpen ? "translate-y-0" : "translate-y-full"
               }`}
             >
-              <div className="h-full w-full overflow-hidden rounded-2xl shadow-xl">
+              <div className="relative h-full w-full overflow-hidden rounded-2xl shadow-xl">
+                <ProgressiveBlur
+                  position="top"
+                  height="140px"
+                  className="z-20 bg-gradient-to-b from-white via-white/90 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a]/90 dark:to-transparent"
+                />
                 <CodePanel
                   component={component}
                   onClose={() => setIsCodeOpen(false)}
@@ -333,12 +338,6 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
         </div>
 
         <section className="relative flex h-full flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 backdrop-blur-md dark:bg-[#141414]">
-          {/* Progressive blur mask stack */}
-          <ProgressiveBlur
-            position="top"
-            height="112px"
-            className="z-20 bg-gradient-to-b from-neutral-100 via-neutral-100/80 to-transparent dark:from-[#141414] dark:via-[#141414]/80 dark:to-transparent"
-          />
           <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden">
             <div
               ref={setPreviewContainer}
