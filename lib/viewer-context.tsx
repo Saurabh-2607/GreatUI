@@ -10,6 +10,8 @@ interface ViewerContextType {
   setIsPanelOpen: (open: boolean) => void;
   isCodeOpen: boolean;
   setIsCodeOpen: (open: boolean) => void;
+  isMarkdownOpen: boolean;
+  setIsMarkdownOpen: (open: boolean) => void;
   activeComponent: Component | null;
   setActiveComponent: (comp: Component | null) => void;
   previewContainer: HTMLElement | null;
@@ -22,6 +24,7 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [isCodeOpen, setIsCodeOpen] = useState(false);
+  const [isMarkdownOpen, setIsMarkdownOpen] = useState(false);
   const [activeComponent, setActiveComponent] = useState<Component | null>(
     null,
   );
@@ -49,6 +52,20 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const handleSetCodeOpen = (open: boolean) => {
+    setIsCodeOpen(open);
+    if (open) {
+      setIsMarkdownOpen(false);
+    }
+  };
+
+  const handleSetMarkdownOpen = (open: boolean) => {
+    setIsMarkdownOpen(open);
+    if (open) {
+      setIsCodeOpen(false);
+    }
+  };
+
   return (
     <ViewerContext.Provider
       value={{
@@ -57,7 +74,9 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
         isPanelOpen,
         setIsPanelOpen: handleSetPanelOpen,
         isCodeOpen,
-        setIsCodeOpen,
+        setIsCodeOpen: handleSetCodeOpen,
+        isMarkdownOpen,
+        setIsMarkdownOpen: handleSetMarkdownOpen,
         activeComponent,
         setActiveComponent,
         previewContainer,

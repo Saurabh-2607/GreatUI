@@ -10,7 +10,16 @@ function getHighlighter() {
   if (!highlighterPromise) {
     highlighterPromise = createHighlighter({
       themes: [greatUiLight, greatUiDark],
-      langs: ["typescript", "javascript", "tsx", "jsx", "css", "json", "bash"],
+      langs: [
+        "typescript",
+        "javascript",
+        "tsx",
+        "jsx",
+        "css",
+        "json",
+        "bash",
+        "markdown",
+      ],
     });
   }
   return highlighterPromise;

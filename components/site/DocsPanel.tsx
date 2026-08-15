@@ -2,9 +2,17 @@
 
 import { useState, useEffect } from "react";
 import posthog from "posthog-js";
-import { type Component } from "@/lib/registry";
-import { CopyIcon, CheckIcon, CodeIcon } from "./Icons";
+import { type Component, components } from "@/lib/registry";
+import Link from "next/link";
+import {
+  CopyIcon,
+  CheckIcon,
+  CodeIcon,
+  dependencyUrls,
+  dependencyIcons,
+} from "./Icons";
 import ShikiHighlight from "./ShikiHighlight";
+import ComponentActions from "./ComponentActions";
 
 type PkgManager = "npm" | "pnpm" | "yarn" | "bun";
 
@@ -22,65 +30,16 @@ function getInstallCommand(pm: PkgManager, url: string): string {
   }
 }
 
-const dependencyUrls: Record<string, string> = {
-  motion: "https://www.framer.com/motion/",
-  tailwind: "https://tailwindcss.com",
-  lucide: "https://lucide.dev",
-};
-
-const dependencyIcons: Record<string, React.ReactNode> = {
-  motion: (
-    <svg
-      width="24"
-      height="8.516006938968616"
-      viewBox="0 0 25.364 9"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      className="text-neutral-800 dark:text-neutral-200"
-    >
-      <path
-        d="M 9.587 0 L 4.57 9 L 0 9 L 3.917 1.972 C 4.524 0.883 6.039 0 7.301 0 Z M 20.794 2.25 C 20.794 1.007 21.817 0 23.079 0 C 24.341 0 25.364 1.007 25.364 2.25 C 25.364 3.493 24.341 4.5 23.079 4.5 C 21.817 4.5 20.794 3.493 20.794 2.25 Z M 10.443 0 L 15.013 0 L 9.997 9 L 5.427 9 Z M 15.841 0 L 20.411 0 L 16.494 7.028 C 15.887 8.117 14.372 9 13.11 9 L 10.825 9 Z"
-        fill="currentColor"
-      ></path>
-    </svg>
-  ),
-  tailwind: (
-    <svg
-      width="20"
-      height="12"
-      viewBox="0 0 34.4 20.6"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      className="text-sky-400"
-    >
-      <path
-        fill="currentColor"
-        d="M17.183 0C12.6 0 9.737 2.291 8.59 6.873c1.719-2.29 3.723-3.15 6.014-2.577 1.307.326 2.242 1.274 3.275 2.324 1.685 1.71 3.635 3.689 7.894 3.689 4.582 0 7.445-2.291 8.591-6.872-1.718 2.29-3.723 3.15-6.013 2.576-1.308-.326-2.243-1.274-3.276-2.324C23.39 1.98 21.44 0 17.183 0ZM8.59 10.309C4.01 10.309 1.145 12.6 0 17.182c1.718-2.291 3.723-3.15 6.013-2.577 1.308.326 2.243 1.274 3.276 2.324 1.685 1.71 3.635 3.689 7.894 3.689 4.582 0 7.445-2.29 8.59-6.872-1.718 2.29-3.722 3.15-6.013 2.577-1.307-.327-2.242-1.276-3.276-2.325-1.684-1.71-3.634-3.689-7.893-3.689Z"
-      />
-    </svg>
-  ),
-  tailwindcss: (
-    <svg
-      width="20"
-      height="12"
-      viewBox="0 0 34.4 20.6"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      className="text-sky-400"
-    >
-      <path
-        fill="currentColor"
-        d="M17.183 0C12.6 0 9.737 2.291 8.59 6.873c1.719-2.29 3.723-3.15 6.014-2.577 1.307.326 2.242 1.274 3.275 2.324 1.685 1.71 3.635 3.689 7.894 3.689 4.582 0 7.445-2.291 8.591-6.872-1.718 2.29-3.723 3.15-6.013 2.576-1.308-.326-2.243-1.274-3.276-2.324C23.39 1.98 21.44 0 17.183 0ZM8.59 10.309C4.01 10.309 1.145 12.6 0 17.182c1.718-2.291 3.723-3.15 6.013-2.577 1.308.326 2.243 1.274 3.276 2.324 1.685 1.71 3.635 3.689 7.894 3.689 4.582 0 7.445-2.29 8.59-6.872-1.718 2.29-3.722 3.15-6.013 2.577-1.307-.327-2.242-1.276-3.276-2.325-1.684-1.71-3.634-3.689-7.893-3.689Z"
-      />
-    </svg>
-  ),
-};
-
 export default function DocsPanel({ component }: { component: Component }) {
   const [copiedInstall, setCopiedInstall] = useState(false);
   const [copiedUsage, setCopiedUsage] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [pkgManager, setPkgManager] = useState<PkgManager>("npm");
+
+  const currentIndex = components.findIndex((c) => c.slug === component.slug);
+  const prevComponent = currentIndex > 0 ? components[currentIndex - 1] : null;
+  const nextComponent =
+    currentIndex < components.length - 1 ? components[currentIndex + 1] : null;
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => setMounted(true));
@@ -113,11 +72,55 @@ export default function DocsPanel({ component }: { component: Component }) {
 
   return (
     <aside className="flex flex-col space-y-20 text-neutral-900 dark:text-white">
-      <div>
-        <h2 className="text-4xl font-semibold tracking-tight text-neutral-900 dark:text-white">
-          {component.name}
-        </h2>
-        <p className="leading-tighter mt-5 text-2xl text-neutral-700 dark:text-neutral-300">
+      <div className="flex flex-col gap-8">
+        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+          <h2 className="text-4xl font-semibold tracking-tight text-neutral-900 dark:text-white">
+            {component.name}
+          </h2>
+
+          <div className="flex items-center gap-2">
+            <ComponentActions component={component} />
+
+            <Link
+              href={prevComponent ? `/components/${prevComponent.slug}` : "#"}
+              className={`flex items-center justify-center rounded-xl bg-neutral-100 p-2 text-neutral-700 transition-colors dark:bg-[#222] dark:text-neutral-200 ${!prevComponent ? "pointer-events-none cursor-not-allowed opacity-50" : "hover:bg-neutral-200 dark:hover:bg-[#2a2a2a]"}`}
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+            </Link>
+
+            <Link
+              href={nextComponent ? `/components/${nextComponent.slug}` : "#"}
+              className={`flex items-center justify-center rounded-xl bg-neutral-100 p-2 text-neutral-700 transition-colors dark:bg-[#222] dark:text-neutral-200 ${!nextComponent ? "pointer-events-none cursor-not-allowed opacity-50" : "hover:bg-neutral-200 dark:hover:bg-[#2a2a2a]"}`}
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </Link>
+          </div>
+        </div>
+        <p className="leading-tighter text-2xl text-neutral-700 dark:text-neutral-300">
           {component.description}
         </p>
       </div>

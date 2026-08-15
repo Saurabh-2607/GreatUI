@@ -8,6 +8,7 @@ import Sidebar from "@/components/site/Sidebar";
 import SidebarToggle from "@/components/site/SidebarToggle";
 import DocsPanel from "@/components/site/DocsPanel";
 import CodePanel from "@/components/site/CodePanel";
+import MarkdownPanel from "@/components/site/MarkdownPanel";
 import ThemeToggle from "@/components/site/ThemeToggle";
 import {
   CodeIcon,
@@ -46,6 +47,8 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
     setIsPanelOpen,
     isCodeOpen,
     setIsCodeOpen,
+    isMarkdownOpen,
+    setIsMarkdownOpen,
     activeComponent,
     setPreviewContainer,
   } = useViewer();
@@ -117,7 +120,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative flex h-screen w-full flex-col overflow-hidden bg-white p-4 text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-white">
       <div
-        className={`absolute top-4 left-4 z-[60] flex items-center gap-3.5 transition-opacity duration-300 sm:top-9 sm:left-9 ${isCodeOpen ? "pointer-events-none opacity-0" : "opacity-100"}`}
+        className={`absolute top-4 left-4 z-[60] flex items-center gap-3.5 transition-opacity duration-300 sm:top-9 sm:left-9 ${isCodeOpen || isMarkdownOpen ? "pointer-events-none opacity-0" : "opacity-100"}`}
       >
         <SidebarToggle
           isOpen={isSidebarOpen}
@@ -297,7 +300,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
         </div>
       </div>
       <div
-        className={`relative z-10 flex flex-1 overflow-hidden transition-all duration-300 ${
+        className={`relative flex flex-1 overflow-hidden transition-all duration-300 ${
           isPanelOpen ? "gap-4" : "gap-0"
         }`}
       >
@@ -312,33 +315,41 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
             <ProgressiveBlur
               position="top"
               height="140px"
-              className="z-20 bg-gradient-to-b from-white via-white/90 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a]/90 dark:to-transparent"
+              className="pointer-events-none z-20 bg-gradient-to-b from-white via-white/90 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a]/90 dark:to-transparent"
             />
-            <div className="h-full w-full scrollbar-none overflow-y-auto px-6 pt-[25vh] pb-[10vh]">
+            <div className="relative z-10 h-full w-full scrollbar-none overflow-y-auto px-6 pt-[25vh] pb-[10vh]">
               <DocsPanel component={component} />
             </div>
 
             <div
-              className={`absolute inset-0 z-30 flex flex-col justify-end transition-transform duration-500 ease-in-out ${
+              className={`absolute inset-0 z-[99999] flex flex-col justify-end transition-transform duration-500 ease-in-out ${
                 isCodeOpen ? "translate-y-0" : "translate-y-full"
               }`}
             >
               <div className="relative h-full w-full overflow-hidden rounded-2xl shadow-xl">
-                <ProgressiveBlur
-                  position="top"
-                  height="140px"
-                  className="z-20 bg-gradient-to-b from-white via-white/90 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a]/90 dark:to-transparent"
-                />
                 <CodePanel
                   component={component}
                   onClose={() => setIsCodeOpen(false)}
                 />
               </div>
             </div>
+
+            <div
+              className={`absolute inset-0 z-[99999] flex flex-col justify-end transition-transform duration-500 ease-in-out ${
+                isMarkdownOpen ? "translate-y-0" : "translate-y-full"
+              }`}
+            >
+              <div className="relative h-full w-full overflow-hidden rounded-2xl shadow-xl">
+                <MarkdownPanel
+                  component={component}
+                  onClose={() => setIsMarkdownOpen(false)}
+                />
+              </div>
+            </div>
           </div>
         </div>
 
-        <section className="relative flex h-full flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 backdrop-blur-md dark:bg-[#141414]">
+        <section className="relative z-10 flex h-full flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 backdrop-blur-md dark:bg-[#141414]">
           <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden">
             <div
               ref={setPreviewContainer}
