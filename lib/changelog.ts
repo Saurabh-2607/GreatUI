@@ -7,6 +7,7 @@ export const changelogData: ChangelogItem[] = [
   {
     date: "August 16, 2026",
     features: [
+      "Added [Doodle Line Transition](/components/doodle-line-transition) component featuring staggered horizontal bands with vibrant doodle accents.",
       "Added [Staggered Page Transition](/components/staggered-page-transition) component featuring a smooth staggered wipe effect for route transitions.",
     ],
   },

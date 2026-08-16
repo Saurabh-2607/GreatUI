@@ -1506,6 +1506,12 @@ export const components: Component[] = [
         description: "The source URL of the image.",
       },
       {
+        name: "ease",
+        type: ["number[]"],
+        description: "Framer Motion easing array.",
+        default: "[0.85, 0, 0.15, 1]",
+      },
+      {
         name: "width",
         type: ["number"],
         description: "The width of the canvas.",
@@ -1662,6 +1668,167 @@ export function AppShell() {
 
 
 
+}`,
+  },
+  {
+    slug: "color-wipe-page-transition",
+    name: "Color Wipe Page Transition",
+    description:
+      "A fast, colorful screen transition featuring staggered horizontal bands with vibrant doodle accents.",
+    interactionType:
+      "Programmatically triggered. Covers the screen horizontally with 10 staggered lines before sliding out to reveal the new state.",
+    dependencies: ["motion"],
+    previewFile: "ColorWipePageTransitionPreview",
+    preview: "https://ik.imagekit.io/ybq4azred/ColorWipeTransition.mp4",
+    props: [
+      {
+        name: "trigger",
+        type: ["number"],
+        description:
+          "Value key to programmatically trigger the transition overlay.",
+        default: "0",
+      },
+      {
+        name: "onViewSwap",
+        type: ["() => void"],
+        description:
+          "Callback fired at mid-transition to perform state/view swaps.",
+      },
+      {
+        name: "panelColor",
+        type: ["string"],
+        description:
+          "An optional hex code or CSS color string to override the default background color of the transitioning panels.",
+      },
+      {
+        name: "columns",
+        type: ["number"],
+        description:
+          "The number of vertical/horizontal bands the screen splits into.",
+        default: "10",
+      },
+      {
+        name: "duration",
+        type: ["number"],
+        description: "The duration of the animation for each band in seconds.",
+        default: "0.45",
+      },
+      {
+        name: "staggerDelay",
+        type: ["number"],
+        description: "The delay between each band's animation in seconds.",
+        default: "0.03",
+      },
+      {
+        name: "ease",
+        type: ["string", "number[]"],
+        description:
+          "The bezier curve easing array or string for the animation.",
+        default: "[0.85, 0, 0.15, 1]",
+      },
+      {
+        name: "direction",
+        type: ["'top'", "'bottom'", "'left'", "'right'"],
+        description:
+          "The direction the curtain enters from. Also determines if bands are vertical or horizontal.",
+        default: '"left"',
+      },
+      {
+        name: "exitOpposite",
+        type: ["boolean"],
+        description:
+          "If true, the curtain will exit in the opposite direction it entered.",
+        default: "false",
+      },
+      {
+        name: "showLeadingStroke",
+        type: ["boolean"],
+        description:
+          "Whether to show the colorful stroke on the leading edge of the wipe.",
+        default: "true",
+      },
+      {
+        name: "showTrailingStroke",
+        type: ["boolean"],
+        description:
+          "Whether to show the colorful stroke on the trailing edge of the wipe.",
+        default: "true",
+      },
+      {
+        name: "strokeWidth",
+        type: ["number"],
+        description:
+          "The width (or height for vertical directions) of the colorful doodle stroke in pixels.",
+        default: "10",
+      },
+      {
+        name: "leadingStrokeColors",
+        type: ["string[]"],
+        description:
+          "Array of hex colors to use for the colorful doodle accents on the leading edge of the wipe.",
+        default: '["#facc15", "#ec4899", "#38bdf8", ...]',
+      },
+      {
+        name: "trailingStrokeColors",
+        type: ["string[]"],
+        description:
+          "Array of hex colors to use for the colorful doodle accents on the trailing edge of the wipe.",
+        default: '["#facc15", "#ec4899", "#38bdf8", ...]',
+      },
+    ],
+    usageCode: `// 1. General Setup (All React Frameworks)
+// The RouteTransitionProvider is framework-agnostic. Wrap your app with it 
+// and pass your router's navigation function to the 'navigate' prop.
+import { RouteTransitionProvider } from "@/components/ui/ColorWipePageTransition";
+
+export function AppWrapper({ children }) {
+  // Get your framework's router hook here (e.g. useRouter, useNavigate, useLocation)
+  const navigate = (url: string) => { /* your router push function */ };
+  
+  return (
+    <RouteTransitionProvider navigate={navigate}>
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+
+// 2. Next.js App Router Setup
+// Create a client-side wrapper in a new file (e.g. components/TransitionWrapper.tsx):
+"use client";
+import { useRouter } from "next/navigation";
+import { RouteTransitionProvider } from "@/components/ui/ColorWipePageTransition";
+
+export function TransitionWrapper({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  
+  return (
+    <RouteTransitionProvider navigate={(url) => router.push(url)}>
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+// Then wrap your application in layout.tsx:
+// <TransitionWrapper>{children}</TransitionWrapper>
+
+
+// 3. React Router (Vite / Remix) Setup
+// Simply wrap your Routes with the provider and pass the navigate hook:
+import { useNavigate, Routes, Route } from "react-router-dom";
+import { RouteTransitionProvider } from "@/components/ui/ColorWipePageTransition";
+
+export function AppShell() {
+  const navigate = useNavigate();
+
+  return (
+    <RouteTransitionProvider navigate={navigate}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+      </Routes>
+    </RouteTransitionProvider>
+  );
 }`,
   },
 ];
