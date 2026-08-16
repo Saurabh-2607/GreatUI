@@ -294,7 +294,7 @@ export const components: Component[] = [
       },
     ],
   },
-  {
+  /* {
     slug: "liquid-ripple-shader",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/liquidRiple.mp4",
@@ -533,7 +533,7 @@ export const components: Component[] = [
           "Callback function fired when a dropdown menu item is selected.",
       },
     ],
-  },
+  }, */
   {
     slug: "animated-link",
     inspiration: "",
@@ -570,7 +570,7 @@ export const components: Component[] = [
       },
     ],
   },
-  {
+  /* {
     slug: "ascii-image",
     inspiration: "",
     preview: "/previews/AsciiImagePreview.png",
@@ -625,7 +625,7 @@ export const components: Component[] = [
         default: "8.0",
       },
     ],
-  },
+  }, */
   {
     slug: "terminal-loader",
     inspiration: "",
@@ -989,45 +989,45 @@ export const components: Component[] = [
       },
     ],
   },
-  {
-    slug: "frosted-glass-reveal",
-    inspiration: "",
-    preview: "https://ik.imagekit.io/greatui/frostedglass.mp4",
-    name: "Frosted Glass Reveal",
-    description:
-      "An interactive frosted glass image reveal effect that simulates realistic light refraction and tracks the user's cursor.",
-    interactionType:
-      "Hover entry detection, cursor coordinate spring tracking, SVG fractal noise displacement filter, and masked reveal lens.",
-    dependencies: ["motion"],
-    previewFile: "FrostedGlassRevealPreview",
-    props: [
-      {
-        name: "imageUrl",
-        type: ["string"],
-        description: "The source URL of the image to display.",
-        default:
-          "'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1600&auto=format&fit=crop'",
-      },
-      {
-        name: "className",
-        type: ["string"],
-        description: "Additional CSS classes to style the container.",
-      },
-      {
-        name: "revealShape",
-        type: ["'circle' | 'square' | 'rounded'"],
-        description: "The physical shape of the cursor magnifying reveal lens.",
-        default: "'circle'",
-      },
-      {
-        name: "glassStrength",
-        type: ["number"],
-        description:
-          "The standard deviation intensity for the SVG Gaussian Blur frosted effect.",
-        default: "22",
-      },
-    ],
-  },
+  // {
+  //   slug: "frosted-glass-reveal",
+  //   inspiration: "",
+  //   preview: "https://ik.imagekit.io/greatui/frostedglass.mp4",
+  //   name: "Frosted Glass Reveal",
+  //   description:
+  //     "An interactive frosted glass image reveal effect that simulates realistic light refraction and tracks the user's cursor.",
+  //   interactionType:
+  //     "Hover entry detection, cursor coordinate spring tracking, SVG fractal noise displacement filter, and masked reveal lens.",
+  //   dependencies: ["motion"],
+  //   previewFile: "FrostedGlassRevealPreview",
+  //   props: [
+  //     {
+  //       name: "imageUrl",
+  //       type: ["string"],
+  //       description: "The source URL of the image to display.",
+  //       default:
+  //         "'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1600&auto=format&fit=crop'",
+  //     },
+  //     {
+  //       name: "className",
+  //       type: ["string"],
+  //       description: "Additional CSS classes to style the container.",
+  //     },
+  //     {
+  //       name: "revealShape",
+  //       type: ["'circle' | 'square' | 'rounded'"],
+  //       description: "The physical shape of the cursor magnifying reveal lens.",
+  //       default: "'circle'",
+  //     },
+  //     {
+  //       name: "glassStrength",
+  //       type: ["number"],
+  //       description:
+  //         "The standard deviation intensity for the SVG Gaussian Blur frosted effect.",
+  //       default: "22",
+  //     },
+  //   ],
+  // },
   {
     slug: "card",
     inspiration: "",
