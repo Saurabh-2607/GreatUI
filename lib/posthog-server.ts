@@ -10,18 +10,8 @@ export default function getPostHogClient(): PostHog {
   const projectToken = process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN;
   const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
 
-  if (!projectToken || !posthogHost) {
-    if (process.env.NODE_ENV === "development") {
-      const missingVariable = !projectToken
-        ? "NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN"
-        : "NEXT_PUBLIC_POSTHOG_HOST";
-
-      console.error(
-        `${missingVariable} variable required by PostHog is missing or un-configured, this causes events to be silently missed. This error stops appearing once ${missingVariable} is configured`,
-      );
-    }
-
-    // Return a dummy client if keys are missing to prevent crashing
+  if (!projectToken || !posthogHost || process.env.NODE_ENV === "development") {
+    // Return a dummy client if keys are missing or in dev mode to prevent crashing
     return {
       capture: () => {},
       flush: async () => {},
