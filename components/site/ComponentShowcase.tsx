@@ -16,6 +16,77 @@ interface ShowcaseItem {
 
 const SHOWCASE_ITEMS: ShowcaseItem[] = [
   {
+    id: "staggered-page-transition",
+    title: "Staggered Page Transition",
+    videoLink:
+      "https://ik.imagekit.io/ybq4azred/staggering-page-transition.mp4",
+    icon: (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="size-4"
+      >
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="6" x2="16" y2="6" />
+        <line x1="4" y1="18" x2="24" y2="18" />
+      </svg>
+    ),
+  },
+  {
+    id: "multilingual-quote",
+    title: "Multilingual Quote",
+    videoLink: "https://ik.imagekit.io/ybq4azred/quote-multilingual.mp4",
+    icon: (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="size-4"
+      >
+        <path d="M11.192 15.757c0-.88-.23-1.618-.69-2.217-.326-.412-.768-.683-1.327-.812-.55-.128-1.07-.137-1.54-.028-.16-.95.1-1.956.76-3.022.66-1.065 1.515-1.867 2.558-2.403L9.373 5c-.8.396-1.56.898-2.26 1.505-.71.607-1.34 1.305-1.9 2.094s-.98 1.68-1.25 2.69-.346 2.04-.217 3.1c.168 1.4.62 2.52 1.356 3.35.735.84 1.652 1.26 2.748 1.26.965 0 1.766-.29 2.4-.878.628-.576.94-1.39.94-2.44zM22.758 15.757c0-.88-.23-1.618-.69-2.217-.326-.412-.768-.683-1.327-.812-.55-.128-1.07-.137-1.54-.028-.16-.95.1-1.956.76-3.022.66-1.065 1.515-1.867 2.558-2.403L20.939 5c-.8.396-1.56.898-2.26 1.505-.71.607-1.34 1.305-1.9 2.094s-.98 1.68-1.25 2.69-.346 2.04-.217 3.1c.168 1.4.62 2.52 1.356 3.35.735.84 1.652 1.26 2.748 1.26.965 0 1.766-.29 2.4-.878.628-.576.94-1.39.94-2.44z" />
+      </svg>
+    ),
+  },
+  {
+    id: "text-on-path-scroll",
+    title: "Text on Path Scroll",
+    videoLink: "https://ik.imagekit.io/ybq4azred/preview-s_rollsvgtext.mp4",
+    icon: (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="size-4"
+      >
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 7h2v6h-2zm0 8h2v2h-2z" />
+      </svg>
+    ),
+  },
+  {
+    id: "pixel-to-ascii-image",
+    title: "Pixel to ASCII",
+    videoLink: "https://ik.imagekit.io/ybq4azred/pixel-to-ascii.mp4",
+    icon: (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="size-4"
+      >
+        <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
+      </svg>
+    ),
+  },
+  {
     id: "scrambled-install-command",
     title: "Scrambled Install Command",
     videoLink:
@@ -38,9 +109,9 @@ const SHOWCASE_ITEMS: ShowcaseItem[] = [
     ),
   },
   {
-    id: "macbook-mockup",
-    title: "Macbook Mockup",
-    videoLink: "https://ik.imagekit.io/greatui/macbookMockup.mp4",
+    id: "accordion",
+    title: "Accordion",
+    videoLink: "https://ik.imagekit.io/greatui/accordian.mp4",
     icon: (
       <svg
         width="24"
@@ -49,132 +120,29 @@ const SHOWCASE_ITEMS: ShowcaseItem[] = [
         fill="currentColor"
         className="size-4"
       >
-        <path
-          fillRule="evenodd"
-          d="M2.25 5.25a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3V15a3 3 0 0 1-3 3h-3v.257c0 .597.237 1.17.659 1.591l.621.622a.75.75 0 0 1-.53 1.28h-9a.75.75 0 0 1-.53-1.28l.622-.622a2.25 2.25 0 0 0 .659-1.59V18h-3a3 3 0 0 1-3-3V5.25zm1.5 0v9.75a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V5.25a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5z"
-          clipRule="evenodd"
-        />
+        <path d="M19 8H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zm0 6H5v-4h14v4zM5 2h14c1.1 0 2 .9 2 2v2H3V4c0-1.1.9-2 2-2zm14 18H5c-1.1 0-2-.9-2-2v-2h18v2c0 1.1-.9 2-2 2z" />
       </svg>
     ),
   },
   {
-    id: "mobile-mockup",
-    title: "Mobile Mockup",
-    videoLink: "https://ik.imagekit.io/greatui/mobileMockup.mp4",
+    id: "floating-menu",
+    title: "Floating Menu",
+    videoLink: "https://ik.imagekit.io/greatui/floatingmenu.mp4",
     icon: (
       <svg
         width="24"
         height="24"
         viewBox="0 0 24 24"
-        fill="currentColor"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         className="size-4"
       >
-        <path
-          fillRule="evenodd"
-          d="M17 2H7a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3zM12 20a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5zM6 16V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z"
-          clipRule="evenodd"
-        />
-      </svg>
-    ),
-  },
-  {
-    id: "deployment-checklist",
-    title: "Deployment Checklist",
-    videoLink: "https://ik.imagekit.io/greatui/deploymentchecklist.mp4",
-    icon: (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="size-4"
-      >
-        <path
-          fillRule="evenodd"
-          d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
-        />
-        <path
-          fillRule="evenodd"
-          d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875H4.875A1.875 1.875 0 0 1 3 20.625V9.375Zm9.97 4.72a.75.75 0 0 0-1.06-1.06L9 15.94l-1.66-1.66a.75.75 0 0 0-1.06 1.06l2.19 2.19a.75.75 0 0 0 1.06 0l3.44-3.44Z"
-          clipRule="evenodd"
-        />
-      </svg>
-    ),
-  },
-  {
-    id: "revision-timeline",
-    title: "Revision Timeline",
-    videoLink: "https://ik.imagekit.io/greatui/timeline.mp4",
-    icon: (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="size-4"
-      >
-        <path
-          fillRule="evenodd"
-          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z"
-          clipRule="evenodd"
-        />
-      </svg>
-    ),
-  },
-  {
-    id: "team-section",
-    title: "Team Section",
-    videoLink: "https://ik.imagekit.io/greatui/teamSection.mp4",
-    icon: (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="size-4"
-      >
-        <path d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-13.524 0 .75.75 0 0 1-.362-.63v-.003ZM16.5 19.125a7.103 7.103 0 0 0-1.89-4.821 8.625 8.625 0 0 1 7.89 4.821v.003l-.001.119a.75.75 0 0 1-.363.63 13.065 13.065 0 0 1-5.273.743.75.75 0 0 1-.363-.63v-.003Z" />
-      </svg>
-    ),
-  },
-  {
-    id: "vinyl-album-card",
-    title: "Vinyl Card",
-    videoLink: "https://ik.imagekit.io/greatui/vinyl.mp4",
-    icon: (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="size-4"
-      >
-        <path
-          fillRule="evenodd"
-          d="M19.952 1.651a.75.75 0 0 1 .298.599V16.303a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.403-4.909l2.311-.66a1.5 1.5 0 0 0 1.088-1.442V6.998l-12 2.727v9.578a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.402-4.909l2.31-.66a1.5 1.5 0 0 0 1.088-1.442V5.25a.75.75 0 0 1 .586-.73l15-3.41a.75.75 0 0 1 .837.541Z"
-          clipRule="evenodd"
-        />
-      </svg>
-    ),
-  },
-  {
-    id: "text-reveal",
-    title: "Text Reveal",
-    videoLink: "https://ik.imagekit.io/greatui/textscroll.mp4",
-    icon: (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="size-4"
-      >
-        <path
-          fillRule="evenodd"
-          d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625ZM7.5 15a.75.75 0 0 1 .75-.75h8.25a.75.75 0 0 1 0 1.5H8.25a.75.75 0 0 1-.75-.75Zm.75-2.25a.75.75 0 0 0 0 1.5h8.25a.75.75 0 0 0 0-1.5H8.25ZM6.75 9a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 6.75 9Z"
-          clipRule="evenodd"
-        />
-        <path d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z" />
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="8" x2="12" y2="16" />
+        <line x1="8" y1="12" x2="16" y2="12" />
       </svg>
     ),
   },
