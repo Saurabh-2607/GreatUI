@@ -127,7 +127,7 @@ export default function ColorWipePageTransitionPreview() {
               New Transition
             </span>
             <h1 className="max-w-lg px-2 text-3xl leading-tight font-medium tracking-tight text-neutral-900 sm:text-4xl md:text-5xl dark:text-white">
-              Click a direction below to trigger the doodle effect.
+              Click a direction below to trigger the page transition.
             </h1>
           </div>
 
