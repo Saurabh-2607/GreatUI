@@ -289,55 +289,36 @@ export default function DocsPanel({ component }: { component: Component }) {
             </p>
           </div>
 
-          <div className="w-full scrollbar-none overflow-x-auto">
-            <table className="w-full border-collapse text-left">
-              <thead>
-                <tr>
-                  <th className="text-md text-neutral-450 py-4 pr-4 font-semibold uppercase dark:text-neutral-500">
-                    Prop
-                  </th>
-                  <th className="text-md text-neutral-450 px-4 py-4 font-semibold uppercase dark:text-neutral-500">
-                    Type
-                  </th>
-                  <th className="text-md text-neutral-450 px-4 py-4 font-semibold uppercase dark:text-neutral-500">
-                    Default
-                  </th>
-                  <th className="text-md text-neutral-450 py-4 pl-4 font-semibold uppercase dark:text-neutral-500">
-                    Description
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y-0">
-                {component.props.map((prop) => (
-                  <tr key={prop.name} className="align-top">
-                    <td className="py-4 pr-4">
-                      <code className="rounded-lg bg-neutral-100 px-3 py-1 font-mono text-xl font-semibold text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
-                        {prop.name}
+          <div className="flex flex-col gap-6">
+            {component.props.map((prop) => (
+              <div key={prop.name} className="flex flex-col gap-2">
+                <div className="flex flex-wrap items-center justify-between gap-x-3.5 gap-y-1.5">
+                  <div className="flex flex-wrap items-center gap-x-3.5 gap-y-1.5">
+                    <code className="rounded-md bg-neutral-100 px-2.5 py-1 font-mono text-base font-semibold text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+                      {prop.name}
+                    </code>
+                    <span className="font-mono text-base font-semibold text-[#f6821f] dark:text-[#ff9d42]">
+                      {prop.type.join(" | ")}
+                    </span>
+                  </div>
+                  {prop.default ? (
+                    <span className="font-mono text-base text-neutral-500 dark:text-neutral-400">
+                      default:{" "}
+                      <code className="dark:text-neutral-350 rounded-md bg-neutral-100 px-2 py-0.5 text-sm font-semibold text-neutral-600 dark:bg-neutral-800">
+                        {prop.default}
                       </code>
-                    </td>
-                    <td className="px-4 py-4">
-                      <span className="font-mono text-base font-semibold whitespace-pre-wrap text-[#f6821f] dark:text-[#ff9d42]">
-                        {prop.type.join(" | ")}
-                      </span>
-                    </td>
-                    <td className="max-w-[220px] px-4 py-4 break-all">
-                      {prop.default ? (
-                        <code className="font-mono text-base break-all whitespace-pre-wrap text-neutral-500 dark:text-neutral-400">
-                          {prop.default}
-                        </code>
-                      ) : (
-                        <span className="text-base text-neutral-400 dark:text-neutral-600">
-                          —
-                        </span>
-                      )}
-                    </td>
-                    <td className="py-4 pl-4 text-xl leading-relaxed text-neutral-600 dark:text-neutral-300">
-                      {prop.description}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    </span>
+                  ) : (
+                    <span className="font-mono text-sm text-neutral-400 dark:text-neutral-600">
+                      no default
+                    </span>
+                  )}
+                </div>
+                <div className="dark:text-neutral-350 text-xl leading-relaxed text-neutral-600">
+                  {prop.description}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       )}

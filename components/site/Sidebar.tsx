@@ -16,6 +16,8 @@ const TickRow = () => (
   </div>
 );
 
+const orderedComponents = [...components].reverse();
+
 export default function Sidebar({ activeSlug }: SidebarProps) {
   const activeRef = React.useRef<HTMLAnchorElement>(null);
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
@@ -42,8 +44,10 @@ export default function Sidebar({ activeSlug }: SidebarProps) {
         const elementTop = element.offsetTop;
         const elementHeight = element.clientHeight;
 
-        const activeIndex = components.findIndex((c) => c.slug === activeSlug);
-        const N = components.length;
+        const activeIndex = orderedComponents.findIndex(
+          (c) => c.slug === activeSlug,
+        );
+        const N = orderedComponents.length;
         const ratio = N > 1 ? 0.35 + 0.3 * (activeIndex / (N - 1)) : 0.35;
 
         const targetScrollTop =
@@ -90,16 +94,16 @@ export default function Sidebar({ activeSlug }: SidebarProps) {
           }}
           className="relative flex h-fit flex-col"
         >
-          {components.length === 0 ? (
+          {orderedComponents.length === 0 ? (
             <div className="flex items-center justify-center p-4 text-center">
               <span className="text-xs text-neutral-400">No components</span>
             </div>
           ) : (
-            components.map((c, index) => {
+            orderedComponents.map((c, index) => {
               const active = c.slug === activeSlug;
               const itemNumber = (index + 1).toString().padStart(2, "0");
               const isFirst = index === 0;
-              const isLast = index === components.length - 1;
+              const isLast = index === orderedComponents.length - 1;
 
               return (
                 <Link
