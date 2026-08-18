@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Geist_Mono } from "next/font/google";
-import { Databuddy } from "@databuddy/sdk/react";
 import ThemeProvider from "@/components/site/ThemeProvider";
 import { SearchCommand } from "@/components/site/SearchCommand";
 import "./globals.css";
@@ -120,11 +119,6 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col bg-white font-sans text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-[#ededed]">
         <ThemeProvider>
-          <Databuddy
-            clientId={process.env.NEXT_PUBLIC_DATABUDDY_CLIENT_ID!}
-            trackWebVitals
-            trackErrors
-          />
           <SearchCommand />
           {children}
         </ThemeProvider>
