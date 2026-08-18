@@ -9,6 +9,12 @@ function getComponentFileName(name: string): string {
   return `${name.replace(/\s+/g, "")}.tsx`;
 }
 
+function getClientIp(request: Request): string {
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) return forwarded.split(",")[0].trim();
+  return request.headers.get("x-real-ip") || "unknown";
+}
+
 export async function GET(request: Request) {
   const items = components.map((c) => {
     const fileName = getComponentFileName(c.name);
@@ -34,20 +40,21 @@ export async function GET(request: Request) {
     items,
   };
 
-  const posthog = getPostHogClient();
-  const userAgent = request.headers.get("user-agent") || "unknown";
-  const distinctId =
-    request.headers.get("x-posthog-distinct-id") || crypto.randomUUID();
-
-  posthog.capture({
-    distinctId: distinctId,
-    event: "cli_registry_fetch",
-    properties: {
-      user_agent: userAgent,
-    },
-  });
-
-  await posthog.flush();
+  try {
+    const ip = getClientIp(request);
+    const posthog = getPostHogClient();
+    posthog.capture({
+      distinctId: ip,
+      event: "cli_registry_fetch",
+      properties: {
+        user_agent: request.headers.get("user-agent") || "unknown",
+        $ip: ip,
+      },
+    });
+    await posthog.flush();
+  } catch (e) {
+    console.error("Failed to capture cli_registry_fetch event", e);
+  }
 
   return NextResponse.json(catalog);
 }

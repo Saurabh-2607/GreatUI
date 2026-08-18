@@ -14,6 +14,12 @@ function getComponentFileName(name: string): string {
   return `${cleaned}.tsx`;
 }
 
+function getClientIp(request: Request): string {
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) return forwarded.split(",")[0].trim();
+  return request.headers.get("x-real-ip") || "unknown";
+}
+
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ name: string }> },
@@ -22,6 +28,32 @@ export async function GET(
 
   const slug = name.endsWith(".json") ? name.slice(0, -5) : name;
 
+  const ip = getClientIp(request);
+  const userAgent = request.headers.get("user-agent") || "unknown";
+
+  async function captureAndFlush(
+    status: "success" | "failure",
+    errorMsg?: string,
+  ) {
+    try {
+      const posthog = getPostHogClient();
+      posthog.capture({
+        distinctId: ip,
+        event: "cli_component_download",
+        properties: {
+          component_slug: slug,
+          status,
+          user_agent: userAgent,
+          $ip: ip,
+          ...(errorMsg ? { error: errorMsg } : {}),
+        },
+      });
+      await posthog.flush();
+    } catch (e) {
+      console.error("Failed to capture CLI download event", e);
+    }
+  }
+
   const component = components.find(
     (c) =>
       c.slug === slug ||
@@ -29,18 +61,16 @@ export async function GET(
   );
 
   if (!component) {
-    return NextResponse.json(
-      { error: `Registry item "${slug}" was not found.` },
-      { status: 404 },
-    );
+    const errorMsg = `Registry item "${slug}" was not found.`;
+    await captureAndFlush("failure", errorMsg);
+    return NextResponse.json({ error: errorMsg }, { status: 404 });
   }
 
   const registryComponent = getRegistryComponent(component.slug);
   if (!registryComponent || !registryComponent.code) {
-    return NextResponse.json(
-      { error: `Failed to load component code for "${slug}".` },
-      { status: 500 },
-    );
+    const errorMsg = `Failed to load component code for "${slug}".`;
+    await captureAndFlush("failure", errorMsg);
+    return NextResponse.json({ error: errorMsg }, { status: 500 });
   }
 
   const fileName = getComponentFileName(component.name);
@@ -61,22 +91,7 @@ export async function GET(
     ],
   };
 
-  const posthog = getPostHogClient();
-  const userAgent = request.headers.get("user-agent") || "unknown";
-  const distinctId =
-    request.headers.get("x-posthog-distinct-id") || crypto.randomUUID();
-
-  posthog.capture({
-    distinctId: distinctId,
-    event: "cli_component_download",
-    properties: {
-      component_slug: component.slug,
-      component_name: component.name,
-      user_agent: userAgent,
-    },
-  });
-
-  await posthog.flush();
+  await captureAndFlush("success");
 
   return NextResponse.json(registryItem);
 }
