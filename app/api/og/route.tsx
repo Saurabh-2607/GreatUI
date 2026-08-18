@@ -8,7 +8,8 @@ export const runtime = "nodejs";
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const title = searchParams.get("title") || "Great UI";
+    const rawTitle = searchParams.get("title") || "Great UI";
+    const title = rawTitle.replace(/\s*component$/i, "");
     const description =
       searchParams.get("description") ||
       "Beautiful, accessible, and high-performance React components built with Tailwind CSS.";
