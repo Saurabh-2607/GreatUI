@@ -10,9 +10,6 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const rawTitle = searchParams.get("title") || "Great UI";
     const title = rawTitle.replace(/\s*component$/i, "");
-    const description =
-      searchParams.get("description") ||
-      "Beautiful, accessible, and high-performance React components built with Tailwind CSS.";
     const breadcrumbs = searchParams.get("breadcrumbs");
 
     const imagePath = join(process.cwd(), "app/opengraph-image-base.png");
@@ -60,14 +57,6 @@ export async function GET(request: NextRequest) {
           >
             {title}
           </div>
-          {description && (
-            <div
-              tw="text-white/80 text-[36px] mt-1 pr-12"
-              style={{ fontFamily: '"TT Commons"', fontWeight: 500 }}
-            >
-              {description}
-            </div>
-          )}
         </div>
       </div>,
       {
