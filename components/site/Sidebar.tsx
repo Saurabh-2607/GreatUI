@@ -121,7 +121,7 @@ export default function Sidebar({ activeSlug }: SidebarProps) {
                       className={`block shrink-0 transition-all ${
                         active
                           ? "h-[3px] w-14 bg-[#f6821f]"
-                          : "h-[2px] w-8 bg-neutral-300 group-hover:w-14 group-hover:bg-[#f6821f] dark:bg-neutral-700"
+                          : "h-[2px] w-8 bg-neutral-300 group-hover:w-11 group-hover:bg-[#f6821f] dark:bg-neutral-700"
                       }`}
                     />
                     <span

@@ -290,7 +290,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
           onClick={() => setIsSidebarOpen(false)}
         />
         <div
-          className={`pointer-events-auto relative z-10 h-full w-64 overflow-hidden rounded-2xl bg-neutral-100 p-4 transition-all duration-300 ease-in-out sm:w-72 dark:bg-[#141414] ${
+          className={`pointer-events-auto relative z-10 h-full w-72 overflow-hidden rounded-2xl bg-neutral-100 p-4 transition-all duration-300 ease-in-out sm:w-80 dark:bg-[#141414] ${
             isSidebarOpen
               ? "translate-x-0 opacity-100"
               : "-translate-x-[calc(100%+1.5rem)] opacity-0"
