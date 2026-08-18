@@ -1831,4 +1831,245 @@ export function AppShell() {
   );
 }`,
   },
+  {
+    slug: "split-line-fly-in",
+    preview: "https://ik.imagekit.io/ybq4azred/flyIntext.mp4",
+    name: "Split Line Fly In",
+    description:
+      "A scroll-driven text animation component where lines fly in from opposite sides of the viewport and settle at the center.",
+    interactionType:
+      "Lines fly in from left and right boundaries as the user scrolls down.",
+    dependencies: ["motion"],
+    previewFile: "SplitLineFlyInPreview",
+    props: [
+      {
+        name: "text",
+        type: ["string"],
+        description:
+          "The paragraph text to automatically measure and split into visual lines.",
+      },
+      {
+        name: "lines",
+        type: ["string[]"],
+        description:
+          "An explicit array of lines to animate, bypassing dynamic layout detection.",
+      },
+      {
+        name: "direction",
+        type: ["'left'", "'right'", "'alternate'"],
+        description: "The entry direction of the lines.",
+        default: '"alternate"',
+      },
+      {
+        name: "itemClassName",
+        type: ["string"],
+        description: "Additional CSS classes to apply to each line element.",
+      },
+      {
+        name: "scrollContainerRef",
+        type: ["React.RefObject<HTMLElement | null>"],
+        description: "Optional ref for a custom scroll container.",
+      },
+      {
+        name: "offset",
+        type: ["string[]"],
+        description:
+          "Scroll container offsets defining animation start and end points.",
+        default: '["start end", "end 60%"]',
+      },
+      {
+        name: "flyInDistance",
+        type: ["string"],
+        description: "Horizontal translation starting distance (e.g., '70vw').",
+        default: '"70vw"',
+      },
+      {
+        name: "blurStart",
+        type: ["string"],
+        description: "Initial CSS blur filter intensity (e.g., '12px').",
+        default: '"12px"',
+      },
+      {
+        name: "wordSpacingStart",
+        type: ["string"],
+        description: "Initial word spacing value (e.g., '2.5em').",
+        default: '"2.5em"',
+      },
+      {
+        name: "wordSpacingEnd",
+        type: ["string"],
+        description: "Final word spacing value (e.g., '0.25em').",
+        default: '"0.25em"',
+      },
+      {
+        name: "staggerFactor",
+        type: ["number"],
+        description: "Speed stagger factor between line entries.",
+        default: "0.6",
+      },
+      {
+        name: "animationDuration",
+        type: ["number"],
+        description: "Animation scroll range duration for each line.",
+        default: "0.4",
+      },
+    ],
+  },
+  {
+    slug: "blur-scroll-reveal",
+    preview: "https://ik.imagekit.io/ybq4azred/BlurTextScroll.mp4",
+    name: "Blur Scroll Reveal",
+    description:
+      "A scroll-driven text animation component where words or lines fade and transition from blur to sharp as they scroll into view.",
+    interactionType:
+      "Text blurs and fades in as the container scrolls through the viewport.",
+    dependencies: ["motion"],
+    previewFile: "BlurScrollRevealPreview",
+    props: [
+      {
+        name: "text",
+        type: ["string"],
+        description: "The text content to animate.",
+        default: '"Grinding Hard"',
+      },
+      {
+        name: "variant",
+        type: ["'word'", "'line'"],
+        description: "Whether to animate word-by-word or visual line-by-line.",
+        default: '"word"',
+      },
+      {
+        name: "itemClassName",
+        type: ["string"],
+        description: "Additional CSS classes to apply to each text element.",
+      },
+      {
+        name: "scrollContainerRef",
+        type: ["React.RefObject<HTMLElement | null>"],
+        description: "Optional ref for a custom scroll container.",
+      },
+      {
+        name: "offset",
+        type: ["string[]"],
+        description:
+          "Scroll container offsets defining animation start and end points.",
+        default: '["start end", "end 60%"]',
+      },
+      {
+        name: "opacity",
+        type: ["number[]"],
+        description:
+          "An array defining start and end opacity values (e.g., [0, 1]).",
+        default: "[0, 1]",
+      },
+      {
+        name: "blur",
+        type: ["string[]"],
+        description:
+          "An array defining start and end blur intensity values (e.g., ['12px', '0px']).",
+        default: '["12px", "0px"]',
+      },
+      {
+        name: "y",
+        type: ["(string | number)[]"],
+        description:
+          "An array defining start and end vertical translation values (e.g., ['10px', '0px']).",
+        default: '["10px", "0px"]',
+      },
+      {
+        name: "scale",
+        type: ["number[]"],
+        description:
+          "An array defining start and end scale values (e.g., [1, 1]).",
+        default: "[1, 1]",
+      },
+      {
+        name: "containerClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to apply to the inner wrapper container.",
+      },
+      {
+        name: "staggerFactor",
+        type: ["number"],
+        description: "Relative speed stagger factor between entries.",
+        default: "0.85",
+      },
+      {
+        name: "animationDuration",
+        type: ["number"],
+        description: "Animation scroll range duration for each element.",
+        default: "0.12",
+      },
+    ],
+  },
+  {
+    slug: "word-focus-scroll",
+    preview: "https://ik.imagekit.io/ybq4azred/wordFocus.mp4",
+    name: "Word Focus Scroll",
+    description:
+      "A scroll-driven text focusing component where individual words scale up, unblur, and fade in sequentially on scroll and lock into focus.",
+    interactionType:
+      "Words dynamically focus (fade in, scale up, and unblur) one by one in a staggered sequence relative to scroll progress, remaining fully focused once revealed.",
+    dependencies: ["motion"],
+    previewFile: "WordFocusScrollPreview",
+    props: [
+      {
+        name: "text",
+        type: ["string"],
+        description: "The paragraph text to animate.",
+      },
+      {
+        name: "minScale",
+        type: ["number"],
+        description:
+          "The minimum scale applied to blurred/dimmed words before focus.",
+        default: "0.85",
+      },
+      {
+        name: "maxBlur",
+        type: ["number"],
+        description:
+          "The maximum CSS blur radius in pixels applied to out-of-focus words.",
+        default: "6",
+      },
+      {
+        name: "minOpacity",
+        type: ["number"],
+        description: "The minimum opacity applied to out-of-focus words.",
+        default: "0",
+      },
+      {
+        name: "staggerFactor",
+        type: ["number"],
+        description:
+          "Relative speed stagger factor across the entire word list.",
+        default: "0.8",
+      },
+      {
+        name: "wordDuration",
+        type: ["number"],
+        description:
+          "Animation scroll range duration for each individual word focus.",
+        default: "0.1",
+      },
+      {
+        name: "itemClassName",
+        type: ["string"],
+        description: "Additional CSS classes to style the text elements.",
+      },
+      {
+        name: "scrollContainerRef",
+        type: ["React.RefObject<HTMLElement | null>"],
+        description: "Optional ref for a custom scroll container.",
+      },
+      {
+        name: "offset",
+        type: ["string[]"],
+        description:
+          "Scroll container offsets defining the active viewport focus window.",
+        default: '["start 90%", "end 60%"]',
+      },
+    ],
+  },
 ];

@@ -5,6 +5,14 @@ export type ChangelogItem = {
 
 export const changelogData: ChangelogItem[] = [
   {
+    date: "August 18, 2026",
+    features: [
+      "Added [Word Focus Scroll](/components/word-focus-scroll) component featuring scroll-driven active word scaling, unblurring, and fade-in focus.",
+      "Added [Blur Scroll Reveal](/components/blur-scroll-reveal) component featuring a scroll-driven text reveal with smooth CSS blur-to-sharp transitions.",
+      "Added [Split Line Fly In](/components/split-line-fly-in) component featuring scroll-driven lines flying in from opposite sides of the viewport and settling at the center.",
+    ],
+  },
+  {
     date: "August 16, 2026",
     features: [
       "Added [Doodle Line Transition](/components/doodle-line-transition) component featuring staggered horizontal bands with vibrant doodle accents.",
