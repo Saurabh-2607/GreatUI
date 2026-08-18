@@ -34,11 +34,17 @@ export async function generateMetadata({
       description,
       url: `https://great-ui.com/components/${slug}`,
       type: "article",
+      images: [
+        `/api/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}&breadcrumbs=Components`,
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} | Great UI`,
       description,
+      images: [
+        `/api/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}&breadcrumbs=Components`,
+      ],
     },
     alternates: {
       canonical: `/components/${slug}`,

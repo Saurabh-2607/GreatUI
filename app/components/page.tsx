@@ -17,6 +17,9 @@ export const metadata: Metadata = {
       "Explore our collection of production-grade React & Tailwind CSS components. Copy, paste, and build interfaces instantly.",
     url: "https://great-ui.com/components",
     type: "website",
+    images: [
+      "/api/og?title=Components&description=Explore%20our%20collection%20of%20production-grade%20React%20%26%20Tailwind%20CSS%20components.",
+    ],
   },
   alternates: {
     canonical: "/components",
