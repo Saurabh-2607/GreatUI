@@ -25,7 +25,6 @@ export default function ComponentCard({ component }: ComponentCardProps) {
       });
     } else {
       video.pause();
-      video.currentTime = 0;
     }
   }, [isHovered]);
 
