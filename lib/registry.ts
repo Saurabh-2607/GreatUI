@@ -2072,4 +2072,246 @@ export function AppShell() {
       },
     ],
   },
+  {
+    slug: "swipe-theme-change",
+    name: "Swipe Theme Provider",
+    description:
+      "A transition manager that switches between light and dark themes using a directional wipe/swipe transition via the Web View Transition API.",
+    interactionType:
+      "Triggered programmatically or using directional controls. Wipes the screen in the selected direction.",
+    preview: "https://ik.imagekit.io/zoffdbb7mk/GUI-SwipeThemeProviders.mp4",
+    dependencies: [],
+    previewFile: "SwipeThemeChangePreview",
+    props: [
+      {
+        name: "duration",
+        type: ["number"],
+        description: "Duration of the swipe transition in milliseconds.",
+        default: "650",
+      },
+      {
+        name: "easing",
+        type: ["string"],
+        description: "The CSS transition easing function.",
+        default: "'ease-in-out'",
+      },
+      {
+        name: "onSwipe",
+        type: ["() => void"],
+        description:
+          "An optional callback triggered during the view transition update phase.",
+      },
+      {
+        name: "theme",
+        type: ["'light' | 'dark'"],
+        description: "Optional controlled theme state parameter.",
+      },
+      {
+        name: "onThemeChange",
+        type: ["(theme: 'light' | 'dark') => void"],
+        description: "An optional callback triggered when the theme toggles.",
+      },
+      {
+        name: "getKeyframes",
+        type: ["(dir: SwipeDirection) => Keyframe[]"],
+        description:
+          "Optional callback function returning custom animation keyframes based on swipe direction.",
+      },
+      {
+        name: "direction",
+        type: ["SwipeDirection"],
+        description:
+          "The default transition direction: short presets ('left', 'right', 'top', 'bottom'), corner presets ('top-left', 'top-right', 'bottom-left', 'bottom-right'), or long names.",
+        default: "'left'",
+      },
+      {
+        name: "angle",
+        type: ["number"],
+        description: "Relative slant offset in degrees to angle linear swipes.",
+        default: "0",
+      },
+    ],
+    usageCode: `// 1. Wrap your application root (e.g. app/layout.tsx in Next.js or App.tsx in Vite)
+import SwipeThemeProvider from "@/components/ui/SwipeThemeProvider";
+
+export default function RootLayout({ children }) {
+  return (
+    <SwipeThemeProvider angle={15}>
+      {children}
+    </SwipeThemeProvider>
+  );
+}
+
+// 2. Trigger transitions in any child component using the useSwipeTheme hook
+import { useSwipeTheme } from "@/components/ui/SwipeThemeProvider";
+
+export function CustomThemeToggle() {
+  const { triggerSwipe, isAnimating, theme } = useSwipeTheme();
+
+  return (
+    <button
+      disabled={isAnimating}
+      onClick={() => triggerSwipe("left")}
+      className="px-4 py-2 bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 rounded-lg font-bold"
+    >
+      Active: {theme}
+    </button>
+  );
+}`,
+  },
+  {
+    slug: "circular-theme-provider",
+    name: "Circular Theme Provider",
+    description:
+      "A transition manager that switches between light and dark themes using a custom circular clip-path view transition centered at the user's cursor position or specified coordinates.",
+    interactionType:
+      "Triggered by user clicks or programmatically. Wipes the screen outward in an expanding circle.",
+    preview: "https://ik.imagekit.io/zoffdbb7mk/GUI-CircularThemeProvider.mp4",
+    dependencies: [],
+    previewFile: "CircularThemeProviderPreview",
+    props: [
+      {
+        name: "duration",
+        type: ["number"],
+        description: "Duration of the circle-wipe transition in milliseconds.",
+        default: "500",
+      },
+      {
+        name: "easing",
+        type: ["string"],
+        description: "The CSS transition easing function.",
+        default: "'ease-in-out'",
+      },
+      {
+        name: "onTransition",
+        type: ["() => void"],
+        description:
+          "An optional callback triggered during the view transition update phase.",
+      },
+      {
+        name: "theme",
+        type: ["'light' | 'dark'"],
+        description: "Optional controlled theme state parameter.",
+      },
+      {
+        name: "onThemeChange",
+        type: ["(theme: 'light' | 'dark') => void"],
+        description: "An optional callback triggered when the theme toggles.",
+      },
+      {
+        name: "defaultCenter",
+        type: ["TransitionOrigin"],
+        description:
+          "Default center origin: presets ('top-left', 'top-right', 'bottom-left', 'bottom-right', 'center'), coordinate object ({x, y}), mouse event, or HTMLElement.",
+      },
+    ],
+    usageCode: `// 1. Wrap your application root (e.g. app/layout.tsx in Next.js or App.tsx in Vite)
+import CircularThemeProvider from "@/components/ui/CircularThemeProvider";
+
+export default function RootLayout({ children }) {
+  return (
+    <CircularThemeProvider>
+      {children}
+    </CircularThemeProvider>
+  );
+}
+
+// 2. Trigger transitions in any child component using the useCircularTheme hook
+import { useCircularTheme } from "@/components/ui/CircularThemeProvider";
+
+export function CustomThemeToggle() {
+  const { triggerTransition, isAnimating, theme } = useCircularTheme();
+
+  return (
+    <button
+      disabled={isAnimating}
+      onClick={(e) => triggerTransition(e)}
+      className="px-4 py-2 bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 rounded-lg font-bold"
+    >
+      Active: {theme}
+    </button>
+  );
+}`,
+  },
+  {
+    slug: "split-theme-provider",
+    name: "Split Theme Provider",
+    description:
+      "A transition manager that switches between light and dark themes using a vertical or horizontal split transition starting from the center (in-to-out) or edges (out-to-in).",
+    interactionType:
+      "Triggered programmatically or using control buttons. Splits the viewport outward from the center, or inward from the edges.",
+    preview: "https://ik.imagekit.io/zoffdbb7mk/GUI-SplitThemeProvider.mp4",
+    dependencies: [],
+    previewFile: "SplitThemeProviderPreview",
+    props: [
+      {
+        name: "duration",
+        type: ["number"],
+        description: "Duration of the split transition in milliseconds.",
+        default: "600",
+      },
+      {
+        name: "easing",
+        type: ["string"],
+        description: "The CSS transition easing function.",
+        default: "'ease-in-out'",
+      },
+      {
+        name: "onTransition",
+        type: ["() => void"],
+        description:
+          "An optional callback triggered during the view transition update phase.",
+      },
+      {
+        name: "theme",
+        type: ["'light' | 'dark'"],
+        description: "Optional controlled theme state parameter.",
+      },
+      {
+        name: "onThemeChange",
+        type: ["(theme: 'light' | 'dark') => void"],
+        description: "An optional callback triggered when the theme toggles.",
+      },
+      {
+        name: "direction",
+        type: ["'horizontal' | 'vertical'"],
+        description: "The default split transition direction.",
+        default: "'horizontal'",
+      },
+      {
+        name: "mode",
+        type: ["'in-to-out' | 'out-to-in'"],
+        description:
+          "Whether the split starts at the center and splits outward, or at the edges and meets in the middle.",
+        default: "'in-to-out'",
+      },
+    ],
+    usageCode: `// 1. Wrap your application root (e.g. app/layout.tsx in Next.js or App.tsx in Vite)
+import SplitThemeProvider from "@/components/ui/SplitThemeProvider";
+
+export default function RootLayout({ children }) {
+  return (
+    <SplitThemeProvider direction="horizontal" mode="in-to-out">
+      {children}
+    </SplitThemeProvider>
+  );
+}
+
+// 2. Trigger transitions in any child component using the useSplitTheme hook
+import { useSplitTheme } from "@/components/ui/SplitThemeProvider";
+
+export function CustomThemeToggle() {
+  const { triggerTransition, isAnimating, theme } = useSplitTheme();
+
+  return (
+    <button
+      disabled={isAnimating}
+      onClick={() => triggerTransition("horizontal", "out-to-in")}
+      className="px-4 py-2 bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 rounded-lg font-bold"
+    >
+      Active: {theme}
+    </button>
+  );
+}`,
+  },
 ];

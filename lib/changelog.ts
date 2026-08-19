@@ -5,6 +5,14 @@ export type ChangelogItem = {
 
 export const changelogData: ChangelogItem[] = [
   {
+    date: "August 20, 2026",
+    features: [
+      "Added [Swipe Theme Provider](/components/swipe-theme-change) component featuring 8-directional swipe/wipe transitions (linear and corner sweeps) with customizable slant angles.",
+      "Added [Circular Theme Provider](/components/circular-theme-provider) component featuring outward circular wipe transitions from cursor click positions.",
+      "Added [Split Theme Provider](/components/split-theme-provider) component featuring horizontal and vertical split transitions with configurable in-to-out and out-to-in modes.",
+    ],
+  },
+  {
     date: "August 18, 2026",
     features: [
       "Added [Word Focus Scroll](/components/word-focus-scroll) component featuring scroll-driven active word scaling, unblurring, and fade-in focus.",
