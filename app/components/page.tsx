@@ -21,6 +21,15 @@ export const metadata: Metadata = {
       "/api/og?title=Components&description=Explore%20our%20collection%20of%20production-grade%20React%20%26%20Tailwind%20CSS%20components.",
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Components - Great UI",
+    description:
+      "Explore our collection of production-grade React & Tailwind CSS components. Copy, paste, and build interfaces instantly.",
+    images: [
+      "/api/og?title=Components&description=Explore%20our%20collection%20of%20production-grade%20React%20%26%20Tailwind%20CSS%20components.",
+    ],
+  },
   alternates: {
     canonical: "/components",
   },

@@ -16,6 +16,15 @@ export const metadata = {
       "/api/og?title=Changelog&description=Stay%20up%20to%20date%20with%20the%20latest%20additions%2C%20improvements%2C%20and%20fixes%20in%20Great%20UI.",
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Changelog | Great UI",
+    description:
+      "Stay up to date with the latest additions, improvements, and fixes in Great UI.",
+    images: [
+      "/api/og?title=Changelog&description=Stay%20up%20to%20date%20with%20the%20latest%20additions%2C%20improvements%2C%20and%20fixes%20in%20Great%20UI.",
+    ],
+  },
 };
 
 export default function ChangelogPage() {
