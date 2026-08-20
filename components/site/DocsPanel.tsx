@@ -36,10 +36,16 @@ export default function DocsPanel({ component }: { component: Component }) {
   const [mounted, setMounted] = useState(false);
   const [pkgManager, setPkgManager] = useState<PkgManager>("npm");
 
-  const currentIndex = components.findIndex((c) => c.slug === component.slug);
-  const prevComponent = currentIndex > 0 ? components[currentIndex - 1] : null;
+  const orderedComponents = [...components].reverse();
+  const currentIndex = orderedComponents.findIndex(
+    (c) => c.slug === component.slug,
+  );
+  const prevComponent =
+    currentIndex > 0 ? orderedComponents[currentIndex - 1] : null;
   const nextComponent =
-    currentIndex < components.length - 1 ? components[currentIndex + 1] : null;
+    currentIndex < orderedComponents.length - 1
+      ? orderedComponents[currentIndex + 1]
+      : null;
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => setMounted(true));
