@@ -21,6 +21,103 @@ function getPreviewFileName(previewFile?: string, name?: string): string {
   return `${name.replace(/\s+/g, "")}Preview.tsx`;
 }
 
+function cleanUsageCode(code: string): string {
+  if (!code) return "";
+
+  let cleaned = code;
+
+  // 1. Remove useViewer import
+  cleaned = cleaned.replace(
+    /import\s+\{\s*useViewer\s*\}\s+from\s+["']@\/lib\/viewer-context["'];?\n?/g,
+    "",
+  );
+  cleaned = cleaned.replace(
+    /import\s+\{\s*useViewer\s*\}\s+from\s+["']\.\.\/\.\.\/lib\/viewer-context["'];?\n?/g,
+    "",
+  );
+
+  // 2. Normalize component relative imports to @/components/ui/
+  cleaned = cleaned.replace(
+    /from\s+["']\.\.\/\.\.\/ui\/([^"']+)["']/g,
+    'from "@/components/ui/$1"',
+  );
+  cleaned = cleaned.replace(
+    /from\s+["']\.\.\/ui\/([^"']+)["']/g,
+    'from "@/components/ui/$1"',
+  );
+
+  // 3. Remove const { previewContainer } = useViewer();
+  cleaned = cleaned.replace(
+    /const\s+\{\s*previewContainer\s*\}\s*=\s*useViewer\(\);?\n?/g,
+    "",
+  );
+
+  // 4. Remove if (!previewContainer) { ... } block
+  cleaned = cleaned.replace(
+    /if\s*\(\s*!previewContainer\s*\)\s*\{[\s\S]*?\}\n?/g,
+    "",
+  );
+
+  // 5. Remove ref setups
+  cleaned = cleaned.replace(
+    /const\s+scrollContainerRef\s*=\s*\{\s*current:\s*previewContainer\s*\};?\n?/g,
+    "",
+  );
+  cleaned = cleaned.replace(
+    /const\s+dummyRef\s*=\s*\{\s*current:\s*previewContainer\s*\};?\n?/g,
+    "",
+  );
+
+  // 6. Remove scrollContainerRef and containerRef props from the JSX call
+  cleaned = cleaned.replace(
+    /scrollContainerRef\s*=\s*\{\s*(?:scrollContainerRef|dummyRef)[\s\S]*?as\s*unknown\s*as\s*React\.RefObject<[^>]+>\s*\}/g,
+    "",
+  );
+  cleaned = cleaned.replace(
+    /containerRef\s*=\s*\{\s*(?:scrollContainerRef|dummyRef)[\s\S]*?as\s*unknown\s*as\s*React\.RefObject<[^>]+>\s*\}/g,
+    "",
+  );
+
+  // Also match simplified refs if they exist
+  cleaned = cleaned.replace(
+    /scrollContainerRef\s*=\s*\{\s*(?:scrollContainerRef|dummyRef)\s*\}/g,
+    "",
+  );
+  cleaned = cleaned.replace(
+    /containerRef\s*=\s*\{\s*(?:scrollContainerRef|dummyRef)\s*\}/g,
+    "",
+  );
+
+  // Normalize newlines and filter duplicate empty lines
+  const lines = cleaned.split("\n");
+  const filteredLines = [];
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trimRight();
+    if (line === "") {
+      if (
+        filteredLines.length > 0 &&
+        filteredLines[filteredLines.length - 1] !== ""
+      ) {
+        filteredLines.push("");
+      }
+    } else {
+      filteredLines.push(line);
+    }
+  }
+
+  // Remove empty lines right after function declarations or start of blocks
+  const resultLines = [];
+  for (let i = 0; i < filteredLines.length; i++) {
+    const line = filteredLines[i];
+    if (line === "" && i > 0 && filteredLines[i - 1].endsWith("{")) {
+      continue;
+    }
+    resultLines.push(line);
+  }
+
+  return resultLines.join("\n");
+}
+
 export function getRegistryComponent(slug: string): Component | null {
   const component = rawComponents.find((c) => c.slug === slug);
   if (!component) return null;
@@ -54,7 +151,7 @@ export function getRegistryComponent(slug: string): Component | null {
   return {
     ...component,
     code,
-    usageCode,
+    usageCode: cleanUsageCode(usageCode),
   };
 }
 
@@ -89,7 +186,7 @@ export function getRegistryComponents(): Component[] {
     return {
       ...c,
       code,
-      usageCode,
+      usageCode: cleanUsageCode(usageCode),
     };
   });
 }
