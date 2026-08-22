@@ -88,30 +88,25 @@ export const TeamSection = React.forwardRef<HTMLDivElement, TeamSectionProps>(
           {speakers.map((speaker, idx) => (
             <React.Fragment key={idx}>
               {/* Mobile/Tablet View - Custom "Big" Layout */}
-              <div className="flex w-full flex-col px-0 py-1 lg:hidden">
-                <div className="mb-4 flex items-start justify-between">
-                  <h3 className="text-3xl leading-none font-light tracking-tighter text-neutral-900 md:text-4xl dark:text-white">
-                    {speaker.name}
-                  </h3>
-                  {speaker.social && (
-                    <a
-                      href={speaker.social}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="-mt-2 -mr-2 p-2 text-neutral-400 transition-colors hover:text-neutral-900 dark:text-neutral-500 dark:hover:text-white"
+              <div className="relative flex w-full flex-col px-0 py-3 lg:hidden">
+                {speaker.social && (
+                  <a
+                    href={speaker.social}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute top-1 right-0 p-2 text-neutral-400 transition-colors hover:text-neutral-900 dark:text-neutral-500 dark:hover:text-white"
+                  >
+                    <svg
+                      className="h-5 w-5 fill-current"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 256 256"
                     >
-                      <svg
-                        className="h-5 w-5 fill-current"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 256 256"
-                      >
-                        <path d="M218.123 218.127h-37.931v-59.403c0-14.165-.253-32.4-19.728-32.4-19.756 0-22.779 15.434-22.779 31.369v60.43h-37.93V95.967h36.413v16.694h.51a39.907 39.907 0 0 1 35.928-19.733c38.445 0 45.533 25.288 45.533 58.186l-.016 67.013ZM56.955 79.27c-12.157.002-22.014-9.852-22.016-22.009-.002-12.157 9.851-22.014 22.008-22.016 12.157-.003 22.014 9.851 22.016 22.008A22.013 22.013 0 0 1 56.955 79.27m18.966 138.858H37.95V95.967h37.97v122.16ZM237.033.018H18.89C8.58-.098.125 8.161-.001 18.471v219.053c.122 10.315 8.576 18.582 18.89 18.474h218.144c10.336.128 18.823-8.139 18.966-18.474V18.454c-.147-10.33-8.635-18.588-18.966-18.453" />
-                      </svg>
-                    </a>
-                  )}
-                </div>
+                      <path d="M218.123 218.127h-37.931v-59.403c0-14.165-.253-32.4-19.728-32.4-19.756 0-22.779 15.434-22.779 31.369v60.43h-37.93V95.967h36.413v16.694h.51a39.907 39.907 0 0 1 35.928-19.733c38.445 0 45.533 25.288 45.533 58.186l-.016 67.013ZM56.955 79.27c-12.157.002-22.014-9.852-22.016-22.009-.002-12.157 9.851-22.014 22.008-22.016 12.157-.003 22.014 9.851 22.016 22.008A22.013 22.013 0 0 1 56.955 79.27m18.966 138.858H37.95V95.967h37.97v122.16ZM237.033.018H18.89C8.58-.098.125 8.161-.001 18.471v219.053c.122 10.315 8.576 18.582 18.89 18.474h218.144c10.336.128 18.823-8.139 18.966-18.474V18.454c-.147-10.33-8.635-18.588-18.966-18.453" />
+                    </svg>
+                  </a>
+                )}
 
-                <div className="flex gap-5">
+                <div className="flex gap-3">
                   <div className="aspect-[3/4] w-24 shrink-0 overflow-hidden bg-neutral-100 md:w-32 dark:bg-neutral-800">
                     <img
                       src={speaker.image}
@@ -122,10 +117,13 @@ export const TeamSection = React.forwardRef<HTMLDivElement, TeamSectionProps>(
                       )}
                     />
                   </div>
-                  <div className="flex flex-col justify-end pb-1">
+                  <div className="flex flex-col justify-end pr-8 pb-1">
                     <span className="mb-1 text-xs font-bold tracking-wide text-neutral-500 capitalize md:text-sm dark:text-neutral-400">
                       {speaker.position} @ {speaker.company}
                     </span>
+                    <h3 className="text-3xl leading-none font-light tracking-tighter text-neutral-900 md:text-4xl dark:text-white">
+                      {speaker.name}
+                    </h3>
                   </div>
                 </div>
               </div>
