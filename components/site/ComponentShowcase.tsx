@@ -19,7 +19,7 @@ const SHOWCASE_ITEMS: ShowcaseItem[] = [
     id: "staggered-page-transition",
     title: "Staggered Page Transition",
     videoLink:
-      "https://ik.imagekit.io/ybq4azred/staggering-page-transition.mp4",
+      "https://ik.imagekit.io/zoffdbb7mk/staggering-page-transition.mp4",
     icon: (
       <svg
         width="24"
@@ -41,7 +41,7 @@ const SHOWCASE_ITEMS: ShowcaseItem[] = [
   {
     id: "multilingual-quote",
     title: "Multilingual Quote",
-    videoLink: "https://ik.imagekit.io/ybq4azred/quote-multilingual.mp4",
+    videoLink: "https://ik.imagekit.io/zoffdbb7mk/quote-multilingual.mp4",
     icon: (
       <svg
         width="24"
@@ -57,7 +57,7 @@ const SHOWCASE_ITEMS: ShowcaseItem[] = [
   {
     id: "text-on-path-scroll",
     title: "Text on Path Scroll",
-    videoLink: "https://ik.imagekit.io/ybq4azred/preview-s_rollsvgtext.mp4",
+    videoLink: "https://ik.imagekit.io/zoffdbb7mk/textscroll.mp4",
     icon: (
       <svg
         width="24"
@@ -73,7 +73,7 @@ const SHOWCASE_ITEMS: ShowcaseItem[] = [
   {
     id: "pixel-to-ascii-image",
     title: "Pixel to ASCII",
-    videoLink: "https://ik.imagekit.io/ybq4azred/pixel-to-ascii.mp4",
+    videoLink: "https://ik.imagekit.io/zoffdbb7mk/pixel-to-ascii.mp4",
     icon: (
       <svg
         width="24"
@@ -90,7 +90,7 @@ const SHOWCASE_ITEMS: ShowcaseItem[] = [
     id: "scrambled-install-command",
     title: "Scrambled Install Command",
     videoLink:
-      "https://ik.imagekit.io/ybq4azred/command-copy-scramble-text.mp4",
+      "https://ik.imagekit.io/zoffdbb7mk/command-copy-scramble-text.mp4",
     icon: (
       <svg
         width="24"

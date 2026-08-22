@@ -1306,7 +1306,7 @@ export const components: Component[] = [
   {
     slug: "scrambled-install-command",
     inspiration: "",
-    preview: "https://ik.imagekit.io/ybq4azred/command-copy-scramble-text.mp4",
+    preview: "https://ik.imagekit.io/zoffdbb7mk/command-copy-scramble-text.mp4",
     name: "Scrambled Install Command",
     description:
       "A copy-to-clipboard command installation component featuring an animated scramble text effect.",
@@ -1404,7 +1404,7 @@ export const components: Component[] = [
   {
     slug: "text-on-path-scroll",
     inspiration: "",
-    preview: "https://ik.imagekit.io/ybq4azred/preview-s_rollsvgtext.mp4",
+    preview: "https://ik.imagekit.io/zoffdbb7mk/textscroll.mp4",
     name: "Text On Path Scroll",
     description:
       "A scroll-driven text animation that follows a custom SVG path as the user scrolls.",
@@ -1454,7 +1454,7 @@ export const components: Component[] = [
     interactionType: "Language toggle with smooth animated text transitions.",
     dependencies: ["motion"],
     previewFile: "MultilingualQuotePreview",
-    preview: "https://ik.imagekit.io/ybq4azred/quote-multilingual.mp4",
+    preview: "https://ik.imagekit.io/zoffdbb7mk/quote-multilingual.mp4",
     props: [
       {
         name: "quotes",
@@ -1498,7 +1498,7 @@ export const components: Component[] = [
       "Hover triggers a procedural pixelation followed by an ASCII art conversion.",
     dependencies: ["motion"],
     previewFile: "PixelToAsciiImagePreview",
-    preview: "https://ik.imagekit.io/ybq4azred/pixel-to-ascii.mp4",
+    preview: "https://ik.imagekit.io/zoffdbb7mk/pixel-to-ascii.mp4",
     props: [
       {
         name: "src",
@@ -1545,7 +1545,7 @@ export const components: Component[] = [
       "Triggered on route change or programmatically. Covers the viewport in staggered animated panels, seamlessly revealing the next view underneath.",
     dependencies: ["motion"],
     previewFile: "StaggeredPageTransitionPreview",
-    preview: "https://ik.imagekit.io/ybq4azred/staggering-page-transition.mp4",
+    preview: "https://ik.imagekit.io/zoffdbb7mk/staggering-page-transition.mp4",
     props: [
       {
         name: "trigger",
@@ -1679,7 +1679,7 @@ export function AppShell() {
       "Programmatically triggered. Covers the screen horizontally with 10 staggered lines before sliding out to reveal the new state.",
     dependencies: ["motion"],
     previewFile: "ColorWipePageTransitionPreview",
-    preview: "https://ik.imagekit.io/ybq4azred/ColorWipeTransition.mp4",
+    preview: "https://ik.imagekit.io/zoffdbb7mk/ColorWipeTransition.mp4",
     props: [
       {
         name: "trigger",
@@ -1833,7 +1833,7 @@ export function AppShell() {
   },
   {
     slug: "split-line-fly-in",
-    preview: "https://ik.imagekit.io/ybq4azred/flyIntext.mp4",
+    preview: "https://ik.imagekit.io/zoffdbb7mk/flyIntext.mp4",
     name: "Split Line Fly In",
     description:
       "A scroll-driven text animation component where lines fly in from opposite sides of the viewport and settle at the center.",
@@ -1917,7 +1917,7 @@ export function AppShell() {
   },
   {
     slug: "blur-scroll-reveal",
-    preview: "https://ik.imagekit.io/ybq4azred/BlurTextScroll.mp4",
+    preview: "https://ik.imagekit.io/zoffdbb7mk/BlurTextScroll.mp4",
     name: "Blur Scroll Reveal",
     description:
       "A scroll-driven text animation component where words or lines fade and transition from blur to sharp as they scroll into view.",
@@ -2005,7 +2005,7 @@ export function AppShell() {
   },
   {
     slug: "word-focus-scroll",
-    preview: "https://ik.imagekit.io/ybq4azred/wordFocus.mp4",
+    preview: "https://ik.imagekit.io/zoffdbb7mk/wordFocus.mp4",
     name: "Word Focus Scroll",
     description:
       "A scroll-driven text focusing component where individual words scale up, unblur, and fade in sequentially on scroll and lock into focus.",
