@@ -200,7 +200,7 @@ export function SplitLineFlyIn({
     <div
       ref={containerRef}
       className={cn(
-        "relative flex min-h-[50vh] w-full flex-col items-center justify-center overflow-x-hidden",
+        "relative flex min-h-[50dvh] w-full flex-col items-center justify-center overflow-x-hidden",
         className,
       )}
       {...props}

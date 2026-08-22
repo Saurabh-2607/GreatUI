@@ -103,7 +103,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
 
   if (!isMounted) {
     return (
-      <div className="flex h-screen w-full items-center justify-center bg-white dark:bg-[#0a0a0a]">
+      <div className="flex h-[100dvh] w-full items-center justify-center bg-white dark:bg-[#0a0a0a]">
         <div className="text-sm text-neutral-400">Loading layout...</div>
       </div>
     );
@@ -111,14 +111,14 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
 
   if (!component) {
     return (
-      <div className="flex h-screen w-full items-center justify-center bg-white dark:bg-[#0a0a0a]">
+      <div className="flex h-[100dvh] w-full items-center justify-center bg-white dark:bg-[#0a0a0a]">
         <div className="text-sm text-neutral-400">Loading component...</div>
       </div>
     );
   }
 
   return (
-    <div className="relative flex h-screen w-full flex-col overflow-hidden bg-white p-4 text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-white">
+    <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-white p-4 text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-white">
       <div
         className={`absolute top-4 left-4 z-[60] flex items-center gap-3.5 transition-opacity duration-300 sm:top-9 sm:left-9 ${isCodeOpen || isMarkdownOpen ? "pointer-events-none opacity-0" : "opacity-100"}`}
       >
@@ -317,7 +317,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
               height="140px"
               className="pointer-events-none z-20 bg-gradient-to-b from-white via-white/90 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a]/90 dark:to-transparent"
             />
-            <div className="relative z-10 h-full w-full scrollbar-none overflow-y-auto px-6 pt-[25vh] pb-[10vh]">
+            <div className="relative z-10 h-full w-full scrollbar-none overflow-y-auto px-6 pt-[25dvh] pb-[10dvh]">
               <DocsPanel component={component} />
             </div>
 
@@ -350,7 +350,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
         </div>
 
         <section className="relative z-10 flex h-full flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 backdrop-blur-md dark:bg-[#141414]">
-          <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden">
+          <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden px-4">
             <div
               ref={setPreviewContainer}
               className="pointer-events-auto relative z-10 h-full w-full scrollbar-none overflow-y-auto"

@@ -93,7 +93,7 @@ export function WordFocusScroll({
     <div
       ref={containerRef}
       className={cn(
-        "relative flex min-h-[50vh] w-full flex-col items-center justify-center overflow-hidden px-6 py-12 select-none",
+        "relative flex min-h-[50dvh] w-full flex-col items-center justify-center overflow-hidden px-6 py-12 select-none",
         className,
       )}
       {...props}

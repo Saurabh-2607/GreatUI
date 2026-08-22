@@ -26,14 +26,14 @@ export default function TextRevealPreview() {
 
   return (
     <div className="w-full select-none">
-      <div className="flex h-[90vh] w-full items-center justify-center text-center text-lg font-semibold text-black dark:text-white">
+      <div className="flex h-[90dvh] w-full items-center justify-center text-center text-lg font-semibold text-black dark:text-white">
         Scroll down
       </div>
       <TextReveal
         paragraphs={paragraphs}
         containerRef={dummyRef as unknown as React.RefObject<HTMLDivElement>}
       />
-      <div className="flex h-[90vh] w-full items-center justify-center text-center text-lg font-semibold text-black dark:text-white">
+      <div className="flex h-[90dvh] w-full items-center justify-center text-center text-lg font-semibold text-black dark:text-white">
         Scroll up
       </div>
     </div>

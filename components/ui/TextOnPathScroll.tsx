@@ -76,7 +76,7 @@ export default function TextOnPathScroll({
   return (
     <div
       ref={containerRef}
-      className={cn("relative h-[800vh] w-full", className)}
+      className={cn("relative h-[800dvh] w-full", className)}
     >
       <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
         {React.cloneElement(svgElement, {

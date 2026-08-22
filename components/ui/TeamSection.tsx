@@ -72,7 +72,7 @@ export const TeamSection = React.forwardRef<HTMLDivElement, TeamSectionProps>(
       <div
         ref={ref}
         className={cn(
-          "relative flex min-h-[80vh] w-full flex-col justify-center",
+          "relative flex min-h-[80dvh] w-full flex-col justify-center",
           className,
         )}
         {...props}

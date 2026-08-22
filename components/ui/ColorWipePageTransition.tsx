@@ -179,7 +179,7 @@ export function ColorWipePageTransition({
             }}
             className={cn(
               "pointer-events-auto relative flex flex-1 items-center",
-              isVertical ? "-ml-[0.2vw]" : "-mt-[0.2vh]",
+              isVertical ? "-ml-[0.2vw]" : "-mt-[0.2dvh]",
               !panelColor && "bg-[#f5f5f5] dark:bg-[#171717]",
             )}
             style={{

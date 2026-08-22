@@ -19,7 +19,7 @@ export default function TextOnPathScrollPreview() {
 
   return (
     <div className="w-full select-none">
-      <div className="flex h-[80vh] w-full items-center justify-center text-center text-lg font-semibold text-neutral-800 dark:text-neutral-200">
+      <div className="flex h-[80dvh] w-full items-center justify-center text-center text-lg font-semibold text-neutral-800 dark:text-neutral-200">
         Scroll down
       </div>
 
@@ -28,7 +28,7 @@ export default function TextOnPathScrollPreview() {
         scrollContainerRef={
           scrollContainerRef as unknown as React.RefObject<HTMLElement>
         }
-        className="h-[800vh]"
+        className="h-[800dvh]"
         textProps={{ fontSize: 320 }}
         scrollOffsets={["100%", "-100%"]}
         path={
@@ -49,7 +49,7 @@ export default function TextOnPathScrollPreview() {
         }
       />
 
-      <div className="flex h-[80vh] w-full items-center justify-center text-center text-lg font-semibold text-neutral-800 dark:text-neutral-200">
+      <div className="flex h-[80dvh] w-full items-center justify-center text-center text-lg font-semibold text-neutral-800 dark:text-neutral-200">
         Scroll up
       </div>
     </div>

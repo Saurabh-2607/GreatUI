@@ -187,7 +187,7 @@ export function BlurScrollReveal({
     <div
       ref={containerRef}
       className={cn(
-        "relative flex min-h-[50vh] w-full flex-col items-center justify-center overflow-hidden select-none",
+        "relative flex min-h-[50dvh] w-full flex-col items-center justify-center overflow-hidden select-none",
         className,
       )}
       {...props}
