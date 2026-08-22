@@ -20,6 +20,10 @@ interface SplitThemeContextType {
   isAnimating: boolean;
 }
 
+interface CustomWindow extends Window {
+  __viewTransitionStyleCount?: number;
+}
+
 const SplitThemeContext = createContext<SplitThemeContextType | undefined>(
   undefined,
 );
@@ -71,7 +75,58 @@ export default function SplitThemeProvider({
     const timer = setTimeout(() => {
       setMounted(true);
     }, 0);
-    return () => clearTimeout(timer);
+
+    const styleId = "great-ui-view-transition-styles";
+    let styleEl = document.getElementById(styleId) as HTMLStyleElement;
+    if (!styleEl) {
+      styleEl = document.createElement("style");
+      styleEl.id = styleId;
+      styleEl.innerHTML = `
+        ::view-transition-old(root),
+        ::view-transition-new(root) {
+          animation: none !important;
+          mix-blend-mode: normal !important;
+          display: block !important;
+          height: 100% !important;
+          width: 100% !important;
+          object-fit: cover !important;
+        }
+        ::view-transition-image-pair(root) {
+          isolation: auto !important;
+        }
+        ::view-transition-old(root) {
+          z-index: 1 !important;
+        }
+        ::view-transition-new(root) {
+          z-index: 9999 !important;
+        }
+      `;
+      document.head.appendChild(styleEl);
+    }
+
+    if (typeof window !== "undefined") {
+      (window as unknown as CustomWindow).__viewTransitionStyleCount =
+        ((window as unknown as CustomWindow).__viewTransitionStyleCount || 0) +
+        1;
+    }
+
+    return () => {
+      clearTimeout(timer);
+      if (typeof window !== "undefined") {
+        (window as unknown as CustomWindow).__viewTransitionStyleCount =
+          Math.max(
+            0,
+            ((window as unknown as CustomWindow).__viewTransitionStyleCount ||
+              0) - 1,
+          );
+        if (
+          (window as unknown as CustomWindow).__viewTransitionStyleCount === 0
+        ) {
+          const el = document.getElementById(styleId);
+          if (el) el.remove();
+        }
+      }
+    };
   }, []);
 
   const triggerTransition = (
@@ -152,8 +207,16 @@ export default function SplitThemeProvider({
         // Keep old view static and fully opaque underneath
         document.documentElement.animate(
           [
-            { opacity: 1, clipPath: "inset(0 0 0 0)" },
-            { opacity: 1, clipPath: "inset(0 0 0 0)" },
+            {
+              opacity: 1,
+              clipPath: "inset(0 0 0 0)",
+              webkitClipPath: "inset(0 0 0 0)",
+            },
+            {
+              opacity: 1,
+              clipPath: "inset(0 0 0 0)",
+              webkitClipPath: "inset(0 0 0 0)",
+            },
           ],
           {
             duration,
@@ -162,7 +225,7 @@ export default function SplitThemeProvider({
           },
         );
 
-        const keyframes =
+        const rawKeyframes =
           activeDir === "horizontal"
             ? [
                 { clipPath: "inset(0 50% 0 50%)", opacity: 1 },
@@ -172,6 +235,11 @@ export default function SplitThemeProvider({
                 { clipPath: "inset(50% 0 50% 0)", opacity: 1 },
                 { clipPath: "inset(0 0 0 0)", opacity: 1 },
               ];
+
+        const keyframes = rawKeyframes.map((kf) => ({
+          ...kf,
+          webkitClipPath: kf.clipPath,
+        }));
 
         document.documentElement.animate(keyframes, {
           duration,
@@ -183,8 +251,16 @@ export default function SplitThemeProvider({
         // out-to-in: Keep new view static and fully opaque
         document.documentElement.animate(
           [
-            { opacity: 1, clipPath: "inset(0 0 0 0)" },
-            { opacity: 1, clipPath: "inset(0 0 0 0)" },
+            {
+              opacity: 1,
+              clipPath: "inset(0 0 0 0)",
+              webkitClipPath: "inset(0 0 0 0)",
+            },
+            {
+              opacity: 1,
+              clipPath: "inset(0 0 0 0)",
+              webkitClipPath: "inset(0 0 0 0)",
+            },
           ],
           {
             duration,
@@ -193,7 +269,7 @@ export default function SplitThemeProvider({
           },
         );
 
-        const keyframes =
+        const rawKeyframes =
           activeDir === "horizontal"
             ? [
                 { clipPath: "inset(0 0 0 0)", opacity: 1 },
@@ -203,6 +279,11 @@ export default function SplitThemeProvider({
                 { clipPath: "inset(0 0 0 0)", opacity: 1 },
                 { clipPath: "inset(50% 0 50% 0)", opacity: 1 },
               ];
+
+        const keyframes = rawKeyframes.map((kf) => ({
+          ...kf,
+          webkitClipPath: kf.clipPath,
+        }));
 
         document.documentElement.animate(keyframes, {
           duration,

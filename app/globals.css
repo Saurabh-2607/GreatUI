@@ -37,6 +37,14 @@ body {
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+::view-transition-image-pair(root) {
+  isolation: auto;
 }
 
 ::view-transition-old(root) {

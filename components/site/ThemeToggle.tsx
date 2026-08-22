@@ -56,11 +56,13 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       document.documentElement.animate(
         {
           clipPath: clipPath,
+          webkitClipPath: clipPath,
         },
         {
           duration: 500,
           easing: "ease-in-out",
           pseudoElement: "::view-transition-new(root)",
+          fill: "both",
         },
       );
     });

@@ -30,6 +30,10 @@ interface ThemeContextType {
   isAnimating: boolean;
 }
 
+interface CustomWindow extends Window {
+  __viewTransitionStyleCount?: number;
+}
+
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function useSwipeTheme() {
@@ -187,7 +191,58 @@ export default function SwipeThemeProvider({
     const timer = setTimeout(() => {
       setMounted(true);
     }, 0);
-    return () => clearTimeout(timer);
+
+    const styleId = "great-ui-view-transition-styles";
+    let styleEl = document.getElementById(styleId) as HTMLStyleElement;
+    if (!styleEl) {
+      styleEl = document.createElement("style");
+      styleEl.id = styleId;
+      styleEl.innerHTML = `
+        ::view-transition-old(root),
+        ::view-transition-new(root) {
+          animation: none !important;
+          mix-blend-mode: normal !important;
+          display: block !important;
+          height: 100% !important;
+          width: 100% !important;
+          object-fit: cover !important;
+        }
+        ::view-transition-image-pair(root) {
+          isolation: auto !important;
+        }
+        ::view-transition-old(root) {
+          z-index: 1 !important;
+        }
+        ::view-transition-new(root) {
+          z-index: 9999 !important;
+        }
+      `;
+      document.head.appendChild(styleEl);
+    }
+
+    if (typeof window !== "undefined") {
+      (window as unknown as CustomWindow).__viewTransitionStyleCount =
+        ((window as unknown as CustomWindow).__viewTransitionStyleCount || 0) +
+        1;
+    }
+
+    return () => {
+      clearTimeout(timer);
+      if (typeof window !== "undefined") {
+        (window as unknown as CustomWindow).__viewTransitionStyleCount =
+          Math.max(
+            0,
+            ((window as unknown as CustomWindow).__viewTransitionStyleCount ||
+              0) - 1,
+          );
+        if (
+          (window as unknown as CustomWindow).__viewTransitionStyleCount === 0
+        ) {
+          const el = document.getElementById(styleId);
+          if (el) el.remove();
+        }
+      }
+    };
   }, []);
 
   const triggerSwipe = (selectedDir?: SwipeDirection) => {
@@ -238,15 +293,41 @@ export default function SwipeThemeProvider({
       });
     });
 
-    const keyframes = getKeyframes
+    const rawKeyframes = getKeyframes
       ? getKeyframes(activeDir)
       : getClipPathKeyframes(activeDir, activeAngle);
+
+    let keyframes: Keyframe[] | PropertyIndexedKeyframes = rawKeyframes;
+    if (Array.isArray(rawKeyframes)) {
+      keyframes = (rawKeyframes as Array<Keyframe & { clipPath?: string }>).map(
+        (kf) => {
+          const newKf: Keyframe & {
+            clipPath?: string;
+            webkitClipPath?: string;
+          } = { ...kf };
+          if (typeof newKf.clipPath === "string") {
+            newKf.webkitClipPath = newKf.clipPath;
+          }
+          return newKf;
+        },
+      );
+    } else if (rawKeyframes && typeof rawKeyframes === "object") {
+      const obj = { ...rawKeyframes } as PropertyIndexedKeyframes & {
+        clipPath?: string;
+        webkitClipPath?: string;
+      };
+      if (obj.clipPath) {
+        obj.webkitClipPath = obj.clipPath;
+      }
+      keyframes = obj;
+    }
 
     transition.ready.then(() => {
       document.documentElement.animate(keyframes, {
         duration,
         easing,
         pseudoElement: "::view-transition-new(root)",
+        fill: "both",
       }).onfinish = () => {
         setIsAnimating(false);
       };
