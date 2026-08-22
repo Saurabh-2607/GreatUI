@@ -161,7 +161,13 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
           </span>
         </div>
       </div>
-      <div className="absolute top-4 right-4 z-40 flex items-center gap-1.5 rounded-2xl border border-neutral-200 bg-white/80 p-1.5 shadow-xs backdrop-blur-xl transition-all sm:top-9 sm:right-9 dark:border-neutral-800/60 dark:bg-neutral-950/80">
+      <div
+        className={`absolute top-4 right-4 z-40 flex items-center gap-1.5 rounded-2xl border border-neutral-200 bg-white/80 p-1.5 shadow-xs backdrop-blur-xl transition-all sm:top-9 sm:right-9 dark:border-neutral-800/60 dark:bg-neutral-950/80 ${
+          isCodeOpen || isMarkdownOpen
+            ? "pointer-events-none opacity-0 sm:pointer-events-auto sm:opacity-100"
+            : "opacity-100"
+        }`}
+      >
         <Link
           href="/"
           title="Back to Home"

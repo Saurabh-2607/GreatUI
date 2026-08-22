@@ -66,11 +66,10 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
           <button
             type="button"
             onClick={handleDownload}
-            className="flex h-10 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-neutral-100 px-3.5 text-xs font-semibold text-neutral-700 transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
+            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-100 text-neutral-700 transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
             title={`Download ${component.name}.tsx`}
           >
             <DownloadIcon className="h-4 w-4" />
-            <span className="font-mono">{component.name}.tsx</span>
           </button>
 
           <button

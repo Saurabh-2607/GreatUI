@@ -111,13 +111,13 @@ export default function ComponentActions({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-full right-0 z-50 mt-2 flex w-48 flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-xl dark:border-neutral-800 dark:bg-[#1f1f1f]"
+            className="absolute top-full left-0 z-50 mt-2 flex w-56 flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-xl sm:right-0 sm:left-auto sm:w-48 dark:border-neutral-800 dark:bg-[#1f1f1f]"
           >
             <div className="flex flex-col p-1.5">
               <button
                 type="button"
                 onClick={handleCopyMarkdown}
-                className="flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-[#2a2a2a] dark:hover:text-white"
+                className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-base font-medium text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 sm:px-2.5 sm:py-1.5 sm:text-sm dark:text-neutral-300 dark:hover:bg-[#2a2a2a] dark:hover:text-white"
               >
                 <MarkdownIcon />
                 View as Markdown
@@ -125,7 +125,7 @@ export default function ComponentActions({
               <button
                 type="button"
                 onClick={() => handleOpenAI("https://v0.dev/chat")}
-                className="flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-[#2a2a2a] dark:hover:text-white"
+                className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-base font-medium text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 sm:px-2.5 sm:py-1.5 sm:text-sm dark:text-neutral-300 dark:hover:bg-[#2a2a2a] dark:hover:text-white"
               >
                 <V0Icon />
                 Open in v0
@@ -133,7 +133,7 @@ export default function ComponentActions({
               <button
                 type="button"
                 onClick={() => handleOpenAI("https://chatgpt.com")}
-                className="flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-[#2a2a2a] dark:hover:text-white"
+                className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-base font-medium text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 sm:px-2.5 sm:py-1.5 sm:text-sm dark:text-neutral-300 dark:hover:bg-[#2a2a2a] dark:hover:text-white"
               >
                 <ChatGPTIcon />
                 Open in ChatGPT
@@ -141,7 +141,7 @@ export default function ComponentActions({
               <button
                 type="button"
                 onClick={() => handleOpenAI("https://claude.ai/new")}
-                className="flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-[#2a2a2a] dark:hover:text-white"
+                className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-base font-medium text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 sm:px-2.5 sm:py-1.5 sm:text-sm dark:text-neutral-300 dark:hover:bg-[#2a2a2a] dark:hover:text-white"
               >
                 <ClaudeIcon />
                 Open in Claude
