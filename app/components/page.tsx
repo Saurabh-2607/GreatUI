@@ -35,8 +35,25 @@ export const metadata: Metadata = {
   },
 };
 
+const CATEGORY_ORDER = [
+  "Shaders",
+  "Page Transitions",
+  "Theme Transitions",
+  "Typography",
+  "Buttons",
+  "Layout & Cards",
+  "Visuals",
+];
+
 export default function ComponentsPage() {
-  const sortedComponents = [...components].reverse();
+  const componentsByCategory = components.reduce(
+    (acc, c) => {
+      if (!acc[c.category]) acc[c.category] = [];
+      acc[c.category].push(c);
+      return acc;
+    },
+    {} as Record<string, typeof components>,
+  );
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-white text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-white">
@@ -58,27 +75,42 @@ export default function ComponentsPage() {
             </p>
           </div>
 
-          <div className="mt-12">
-            {components.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-16 text-center">
-                <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400">
-                  No components in the registry yet.
-                </p>
-              </div>
-            ) : (
-              <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {sortedComponents.map((c) => (
-                  <Link
-                    href={`/components/${c.slug}`}
-                    key={c.slug}
-                    aria-label={`View ${c.name} component`}
-                    className="group relative block cursor-pointer overflow-hidden rounded-t-3xl rounded-b-2xl bg-neutral-100/70 no-underline dark:bg-neutral-900"
-                  >
-                    <ComponentCard component={c} />
-                  </Link>
-                ))}
-              </div>
-            )}
+          <div className="mt-16 flex flex-col gap-20">
+            {CATEGORY_ORDER.map((catName) => {
+              const catComponents = componentsByCategory[catName] || [];
+              if (catComponents.length === 0) return null;
+
+              const sortedComponents = [...catComponents].reverse();
+
+              return (
+                <section key={catName} className="flex flex-col">
+                  <div className="mb-6 flex items-baseline justify-between border-b border-neutral-100 pb-4 dark:border-neutral-900">
+                    <h2 className="text-2xl font-bold tracking-tight text-neutral-700 sm:text-3xl dark:text-neutral-300">
+                      {catName}
+                    </h2>
+                    <span className="text-sm font-semibold tracking-wider text-neutral-500 uppercase dark:text-neutral-400">
+                      {sortedComponents.length}{" "}
+                      {sortedComponents.length === 1
+                        ? "Component"
+                        : "Components"}
+                    </span>
+                  </div>
+
+                  <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {sortedComponents.map((c) => (
+                      <Link
+                        href={`/components/${c.slug}`}
+                        key={c.slug}
+                        aria-label={`View ${c.name} component`}
+                        className="group relative block cursor-pointer overflow-hidden rounded-t-3xl rounded-b-2xl bg-neutral-100/70 no-underline dark:bg-neutral-900"
+                      >
+                        <ComponentCard component={c} />
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
           </div>
         </Container>
       </main>

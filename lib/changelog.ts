@@ -5,6 +5,18 @@ export type ChangelogItem = {
 
 export const changelogData: ChangelogItem[] = [
   {
+    date: "August 25, 2026",
+    features: [
+      "Added [Venetian Blinds Page Transition](/components/venetian-blinds-page-transition) component featuring staggered horizontal or vertical slats scaling open and shut with customizable staggers and pivot origins.",
+      "Added [Cascade Page Transition](/components/cascade-page-transition) component featuring a V-shaped symmetrical stepped cascade delay slide animation of solid colored stripes across the screen.",
+      "Added [Sine Wave Page Transition](/components/sine-wave-page-transition) component featuring staggered columns or rows forming a smooth ripple wave sweep across the screen in normalized sine-wave offset delays.",
+      "Added [Pixel Page Transition](/components/pixel-page-transition) component featuring a full-screen block pixel dissolve page transition with customizable pixel size, fade durations, and stagger delays.",
+      "Added [Sweep Page Transition](/components/sweep-page-transition) component featuring overlapping sliding sheets of color entering from 4 configurable directions with reversed stagger exit patterns.",
+      "Added [Interlocking Page Transition](/components/interlocking-page-transition) component featuring staggered interlocking columns or rows entering from opposite directions and sliding offscreen with customizable opposite exit paths.",
+      "Added [Curtain Page Transition](/components/curtain-page-transition) component featuring a premium split-half horizontal or vertical curtain screen transition.",
+    ],
+  },
+  {
     date: "August 20, 2026",
     features: [
       "Added [Swipe Theme Provider](/components/swipe-theme-change) component featuring 8-directional swipe/wipe transitions (linear and corner sweeps) with customizable slant angles.",

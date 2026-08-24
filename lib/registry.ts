@@ -8,6 +8,7 @@ export type Prop = {
 export type Component = {
   slug: string;
   name: string;
+  category: string;
   description: string;
   interactionType: string;
   dependencies: string[];
@@ -23,6 +24,7 @@ export type Component = {
 export const components: Component[] = [
   {
     slug: "accordion",
+    category: "Layout & Cards",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/accordian.mp4",
     name: "Accordion",
@@ -43,6 +45,7 @@ export const components: Component[] = [
   },
   {
     slug: "button",
+    category: "Buttons",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/button.mp4",
     name: "Button",
@@ -97,6 +100,7 @@ export const components: Component[] = [
   },
   {
     slug: "mobile-mockup",
+    category: "Visuals",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/mobileMockup.mp4",
     name: "Mobile Mockup",
@@ -147,6 +151,7 @@ export const components: Component[] = [
   },
   {
     slug: "macbook-mockup",
+    category: "Visuals",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/macbookMockup.mp4",
     name: "Macbook Mockup",
@@ -196,6 +201,7 @@ export const components: Component[] = [
   },
   {
     slug: "deployment-checklist",
+    category: "Layout & Cards",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/deploymentchecklist.mp4",
     name: "Deployment Checklist",
@@ -216,6 +222,7 @@ export const components: Component[] = [
   },
   {
     slug: "floating-menu",
+    category: "Visuals",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/floatingmenu.mp4",
     name: "Floating Menu",
@@ -251,6 +258,7 @@ export const components: Component[] = [
   },
   {
     slug: "vinyl-album-card",
+    category: "Layout & Cards",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/vinyl.mp4",
     name: "Vinyl Album Card",
@@ -296,6 +304,7 @@ export const components: Component[] = [
   },
   /* {
     slug: "liquid-ripple-shader",
+    category: "Shaders",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/liquidRiple.mp4",
     name: "Liquid Ripple Shader",
@@ -341,6 +350,7 @@ export const components: Component[] = [
   },
   {
     slug: "cyber-glitch-shader",
+    category: "Shaders",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/cyberglitch.mp4",
     name: "Cyber Glitch Shader",
@@ -386,6 +396,7 @@ export const components: Component[] = [
   },
   {
     slug: "vortex-spiral-shader",
+    category: "Shaders",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/swirl.mp4",
     name: "Vortex Spiral Shader",
@@ -431,6 +442,7 @@ export const components: Component[] = [
   },
   {
     slug: "liquid-dissolve-shader",
+    category: "Shaders",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/liquidDisolve.mp4",
     name: "Liquid Dissolve Shader",
@@ -476,6 +488,7 @@ export const components: Component[] = [
   },
   {
     slug: "animated-select",
+    category: "Visuals",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/dropdown.mp4",
     name: "Animated Select",
@@ -536,6 +549,7 @@ export const components: Component[] = [
   }, */
   {
     slug: "animated-link",
+    category: "Visuals",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/links.mp4",
     name: "Animated Link",
@@ -572,6 +586,7 @@ export const components: Component[] = [
   },
   /* {
     slug: "ascii-image",
+    category: "Visuals",
     inspiration: "",
     preview: "/previews/AsciiImagePreview.png",
     name: "ASCII Image",
@@ -628,6 +643,7 @@ export const components: Component[] = [
   }, */
   {
     slug: "terminal-loader",
+    category: "Visuals",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/terminalLoader.mp4",
     name: "Terminal Loader",
@@ -697,6 +713,7 @@ export const components: Component[] = [
   },
   {
     slug: "image-hover-reveal",
+    category: "Visuals",
     inspiration: "",
     preview: "/previews/ImageHoverRevealPreview.png",
     name: "Image Hover Reveal",
@@ -743,6 +760,7 @@ export const components: Component[] = [
   },
   {
     slug: "minimal-buttons",
+    category: "Buttons",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/shadowButton.mp4",
     name: "Minimal Buttons",
@@ -781,6 +799,7 @@ export const components: Component[] = [
   },
   {
     slug: "aceternity-button",
+    category: "Buttons",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/aceternitybutton.mp4",
     name: "Aceternity Button",
@@ -824,6 +843,7 @@ export const components: Component[] = [
   },
   {
     slug: "avatar-stack",
+    category: "Layout & Cards",
     inspiration: "",
     preview: "/previews/AvatarStackPreview.png",
     name: "Avatar Stack",
@@ -873,6 +893,7 @@ export const components: Component[] = [
   },
   {
     slug: "diagonal-marquee-carousel",
+    category: "Layout & Cards",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/marquee.mp4",
     name: "Diagonal Marquee Carousel",
@@ -926,6 +947,7 @@ export const components: Component[] = [
   },
   {
     slug: "revision-timeline",
+    category: "Layout & Cards",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/timeline.mp4",
     name: "Revision Timeline",
@@ -1030,6 +1052,7 @@ export const components: Component[] = [
   // },
   {
     slug: "card",
+    category: "Layout & Cards",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/card.mp4",
     name: "Card",
@@ -1085,6 +1108,7 @@ export const components: Component[] = [
   },
   {
     slug: "text-reveal",
+    category: "Typography",
     inspiration: "https://x.com/samitkapoorr",
     preview: "https://ik.imagekit.io/greatui/textscroll.mp4",
     name: "Text Reveal",
@@ -1147,6 +1171,7 @@ export const components: Component[] = [
   },
   {
     slug: "github-card",
+    category: "Layout & Cards",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/avatarhover.mp4",
     name: "Github Card",
@@ -1247,6 +1272,7 @@ export const components: Component[] = [
   },
   {
     slug: "team-section",
+    category: "Layout & Cards",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/teamSection.mp4",
     name: "Team Section",
@@ -1305,6 +1331,7 @@ export const components: Component[] = [
   },
   {
     slug: "scrambled-install-command",
+    category: "Typography",
     inspiration: "",
     preview: "https://ik.imagekit.io/zoffdbb7mk/command-copy-scramble-text.mp4",
     name: "Scrambled Install Command",
@@ -1403,6 +1430,7 @@ export const components: Component[] = [
   },
   {
     slug: "text-on-path-scroll",
+    category: "Typography",
     inspiration: "",
     preview: "https://ik.imagekit.io/zoffdbb7mk/textscroll.mp4",
     name: "Text On Path Scroll",
@@ -1447,6 +1475,7 @@ export const components: Component[] = [
   },
   {
     slug: "multilingual-quote",
+    category: "Typography",
     inspiration: "",
     name: "Multilingual Quote",
     description:
@@ -1490,6 +1519,7 @@ export const components: Component[] = [
   },
   {
     slug: "pixel-to-ascii-image",
+    category: "Visuals",
     name: "Pixel To Ascii Image",
     inspiration: "https://razorpay.com/ai-builders/",
     description:
@@ -1538,6 +1568,7 @@ export const components: Component[] = [
   },
   {
     slug: "staggered-page-transition",
+    category: "Page Transitions",
     name: "Staggered Page Transition",
     description:
       "A gorgeous staggered layout transition built with Framer Motion.",
@@ -1672,6 +1703,7 @@ export function AppShell() {
   },
   {
     slug: "color-wipe-page-transition",
+    category: "Page Transitions",
     name: "Color Wipe Page Transition",
     description:
       "A fast, colorful screen transition featuring staggered horizontal bands with vibrant doodle accents.",
@@ -1833,6 +1865,7 @@ export function AppShell() {
   },
   {
     slug: "split-line-fly-in",
+    category: "Typography",
     preview: "https://ik.imagekit.io/zoffdbb7mk/flyIntext.mp4",
     name: "Split Line Fly In",
     description:
@@ -1917,6 +1950,7 @@ export function AppShell() {
   },
   {
     slug: "blur-scroll-reveal",
+    category: "Typography",
     preview: "https://ik.imagekit.io/zoffdbb7mk/BlurTextScroll.mp4",
     name: "Blur Scroll Reveal",
     description:
@@ -2005,6 +2039,7 @@ export function AppShell() {
   },
   {
     slug: "word-focus-scroll",
+    category: "Typography",
     preview: "https://ik.imagekit.io/zoffdbb7mk/wordFocus.mp4",
     name: "Word Focus Scroll",
     description:
@@ -2074,6 +2109,7 @@ export function AppShell() {
   },
   {
     slug: "swipe-theme-change",
+    category: "Theme Transitions",
     name: "Swipe Theme Provider",
     description:
       "A transition manager that switches between light and dark themes using a directional wipe/swipe transition via the Web View Transition API.",
@@ -2161,6 +2197,7 @@ export function CustomThemeToggle() {
   },
   {
     slug: "circular-theme-provider",
+    category: "Theme Transitions",
     name: "Circular Theme Provider",
     description:
       "A transition manager that switches between light and dark themes using a custom circular clip-path view transition centered at the user's cursor position or specified coordinates.",
@@ -2235,6 +2272,7 @@ export function CustomThemeToggle() {
   },
   {
     slug: "split-theme-provider",
+    category: "Theme Transitions",
     name: "Split Theme Provider",
     description:
       "A transition manager that switches between light and dark themes using a vertical or horizontal split transition starting from the center (in-to-out) or edges (out-to-in).",
@@ -2311,6 +2349,854 @@ export function CustomThemeToggle() {
     >
       Active: {theme}
     </button>
+  );
+}`,
+  },
+  {
+    slug: "curtain-page-transition",
+    category: "Page Transitions",
+    name: "Curtain Page Transition",
+    description:
+      "A premium curtain split transition effect that splits horizontally or vertically to reveal new content, built with Framer Motion.",
+    interactionType:
+      "Programmatically triggered on route change or view swaps, splitting the viewport in two halves that slide outwards to reveal the next state.",
+    dependencies: ["motion"],
+    previewFile: "CurtainPageTransitionPreview",
+    preview: "https://ik.imagekit.io/niqgaoeg3/GUI-Curtain-Transition.mp4",
+    props: [
+      {
+        name: "trigger",
+        type: ["number"],
+        description:
+          "Value key to programmatically trigger the transition overlay.",
+        default: "0",
+      },
+      {
+        name: "onViewSwap",
+        type: ["() => void"],
+        description:
+          "Callback fired at mid-transition to perform state/view swaps.",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the container wrapper.",
+      },
+      {
+        name: "panelClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the individual curtain halves.",
+      },
+      {
+        name: "duration",
+        type: ["number"],
+        description: "The duration of the animation for each half in seconds.",
+        default: "0.8",
+      },
+      {
+        name: "ease",
+        type: ["string", "number[]"],
+        description:
+          "The bezier curve easing array or string for the animation.",
+        default: "[0.76, 0, 0.24, 1]",
+      },
+      {
+        name: "direction",
+        type: ["'vertical'", "'horizontal'"],
+        description:
+          "The axis along which the curtain splits. Vertical splits horizontally (slides up/down), Horizontal splits vertically (slides left/right).",
+        default: "'horizontal'",
+      },
+    ],
+    usageCode: `// 1. General Setup (All React Frameworks)
+import { RouteTransitionProvider } from "@/components/ui/CurtainPageTransition";
+
+export function AppWrapper({ children }) {
+  const navigate = (url: string) => { /* your router push function */ };
+  
+  return (
+    <RouteTransitionProvider navigate={navigate}>
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+// 2. Next.js App Router Setup
+"use client";
+import { useRouter } from "next/navigation";
+import { RouteTransitionProvider } from "@/components/ui/CurtainPageTransition";
+
+export function TransitionWrapper({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  
+  return (
+    <RouteTransitionProvider navigate={(url) => router.push(url)} panelClassName="bg-rose-500">
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+// 3. React Router (Vite / Remix) Setup
+import { useNavigate, Routes, Route } from "react-router-dom";
+import { RouteTransitionProvider } from "@/components/ui/CurtainPageTransition";
+
+export function AppShell() {
+  const navigate = useNavigate();
+
+  return (
+    <RouteTransitionProvider navigate={navigate}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+      </Routes>
+    </RouteTransitionProvider>
+  );
+}`,
+  },
+  {
+    slug: "interlocking-page-transition",
+    category: "Page Transitions",
+    name: "Interlocking Page Transition",
+    description:
+      "A premium full-screen transition where columns (vertical) or rows (horizontal) enter from opposite sides (interlocking) and exit along the same path, built with Framer Motion.",
+    interactionType:
+      "Programmatically triggered on route change or view swaps, showing full-screen interlocking columns entering from top/bottom or left/right and sliding away to reveal content.",
+    dependencies: ["motion"],
+    previewFile: "InterlockingPageTransitionPreview",
+    preview:
+      "https://ik.imagekit.io/niqgaoeg3/GUI-Interlocking-Page-Transition.mp4",
+    props: [
+      {
+        name: "trigger",
+        type: ["number"],
+        description:
+          "Value key to programmatically trigger the transition overlay.",
+        default: "0",
+      },
+      {
+        name: "onViewSwap",
+        type: ["() => void"],
+        description:
+          "Callback fired when the screen is fully covered mid-transition to perform state/view swaps.",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the container wrapper.",
+      },
+      {
+        name: "panelClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the individual interlocking panels.",
+      },
+      {
+        name: "duration",
+        type: ["number"],
+        description: "The duration of the column slide animation in seconds.",
+        default: "0.8",
+      },
+      {
+        name: "ease",
+        type: ["string", "number[]"],
+        description:
+          "The bezier curve easing array or string for the animation.",
+        default: "[0.76, 0, 0.24, 1]",
+      },
+      {
+        name: "columns",
+        type: ["number"],
+        description: "The number of interlocking columns or rows to render.",
+        default: "4",
+      },
+      {
+        name: "direction",
+        type: ["'vertical'", "'horizontal'"],
+        description:
+          "The layout and movement orientation of the interlocking columns.",
+        default: "'vertical'",
+      },
+    ],
+    usageCode: `// 1. General Setup (All React Frameworks)
+import { RouteTransitionProvider } from "@/components/ui/InterlockingPageTransition";
+
+export function AppWrapper({ children }) {
+  const navigate = (url: string) => { /* your router push function */ };
+  
+  return (
+    <RouteTransitionProvider navigate={navigate} columns={4} direction="vertical">
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+// 2. Next.js App Router Setup
+"use client";
+import { useRouter } from "next/navigation";
+import { RouteTransitionProvider } from "@/components/ui/InterlockingPageTransition";
+
+export function TransitionWrapper({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  
+  return (
+    <RouteTransitionProvider navigate={(url) => router.push(url)} columns={6} direction="horizontal">
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+// 3. React Router (Vite / Remix) Setup
+import { useNavigate, Routes, Route } from "react-router-dom";
+import { RouteTransitionProvider } from "@/components/ui/InterlockingPageTransition";
+
+export function AppShell() {
+  const navigate = useNavigate();
+
+  return (
+    <RouteTransitionProvider navigate={navigate}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+      </Routes>
+    </RouteTransitionProvider>
+  );
+}`,
+  },
+  {
+    slug: "sweep-page-transition",
+    category: "Page Transitions",
+    name: "Sweep Page Transition",
+    description:
+      "A premium multi-layered wipe screen transition that animates overlapping sheets of color in sequence across the viewport.",
+    interactionType:
+      "Programmatically triggered on route change or view swaps, showing three overlapping solid color sweeps sliding in sequence and sliding offscreen in reverse order to reveal content.",
+    dependencies: ["motion"],
+    previewFile: "SweepPageTransitionPreview",
+    preview: "https://ik.imagekit.io/niqgaoeg3/GUI-Sweep-Page-Transition.mp4",
+    props: [
+      {
+        name: "trigger",
+        type: ["number"],
+        description:
+          "Value key to programmatically trigger the transition overlay.",
+        default: "0",
+      },
+      {
+        name: "onViewSwap",
+        type: ["() => void"],
+        description:
+          "Callback fired when the screen is fully covered mid-transition to perform state/view swaps.",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the container wrapper.",
+      },
+      {
+        name: "colors",
+        type: ["string[]"],
+        description:
+          "An array of hex or CSS colors mapping to sequential wipe layers.",
+        default: `["#e2e8f0", "#cbd5e1", "#94a3b8"]`,
+      },
+      {
+        name: "duration",
+        type: ["number"],
+        description:
+          "The duration of the sweep animation for each layer in seconds.",
+        default: "0.7",
+      },
+      {
+        name: "staggerDelay",
+        type: ["number"],
+        description: "The delay between successive sweep layers in seconds.",
+        default: "0.1",
+      },
+      {
+        name: "ease",
+        type: ["string", "number[]"],
+        description:
+          "The bezier curve easing array or string for the animation.",
+        default: "[0.76, 0, 0.24, 1]",
+      },
+      {
+        name: "direction",
+        type: ["'top'", "'bottom'", "'left'", "'right'"],
+        description: "The sweep wipe starting direction.",
+        default: "'left'",
+      },
+      {
+        name: "exitOpposite",
+        type: ["boolean"],
+        description:
+          "Whether layers exit off to the opposite side of entry or retract back.",
+        default: "true",
+      },
+    ],
+    usageCode: `// 1. General Setup (All React Frameworks)
+import { RouteTransitionProvider } from "@/components/ui/SweepPageTransition";
+
+export function AppWrapper({ children }) {
+  const navigate = (url: string) => { /* your router push function */ };
+  
+  return (
+    <RouteTransitionProvider navigate={navigate} colors={["#fda4af", "#f43f5e", "#be123c"]}>
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+// 2. Next.js App Router Setup
+"use client";
+import { useRouter } from "next/navigation";
+import { RouteTransitionProvider } from "@/components/ui/SweepPageTransition";
+
+export function TransitionWrapper({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  
+  return (
+    <RouteTransitionProvider navigate={(url) => router.push(url)} duration={0.8}>
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+// 3. React Router (Vite / Remix) Setup
+import { useNavigate, Routes, Route } from "react-router-dom";
+import { RouteTransitionProvider } from "@/components/ui/SweepPageTransition";
+
+export function AppShell() {
+  const navigate = useNavigate();
+
+  return (
+    <RouteTransitionProvider navigate={navigate}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+      </Routes>
+    </RouteTransitionProvider>
+  );
+}`,
+  },
+  {
+    slug: "pixel-page-transition",
+    category: "Page Transitions",
+    name: "Pixel Page Transition",
+    description:
+      "A full-screen block pixel dissolve page transition where grids of random shuffled pixels fade in and out using Framer Motion.",
+    interactionType:
+      "Programmatically triggered on route change or view swaps, filling the screen with a grid of block pixels in a shuffled random order, then dissolving them to reveal content.",
+    dependencies: ["motion"],
+    previewFile: "PixelPageTransitionPreview",
+    preview: "https://ik.imagekit.io/niqgaoeg3/GUI-Pixel-page-Transition.mp4",
+    props: [
+      {
+        name: "trigger",
+        type: ["number"],
+        description:
+          "Value key to programmatically trigger the transition overlay.",
+        default: "0",
+      },
+      {
+        name: "onViewSwap",
+        type: ["() => void"],
+        description:
+          "Callback fired when the screen is fully covered mid-transition to perform state/view swaps.",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the grid wrapper.",
+      },
+      {
+        name: "panelClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the individual grid pixels.",
+      },
+      {
+        name: "pixelSize",
+        type: ["number"],
+        description: "Target base size of each pixel grid cell in pixels.",
+        default: "40",
+      },
+      {
+        name: "duration",
+        type: ["number"],
+        description:
+          "The scale/fade transition duration of individual cells in seconds.",
+        default: "0.2",
+      },
+      {
+        name: "staggerDuration",
+        type: ["number"],
+        description:
+          "The maximum delay stagger range for shuffled pixel animations in seconds.",
+        default: "0.4",
+      },
+    ],
+    usageCode: `// 1. General Setup (All React Frameworks)
+import { RouteTransitionProvider } from "@/components/ui/PixelPageTransition";
+
+export function AppWrapper({ children }) {
+  const navigate = (url: string) => { /* your router push function */ };
+  
+  return (
+    <RouteTransitionProvider navigate={navigate} pixelSize={40}>
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+// 2. Next.js App Router Setup
+"use client";
+import { useRouter } from "next/navigation";
+import { RouteTransitionProvider } from "@/components/ui/PixelPageTransition";
+
+export function TransitionWrapper({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  
+  return (
+    <RouteTransitionProvider navigate={(url) => router.push(url)}>
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+// 3. React Router (Vite / Remix) Setup
+import { useNavigate, Routes, Route } from "react-router-dom";
+import { RouteTransitionProvider } from "@/components/ui/PixelPageTransition";
+
+export function AppShell() {
+  const navigate = useNavigate();
+
+  return (
+    <RouteTransitionProvider navigate={navigate}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+      </Routes>
+    </RouteTransitionProvider>
+  );
+}`,
+  },
+  {
+    slug: "sine-wave-page-transition",
+    category: "Page Transitions",
+    name: "Sine Wave Page Transition",
+    description:
+      "A visually stunning full-screen wipe transition where staggered panels ripple in and out in a normalized sine wave delay pattern.",
+    interactionType:
+      "Programmatically triggered on route change or view swaps, showing a smooth staggered sine wave curtain drop or row sweep across the viewport.",
+    dependencies: ["motion"],
+    previewFile: "SineWavePageTransitionPreview",
+    preview:
+      "https://ik.imagekit.io/niqgaoeg3/GUI-Sine-Wave-Page-Transition.mp4",
+    props: [
+      {
+        name: "trigger",
+        type: ["number"],
+        description:
+          "Value key to programmatically trigger the transition overlay.",
+        default: "0",
+      },
+      {
+        name: "onViewSwap",
+        type: ["() => void"],
+        description:
+          "Callback fired when the screen is fully covered mid-transition to perform state/view swaps.",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the container wrapper.",
+      },
+      {
+        name: "panelClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the individual wave panels.",
+      },
+      {
+        name: "columns",
+        type: ["number"],
+        description:
+          "The number of vertical columns or horizontal rows forming the wave.",
+        default: "20",
+      },
+      {
+        name: "duration",
+        type: ["number"],
+        description:
+          "The duration of each column/row slide animation in seconds.",
+        default: "0.5",
+      },
+      {
+        name: "maxDelay",
+        type: ["number"],
+        description:
+          "The maximum stagger delay amplitude added by the normalized sine wave in seconds.",
+        default: "0.4",
+      },
+      {
+        name: "ease",
+        type: ["string", "number[]"],
+        description:
+          "The bezier curve easing array or string for the animation.",
+        default: "[0.76, 0, 0.24, 1]",
+      },
+      {
+        name: "direction",
+        type: ["'top'", "'bottom'", "'left'", "'right'"],
+        description:
+          "The entry direction of the wave panels (also determines orientation).",
+        default: "'top'",
+      },
+      {
+        name: "exitOpposite",
+        type: ["boolean"],
+        description:
+          "Whether wave panels exit off to the opposite side of entry or bounce back.",
+        default: "true",
+      },
+    ],
+    usageCode: `// 1. General Setup (All React Frameworks)
+import { RouteTransitionProvider } from "@/components/ui/SineWavePageTransition";
+
+export function AppWrapper({ children }) {
+  const navigate = (url: string) => { /* your router push function */ };
+  
+  return (
+    <RouteTransitionProvider navigate={navigate} columns={20} maxDelay={0.4}>
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+// 2. Next.js App Router Setup
+"use client";
+import { useRouter } from "next/navigation";
+import { RouteTransitionProvider } from "@/components/ui/SineWavePageTransition";
+
+export function TransitionWrapper({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  
+  return (
+    <RouteTransitionProvider navigate={(url) => router.push(url)} columns={30} direction="left">
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+// 3. React Router (Vite / Remix) Setup
+import { useNavigate, Routes, Route } from "react-router-dom";
+import { RouteTransitionProvider } from "@/components/ui/SineWavePageTransition";
+
+export function AppShell() {
+  const navigate = useNavigate();
+
+  return (
+    <RouteTransitionProvider navigate={navigate}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+      </Routes>
+    </RouteTransitionProvider>
+  );
+}`,
+  },
+  {
+    slug: "cascade-page-transition",
+    category: "Page Transitions",
+    name: "Cascade Page Transition",
+    description:
+      "A vibrant, cascading full-screen page transition where columns or rows sweep in an in-to-out or out-to-in V-pattern with optional edge stroke outline accents.",
+    interactionType:
+      "Programmatically triggered on route change or view swaps, showing a cascade of colored stripes with customizable borders.",
+    dependencies: ["motion"],
+    previewFile: "CascadePageTransitionPreview",
+    preview: "https://ik.imagekit.io/niqgaoeg3/GUI-Cascade-Page-Transition.mp4",
+    props: [
+      {
+        name: "trigger",
+        type: ["number"],
+        description:
+          "Value key to programmatically trigger the transition overlay.",
+        default: "0",
+      },
+      {
+        name: "onViewSwap",
+        type: ["() => void"],
+        description:
+          "Callback fired when the screen is fully covered mid-transition to perform state/view swaps.",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the container wrapper.",
+      },
+      {
+        name: "panelClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the individual colored stripes.",
+      },
+      {
+        name: "columns",
+        type: ["number"],
+        description:
+          "The number of vertical columns or horizontal rows to render.",
+        default: "14",
+      },
+      {
+        name: "colors",
+        type: ["string[]"],
+        description: "Array of colors forming the solid stripe sequence.",
+      },
+      {
+        name: "duration",
+        type: ["number"],
+        description: "The slide animation duration of each panel in seconds.",
+        default: "0.55",
+      },
+      {
+        name: "staggerDelay",
+        type: ["number"],
+        description: "Symmetrical cascade delay increment in seconds.",
+        default: "0.035",
+      },
+      {
+        name: "ease",
+        type: ["string", "number[]"],
+        description:
+          "The bezier curve easing array or string for the animation.",
+        default: "[0.76, 0, 0.24, 1]",
+      },
+      {
+        name: "direction",
+        type: ["'top'", "'bottom'", "'left'", "'right'"],
+        description:
+          "The entry direction of the solid stripes (also determines orientation).",
+        default: "'top'",
+      },
+      {
+        name: "exitOpposite",
+        type: ["boolean"],
+        description:
+          "Whether panels exit off to the opposite side of entry or bounce back.",
+        default: "true",
+      },
+      {
+        name: "mode",
+        type: ["'in-to-out'", "'out-to-in'"],
+        description:
+          "Whether stripes enter from the center outwards or from edges inwards.",
+        default: "'in-to-out'",
+      },
+      {
+        name: "showLeadingStroke",
+        type: ["boolean"],
+        description:
+          "Whether to render a stroke outline on the leading edge of the sweeps.",
+        default: "false",
+      },
+      {
+        name: "showTrailingStroke",
+        type: ["boolean"],
+        description:
+          "Whether to render a stroke outline on the trailing edge of the sweeps.",
+        default: "false",
+      },
+      {
+        name: "strokeWidth",
+        type: ["number"],
+        description: "Stroke border thickness in pixels.",
+        default: "10",
+      },
+      {
+        name: "leadingStrokeColors",
+        type: ["string[]"],
+        description: "Array of colors forming the leading edge strokes.",
+      },
+      {
+        name: "trailingStrokeColors",
+        type: ["string[]"],
+        description: "Array of colors forming the trailing edge strokes.",
+      },
+    ],
+    usageCode: `// 1. General Setup (All React Frameworks)
+import { RouteTransitionProvider } from "@/components/ui/CascadePageTransition";
+
+export function AppWrapper({ children }) {
+  const navigate = (url: string) => { /* your router push function */ };
+  
+  return (
+    <RouteTransitionProvider navigate={navigate} columns={14}>
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+// 2. Next.js App Router Setup
+"use client";
+import { useRouter } from "next/navigation";
+import { RouteTransitionProvider } from "@/components/ui/CascadePageTransition";
+
+export function TransitionWrapper({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  
+  return (
+    <RouteTransitionProvider navigate={(url) => router.push(url)} direction="left" columns={10}>
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+// 3. React Router (Vite / Remix) Setup
+import { useNavigate, Routes, Route } from "react-router-dom";
+import { RouteTransitionProvider } from "@/components/ui/CascadePageTransition";
+
+export function AppShell() {
+  const navigate = useNavigate();
+
+  return (
+    <RouteTransitionProvider navigate={navigate}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+      </Routes>
+    </RouteTransitionProvider>
+  );
+}`,
+  },
+  {
+    slug: "venetian-blinds-page-transition",
+    category: "Page Transitions",
+    name: "Venetian Blinds Page Transition",
+    description:
+      "A clean full-screen venetian blinds page transition where horizontal or vertical slats scale/rotate open and closed staggered in configurable layouts.",
+    interactionType:
+      "Programmatically triggered on route change or view swaps, showing a staggered 3D venetian blinds scale-reveal across the viewport.",
+    dependencies: ["motion"],
+    previewFile: "VenetianBlindsPageTransitionPreview",
+    preview:
+      "https://ik.imagekit.io/niqgaoeg3/GUI-Venetian-Blinds-Page-Transition.mp4",
+    props: [
+      {
+        name: "trigger",
+        type: ["number"],
+        description:
+          "Value key to programmatically trigger the transition overlay.",
+        default: "0",
+      },
+      {
+        name: "onViewSwap",
+        type: ["() => void"],
+        description:
+          "Callback fired when the screen is fully covered mid-transition to perform state/view swaps.",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the container wrapper.",
+      },
+      {
+        name: "panelClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the individual blinds panels.",
+      },
+      {
+        name: "columns",
+        type: ["number"],
+        description: "The number of shutter flap columns or rows.",
+        default: "20",
+      },
+      {
+        name: "duration",
+        type: ["number"],
+        description:
+          "The flip/scale transition duration of each panel in seconds.",
+        default: "0.5",
+      },
+      {
+        name: "staggerDelay",
+        type: ["number"],
+        description:
+          "Stagger delay increment between adjacent shutters in seconds.",
+        default: "0.02",
+      },
+      {
+        name: "staggerType",
+        type: ["'linear'", "'center-out'", "'edge-in'"],
+        description:
+          "Symmetrical delay layouts (linear waterfall, center-out, or edge-in).",
+        default: "'linear'",
+      },
+      {
+        name: "ease",
+        type: ["string", "number[]"],
+        description:
+          "The bezier curve easing array or string for the animation.",
+        default: "[0.76, 0, 0.24, 1]",
+      },
+      {
+        name: "direction",
+        type: ["'horizontal'", "'vertical'"],
+        description:
+          "Orientation layout (horizontal rows scaleY or vertical columns scaleX).",
+        default: "'horizontal'",
+      },
+      {
+        name: "origin",
+        type: ["'center'", "'top'", "'bottom'", "'left'", "'right'"],
+        description: "Transform scaling origin pivot.",
+        default: "'center'",
+      },
+    ],
+    usageCode: `// 1. General Setup (All React Frameworks)
+import { RouteTransitionProvider } from "@/components/ui/VenetianBlindsPageTransition";
+
+export function AppWrapper({ children }) {
+  const navigate = (url: string) => { /* your router push function */ };
+  
+  return (
+    <RouteTransitionProvider navigate={navigate} columns={20} staggerType="center-out">
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+// 2. Next.js App Router Setup
+"use client";
+import { useRouter } from "next/navigation";
+import { RouteTransitionProvider } from "@/components/ui/VenetianBlindsPageTransition";
+
+export function TransitionWrapper({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  
+  return (
+    <RouteTransitionProvider navigate={(url) => router.push(url)} direction="vertical" origin="left">
+      {children}
+    </RouteTransitionProvider>
+  );
+}
+
+// 3. React Router (Vite / Remix) Setup
+import { useNavigate, Routes, Route } from "react-router-dom";
+import { RouteTransitionProvider } from "@/components/ui/VenetianBlindsPageTransition";
+
+export function AppShell() {
+  const navigate = useNavigate();
+
+  return (
+    <RouteTransitionProvider navigate={navigate}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+      </Routes>
+    </RouteTransitionProvider>
   );
 }`,
   },

@@ -16,7 +16,35 @@ const TickRow = () => (
   </div>
 );
 
-const orderedComponents = [...components].reverse();
+const CATEGORY_ORDER = [
+  "Shaders",
+  "Page Transitions",
+  "Theme Transitions",
+  "Typography",
+  "Buttons",
+  "Layout & Cards",
+  "Visuals",
+];
+
+const componentsByCategory = components.reduce(
+  (acc, c) => {
+    if (!acc[c.category]) acc[c.category] = [];
+    acc[c.category].push(c);
+    return acc;
+  },
+  {} as Record<string, typeof components>,
+);
+
+const orderedComponents: typeof components = [];
+const categoryHeaders: { index: number; name: string }[] = [];
+
+CATEGORY_ORDER.forEach((catName) => {
+  const catComponents = componentsByCategory[catName] || [];
+  if (catComponents.length > 0) {
+    categoryHeaders.push({ index: orderedComponents.length, name: catName });
+    orderedComponents.push(...[...catComponents].reverse());
+  }
+});
 
 export default function Sidebar({ activeSlug }: SidebarProps) {
   const activeRef = React.useRef<HTMLAnchorElement>(null);
@@ -102,44 +130,52 @@ export default function Sidebar({ activeSlug }: SidebarProps) {
             orderedComponents.map((c, index) => {
               const active = c.slug === activeSlug;
               const itemNumber = (index + 1).toString().padStart(2, "0");
-              const isFirst = index === 0;
-              const isLast = index === orderedComponents.length - 1;
+
+              const headerInfo = categoryHeaders.find((h) => h.index === index);
+              const isFirstInCategory = !!headerInfo;
 
               return (
-                <Link
-                  key={c.slug}
-                  ref={active ? activeRef : undefined}
-                  href={`/components/${c.slug}`}
-                  onClick={() => {
-                    posthog.capture("sidebar_component_navigated", {
-                      component_slug: c.slug,
-                      component_name: c.name,
-                      from_slug: activeSlug,
-                    });
-                  }}
-                  className="group relative flex cursor-pointer flex-col transition-colors"
-                >
-                  {!isFirst && <TickRow />}
-                  <div className="flex h-2.5 items-center gap-2">
-                    <span
-                      className={`block shrink-0 transition-all ${
-                        active
-                          ? "h-[3px] w-14 bg-[#f6821f]"
-                          : "h-[2px] w-8 bg-neutral-300 group-hover:w-11 group-hover:bg-[#f6821f] dark:bg-neutral-700"
-                      }`}
-                    />
-                    <span
-                      className={`text-xl leading-none whitespace-nowrap transition-all ease-out ${
-                        active
-                          ? "font-semibold text-[#f6821f] opacity-100 dark:text-[#ff9d42]"
-                          : "font-medium text-neutral-700 opacity-50 group-hover:text-[#f6821f] group-hover:opacity-100 dark:text-neutral-300 dark:group-hover:text-[#f6821f]"
-                      }`}
-                    >
-                      {itemNumber} {c.name}
-                    </span>
-                  </div>
-                  {!isLast && <TickRow />}
-                </Link>
+                <React.Fragment key={c.slug}>
+                  {isFirstInCategory && (
+                    <div className="mt-6 mb-2 first:mt-0">
+                      <span className="text-xl font-bold text-neutral-400/80 dark:text-neutral-500/80">
+                        {headerInfo.name}
+                      </span>
+                    </div>
+                  )}
+                  <Link
+                    ref={active ? activeRef : undefined}
+                    href={`/components/${c.slug}`}
+                    onClick={() => {
+                      posthog.capture("sidebar_component_navigated", {
+                        component_slug: c.slug,
+                        component_name: c.name,
+                        from_slug: activeSlug,
+                      });
+                    }}
+                    className="group relative flex cursor-pointer flex-col transition-colors"
+                  >
+                    {!isFirstInCategory && <TickRow />}
+                    <div className="flex h-4 items-center gap-2">
+                      <span
+                        className={`block shrink-0 transition-all ${
+                          active
+                            ? "h-[3px] w-14 bg-[#f6821f]"
+                            : "h-[2px] w-8 bg-neutral-300 group-hover:w-11 group-hover:bg-[#f6821f] dark:bg-neutral-700"
+                        }`}
+                      />
+                      <span
+                        className={`text-[19px] leading-none whitespace-nowrap transition-all ease-out ${
+                          active
+                            ? "font-semibold text-[#f6821f] opacity-100 dark:text-[#ff9d42]"
+                            : "font-medium text-neutral-700 opacity-50 group-hover:text-[#f6821f] group-hover:opacity-100 dark:text-neutral-300 dark:group-hover:text-[#f6821f]"
+                        }`}
+                      >
+                        {itemNumber} {c.name}
+                      </span>
+                    </div>
+                  </Link>
+                </React.Fragment>
               );
             })
           )}
