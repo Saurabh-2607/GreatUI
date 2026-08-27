@@ -3,12 +3,28 @@
 import React, { useState, useEffect, useCallback } from "react";
 import SimpleBlurPageTransition from "../../ui/SimpleBlurPageTransition";
 
+const RefreshCwIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+    <path d="M16 3h5v5" />
+    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+    <path d="M8 21H3v-5" />
+  </svg>
+);
+
 export default function SimpleBlurPageTransitionPreview() {
   const [trigger, setTrigger] = useState(0);
   const [activePage, setActivePage] = useState<"home" | "about">("home");
   const [mounted, setMounted] = useState(false);
-  const [duration, setDuration] = useState(0.6);
-  const [maxBlur, setMaxBlur] = useState(20);
 
   useEffect(() => {
     setTimeout(() => setMounted(true), 0);
@@ -24,21 +40,12 @@ export default function SimpleBlurPageTransitionPreview() {
 
   return (
     <div className="relative mx-5 flex h-[500px] w-full max-w-3xl flex-col overflow-hidden rounded-2xl bg-white dark:bg-neutral-950">
-      <header className="flex w-full items-center justify-between px-6 py-4 border-b border-neutral-100 dark:border-neutral-900">
+      <header className="flex w-full items-center justify-between border-b border-neutral-100 px-6 py-4 dark:border-neutral-900">
         <div className="flex items-center gap-2">
           <div className="h-6 w-6 rounded-full bg-[#f6821f]" />
           <span className="font-medium tracking-tight text-neutral-900 dark:text-white">
             BlurStudio
           </span>
-        </div>
-        <div className="flex gap-4 text-xs font-semibold text-neutral-500">
-          <button
-            type="button"
-            onClick={() => handleTransition()}
-            className="cursor-pointer rounded-lg bg-neutral-100 px-3 py-1.5 hover:bg-neutral-200 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:text-neutral-300"
-          >
-            Switch View
-          </button>
         </div>
       </header>
 
@@ -51,10 +58,10 @@ export default function SimpleBlurPageTransitionPreview() {
                 : "pointer-events-none opacity-0"
             }`}
           >
-            <span className="text-xs font-bold uppercase tracking-widest text-[#f6821f] dark:text-[#ff9d42]">
+            <span className="text-xs font-bold tracking-widest text-[#f6821f] uppercase dark:text-[#ff9d42]">
               Home Page
             </span>
-            <h3 className="mt-2 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl">
+            <h3 className="mt-2 text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-white">
               Clean &amp; Minimal
             </h3>
             <p className="mt-4 max-w-md text-sm text-neutral-500 dark:text-neutral-400">
@@ -70,10 +77,10 @@ export default function SimpleBlurPageTransitionPreview() {
                 : "pointer-events-none opacity-0"
             }`}
           >
-            <span className="text-xs font-bold uppercase tracking-widest text-[#f6821f] dark:text-[#ff9d42]">
+            <span className="text-xs font-bold tracking-widest text-[#f6821f] uppercase dark:text-[#ff9d42]">
               About Page
             </span>
-            <h3 className="mt-2 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl">
+            <h3 className="mt-2 text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-white">
               Creative Studio
             </h3>
             <p className="mt-4 max-w-md text-sm text-neutral-500 dark:text-neutral-400">
@@ -83,46 +90,20 @@ export default function SimpleBlurPageTransitionPreview() {
           </div>
         </div>
 
-        {/* Configuration Overlay Panel */}
-        <div className="absolute bottom-6 flex flex-wrap gap-4 rounded-xl bg-neutral-100/80 p-3 backdrop-blur-md dark:bg-neutral-900/80">
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-bold text-neutral-500 uppercase">
-              Duration:
-            </span>
-            <select
-              value={duration}
-              onChange={(e) => setDuration(parseFloat(e.target.value))}
-              className="rounded bg-white px-2 py-0.5 text-xs text-neutral-950 dark:bg-neutral-850 dark:text-white border-none"
-            >
-              <option value="0.3">0.3s (Fast)</option>
-              <option value="0.6">0.6s (Normal)</option>
-              <option value="1.2">1.2s (Slow)</option>
-            </select>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-bold text-neutral-500 uppercase">
-              Max Blur:
-            </span>
-            <select
-              value={maxBlur}
-              onChange={(e) => setMaxBlur(parseInt(e.target.value))}
-              className="rounded bg-white px-2 py-0.5 text-xs text-neutral-950 dark:bg-neutral-850 dark:text-white border-none"
-            >
-              <option value="8">8px</option>
-              <option value="20">20px</option>
-              <option value="40">40px</option>
-            </select>
-          </div>
+        <div className="mt-12 flex items-center justify-center">
+          <button
+            type="button"
+            onClick={handleTransition}
+            className="group flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-neutral-200 bg-white shadow-sm transition-all hover:scale-105 hover:bg-neutral-50 active:scale-95 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:bg-neutral-800"
+            title="Trigger transition"
+          >
+            <RefreshCwIcon className="h-5 w-5 text-neutral-600 transition-transform group-hover:scale-110 dark:text-neutral-400" />
+          </button>
         </div>
       </div>
 
       {mounted && (
-        <SimpleBlurPageTransition
-          trigger={trigger}
-          onViewSwap={swapView}
-          duration={duration}
-          maxBlur={maxBlur}
-        />
+        <SimpleBlurPageTransition trigger={trigger} onViewSwap={swapView} />
       )}
     </div>
   );

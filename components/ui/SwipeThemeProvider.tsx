@@ -6,6 +6,7 @@ import { flushSync } from "react-dom";
 interface DocumentWithViewTransition {
   startViewTransition?: (callback: () => void) => {
     ready: Promise<void>;
+    finished?: Promise<void>;
   };
 }
 
@@ -286,52 +287,66 @@ export default function SwipeThemeProvider({
 
     setIsAnimating(true);
 
-    const transition = doc.startViewTransition(() => {
-      flushSync(() => {
-        applyThemeChange();
-        if (onSwipe) onSwipe();
-      });
-    });
-
     const rawKeyframes = getKeyframes
       ? getKeyframes(activeDir)
       : getClipPathKeyframes(activeDir, activeAngle);
 
-    let keyframes: Keyframe[] | PropertyIndexedKeyframes = rawKeyframes;
-    if (Array.isArray(rawKeyframes)) {
-      keyframes = (rawKeyframes as Array<Keyframe & { clipPath?: string }>).map(
-        (kf) => {
-          const newKf: Keyframe & {
-            clipPath?: string;
-            webkitClipPath?: string;
-          } = { ...kf };
-          if (typeof newKf.clipPath === "string") {
-            newKf.webkitClipPath = newKf.clipPath;
-          }
-          return newKf;
-        },
-      );
-    } else if (rawKeyframes && typeof rawKeyframes === "object") {
-      const obj = { ...rawKeyframes } as PropertyIndexedKeyframes & {
-        clipPath?: string;
-        webkitClipPath?: string;
-      };
-      if (obj.clipPath) {
-        obj.webkitClipPath = obj.clipPath;
-      }
-      keyframes = obj;
+    let fromClip = "";
+    let toClip = "";
+    if (Array.isArray(rawKeyframes) && rawKeyframes.length >= 2) {
+      fromClip = (rawKeyframes[0] as { clipPath?: string }).clipPath || "";
+      toClip = (rawKeyframes[1] as { clipPath?: string }).clipPath || "";
     }
 
-    transition.ready.then(() => {
-      document.documentElement.animate(keyframes, {
-        duration,
-        easing,
-        pseudoElement: "::view-transition-new(root)",
-        fill: "both",
-      }).onfinish = () => {
-        setIsAnimating(false);
-      };
-    });
+    const animStyleId = "great-ui-swipe-anim-style";
+    let styleEl = document.getElementById(
+      animStyleId,
+    ) as HTMLStyleElement | null;
+    if (!styleEl) {
+      styleEl = document.createElement("style");
+      styleEl.id = animStyleId;
+      document.head.appendChild(styleEl);
+    }
+    styleEl.textContent = `
+      @keyframes great-ui-swipe-wipe {
+        from {
+          clip-path: ${fromClip};
+          -webkit-clip-path: ${fromClip};
+        }
+        to {
+          clip-path: ${toClip};
+          -webkit-clip-path: ${toClip};
+        }
+      }
+      ::view-transition-new(root) {
+        animation: great-ui-swipe-wipe ${duration}ms ${easing} both !important;
+      }
+    `;
+
+    const cleanup = () => {
+      const el = document.getElementById(animStyleId);
+      if (el) el.remove();
+      setIsAnimating(false);
+    };
+
+    try {
+      const transition = doc.startViewTransition(() => {
+        flushSync(() => {
+          applyThemeChange();
+          if (onSwipe) onSwipe();
+        });
+      });
+
+      if (transition && transition.finished) {
+        transition.finished.then(cleanup).catch(cleanup);
+      } else {
+        setTimeout(cleanup, duration);
+      }
+    } catch {
+      cleanup();
+      applyThemeChange();
+      if (onSwipe) onSwipe();
+    }
   };
 
   if (!mounted) {

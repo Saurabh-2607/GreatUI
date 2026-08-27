@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { flushSync } from "react-dom";
 import posthog from "posthog-js";
 import { useTheme } from "./ThemeProvider";
 
@@ -13,6 +14,7 @@ interface ThemeToggleProps {
 interface ViewTransitionDocument {
   startViewTransition?: (callback: () => void) => {
     ready: Promise<void>;
+    finished?: Promise<void>;
   };
 }
 
@@ -23,7 +25,9 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
     const doc = document as unknown as ViewTransitionDocument;
 
     const nextTheme = theme === "dark" ? "light" : "dark";
-    posthog.capture("theme_toggled", { theme: nextTheme });
+    try {
+      posthog.capture("theme_toggled", { theme: nextTheme });
+    } catch {}
 
     if (
       typeof document === "undefined" ||
@@ -43,29 +47,52 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       Math.max(y, window.innerHeight - y),
     );
 
-    const transition = doc.startViewTransition(() => {
+    const animStyleId = "great-ui-theme-toggle-anim-style";
+    let styleEl = document.getElementById(
+      animStyleId,
+    ) as HTMLStyleElement | null;
+    if (!styleEl) {
+      styleEl = document.createElement("style");
+      styleEl.id = animStyleId;
+      document.head.appendChild(styleEl);
+    }
+    styleEl.textContent = `
+      @keyframes great-ui-circle-wipe {
+        from {
+          clip-path: circle(0px at ${x}px ${y}px);
+          -webkit-clip-path: circle(0px at ${x}px ${y}px);
+        }
+        to {
+          clip-path: circle(${endRadius}px at ${x}px ${y}px);
+          -webkit-clip-path: circle(${endRadius}px at ${x}px ${y}px);
+        }
+      }
+      ::view-transition-new(root) {
+        animation: great-ui-circle-wipe 500ms ease-in-out both !important;
+      }
+    `;
+
+    const cleanup = () => {
+      const el = document.getElementById(animStyleId);
+      if (el) el.remove();
+    };
+
+    try {
+      const transition = doc.startViewTransition(() => {
+        flushSync(() => {
+          toggleTheme();
+        });
+      });
+
+      if (transition && transition.finished) {
+        transition.finished.then(cleanup).catch(cleanup);
+      } else {
+        setTimeout(cleanup, 500);
+      }
+    } catch {
+      cleanup();
       toggleTheme();
-    });
-
-    transition.ready.then(() => {
-      const clipPath = [
-        `circle(0px at ${x}px ${y}px)`,
-        `circle(${endRadius}px at ${x}px ${y}px)`,
-      ];
-
-      document.documentElement.animate(
-        {
-          clipPath: clipPath,
-          webkitClipPath: clipPath,
-        },
-        {
-          duration: 500,
-          easing: "ease-in-out",
-          pseudoElement: "::view-transition-new(root)",
-          fill: "both",
-        },
-      );
-    });
+    }
   };
 
   return (

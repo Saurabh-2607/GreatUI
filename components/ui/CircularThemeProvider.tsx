@@ -6,6 +6,7 @@ import { flushSync } from "react-dom";
 interface DocumentWithViewTransition {
   startViewTransition?: (callback: () => void) => {
     ready: Promise<void>;
+    finished?: Promise<void>;
   };
 }
 
@@ -245,40 +246,60 @@ export default function CircularThemeProvider({
 
     setIsAnimating(true);
 
-    const transition = doc.startViewTransition(() => {
-      flushSync(() => {
-        applyThemeChange();
-        if (onTransition) onTransition();
-      });
-    });
-
     const endRadius = Math.hypot(
       Math.max(x, window.innerWidth - x),
       Math.max(y, window.innerHeight - y),
     );
 
-    transition.ready.then(() => {
-      document.documentElement.animate(
-        {
-          clipPath: [
-            `circle(0px at ${x}px ${y}px)`,
-            `circle(${endRadius}px at ${x}px ${y}px)`,
-          ],
-          webkitClipPath: [
-            `circle(0px at ${x}px ${y}px)`,
-            `circle(${endRadius}px at ${x}px ${y}px)`,
-          ],
-        },
-        {
-          duration,
-          easing,
-          pseudoElement: "::view-transition-new(root)",
-          fill: "both",
-        },
-      ).onfinish = () => {
-        setIsAnimating(false);
-      };
-    });
+    const animStyleId = "great-ui-circular-anim-style";
+    let styleEl = document.getElementById(
+      animStyleId,
+    ) as HTMLStyleElement | null;
+    if (!styleEl) {
+      styleEl = document.createElement("style");
+      styleEl.id = animStyleId;
+      document.head.appendChild(styleEl);
+    }
+    styleEl.textContent = `
+      @keyframes great-ui-circular-wipe {
+        from {
+          clip-path: circle(0px at ${x}px ${y}px);
+          -webkit-clip-path: circle(0px at ${x}px ${y}px);
+        }
+        to {
+          clip-path: circle(${endRadius}px at ${x}px ${y}px);
+          -webkit-clip-path: circle(${endRadius}px at ${x}px ${y}px);
+        }
+      }
+      ::view-transition-new(root) {
+        animation: great-ui-circular-wipe ${duration}ms ${easing} both !important;
+      }
+    `;
+
+    const cleanup = () => {
+      const el = document.getElementById(animStyleId);
+      if (el) el.remove();
+      setIsAnimating(false);
+    };
+
+    try {
+      const transition = doc.startViewTransition(() => {
+        flushSync(() => {
+          applyThemeChange();
+          if (onTransition) onTransition();
+        });
+      });
+
+      if (transition && transition.finished) {
+        transition.finished.then(cleanup).catch(cleanup);
+      } else {
+        setTimeout(cleanup, duration);
+      }
+    } catch {
+      cleanup();
+      applyThemeChange();
+      if (onTransition) onTransition();
+    }
   };
 
   if (!mounted) {

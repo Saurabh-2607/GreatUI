@@ -36,7 +36,32 @@ export default function DocsPanel({ component }: { component: Component }) {
   const [mounted, setMounted] = useState(false);
   const [pkgManager, setPkgManager] = useState<PkgManager>("npm");
 
-  const orderedComponents = [...components].reverse();
+  const CATEGORY_ORDER = [
+    "Shaders",
+    "Page Transitions",
+    "Theme Transitions",
+    "Typography",
+    "Buttons",
+    "Layout & Cards",
+    "Visuals",
+  ];
+
+  const componentsByCategory = components.reduce(
+    (acc, c) => {
+      if (!acc[c.category]) acc[c.category] = [];
+      acc[c.category].push(c);
+      return acc;
+    },
+    {} as Record<string, typeof components>,
+  );
+
+  const orderedComponents: typeof components = [];
+  CATEGORY_ORDER.forEach((catName) => {
+    const catComponents = componentsByCategory[catName] || [];
+    if (catComponents.length > 0) {
+      orderedComponents.push(...[...catComponents].reverse());
+    }
+  });
   const currentIndex = orderedComponents.findIndex(
     (c) => c.slug === component.slug,
   );

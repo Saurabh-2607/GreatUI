@@ -6,6 +6,7 @@ import { flushSync } from "react-dom";
 interface DocumentWithViewTransition {
   startViewTransition?: (callback: () => void) => {
     ready: Promise<void>;
+    finished?: Promise<void>;
   };
 }
 
@@ -171,128 +172,98 @@ export default function SplitThemeProvider({
 
     setIsAnimating(true);
 
-    // Inject temporary styles to force correct layering if in out-to-in mode
-    let styleEl: HTMLStyleElement | null = null;
-    if (activeMode === "out-to-in") {
+    const animStyleId = "great-ui-split-anim-style";
+    let styleEl = document.getElementById(
+      animStyleId,
+    ) as HTMLStyleElement | null;
+    if (!styleEl) {
       styleEl = document.createElement("style");
-      styleEl.innerHTML = `
-        ::view-transition-old(root) {
-          z-index: 2147483647 !important;
-          animation: none !important;
-        }
-        ::view-transition-new(root) {
-          z-index: 1 !important;
-          animation: none !important;
-        }
-      `;
+      styleEl.id = animStyleId;
       document.head.appendChild(styleEl);
     }
 
-    const transition = doc.startViewTransition(() => {
-      flushSync(() => {
-        applyThemeChange();
-        if (onTransition) onTransition();
-      });
-    });
+    if (activeMode === "in-to-out") {
+      const fromInset =
+        activeDir === "horizontal"
+          ? "inset(0 50% 0 50%)"
+          : "inset(50% 0 50% 0)";
+      styleEl.textContent = `
+        @keyframes great-ui-split-in-to-out {
+          from {
+            clip-path: ${fromInset};
+            -webkit-clip-path: ${fromInset};
+            opacity: 1;
+          }
+          to {
+            clip-path: inset(0 0 0 0);
+            -webkit-clip-path: inset(0 0 0 0);
+            opacity: 1;
+          }
+        }
+        ::view-transition-old(root) {
+          animation: none !important;
+          opacity: 1 !important;
+          z-index: 1 !important;
+        }
+        ::view-transition-new(root) {
+          animation: great-ui-split-in-to-out ${duration}ms ${easing} both !important;
+          z-index: 9999 !important;
+        }
+      `;
+    } else {
+      const toInset =
+        activeDir === "horizontal"
+          ? "inset(0 50% 0 50%)"
+          : "inset(50% 0 50% 0)";
+      styleEl.textContent = `
+        @keyframes great-ui-split-out-to-in {
+          from {
+            clip-path: inset(0 0 0 0);
+            -webkit-clip-path: inset(0 0 0 0);
+            opacity: 1;
+          }
+          to {
+            clip-path: ${toInset};
+            -webkit-clip-path: ${toInset};
+            opacity: 1;
+          }
+        }
+        ::view-transition-old(root) {
+          animation: great-ui-split-out-to-in ${duration}ms ${easing} both !important;
+          z-index: 9999 !important;
+        }
+        ::view-transition-new(root) {
+          animation: none !important;
+          opacity: 1 !important;
+          z-index: 1 !important;
+        }
+      `;
+    }
 
-    const cleanupStyles = () => {
-      if (styleEl) {
-        styleEl.remove();
-      }
+    const cleanup = () => {
+      const el = document.getElementById(animStyleId);
+      if (el) el.remove();
       setIsAnimating(false);
     };
 
-    transition.ready.then(() => {
-      if (activeMode === "in-to-out") {
-        // Keep old view static and fully opaque underneath
-        document.documentElement.animate(
-          [
-            {
-              opacity: 1,
-              clipPath: "inset(0 0 0 0)",
-              webkitClipPath: "inset(0 0 0 0)",
-            },
-            {
-              opacity: 1,
-              clipPath: "inset(0 0 0 0)",
-              webkitClipPath: "inset(0 0 0 0)",
-            },
-          ],
-          {
-            duration,
-            pseudoElement: "::view-transition-old(root)",
-            fill: "both",
-          },
-        );
+    try {
+      const transition = doc.startViewTransition(() => {
+        flushSync(() => {
+          applyThemeChange();
+          if (onTransition) onTransition();
+        });
+      });
 
-        const rawKeyframes =
-          activeDir === "horizontal"
-            ? [
-                { clipPath: "inset(0 50% 0 50%)", opacity: 1 },
-                { clipPath: "inset(0 0 0 0)", opacity: 1 },
-              ]
-            : [
-                { clipPath: "inset(50% 0 50% 0)", opacity: 1 },
-                { clipPath: "inset(0 0 0 0)", opacity: 1 },
-              ];
-
-        const keyframes = rawKeyframes.map((kf) => ({
-          ...kf,
-          webkitClipPath: kf.clipPath,
-        }));
-
-        document.documentElement.animate(keyframes, {
-          duration,
-          easing,
-          pseudoElement: "::view-transition-new(root)",
-          fill: "both",
-        }).onfinish = cleanupStyles;
+      if (transition && transition.finished) {
+        transition.finished.then(cleanup).catch(cleanup);
       } else {
-        // out-to-in: Keep new view static and fully opaque
-        document.documentElement.animate(
-          [
-            {
-              opacity: 1,
-              clipPath: "inset(0 0 0 0)",
-              webkitClipPath: "inset(0 0 0 0)",
-            },
-            {
-              opacity: 1,
-              clipPath: "inset(0 0 0 0)",
-              webkitClipPath: "inset(0 0 0 0)",
-            },
-          ],
-          {
-            duration,
-            pseudoElement: "::view-transition-new(root)",
-            fill: "both",
-          },
-        );
-
-        const rawKeyframes =
-          activeDir === "horizontal"
-            ? [
-                { clipPath: "inset(0 0 0 0)", opacity: 1 },
-                { clipPath: "inset(0 50% 0 50%)", opacity: 1 },
-              ]
-            : [
-                { clipPath: "inset(0 0 0 0)", opacity: 1 },
-                { clipPath: "inset(50% 0 50% 0)", opacity: 1 },
-              ];
-
-        const keyframes = rawKeyframes.map((kf) => ({
-          ...kf,
-          webkitClipPath: kf.clipPath,
-        }));
-
-        document.documentElement.animate(keyframes, {
-          duration,
-          easing,
-          pseudoElement: "::view-transition-old(root)",
-          fill: "both",
-        }).onfinish = cleanupStyles;
+        setTimeout(cleanup, duration);
       }
-    });
+    } catch {
+      cleanup();
+      applyThemeChange();
+      if (onTransition) onTransition();
+    }
   };
 
   if (!mounted) {
