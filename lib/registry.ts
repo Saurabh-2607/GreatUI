@@ -23,6 +23,66 @@ export type Component = {
 
 export const components: Component[] = [
   {
+    slug: "floating-dock-menu",
+    category: "Visuals",
+    inspiration: "",
+    preview: "https://ik.imagekit.io/niqgaoeg3/GUI-Floating-Dock-Menu.mp4",
+    name: "Floating Dock Menu",
+    description:
+      "An expandable floating dock menu with smooth layout morphing, active pill indicator, toggle switches, and submenus.",
+    interactionType:
+      "Click dock tabs to expand upward into interactive menus with toggle switches and actions.",
+    dependencies: ["motion"],
+    previewFile: "FloatingDockMenuPreview",
+    props: [
+      {
+        name: "tabs",
+        type: ["NavTabItem[]"],
+        description:
+          "Array of dock tabs with icon, label, and nested menu items.",
+      },
+      {
+        name: "defaultActiveIndex",
+        type: ["number", "null"],
+        description: "Index of initially active tab, or null for collapsed.",
+        default: "null",
+      },
+      {
+        name: "menuWidth",
+        type: ["number"],
+        description: "Width in pixels of the expanded menu.",
+        default: "310",
+      },
+      {
+        name: "showIcons",
+        type: ["boolean"],
+        description: "Whether to render icons beside menu items.",
+        default: "true",
+      },
+      {
+        name: "isFixed",
+        type: ["boolean"],
+        description: "Position fixed at bottom center of viewport.",
+        default: "true",
+      },
+      {
+        name: "onTabChange",
+        type: ["(index: number | null) => void"],
+        description: "Callback fired when active tab changes.",
+      },
+      {
+        name: "onItemToggle",
+        type: ["(tabId: string, itemId: string, enabled: boolean) => void"],
+        description: "Callback fired when a switch inside a menu is toggled.",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Custom classes applied to the outer dock container.",
+      },
+    ],
+  },
+  {
     slug: "accordion",
     category: "Layout & Cards",
     inspiration: "",

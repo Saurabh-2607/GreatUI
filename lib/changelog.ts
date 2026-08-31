@@ -5,6 +5,12 @@ export type ChangelogItem = {
 
 export const changelogData: ChangelogItem[] = [
   {
+    date: "September 1, 2026",
+    features: [
+      "Added [Floating Dock Menu](/components/floating-dock-menu) component featuring expandable morphing dock submenus, animated toggle switches, active pill indicators, and custom layout transitions.",
+    ],
+  },
+  {
     date: "August 25, 2026",
     features: [
       "Added [Venetian Blinds Page Transition](/components/venetian-blinds-page-transition) component featuring staggered horizontal or vertical slats scaling open and shut with customizable staggers and pivot origins.",
