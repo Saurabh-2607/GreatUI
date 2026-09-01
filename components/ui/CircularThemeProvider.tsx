@@ -137,6 +137,10 @@ export default function CircularThemeProvider({
   }, []);
 
   const triggerTransition = (origin?: TransitionOrigin) => {
+    if (typeof window !== "undefined") {
+      window.getSelection()?.removeAllRanges();
+    }
+
     if (isAnimating) return;
 
     let x = typeof window !== "undefined" ? window.innerWidth / 2 : 0;

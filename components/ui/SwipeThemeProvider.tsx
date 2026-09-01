@@ -246,10 +246,14 @@ export default function SwipeThemeProvider({
     };
   }, []);
 
-  const triggerSwipe = (selectedDir?: SwipeDirection) => {
+  const triggerSwipe = (customDir?: SwipeDirection) => {
+    if (typeof window !== "undefined") {
+      window.getSelection()?.removeAllRanges();
+    }
+
     if (isAnimating) return;
 
-    const activeDir = normalizeDirection(selectedDir || defaultDirection);
+    const activeDir = normalizeDirection(customDir || defaultDirection);
     const defaultAngleForDir =
       activeDir === "top-to-bottom" || activeDir === "bottom-to-top" ? 0 : 90;
     const activeAngle = defaultAngleForDir + angle;

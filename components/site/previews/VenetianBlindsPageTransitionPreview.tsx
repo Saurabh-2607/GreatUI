@@ -44,9 +44,7 @@ export default function VenetianBlindsPageTransitionPreview() {
   const [direction, setDirection] = useState<"horizontal" | "vertical">(
     "horizontal",
   );
-  const [staggerType] = useState<
-    "linear" | "center-out" | "edge-in"
-  >("linear");
+  const [staggerType] = useState<"linear" | "center-out" | "edge-in">("linear");
   const [origin, setOrigin] = useState<
     "center" | "top" | "bottom" | "left" | "right"
   >("center");

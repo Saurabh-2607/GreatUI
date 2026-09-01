@@ -134,6 +134,10 @@ export default function SplitThemeProvider({
     selectedDir?: SplitDirection,
     customMode?: SplitMode,
   ) => {
+    if (typeof window !== "undefined") {
+      window.getSelection()?.removeAllRanges();
+    }
+
     if (isAnimating) return;
 
     const activeDir = selectedDir || defaultDirection;

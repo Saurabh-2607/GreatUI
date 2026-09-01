@@ -77,13 +77,11 @@ export default function SimpleBlurPageTransition({
       }}
       style={{
         WebkitBackdropFilter:
-          transitionState === "entering"
-            ? `blur(${maxBlur}px)`
-            : "blur(0px)",
+          transitionState === "entering" ? `blur(${maxBlur}px)` : "blur(0px)",
       }}
       className={cn(
         "fixed inset-0 z-[9999] bg-white/10 dark:bg-black/10",
-        className
+        className,
       )}
     />
   );

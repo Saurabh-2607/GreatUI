@@ -23,6 +23,82 @@ export type Component = {
 
 export const components: Component[] = [
   {
+    slug: "radial-gooey-menu",
+    category: "Visuals",
+    inspiration: "",
+    preview: "https://ik.imagekit.io/niqgaoeg3/GUI-gooey-menu.mp4",
+    name: "Radial Gooey Menu",
+    description:
+      "A liquid radial gooey menu component with spring-physics magnetic hover effects and smooth SVG blob matrix filtering.",
+    interactionType:
+      "Click center trigger to expand radial menu items with fluid gooey filter effects and magnetic cursor tracking.",
+    dependencies: ["motion"],
+    previewFile: "RadialGooeyMenuPreview",
+    props: [
+      {
+        name: "items",
+        type: ["RadialGooeyMenuItem[]"],
+        description:
+          "Array of menu items containing icon, label, and click handler.",
+      },
+      {
+        name: "radius",
+        type: ["number"],
+        description: "Radial expansion distance of menu items in pixels.",
+        default: "80",
+      },
+      {
+        name: "blur",
+        type: ["number"],
+        description: "SVG Gaussian blur deviation for the gooey effect.",
+        default: "10",
+      },
+      {
+        name: "springStiffness",
+        type: ["number"],
+        description: "Stiffness configuration for magnetic cursor tracking.",
+        default: "150",
+      },
+      {
+        name: "springDamping",
+        type: ["number"],
+        description: "Damping configuration for magnetic cursor tracking.",
+        default: "15",
+      },
+      {
+        name: "defaultOpen",
+        type: ["boolean"],
+        description: "Initial expanded state of the gooey menu.",
+        default: "false",
+      },
+      {
+        name: "onToggle",
+        type: ["(isOpen: boolean) => void"],
+        description: "Callback fired when the menu opens or closes.",
+      },
+      {
+        name: "onItemSelect",
+        type: ["(item: RadialGooeyMenuItem, index: number) => void"],
+        description: "Callback fired when a child menu item is selected.",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Custom classes applied to the outer container.",
+      },
+      {
+        name: "buttonClassName",
+        type: ["string"],
+        description: "Custom classes applied to the central trigger button.",
+      },
+      {
+        name: "itemClassName",
+        type: ["string"],
+        description: "Custom classes applied to radial item buttons.",
+      },
+    ],
+  },
+  {
     slug: "floating-dock-menu",
     category: "Visuals",
     inspiration: "",

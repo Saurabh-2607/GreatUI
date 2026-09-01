@@ -5,6 +5,12 @@ export type ChangelogItem = {
 
 export const changelogData: ChangelogItem[] = [
   {
+    date: "September 2, 2026",
+    features: [
+      "Added [Radial Gooey Menu](/components/radial-gooey-menu) component featuring radial spring-physics mouse tracking and fluid SVG gooey matrix filter effects.",
+    ],
+  },
+  {
     date: "September 1, 2026",
     features: [
       "Added [Floating Dock Menu](/components/floating-dock-menu) component featuring expandable morphing dock submenus, animated toggle switches, active pill indicators, and custom layout transitions.",

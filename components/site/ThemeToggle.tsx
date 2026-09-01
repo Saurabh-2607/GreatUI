@@ -22,6 +22,10 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
   const { toggleTheme, theme } = useTheme();
 
   const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (typeof window !== "undefined") {
+      window.getSelection()?.removeAllRanges();
+    }
+
     const doc = document as unknown as ViewTransitionDocument;
 
     const nextTheme = theme === "dark" ? "light" : "dark";
@@ -98,6 +102,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
   return (
     <button
       type="button"
+      onMouseDown={(e) => e.preventDefault()}
       onClick={handleToggle}
       aria-label="Toggle theme"
       title="Toggle theme"
