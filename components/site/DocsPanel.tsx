@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import posthog from "posthog-js";
 import { type Component, components } from "@/lib/registry";
+import { CATEGORY_ORDER, componentsByCategory } from "@/lib/categories";
 import Link from "next/link";
 import {
   CopyIcon,
@@ -35,26 +36,6 @@ export default function DocsPanel({ component }: { component: Component }) {
   const [copiedUsage, setCopiedUsage] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [pkgManager, setPkgManager] = useState<PkgManager>("npm");
-
-  const CATEGORY_ORDER = [
-    "Shaders",
-    "Page Transitions",
-    "Theme Transitions",
-    "Typography",
-    "Buttons",
-    "Layout & Cards",
-    "Social Cards",
-    "Visuals",
-  ];
-
-  const componentsByCategory = components.reduce(
-    (acc, c) => {
-      if (!acc[c.category]) acc[c.category] = [];
-      acc[c.category].push(c);
-      return acc;
-    },
-    {} as Record<string, typeof components>,
-  );
 
   const orderedComponents: typeof components = [];
   CATEGORY_ORDER.forEach((catName) => {

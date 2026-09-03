@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import posthog from "posthog-js";
 import { components } from "@/lib/registry";
+import { CATEGORY_ORDER, componentsByCategory } from "@/lib/categories";
 import { animate } from "motion/react";
 
 interface SidebarProps {
@@ -14,26 +15,6 @@ const TickRow = () => (
   <div className="flex h-2.5 items-center">
     <span className="block h-[2px] w-8 shrink-0 bg-neutral-300 dark:bg-neutral-700" />
   </div>
-);
-
-const CATEGORY_ORDER = [
-  "Shaders",
-  "Page Transitions",
-  "Theme Transitions",
-  "Typography",
-  "Buttons",
-  "Layout & Cards",
-  "Social Cards",
-  "Visuals",
-];
-
-const componentsByCategory = components.reduce(
-  (acc, c) => {
-    if (!acc[c.category]) acc[c.category] = [];
-    acc[c.category].push(c);
-    return acc;
-  },
-  {} as Record<string, typeof components>,
 );
 
 const orderedComponents: typeof components = [];

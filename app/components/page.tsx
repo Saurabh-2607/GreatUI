@@ -5,6 +5,7 @@ import BackgroundGrid from "@/components/site/BackgroundGrid";
 import Container from "@/components/site/Container";
 import ComponentCard from "@/components/site/ComponentCard";
 import { components } from "@/lib/registry";
+import { CATEGORY_ORDER, componentsByCategory } from "@/lib/categories";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -35,25 +36,11 @@ export const metadata: Metadata = {
   },
 };
 
-const CATEGORY_ORDER = [
-  "Shaders",
-  "Page Transitions",
-  "Theme Transitions",
-  "Typography",
-  "Buttons",
-  "Layout & Cards",
-  "Social Cards",
-  "Visuals",
-];
+const FEATURED_SLUGS = ["twitter-card", "radial-gooey-menu", "github-card"];
 
 export default function ComponentsPage() {
-  const componentsByCategory = components.reduce(
-    (acc, c) => {
-      if (!acc[c.category]) acc[c.category] = [];
-      acc[c.category].push(c);
-      return acc;
-    },
-    {} as Record<string, typeof components>,
+  const featuredComponents = components.filter((c) =>
+    FEATURED_SLUGS.includes(c.slug),
   );
 
   return (
@@ -77,6 +64,37 @@ export default function ComponentsPage() {
           </div>
 
           <div className="mt-16 flex flex-col gap-20">
+            {/* Featured Section */}
+            {featuredComponents.length > 0 && (
+              <section className="flex flex-col">
+                <div className="mb-6 flex items-baseline justify-between border-b border-neutral-100 pb-4 dark:border-neutral-900">
+                  <h2 className="text-2xl font-bold tracking-tight text-neutral-700 sm:text-3xl dark:text-neutral-300">
+                    Featured
+                  </h2>
+                  <span className="text-sm font-semibold tracking-wider text-neutral-500 uppercase dark:text-neutral-400">
+                    {featuredComponents.length}{" "}
+                    {featuredComponents.length === 1
+                      ? "Component"
+                      : "Components"}
+                  </span>
+                </div>
+
+                <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  {featuredComponents.map((c) => (
+                    <Link
+                      href={`/components/${c.slug}`}
+                      key={c.slug}
+                      aria-label={`View ${c.name} component`}
+                      className="group relative block cursor-pointer overflow-hidden rounded-t-3xl rounded-b-2xl bg-neutral-100/70 no-underline dark:bg-neutral-900"
+                    >
+                      <ComponentCard component={c} />
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Category Grid */}
             {CATEGORY_ORDER.map((catName) => {
               const catComponents = componentsByCategory[catName] || [];
               if (catComponents.length === 0) return null;
