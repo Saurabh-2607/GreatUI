@@ -9,9 +9,13 @@ import { ViewerProvider } from "@/lib/viewer-context";
 
 interface ComponentCardProps {
   component: Component;
+  isFeatured?: boolean;
 }
 
-export default function ComponentCard({ component }: ComponentCardProps) {
+export default function ComponentCard({
+  component,
+  isFeatured,
+}: ComponentCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -106,17 +110,58 @@ export default function ComponentCard({ component }: ComponentCardProps) {
           <span className="text-base font-semibold tracking-tight text-neutral-900 dark:text-white">
             {component.name}
           </span>
-          <svg
-            className="h-4 w-4 text-neutral-400 transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:text-[#f6821f] dark:text-neutral-600"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
+          <div className="flex items-center gap-2">
+            {isFeatured ? (
+              <div className="flex items-center gap-1 text-[#f6821f]">
+                <span className="text-[14px] font-semibold tracking-wide">
+                  New
+                </span>
+                <svg viewBox="0 0 16 16" fill="none" className="h-5 w-5">
+                  <motion.path
+                    d="M5.2168 11.2812L8.3418 8.15625L11.4668 11.2812"
+                    stroke="currentColor"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    animate={{ opacity: [0.3, 1, 0.3] }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 1.2,
+                      ease: "easeInOut",
+                      times: [0, 0.5, 1],
+                    }}
+                  />
+                  <motion.path
+                    d="M5.2168 6.90625L8.3418 3.78125L11.4668 6.90625"
+                    stroke="currentColor"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    animate={{ opacity: [0.3, 1, 0.3] }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 1.2,
+                      ease: "easeInOut",
+                      times: [0, 0.5, 1],
+                      delay: 0.25,
+                    }}
+                  />
+                </svg>
+              </div>
+            ) : (
+              <svg
+                className="h-4 w-4 text-neutral-400 transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:text-[#f6821f] dark:text-neutral-600"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            )}
+          </div>
         </div>
       </div>
     </div>

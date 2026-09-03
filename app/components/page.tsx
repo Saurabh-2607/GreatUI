@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
 };
 
-const FEATURED_SLUGS = ["twitter-card", "radial-gooey-menu", "github-card"];
+const FEATURED_SLUGS = ["twitter-card", "pixel-to-ascii-image", "team-section"];
 
 export default function ComponentsPage() {
   const featuredComponents = components.filter((c) =>
@@ -67,18 +67,6 @@ export default function ComponentsPage() {
             {/* Featured Section */}
             {featuredComponents.length > 0 && (
               <section className="flex flex-col">
-                <div className="mb-6 flex items-baseline justify-between border-b border-neutral-100 pb-4 dark:border-neutral-900">
-                  <h2 className="text-2xl font-bold tracking-tight text-neutral-700 sm:text-3xl dark:text-neutral-300">
-                    Featured
-                  </h2>
-                  <span className="text-sm font-semibold tracking-wider text-neutral-500 uppercase dark:text-neutral-400">
-                    {featuredComponents.length}{" "}
-                    {featuredComponents.length === 1
-                      ? "Component"
-                      : "Components"}
-                  </span>
-                </div>
-
                 <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {featuredComponents.map((c) => (
                     <Link
@@ -87,7 +75,7 @@ export default function ComponentsPage() {
                       aria-label={`View ${c.name} component`}
                       className="group relative block cursor-pointer overflow-hidden rounded-t-3xl rounded-b-2xl bg-neutral-100/70 no-underline dark:bg-neutral-900"
                     >
-                      <ComponentCard component={c} />
+                      <ComponentCard component={c} isFeatured={true} />
                     </Link>
                   ))}
                 </div>
