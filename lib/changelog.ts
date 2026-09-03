@@ -5,6 +5,12 @@ export type ChangelogItem = {
 
 export const changelogData: ChangelogItem[] = [
   {
+    date: "September 4, 2026",
+    features: [
+      "Added [Twitter Card](/components/twitter-card) component featuring both static and animated 3D tilt effects.",
+    ],
+  },
+  {
     date: "September 2, 2026",
     features: [
       "Added [Radial Gooey Menu](/components/radial-gooey-menu) component featuring radial spring-physics mouse tracking and fluid SVG gooey matrix filter effects.",

@@ -43,10 +43,10 @@ export function RadialGooeyFilter({
   );
 }
 
-export interface RadialGooeyMenuProps extends Omit<
+export type RadialGooeyMenuProps = Omit<
   React.HTMLAttributes<HTMLDivElement>,
   "onToggle"
-> {
+> & {
   items?: RadialGooeyMenuItem[];
   radius?: number;
   blur?: number;
@@ -58,7 +58,7 @@ export interface RadialGooeyMenuProps extends Omit<
   className?: string;
   buttonClassName?: string;
   itemClassName?: string;
-}
+};
 
 export function RadialGooeyMenu({
   items = [],

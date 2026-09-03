@@ -42,6 +42,7 @@ const CATEGORY_ORDER = [
   "Typography",
   "Buttons",
   "Layout & Cards",
+  "Social Cards",
   "Visuals",
 ];
 

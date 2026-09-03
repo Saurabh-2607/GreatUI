@@ -23,6 +23,95 @@ export type Component = {
 
 export const components: Component[] = [
   {
+    slug: "twitter-card",
+    category: "Social Cards",
+    inspiration: "",
+    preview: "https://ik.imagekit.io/niqgaoeg3/GUI-x-Card.mp4",
+    name: "Twitter(X) Card",
+    description:
+      "An interactive Twitter profile card component that supports both static and animated 3D tilt effects.",
+    interactionType:
+      "Hover triggers a magnetic 3D tilt effect on the card and the link with spring physics.",
+    dependencies: ["motion"],
+    dependencyNotes:
+      "This component uses a 3rd party API (https://api.fxtwitter.com) to fetch public profile data.",
+    previewFile: "TwitterCardPreview",
+    props: [
+      {
+        name: "username",
+        type: ["string"],
+        description: "The X (Twitter) username (handle) of the profile.",
+      },
+      {
+        name: "name",
+        type: ["string"],
+        description: "The display name of the profile.",
+        default: "'Twitter User'",
+      },
+      {
+        name: "avatarUrl",
+        type: ["string"],
+        description: "Optional custom URL for the avatar image.",
+      },
+      {
+        name: "staticCard",
+        type: ["boolean"],
+        description:
+          "If true, renders the card statically without the link/popover interaction.",
+        default: "false",
+      },
+      {
+        name: "enableLinkTilt",
+        type: ["boolean"],
+        description:
+          "Whether to enable mouse tracking 3D tilt effect on the link hover.",
+        default: "true",
+      },
+      {
+        name: "linkTiltMaxRotate",
+        type: ["number"],
+        description: "Maximum tilt angle in degrees for the link rotation.",
+        default: "5",
+      },
+      {
+        name: "enableCardTilt",
+        type: ["boolean"],
+        description:
+          "Whether to enable mouse tracking 3D tilt effect on the card hover.",
+        default: "true",
+      },
+      {
+        name: "cardTiltMaxRotate",
+        type: ["number"],
+        description: "Maximum tilt angle in degrees for the card rotation.",
+        default: "5",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the outer container.",
+      },
+      {
+        name: "popoverClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the popup card container.",
+      },
+      {
+        name: "linkClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the anchor trigger element.",
+      },
+      {
+        name: "labelClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the label description text.",
+      },
+    ],
+  },
+  {
     slug: "radial-gooey-menu",
     category: "Visuals",
     inspiration: "",
@@ -1307,7 +1396,7 @@ export const components: Component[] = [
   },
   {
     slug: "github-card",
-    category: "Layout & Cards",
+    category: "Social Cards",
     inspiration: "",
     preview: "https://ik.imagekit.io/greatui/avatarhover.mp4",
     name: "Github Card",

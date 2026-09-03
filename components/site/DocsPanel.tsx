@@ -43,6 +43,7 @@ export default function DocsPanel({ component }: { component: Component }) {
     "Typography",
     "Buttons",
     "Layout & Cards",
+    "Social Cards",
     "Visuals",
   ];
 
