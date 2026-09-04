@@ -23,6 +23,126 @@ export type Component = {
 
 export const components: Component[] = [
   {
+    slug: "linkedin-card",
+    category: "Social Cards",
+    inspiration: "",
+    preview: "https://ik.imagekit.io/niqgaoeg3/GUI-linkedin-Card.mp4",
+    name: "LinkedIn Card",
+    description:
+      "An interactive LinkedIn profile card component that supports both static and animated 3D tilt effects.",
+    interactionType:
+      "Hover triggers a magnetic 3D tilt effect on the card and the link with spring physics.",
+    dependencies: ["motion"],
+    previewFile: "LinkedinCardPreview",
+    props: [
+      {
+        name: "username",
+        type: ["string"],
+        description: "The LinkedIn username (handle) of the profile.",
+      },
+      {
+        name: "name",
+        type: ["string"],
+        description: "The display name of the profile.",
+        default: "'LinkedIn User'",
+      },
+      {
+        name: "avatarUrl",
+        type: ["string"],
+        description: "Optional custom URL for the avatar image.",
+      },
+      {
+        name: "bannerUrl",
+        type: ["string"],
+        description: "Optional custom URL for the banner image.",
+      },
+      {
+        name: "headline",
+        type: ["string"],
+        description: "The headline text for the profile.",
+        default: "'Software Engineer'",
+      },
+      {
+        name: "connections",
+        type: ["number | string"],
+        description: "Number of connections to display.",
+        default: "'500+'",
+      },
+      {
+        name: "location",
+        type: ["string"],
+        description: "Location of the user.",
+        default: "'San Francisco, CA'",
+      },
+      {
+        name: "text",
+        type: ["string"],
+        description: "The text shown before the link.",
+        default: "'Connect on'",
+      },
+      {
+        name: "linkText",
+        type: ["string"],
+        description: "The text for the link.",
+        default: "'LinkedIn'",
+      },
+      {
+        name: "href",
+        type: ["string"],
+        description: "Custom URL for the profile link.",
+      },
+      {
+        name: "enableLinkTilt",
+        type: ["boolean"],
+        description:
+          "Whether to enable mouse tracking 3D tilt effect on the link hover.",
+        default: "true",
+      },
+      {
+        name: "linkTiltMaxRotate",
+        type: ["number"],
+        description: "Maximum tilt angle in degrees for the link rotation.",
+        default: "5",
+      },
+      {
+        name: "enableCardTilt",
+        type: ["boolean"],
+        description:
+          "Whether to enable mouse tracking 3D tilt effect on the card hover.",
+        default: "true",
+      },
+      {
+        name: "cardTiltMaxRotate",
+        type: ["number"],
+        description: "Maximum tilt angle in degrees for the card rotation.",
+        default: "5",
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description: "Additional CSS classes to style the outer container.",
+      },
+      {
+        name: "popoverClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the popup card container.",
+      },
+      {
+        name: "linkClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the anchor trigger element.",
+      },
+      {
+        name: "labelClassName",
+        type: ["string"],
+        description:
+          "Additional CSS classes to style the label description text.",
+      },
+    ],
+  },
+  {
     slug: "twitter-card",
     category: "Social Cards",
     inspiration: "",

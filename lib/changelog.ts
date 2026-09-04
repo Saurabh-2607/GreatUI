@@ -5,8 +5,9 @@ export type ChangelogItem = {
 
 export const changelogData: ChangelogItem[] = [
   {
-    date: "September 4, 2026",
+    date: "September 5, 2026",
     features: [
+      "Added [LinkedIn Card](/components/linkedin-card) component featuring an interactive profile card with 3D magnetic hover tilt effects.",
       "Added [Twitter Card](/components/twitter-card) component featuring both static and animated 3D tilt effects.",
     ],
   },
