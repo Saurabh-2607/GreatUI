@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import SimpleBlurPageTransition from "../../ui/SimpleBlurPageTransition";
+import CrossBlurPageTransition from "../../ui/CrossBlurPageTransition";
 
 const RefreshCwIcon = ({ className }: { className?: string }) => (
   <svg
@@ -21,7 +21,7 @@ const RefreshCwIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export default function SimpleBlurPageTransitionPreview() {
+export default function CrossBlurPageTransitionPreview() {
   const [trigger, setTrigger] = useState(0);
   const [activePage, setActivePage] = useState<"home" | "about">("home");
   const [mounted, setMounted] = useState(false);
@@ -103,7 +103,7 @@ export default function SimpleBlurPageTransitionPreview() {
       </div>
 
       {mounted && (
-        <SimpleBlurPageTransition trigger={trigger} onViewSwap={swapView} />
+        <CrossBlurPageTransition trigger={trigger} onViewSwap={swapView} />
       )}
     </div>
   );

@@ -5,7 +5,7 @@ import { motion, Transition } from "motion/react";
 import React from "react";
 import { cn } from "@/lib/utils";
 
-export interface SimpleBlurPageTransitionProps {
+export interface CrossBlurPageTransitionProps {
   trigger: number;
   onViewSwap?: () => void;
   className?: string;
@@ -14,14 +14,14 @@ export interface SimpleBlurPageTransitionProps {
   ease?: Transition["ease"];
 }
 
-export default function SimpleBlurPageTransition({
+export default function CrossBlurPageTransition({
   trigger,
   onViewSwap,
   className,
   duration = 0.6,
   maxBlur = 20,
   ease = "easeInOut",
-}: SimpleBlurPageTransitionProps) {
+}: CrossBlurPageTransitionProps) {
   const [transitionState, setTransitionState] = useState("idle");
   const onViewSwapRef = useRef(onViewSwap);
 

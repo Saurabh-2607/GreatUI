@@ -3545,4 +3545,121 @@ export function AppShell() {
   );
 }`,
   },
+  {
+    slug: "blur-fade-theme-transition",
+    category: "Theme Transitions",
+    name: "Blur Fade Theme Transition",
+    description:
+      "A simple and elegant theme provider that cross-fades and blurs between light and dark modes.",
+    interactionType:
+      "Triggered programmatically. Smoothly cross-fades and blurs the screen during theme changes.",
+    preview:
+      "https://ik.imagekit.io/niqgaoeg3/GUI-blur-fade-theme-transition.mp4",
+    dependencies: [],
+    previewFile: "BlurFadeThemeTransitionPreview",
+    props: [
+      {
+        name: "duration",
+        type: ["number"],
+        description: "Duration of the blur transition in milliseconds.",
+        default: "500",
+      },
+      {
+        name: "maxBlur",
+        type: ["number"],
+        description: "Maximum blur applied during the transition (in px).",
+        default: "16",
+      },
+      {
+        name: "theme",
+        type: ["'light' | 'dark'"],
+        description: "Optional controlled theme state parameter.",
+      },
+      {
+        name: "onThemeChange",
+        type: ["(theme: 'light' | 'dark') => void"],
+        description: "An optional callback triggered when the theme toggles.",
+      },
+    ],
+    usageCode: `// 1. Wrap your application root (e.g. app/layout.tsx in Next.js or App.tsx in Vite)
+import BlurFadeThemeTransition from "@/components/ui/BlurFadeThemeTransition";
+
+export default function RootLayout({ children }) {
+  return (
+    <BlurFadeThemeTransition>
+      {children}
+    </BlurFadeThemeTransition>
+  );
+}
+
+// 2. Trigger transitions in any child component using the useBlurFadeThemeTransition hook
+import { useBlurFadeThemeTransition } from "@/components/ui/BlurFadeThemeTransition";
+
+export function CustomThemeToggle() {
+  const { triggerTransition, isAnimating, theme } = useBlurFadeThemeTransition();
+
+  return (
+    <button
+      disabled={isAnimating}
+      onClick={() => triggerTransition()}
+      className="px-4 py-2 bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 rounded-lg font-bold"
+    >
+      Active: {theme}
+    </button>
+  );
+}`,
+  },
+  {
+    slug: "cross-blur-page-transition",
+    category: "Page Transitions",
+    name: "CrossBlur Page Transition",
+    description:
+      "A layout utilizing soft filters and cross-fading blurs to create a gentle transition between pages.",
+    interactionType:
+      "Programmatically triggered on route change or view swaps, applying a soft blur over the screen.",
+    preview:
+      "https://ik.imagekit.io/niqgaoeg3/GUI-cross-blur-page-transition.mp4",
+    dependencies: ["motion"],
+    previewFile: "CrossBlurPageTransitionPreview",
+    props: [
+      {
+        name: "trigger",
+        type: ["number"],
+        description:
+          "Value key to programmatically trigger the transition overlay.",
+        default: "0",
+      },
+      {
+        name: "onViewSwap",
+        type: ["() => void"],
+        description:
+          "Callback fired at mid-transition to perform state/view swaps.",
+      },
+      {
+        name: "duration",
+        type: ["number"],
+        description: "The duration of the animation in seconds.",
+        default: "0.6",
+      },
+      {
+        name: "maxBlur",
+        type: ["number"],
+        description: "Maximum blur amount applied (in px).",
+        default: "20",
+      },
+    ],
+    usageCode: `// Example Usage
+import CrossBlurPageTransition from "@/components/ui/CrossBlurPageTransition";
+
+export default function PageTransitionWrapper() {
+  const [trigger, setTrigger] = useState(0);
+
+  return (
+    <>
+      <button onClick={() => setTrigger(prev => prev + 1)}>Navigate</button>
+      <CrossBlurPageTransition trigger={trigger} onViewSwap={() => { /* route swap logic */ }} />
+    </>
+  );
+}`,
+  },
 ];

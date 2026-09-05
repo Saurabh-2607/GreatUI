@@ -5,6 +5,13 @@ export type ChangelogItem = {
 
 export const changelogData: ChangelogItem[] = [
   {
+    date: "September 6, 2026",
+    features: [
+      "Added [Blur Fade Theme Transition](/components/blur-fade-theme-transition) component featuring a smooth cross-fade and blur transition between light and dark modes.",
+      "Added [CrossBlur Page Transition](/components/cross-blur-page-transition) component featuring a soft filter and cross-fading blur transition effect between pages.",
+    ],
+  },
+  {
     date: "September 5, 2026",
     features: [
       "Added [LinkedIn Card](/components/linkedin-card) component featuring an interactive profile card with 3D magnetic hover tilt effects.",
