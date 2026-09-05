@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import posthog from "posthog-js";
 import { components } from "@/lib/registry";
-import { GithubIcon, CubeIcon, LaptopIcon } from "./Icons";
+import { GithubIcon, CubeIcon, BlocksIcon } from "./Icons";
 import Container from "./Container";
 
 export default function CTASection() {
@@ -131,17 +131,17 @@ export default function CTASection() {
                 }}
               />
               <div className="relative z-10 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl bg-white p-6 shadow-sm dark:bg-neutral-950">
-                <LaptopIcon className="absolute -right-8 -bottom-8 h-48 w-48 text-neutral-900 opacity-[0.03] dark:text-white dark:opacity-[0.02]" />
+                <BlocksIcon className="absolute -right-8 -bottom-8 h-48 w-48 text-neutral-900 opacity-[0.03] dark:text-white dark:opacity-[0.02]" />
 
                 <div className="flex w-full justify-start">
                   <span className="text-neutral-450 relative z-10 dark:text-neutral-500">
-                    <LaptopIcon className="h-8 w-8" />
+                    <BlocksIcon className="h-8 w-8" />
                   </span>
                 </div>
 
                 <div className="relative z-10 flex flex-col items-start gap-0.5 text-left">
                   <span className="text-lg font-semibold tracking-wide text-neutral-900 dark:text-white">
-                    Templates
+                    Blocks
                   </span>
                   <span className="text-sm font-medium text-neutral-500 dark:text-neutral-400">
                     Coming soon

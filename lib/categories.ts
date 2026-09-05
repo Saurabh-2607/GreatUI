@@ -2,13 +2,13 @@ import { components } from "./registry";
 
 export const CATEGORY_ORDER = [
   "Shaders",
-  "Page Transitions",
-  "Theme Transitions",
-  "Typography",
-  "Buttons",
-  "Layout & Cards",
   "Social Cards",
   "Visuals",
+  "Typography",
+  "Page Transitions",
+  "Theme Transitions",
+  "Buttons",
+  "Layout & Cards",
 ];
 
 export const componentsByCategory = components.reduce(
