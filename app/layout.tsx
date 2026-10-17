@@ -48,7 +48,9 @@ const ttCommons = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://great-ui.com"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL || "https://www.great-ui.com",
+  ),
   title: {
     default: "Great UI - Craft Premium React Interfaces with Absolute Speed",
     template: "%s | Great UI",
@@ -84,7 +86,7 @@ export const metadata: Metadata = {
     title: "Great UI - Craft Premium React Interfaces with Absolute Speed",
     description:
       "Beautiful, accessible, and high-performance React components built with Tailwind CSS. Copy, paste, and build premium interfaces instantly.",
-    url: "https://great-ui.com",
+    url: "https://www.great-ui.com",
     siteName: "Great UI",
     images: [
       {
@@ -102,6 +104,8 @@ export const metadata: Metadata = {
     title: "Great UI - Craft Premium React Interfaces with Absolute Speed",
     description:
       "Beautiful, accessible, and high-performance React components built with Tailwind CSS.",
+    site: "@GreatUIHQ",
+    creator: "@GreatUIHQ",
     images: ["/twitter-image.png"],
   },
   icons: {

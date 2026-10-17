@@ -17,6 +17,25 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/category/:slug",
+        destination: "/components/category/:slug",
+        permanent: true,
+      },
+      {
+        source: "/categories/:slug",
+        destination: "/components/category/:slug",
+        permanent: true,
+      },
+      {
+        source: "/components/category/layout-cards",
+        destination: "/components/category/layout-and-cards",
+        permanent: true,
+      },
+    ];
+  },
   skipTrailingSlashRedirect: true,
 };
 

@@ -17,10 +17,16 @@ export const metadata: Metadata = {
     title: "Components - Great UI",
     description:
       "Explore our collection of production-grade React & Tailwind CSS components. Copy, paste, and build interfaces instantly.",
-    url: "https://great-ui.com/components",
+    url: "/components",
     type: "website",
     images: [
-      "/api/og?title=Components&description=Explore%20our%20collection%20of%20production-grade%20React%20%26%20Tailwind%20CSS%20components.",
+      {
+        url: "/api/og?title=Components&breadcrumbs=Great%20UI",
+        width: 1200,
+        height: 630,
+        alt: "Great UI Components",
+        type: "image/png",
+      },
     ],
   },
   twitter: {
@@ -28,9 +34,9 @@ export const metadata: Metadata = {
     title: "Components - Great UI",
     description:
       "Explore our collection of production-grade React & Tailwind CSS components. Copy, paste, and build interfaces instantly.",
-    images: [
-      "/api/og?title=Components&description=Explore%20our%20collection%20of%20production-grade%20React%20%26%20Tailwind%20CSS%20components.",
-    ],
+    site: "@GreatUIHQ",
+    creator: "@GreatUIHQ",
+    images: ["/api/og?title=Components&breadcrumbs=Great%20UI"],
   },
   alternates: {
     canonical: "/components",
@@ -74,7 +80,6 @@ export default function ComponentsPage() {
           </div>
 
           <div className="mt-16 flex flex-col gap-20">
-            {/* Featured Section */}
             {featuredComponents.length > 0 && (
               <section className="flex flex-col">
                 <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -92,7 +97,6 @@ export default function ComponentsPage() {
               </section>
             )}
 
-            {/* Category Grid */}
             {CATEGORY_ORDER.map((catName) => {
               const catComponents = componentsByCategory[catName] || [];
               if (catComponents.length === 0) return null;

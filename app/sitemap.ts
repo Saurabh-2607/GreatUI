@@ -1,8 +1,16 @@
 import { MetadataRoute } from "next";
 import { components } from "@/lib/registry";
+import { getAllCategorySlugs } from "@/lib/categories";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://great-ui.com";
+  const baseUrl = "https://www.great-ui.com";
+
+  const categoryUrls = getAllCategorySlugs().map((slug) => ({
+    url: `${baseUrl}/components/category/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.85,
+  }));
 
   const componentUrls = components.map((c) => ({
     url: `${baseUrl}/components/${c.slug}`,
@@ -24,6 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily" as const,
       priority: 0.9,
     },
+    ...categoryUrls,
     {
       url: `${baseUrl}/logo`,
       lastModified: new Date(),
@@ -36,7 +45,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority: 0.7,
     },
-
     {
       url: `${baseUrl}/sponsors`,
       lastModified: new Date(),
