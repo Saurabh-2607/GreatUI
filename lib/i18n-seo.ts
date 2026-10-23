@@ -1129,16 +1129,17 @@ export function getLanguageAlternates(
       : pathname.startsWith("/")
         ? pathname
         : `/${pathname}`;
-  const fullUrl = `${BASE_URL}${cleanPath}`;
+  const separator = cleanPath.includes("?") ? "&" : "?";
+  const baseUrlWithPath = `${BASE_URL}${cleanPath}`;
 
   return {
-    en: fullUrl,
-    "zh-CN": fullUrl,
-    es: fullUrl,
-    fr: fullUrl,
-    ar: fullUrl,
-    ja: fullUrl,
-    "x-default": fullUrl,
+    en: baseUrlWithPath,
+    "zh-CN": `${baseUrlWithPath}${separator}lang=zh-CN`,
+    es: `${baseUrlWithPath}${separator}lang=es`,
+    fr: `${baseUrlWithPath}${separator}lang=fr`,
+    ar: `${baseUrlWithPath}${separator}lang=ar`,
+    ja: `${baseUrlWithPath}${separator}lang=ja`,
+    "x-default": baseUrlWithPath,
   };
 }
 

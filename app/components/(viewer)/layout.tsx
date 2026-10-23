@@ -25,6 +25,7 @@ import { PropsProvider } from "@/lib/PropsContext";
 import PropsCustomizationPanel from "@/components/site/PropsCustomizationPanel";
 import { ProgressiveBlur } from "@/components/site/ProgressiveBlur";
 import { motion, AnimatePresence } from "motion/react";
+import { generateComponentLdJsonGraph } from "@/lib/i18n-seo";
 
 type PkgManager = "npm" | "pnpm" | "yarn" | "bun";
 
@@ -596,10 +597,26 @@ export default function ViewerLayout({
 }) {
   const params = useParams();
   const slug = (params?.slug as string) || "";
+  const component = components.find((c) => c.slug === slug);
 
   return (
     <ViewerProvider>
       <PropsProvider slug={slug}>
+        {component && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(
+                generateComponentLdJsonGraph(
+                  component.slug,
+                  component.name,
+                  component.description,
+                  component.category,
+                ),
+              ),
+            }}
+          />
+        )}
         <ViewerLayoutContent>{children}</ViewerLayoutContent>
       </PropsProvider>
     </ViewerProvider>
