@@ -13,6 +13,11 @@ import {
   getAllCategorySlugs,
   slugToCategory,
 } from "@/lib/categories";
+import {
+  getLanguageAlternates,
+  ALTERNATE_OG_LOCALES,
+  CATEGORY_I18N,
+} from "@/lib/i18n-seo";
 import type { Metadata } from "next";
 
 interface CategoryPageProps {
@@ -42,11 +47,17 @@ export async function generateMetadata({
   const canonicalUrl = `/components/category/${categoryInfo.slug}`;
   const ogImageUrl = `/api/og?title=${encodeURIComponent(categoryInfo.name + " Components")}&breadcrumbs=Components`;
 
+  const i18nInfo = CATEGORY_I18N[categoryInfo.slug];
+  const translatedKeywords = i18nInfo
+    ? Object.values(i18nInfo).flatMap((c) => c.keywords)
+    : [];
+
   return {
     title,
     description,
     keywords: [
       ...categoryInfo.keywords,
+      ...translatedKeywords,
       "react components",
       "tailwind css",
       "motion",
@@ -58,6 +69,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: canonicalUrl,
+      languages: getLanguageAlternates(canonicalUrl),
     },
     openGraph: {
       title,
@@ -66,6 +78,7 @@ export async function generateMetadata({
       type: "website",
       siteName: "Great UI",
       locale: "en_US",
+      alternateLocale: ALTERNATE_OG_LOCALES,
       images: [
         {
           url: ogImageUrl,
@@ -139,14 +152,20 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     ],
   };
 
+  const i18nCategory = CATEGORY_I18N[categoryInfo.slug];
+  const alternateCategoryNames = i18nCategory
+    ? Object.values(i18nCategory).map((c) => c.name)
+    : [];
+
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: `${categoryInfo.name} Components`,
+    alternateName: [categoryInfo.name, ...alternateCategoryNames],
     headline: `${categoryInfo.name} Components for React & Tailwind CSS`,
     description: categoryInfo.seoDescription,
     url: `https://www.great-ui.com/components/category/${categoryInfo.slug}`,
-    inLanguage: "en-US",
+    inLanguage: ["en-US", "zh-CN", "es-ES", "fr-FR", "ar-SA", "ja-JP"],
     isPartOf: {
       "@type": "WebSite",
       name: "Great UI",
@@ -181,17 +200,37 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     },
   };
 
+  const allCategoryFaqs = [
+    ...categoryInfo.faqs.map((faq) => ({
+      "@type": "Question" as const,
+      name: faq.question,
+      inLanguage: "en-US",
+      acceptedAnswer: {
+        "@type": "Answer" as const,
+        text: faq.answer,
+        inLanguage: "en-US",
+      },
+    })),
+    ...(i18nCategory
+      ? Object.entries(i18nCategory).flatMap(([lang, data]) =>
+          data.faqs.map((faq) => ({
+            "@type": "Question" as const,
+            name: faq.question,
+            inLanguage: lang,
+            acceptedAnswer: {
+              "@type": "Answer" as const,
+              text: faq.answer,
+              inLanguage: lang,
+            },
+          })),
+        )
+      : []),
+  ];
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: categoryInfo.faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
+    mainEntity: allCategoryFaqs,
   };
 
   return (

@@ -4,6 +4,12 @@ import localFont from "next/font/local";
 import ThemeProvider from "@/components/site/ThemeProvider";
 import { SearchCommand } from "@/components/site/SearchCommand";
 import VideoPreloader from "@/components/site/VideoPreloader";
+import {
+  getLanguageAlternates,
+  getAllSeoKeywords,
+  ALTERNATE_OG_LOCALES,
+  generateRootLdJsonGraph,
+} from "@/lib/i18n-seo";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -57,15 +63,7 @@ export const metadata: Metadata = {
   },
   description:
     "Beautiful, accessible, and high-performance React components built with Tailwind CSS. Copy, paste, and build premium interfaces instantly.",
-  keywords: [
-    "React components",
-    "Tailwind CSS",
-    "UI library",
-    "Design system",
-    "Accessible React UI",
-    "Next.js UI components",
-    "Copy paste React components",
-  ],
+  keywords: getAllSeoKeywords(),
   authors: [
     { name: "Great UI Team", url: "https://github.com/Saurabh-2607/GreatUI" },
   ],
@@ -97,6 +95,7 @@ export const metadata: Metadata = {
       },
     ],
     locale: "en_US",
+    alternateLocale: ALTERNATE_OG_LOCALES,
     type: "website",
   },
   twitter: {
@@ -114,6 +113,7 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/",
+    languages: getLanguageAlternates("/"),
   },
 };
 
@@ -143,6 +143,12 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${ttCommons.variable} dark h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-white font-sans text-neutral-900 transition-colors dark:bg-neutral-950 dark:text-neutral-100">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(generateRootLdJsonGraph()),
+          }}
+        />
         <ThemeProvider>
           <SearchCommand />
           {children}

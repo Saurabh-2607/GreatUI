@@ -3,6 +3,11 @@ import { components } from "@/lib/registry";
 import { getRegistryComponent } from "@/lib/registry-server";
 import ComponentPreviewRenderer from "@/components/site/ComponentPreviewRenderer";
 import ComponentRegistrar from "@/components/site/ComponentRegistrar";
+import {
+  getLanguageAlternates,
+  ALTERNATE_OG_LOCALES,
+  generateComponentLdJsonGraph,
+} from "@/lib/i18n-seo";
 import type { Metadata } from "next";
 
 interface ComponentPageProps {
@@ -35,6 +40,8 @@ export async function generateMetadata({
       description,
       url: `/components/${slug}`,
       type: "article",
+      locale: "en_US",
+      alternateLocale: ALTERNATE_OG_LOCALES,
       images: [
         {
           url: ogImageUrl,
@@ -55,6 +62,7 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `/components/${slug}`,
+      languages: getLanguageAlternates(`/components/${slug}`),
     },
   };
 }
@@ -71,6 +79,19 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            generateComponentLdJsonGraph(
+              component.slug,
+              component.name,
+              component.description,
+              component.category,
+            ),
+          ),
+        }}
+      />
       <ComponentRegistrar component={component} />
       <ComponentPreviewRenderer slug={slug} />
     </>

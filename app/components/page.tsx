@@ -8,17 +8,25 @@ import { components, type Component } from "@/lib/registry";
 import { CATEGORY_ORDER, componentsByCategory } from "@/lib/categories";
 import { CarbonCardAd } from "@/components/site/CarbonAds";
 import type { Metadata } from "next";
+import {
+  getLanguageAlternates,
+  getAllSeoKeywords,
+  ALTERNATE_OG_LOCALES,
+} from "@/lib/i18n-seo";
 
 export const metadata: Metadata = {
   title: "Components",
   description:
     "Explore our collection of production-grade React & Tailwind CSS components. Copy, paste, and build interfaces instantly.",
+  keywords: getAllSeoKeywords(),
   openGraph: {
     title: "Components - Great UI",
     description:
       "Explore our collection of production-grade React & Tailwind CSS components. Copy, paste, and build interfaces instantly.",
     url: "/components",
     type: "website",
+    locale: "en_US",
+    alternateLocale: ALTERNATE_OG_LOCALES,
     images: [
       {
         url: "/api/og?title=Components&breadcrumbs=Great%20UI",
@@ -40,6 +48,7 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/components",
+    languages: getLanguageAlternates("/components"),
   },
 };
 

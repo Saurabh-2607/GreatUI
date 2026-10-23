@@ -9,13 +9,28 @@ import Testimonials from "@/components/site/Testimonials";
 import CTASection from "@/components/site/CTASection";
 
 import type { Metadata } from "next";
+import {
+  getLanguageAlternates,
+  getAllSeoKeywords,
+  ALTERNATE_OG_LOCALES,
+} from "@/lib/i18n-seo";
 
 export const metadata: Metadata = {
   title: "Great UI - Accessible React & Tailwind Components",
   description:
     "A curated collection of beautiful, copy-paste React components built with TypeScript, Tailwind CSS, and Framer Motion. Craft premium interfaces instantly.",
+  keywords: getAllSeoKeywords(),
+  openGraph: {
+    title: "Great UI - Accessible React & Tailwind Components",
+    description:
+      "A curated collection of beautiful, copy-paste React components built with TypeScript, Tailwind CSS, and Framer Motion. Craft premium interfaces instantly.",
+    url: "/",
+    locale: "en_US",
+    alternateLocale: ALTERNATE_OG_LOCALES,
+  },
   alternates: {
     canonical: "/",
+    languages: getLanguageAlternates("/"),
   },
 };
 
