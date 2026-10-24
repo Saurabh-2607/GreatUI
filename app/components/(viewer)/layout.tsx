@@ -7,23 +7,21 @@ import posthog from "posthog-js";
 import Sidebar from "@/components/site/Sidebar";
 import SidebarToggle from "@/components/site/SidebarToggle";
 import DocsPanel from "@/components/site/DocsPanel";
+import { DocsToc } from "@/components/site/DocsToc";
 import CodePanel from "@/components/site/CodePanel";
 import MarkdownPanel from "@/components/site/MarkdownPanel";
 import ThemeToggle from "@/components/site/ThemeToggle";
 import {
   CodeIcon,
-  HomeIcon,
-  MaximizeIcon,
-  MinimizeIcon,
+  BookOpenIcon,
   CopyIcon,
   CheckIcon,
 } from "@/components/site/Icons";
 import { components } from "@/lib/registry";
 import { getComponentPropsSchema } from "@/lib/propsRegistry";
 import { ViewerProvider, useViewer } from "@/lib/viewer-context";
-import { PropsProvider } from "@/lib/PropsContext";
+import { PropsProvider, useProps } from "@/lib/PropsContext";
 import PropsCustomizationPanel from "@/components/site/PropsCustomizationPanel";
-import { ProgressiveBlur } from "@/components/site/ProgressiveBlur";
 import { motion, AnimatePresence } from "motion/react";
 import { generateComponentLdJsonGraph } from "@/lib/i18n-seo";
 
@@ -53,13 +51,16 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
     setIsCodeOpen,
     isMarkdownOpen,
     setIsMarkdownOpen,
-    isCustomizerOpen,
-    setIsCustomizerOpen,
     activeComponent,
     setPreviewContainer,
   } = useViewer();
+  const { resetProps } = useProps();
 
-  const [isMounted, setIsMounted] = React.useState(false);
+  const isMounted = React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
   const [pkgManager, setPkgManager] = React.useState<PkgManager>("pnpm");
   const [copiedInstall, setCopiedInstall] = React.useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
@@ -79,9 +80,175 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
   }, []);
 
   React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsMounted(true);
-  }, []);
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setIsSidebarOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [setIsSidebarOpen]);
+
+  React.useEffect(() => {
+    if (!isPanelOpen && !isCodeOpen && !isMarkdownOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        if (isCodeOpen) {
+          setIsCodeOpen(false);
+        } else if (isMarkdownOpen) {
+          setIsMarkdownOpen(false);
+        } else {
+          setIsPanelOpen(false);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [
+    isPanelOpen,
+    isCodeOpen,
+    isMarkdownOpen,
+    setIsPanelOpen,
+    setIsCodeOpen,
+    setIsMarkdownOpen,
+  ]);
+
+  const previewRef = React.useRef<HTMLDivElement | null>(null);
+  const drawerScrollRef = React.useRef(0);
+  const isWheelGestureActiveRef = React.useRef(false);
+  const wasAlreadyAtBottomRef = React.useRef(false);
+  const hadNestedScrollRef = React.useRef(false);
+  const wheelAccumulatorRef = React.useRef(0);
+  const wheelGestureTimerRef = React.useRef<NodeJS.Timeout | null>(null);
+
+  React.useEffect(() => {
+    const el = previewRef.current;
+    if (!el || isPanelOpen) return;
+
+    const checkNestedScrollDown = (target: HTMLElement | null) => {
+      let current = target;
+      while (current && current !== el && current !== document.body) {
+        const style = window.getComputedStyle(current);
+        const isScrollable =
+          (style.overflowY === "auto" || style.overflowY === "scroll") &&
+          current.scrollHeight - current.scrollTop - current.clientHeight > 4;
+        if (isScrollable) return true;
+        current = current.parentElement;
+      }
+      return false;
+    };
+
+    const isPreviewAtBottom = () => {
+      return el.scrollHeight - el.scrollTop - el.clientHeight <= 4;
+    };
+
+    const handleWheel = (e: WheelEvent) => {
+      if (isPanelOpen) return;
+
+      if (!isWheelGestureActiveRef.current) {
+        isWheelGestureActiveRef.current = true;
+        hadNestedScrollRef.current = checkNestedScrollDown(
+          e.target as HTMLElement | null,
+        );
+        wasAlreadyAtBottomRef.current = isPreviewAtBottom();
+        wheelAccumulatorRef.current = 0;
+      }
+
+      if (wheelGestureTimerRef.current) {
+        clearTimeout(wheelGestureTimerRef.current);
+      }
+      wheelGestureTimerRef.current = setTimeout(() => {
+        isWheelGestureActiveRef.current = false;
+        wasAlreadyAtBottomRef.current = false;
+        hadNestedScrollRef.current = false;
+        wheelAccumulatorRef.current = 0;
+      }, 200);
+
+      if (e.deltaY <= 0) {
+        wheelAccumulatorRef.current = 0;
+        return;
+      }
+
+      if (hadNestedScrollRef.current) {
+        return;
+      }
+
+      if (!wasAlreadyAtBottomRef.current) {
+        return;
+      }
+
+      wheelAccumulatorRef.current += e.deltaY;
+
+      if (wheelAccumulatorRef.current >= 80) {
+        wheelAccumulatorRef.current = 0;
+        isWheelGestureActiveRef.current = false;
+        wasAlreadyAtBottomRef.current = false;
+        if (wheelGestureTimerRef.current) {
+          clearTimeout(wheelGestureTimerRef.current);
+        }
+        e.preventDefault();
+        setIsPanelOpen(true);
+        setIsCodeOpen(false);
+      }
+    };
+
+    let touchStartY = 0;
+    let touchStartedAtBottom = false;
+    let touchHadNestedScroll = false;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        touchStartY = e.touches[0].clientY;
+        touchHadNestedScroll = checkNestedScrollDown(
+          e.target as HTMLElement | null,
+        );
+        touchStartedAtBottom = isPreviewAtBottom();
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isPanelOpen || e.touches.length !== 1) return;
+      const currentY = e.touches[0].clientY;
+      const deltaY = touchStartY - currentY;
+
+      if (deltaY <= 0 || touchHadNestedScroll || !touchStartedAtBottom) return;
+
+      if (deltaY > 70) {
+        setIsPanelOpen(true);
+        setIsCodeOpen(false);
+      }
+    };
+
+    el.addEventListener("wheel", handleWheel, { passive: false });
+    el.addEventListener("touchstart", handleTouchStart, { passive: true });
+    el.addEventListener("touchmove", handleTouchMove, { passive: true });
+
+    return () => {
+      el.removeEventListener("wheel", handleWheel);
+      el.removeEventListener("touchstart", handleTouchStart);
+      el.removeEventListener("touchmove", handleTouchMove);
+      if (wheelGestureTimerRef.current) {
+        clearTimeout(wheelGestureTimerRef.current);
+      }
+    };
+  }, [isPanelOpen, setIsPanelOpen, setIsCodeOpen]);
+
+  React.useEffect(() => {
+    if (!isPanelOpen) return;
+
+    const handleDrawerWheel = (e: WheelEvent) => {
+      if (e.deltaY < -40 && drawerScrollRef.current <= 0) {
+        setIsPanelOpen(false);
+        setIsCodeOpen(false);
+        setIsMarkdownOpen(false);
+      }
+    };
+
+    window.addEventListener("wheel", handleDrawerWheel, { passive: true });
+    return () => window.removeEventListener("wheel", handleDrawerWheel);
+  }, [isPanelOpen, setIsPanelOpen, setIsCodeOpen, setIsMarkdownOpen]);
 
   const params = useParams();
   const slug = params.slug as string;
@@ -131,459 +298,458 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-white p-4 text-neutral-900 transition-colors dark:bg-neutral-950 dark:text-white">
-      <div
-        className={`absolute top-4 left-4 z-[60] flex items-center gap-3.5 transition-opacity duration-300 sm:top-9 sm:left-9 ${isCodeOpen || isMarkdownOpen ? "pointer-events-none opacity-0" : "opacity-100"}`}
-      >
-        <SidebarToggle
-          isOpen={isSidebarOpen}
-          onToggle={() => {
-            const next = !isSidebarOpen;
-            setIsSidebarOpen(next);
-            posthog.capture("sidebar_toggled", {
-              state: next ? "open" : "closed",
-              component_slug: component.slug,
-            });
-          }}
-        />
-
-        <div
-          className={`hidden items-center gap-2.5 text-xl font-normal tracking-tight text-neutral-500 transition-all duration-300 select-none sm:flex dark:text-neutral-400 ${isSidebarOpen ? "pointer-events-none invisible opacity-0" : "visible opacity-100"}`}
-        >
-          <Link
-            href="/components"
-            className="cursor-pointer transition-colors hover:text-neutral-900 dark:hover:text-white"
-          >
-            Components
-          </Link>
-          <svg
-            className="h-4.5 w-4.5 text-neutral-400 dark:text-neutral-600"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2.5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-          <span className="text-neutral-955 font-semibold dark:text-white">
-            {component.name}
-          </span>
-        </div>
-      </div>
-      <div
-        className={`absolute top-4 right-4 z-40 flex items-center gap-1.5 rounded-2xl border border-neutral-200 bg-white/80 p-1.5 shadow-xs backdrop-blur-xl transition-all sm:top-9 sm:right-9 dark:border-neutral-800/60 dark:bg-neutral-950/80 ${
-          isCodeOpen || isMarkdownOpen
-            ? "pointer-events-none opacity-0 sm:pointer-events-auto sm:opacity-100"
-            : "opacity-100"
-        }`}
-      >
-        <Link
-          href="/"
-          title="Back to Home"
-          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-100 text-neutral-700 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
-          aria-label="Navigate to Home"
-        >
-          <HomeIcon className="h-5 w-5" />
-        </Link>
-
-        <button
-          type="button"
-          onClick={() => {
-            window.dispatchEvent(new CustomEvent("open-search-menu"));
-            posthog.capture("search_trigger_clicked", {
-              location: "viewer-toolbar",
-              component_slug: component.slug,
-            });
-          }}
-          title="Search pages or components (⌘K)"
-          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-100 text-neutral-700 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
-          aria-label="Search pages or components"
-        >
-          <svg
-            className="h-5 w-5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => {
-            if (isPanelOpen) {
-              if (isCodeOpen) {
-                setIsCodeOpen(false);
-                posthog.capture("docs_panel_toggled", {
-                  state: "open",
-                  component_slug: component.slug,
-                });
-              } else {
-                setIsPanelOpen(false);
-                posthog.capture("docs_panel_toggled", {
-                  state: "closed",
-                  component_slug: component.slug,
-                });
-              }
-            } else {
-              setIsPanelOpen(true);
-              setIsCodeOpen(false);
-              setIsCustomizerOpen(false);
-              posthog.capture("docs_panel_toggled", {
-                state: "open",
-                component_slug: component.slug,
-              });
-            }
-          }}
-          title={isPanelOpen ? "Hide docs" : "Show docs"}
-          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-100 text-neutral-700 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
-          aria-label="Toggle docs panel"
-        >
-          {isPanelOpen ? (
-            <MaximizeIcon className="h-5 w-5" />
-          ) : (
-            <MinimizeIcon className="h-5 w-5" />
-          )}
-        </button>
-
-        <button
-          type="button"
-          onClick={() => {
-            if (isPanelOpen) {
-              if (isCodeOpen) {
-                setIsCodeOpen(false);
-                posthog.capture("code_panel_toggled", {
-                  state: "closed",
-                  component_slug: component.slug,
-                });
-              } else {
-                setIsCodeOpen(true);
-                setIsCustomizerOpen(false);
-                setIsSidebarOpen(false);
-                posthog.capture("code_panel_toggled", {
-                  state: "open",
-                  component_slug: component.slug,
-                });
-              }
-            } else {
-              setIsPanelOpen(true);
-              setIsCodeOpen(true);
-              setIsCustomizerOpen(false);
-              setIsSidebarOpen(false);
-              posthog.capture("code_panel_toggled", {
-                state: "open",
-                component_slug: component.slug,
-              });
-            }
-          }}
-          title={isPanelOpen && isCodeOpen ? "Hide code" : "Show code"}
-          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-100 text-neutral-700 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
-          aria-label="Toggle code panel"
-        >
-          <CodeIcon className="h-5 w-5" />
-        </button>
-
-        {hasCustomizableProps && (
-          <button
-            type="button"
-            onClick={() => {
-              const nextState = !isCustomizerOpen;
-              setIsCustomizerOpen(nextState);
-              if (nextState) {
-                setIsPanelOpen(false);
-                setIsCodeOpen(false);
-              }
-              posthog.capture("customizer_panel_toggled", {
-                state: nextState ? "open" : "closed",
-                component_slug: component?.slug,
-              });
-            }}
-            title={isCustomizerOpen ? "Hide props panel" : "Show props panel"}
-            className={`relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl transition-all ${
-              isCustomizerOpen
-                ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-950"
-                : "bg-neutral-100 text-neutral-700 shadow-xs hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
-            }`}
-            aria-label="Toggle prop customizer panel"
-          >
-            <AnimatePresence>
-              {!isCustomizerOpen &&
-                !isPanelOpen &&
-                !isCodeOpen &&
-                process.env.NODE_ENV !== "development" && (
-                  <motion.div
-                    initial={{ opacity: 0, filter: "blur(4px)", y: -6 }}
-                    animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-                    exit={{ opacity: 0, filter: "blur(4px)", y: -6 }}
-                    transition={{ duration: 0.25, ease: "easeOut" }}
-                    className="pointer-events-none absolute top-full right-0 mt-2 hidden w-max items-center justify-end gap-1.5 md:flex"
-                  >
-                    <style>
-                      {`
-                    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap');
-                    @keyframes text-shimmer {
-                      0% { -webkit-mask-position: 200% center; mask-position: 200% center; }
-                      100% { -webkit-mask-position: -200% center; mask-position: -200% center; }
-                    }
-                    .animate-text-shimmer {
-                      -webkit-mask-image: linear-gradient(-75deg, rgba(0,0,0,0.5) 30%, #000 50%, rgba(0,0,0,0.5) 70%);
-                      -webkit-mask-size: 200%;
-                      mask-image: linear-gradient(-75deg, rgba(0,0,0,0.5) 30%, #000 50%, rgba(0,0,0,0.5) 70%);
-                      mask-size: 200%;
-                      animation: text-shimmer 2.5s linear infinite;
-                    }
-                  `}
-                    </style>
-                    <div
-                      style={{ fontFamily: "Caveat, cursive" }}
-                      className="animate-text-shimmer mt-2 -rotate-2 pr-2 text-right text-2xl leading-[0.85] font-medium whitespace-nowrap text-neutral-500 select-none dark:text-neutral-400"
-                    >
-                      Click here to customize the preview <br /> or view all the
-                      variants!
-                    </div>
-                    <svg
-                      className="h-16 w-16 shrink-0 text-neutral-400 dark:text-neutral-500"
-                      viewBox="0 0 100 100"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      {/* Clean sweeping curved shaft */}
-                      <path
-                        d="M 12 72 C 32 72, 54 54, 68 18"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      {/* Balanced hand-drawn arrowhead */}
-                      <path
-                        d="M 50 28 Q 60 21 68 18 Q 74 27 78 36"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </motion.div>
-                )}
-            </AnimatePresence>
-
-            <svg
-              className="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-              />
-            </svg>
-          </button>
-        )}
-
-        <ThemeToggle className="dark:!hover:text-white !h-10 !w-10 !rounded-xl !border-0 !bg-neutral-100 !text-neutral-700 shadow-xs hover:!bg-neutral-200 hover:!text-neutral-950 dark:!border-0 dark:!bg-neutral-900 dark:!text-neutral-300 dark:hover:!bg-neutral-800 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-neutral-700 dark:[&>svg]:text-neutral-300" />
-      </div>
-      <div
-        className={`absolute inset-0 z-50 flex p-4 transition-all duration-300 ${
-          isSidebarOpen
-            ? "pointer-events-auto visible"
-            : "pointer-events-none invisible"
+    <div className="relative flex h-[100dvh] w-full overflow-hidden bg-white text-neutral-900 transition-colors dark:bg-[#0a0a0a] dark:text-white">
+      <motion.div
+        animate={{
+          scale: isPanelOpen ? 0.955 : 1,
+          y: isPanelOpen ? 8 : 0,
+          borderRadius: isPanelOpen ? 24 : 0,
+        }}
+        transition={{
+          duration: 0.32,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        style={{ transformOrigin: "center top" }}
+        className={`relative flex h-full w-full overflow-hidden bg-white dark:bg-[#0a0a0a] ${
+          isPanelOpen ? "shadow-2xl ring-1 ring-black/5 dark:ring-white/10" : ""
         }`}
       >
         <div
-          role="presentation"
-          aria-hidden="true"
-          className={`fixed inset-0 bg-black/5 transition-opacity duration-300 dark:bg-black/20 ${
-            isSidebarOpen ? "opacity-100" : "opacity-0"
-          }`}
-          onClick={() => setIsSidebarOpen(false)}
-        />
-        <div
-          className={`pointer-events-auto relative z-10 h-full w-72 overflow-hidden rounded-2xl bg-neutral-100 p-4 transition-all duration-300 ease-in-out sm:w-80 dark:bg-[#141414] ${
+          className={`fixed inset-0 z-50 flex p-4 transition-all duration-300 lg:hidden ${
             isSidebarOpen
-              ? "translate-x-0 opacity-100"
-              : "-translate-x-[calc(100%+1.5rem)] opacity-0"
+              ? "pointer-events-auto visible"
+              : "pointer-events-none invisible"
           }`}
         >
-          <Sidebar activeSlug={component.slug} />
-        </div>
-      </div>
-      <div
-        className={`relative flex flex-1 gap-0 overflow-hidden transition-all duration-300`}
-      >
-        <div
-          className={`relative flex h-full shrink-0 flex-col transition-all duration-300 ${
-            isPanelOpen
-              ? "mr-4 w-full lg:w-[40%]"
-              : "pointer-events-none w-0 overflow-hidden opacity-0"
-          }`}
-        >
-          <div className="relative h-full w-[calc(100vw-32px)] overflow-hidden rounded-2xl backdrop-blur-md lg:w-[calc((100vw-32px)*0.4)]">
-            <ProgressiveBlur
-              position="top"
-              height="140px"
-              className="pointer-events-none z-20 bg-gradient-to-b from-white via-white/90 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a]/90 dark:to-transparent"
-            />
-            <div className="relative z-10 h-full w-full scrollbar-none overflow-y-auto px-6 pt-[25dvh] pb-[10dvh]">
-              <DocsPanel component={component} />
-            </div>
-
-            <div
-              className={`absolute inset-0 z-[99999] flex flex-col justify-end transition-transform duration-500 ease-in-out ${
-                isCodeOpen ? "translate-y-0" : "translate-y-full"
-              }`}
-            >
-              <div className="relative h-full w-full overflow-hidden rounded-2xl shadow-xl">
-                <CodePanel
-                  component={component}
-                  onClose={() => setIsCodeOpen(false)}
-                />
-              </div>
-            </div>
-
-            <div
-              className={`absolute inset-0 z-[99999] flex flex-col justify-end transition-transform duration-500 ease-in-out ${
-                isMarkdownOpen ? "translate-y-0" : "translate-y-full"
-              }`}
-            >
-              <div className="relative h-full w-full overflow-hidden rounded-2xl shadow-xl">
-                <MarkdownPanel
-                  component={component}
-                  onClose={() => setIsMarkdownOpen(false)}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <section className="relative z-10 flex h-full flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 backdrop-blur-md dark:bg-[#141414]">
-          <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden px-4">
-            <div
-              ref={setPreviewContainer}
-              className="pointer-events-auto relative z-10 h-full w-full scrollbar-none overflow-y-auto"
-            >
-              {children}
-            </div>
-          </div>
-        </section>
-
-        <div
-          className={`relative flex h-full shrink-0 flex-col transition-all duration-300 ${
-            isCustomizerOpen && hasCustomizableProps
-              ? "ml-4 w-full lg:w-[340px] xl:w-[380px]"
-              : "pointer-events-none w-0 overflow-hidden opacity-0"
-          }`}
-        >
-          <div className="relative h-full w-[calc(100vw-32px)] overflow-hidden rounded-2xl bg-white backdrop-blur-md lg:w-[340px] xl:w-[380px] dark:bg-[#0a0a0a]">
-            <ProgressiveBlur
-              position="top"
-              height="140px"
-              className="pointer-events-none z-20 bg-gradient-to-b from-white via-white/90 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a]/90 dark:to-transparent"
-            />
-            <div className="relative z-10 h-full w-full scrollbar-none overflow-y-auto px-6 pt-[25dvh] pb-[10dvh]">
-              <PropsCustomizationPanel component={component} />
-            </div>
-          </div>
-        </div>
-      </div>{" "}
-      <AnimatePresence>
-        {!isPanelOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="absolute bottom-6 left-1/2 z-40 hidden -translate-x-1/2 items-center gap-3 rounded-xl border border-neutral-200 bg-white/80 p-1.5 shadow-md backdrop-blur-xl transition-all sm:flex dark:border-neutral-800/60 dark:bg-neutral-950/80"
+          <div
+            role="presentation"
+            aria-hidden="true"
+            className={`fixed inset-0 bg-black/20 backdrop-blur-xs transition-opacity duration-300 dark:bg-black/50 ${
+              isSidebarOpen ? "opacity-100" : "opacity-0"
+            }`}
+            onClick={() => setIsSidebarOpen(false)}
+          />
+          <div
+            className={`pointer-events-auto relative z-10 h-full w-72 overflow-hidden rounded-2xl bg-neutral-100 p-4 transition-all duration-300 ease-in-out sm:w-80 dark:bg-[#141414] ${
+              isSidebarOpen
+                ? "translate-x-0 opacity-100"
+                : "-translate-x-[calc(100%+1.5rem)] opacity-0"
+            }`}
           >
-            <div
-              ref={dropdownRef}
-              className="relative border-r border-neutral-200/60 pr-2.5 dark:border-neutral-800/60"
-            >
-              <button
-                type="button"
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="hover:text-neutral-955 flex h-7.5 cursor-pointer items-center justify-center gap-1 rounded-lg bg-neutral-100 px-2 font-mono text-xs font-semibold text-neutral-500 shadow-xs transition-all hover:bg-neutral-200 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
-              >
-                <span>{pkgManager}</span>
-                <svg
-                  className={`h-3 w-3 text-neutral-400 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
+            <Sidebar activeSlug={component.slug} />
+          </div>
+        </div>
 
-              <AnimatePresence>
-                {isDropdownOpen && (
+        <aside
+          aria-label="Navigation sidebar"
+          className={`relative hidden h-full shrink-0 overflow-hidden transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] lg:block ${
+            isSidebarOpen ? "w-64 xl:w-72" : "w-0"
+          }`}
+        >
+          <div
+            inert={!isSidebarOpen}
+            className="absolute inset-y-0 right-0 flex w-64 flex-col overflow-hidden bg-white xl:w-72 dark:bg-[#0a0a0a]"
+          >
+            <div className="flex shrink-0 items-center justify-between px-4 pt-4 pb-2">
+              <Link
+                href="/"
+                className="flex items-center gap-2 transition-opacity hover:opacity-85"
+              >
+                <img
+                  src="/Great-UI.png"
+                  alt="Great UI"
+                  className="h-6 w-auto object-contain"
+                />
+                <span className="font-tt text-2xl leading-none font-bold tracking-tight text-neutral-900 uppercase dark:text-white">
+                  Great <span className="text-[#f6821f]">UI</span>
+                </span>
+              </Link>
+              <SidebarToggle
+                isOpen={isSidebarOpen}
+                onToggle={() => {
+                  const next = !isSidebarOpen;
+                  setIsSidebarOpen(next);
+                  posthog.capture("sidebar_toggled", {
+                    state: next ? "open" : "closed",
+                    component_slug: component.slug,
+                  });
+                }}
+                className="!h-8 !w-8 !rounded-lg border border-neutral-200/70 !bg-transparent shadow-none hover:!bg-neutral-100 dark:border-neutral-800/70 dark:hover:!bg-neutral-900"
+              />
+            </div>
+
+            <div className="relative min-h-0 flex-1 overflow-hidden px-2">
+              <Sidebar activeSlug={component.slug} />
+            </div>
+          </div>
+        </aside>
+
+        <section className="relative flex h-full min-w-0 flex-1 flex-col px-2 pb-2 md:px-3 md:pb-3">
+          <div className="flex shrink-0 items-center justify-between px-1 pt-4 pb-2">
+            <div className="flex items-center">
+              <AnimatePresence initial={false}>
+                {!isSidebarOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute bottom-full left-0 z-50 mb-1.5 flex w-20 flex-col rounded-lg border border-neutral-200 bg-white/95 p-0.5 shadow-md backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/95"
+                    initial={{ width: 0, opacity: 0 }}
+                    animate={{ width: 42, opacity: 1 }}
+                    exit={{ width: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    className="shrink-0 overflow-hidden"
                   >
-                    {(["pnpm", "npm", "yarn", "bun"] as PkgManager[]).map(
-                      (pm) => (
-                        <button
-                          key={pm}
-                          type="button"
-                          onClick={() => {
-                            setPkgManager(pm);
-                            setIsDropdownOpen(false);
-                          }}
-                          className={`w-full cursor-pointer rounded-md px-1.5 py-1 text-left font-mono text-xs font-medium transition-colors ${
-                            pkgManager === pm
-                              ? "text-neutral-955 bg-neutral-100 dark:bg-neutral-900 dark:text-white"
-                              : "text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-900/50 dark:hover:text-white"
-                          }`}
-                        >
-                          {pm}
-                        </button>
-                      ),
-                    )}
+                    <div className="w-8">
+                      <SidebarToggle
+                        isOpen={isSidebarOpen}
+                        onToggle={() => {
+                          const next = !isSidebarOpen;
+                          setIsSidebarOpen(next);
+                          posthog.capture("sidebar_toggled", {
+                            state: next ? "open" : "closed",
+                            component_slug: component.slug,
+                          });
+                        }}
+                        className="!h-8 !w-8 !rounded-lg border border-neutral-200/70 !bg-transparent shadow-none hover:!bg-neutral-100 dark:border-neutral-800/70 dark:hover:!bg-neutral-900"
+                      />
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
+
+              <nav
+                aria-label="Breadcrumb"
+                className="flex items-center gap-1.5 text-[13px] font-medium select-none"
+              >
+                <Link
+                  href="/components"
+                  className="text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+                >
+                  Components
+                </Link>
+                <span className="text-neutral-400 select-none dark:text-neutral-600">
+                  /
+                </span>
+                <span className="text-neutral-900 dark:text-neutral-100">
+                  {component.name}
+                </span>
+              </nav>
             </div>
 
-            <div className="text-neutral-850 pr-1 font-mono text-xs select-all dark:text-neutral-200">
-              <code>{installCommand}</code>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleCopyInstall}
-              className="hover:text-neutral-955 flex h-7.5 w-7.5 cursor-pointer items-center justify-center rounded-lg bg-neutral-100 text-neutral-500 shadow-xs transition-all hover:bg-neutral-200 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
-              title="Copy installation command"
+            <div
+              className={`flex items-center gap-1.5 transition-all ${
+                isCodeOpen || isMarkdownOpen
+                  ? "pointer-events-none opacity-0 sm:pointer-events-auto sm:opacity-100"
+                  : "opacity-100"
+              }`}
             >
-              {copiedInstall ? (
-                <CheckIcon className="h-3.5 w-3.5 text-green-500" />
-              ) : (
-                <CopyIcon className="h-3.5 w-3.5" />
+              <button
+                type="button"
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => {
+                  if (isPanelOpen) {
+                    if (isCodeOpen) {
+                      setIsCodeOpen(false);
+                      posthog.capture("docs_panel_toggled", {
+                        state: "open",
+                        component_slug: component.slug,
+                      });
+                    } else {
+                      setIsPanelOpen(false);
+                      posthog.capture("docs_panel_toggled", {
+                        state: "closed",
+                        component_slug: component.slug,
+                      });
+                    }
+                  } else {
+                    setIsPanelOpen(true);
+                    setIsCodeOpen(false);
+                    posthog.capture("docs_panel_toggled", {
+                      state: "open",
+                      component_slug: component.slug,
+                    });
+                  }
+                }}
+                aria-label="Toggle docs panel"
+                className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg transition-colors outline-none focus:outline-none ${
+                  isPanelOpen && !isCodeOpen
+                    ? "bg-neutral-100 text-neutral-950 dark:bg-neutral-800 dark:text-white"
+                    : "text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-800/80 dark:hover:text-white"
+                }`}
+              >
+                <BookOpenIcon className="h-4.5 w-4.5" />
+              </button>
+
+              <button
+                type="button"
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => {
+                  if (isPanelOpen) {
+                    if (isCodeOpen) {
+                      setIsCodeOpen(false);
+                      posthog.capture("code_panel_toggled", {
+                        state: "closed",
+                        component_slug: component.slug,
+                      });
+                    } else {
+                      setIsCodeOpen(true);
+                      posthog.capture("code_panel_toggled", {
+                        state: "open",
+                        component_slug: component.slug,
+                      });
+                    }
+                  } else {
+                    setIsPanelOpen(true);
+                    setIsCodeOpen(true);
+                    posthog.capture("code_panel_toggled", {
+                      state: "open",
+                      component_slug: component.slug,
+                    });
+                  }
+                }}
+                aria-label="Toggle code panel"
+                className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg transition-colors outline-none focus:outline-none ${
+                  isPanelOpen && isCodeOpen
+                    ? "bg-neutral-100 text-neutral-950 dark:bg-neutral-800 dark:text-white"
+                    : "text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-800/80 dark:hover:text-white"
+                }`}
+              >
+                <CodeIcon className="h-4.5 w-4.5" />
+              </button>
+
+              <ThemeToggle className="!h-8 !w-8 !rounded-lg !border-0 !bg-transparent shadow-none transition-colors hover:!bg-neutral-100 dark:!border-0 dark:!bg-transparent dark:hover:!bg-neutral-800/80 [&>svg]:h-4.5 [&>svg]:w-4.5 [&>svg]:text-neutral-500 hover:[&>svg]:text-neutral-950 dark:[&>svg]:text-neutral-400 dark:hover:[&>svg]:text-white" />
+            </div>
+          </div>
+
+          <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden rounded-[1.25rem] bg-neutral-100 backdrop-blur-md dark:bg-[#141414]">
+            <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden px-4">
+              <div
+                ref={(node) => {
+                  setPreviewContainer(node);
+                  previewRef.current = node;
+                }}
+                className="pointer-events-auto relative z-10 h-full w-full scrollbar-none overflow-y-auto"
+              >
+                {children}
+              </div>
+            </div>
+
+            <AnimatePresence>
+              {!isPanelOpen && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute bottom-3.5 left-1/2 z-40 hidden max-w-[calc(100%-2rem)] -translate-x-1/2 items-center gap-2 rounded-xl bg-white/80 p-1.5 shadow-md backdrop-blur-xl transition-all sm:flex dark:bg-neutral-950/80"
+                >
+                  <div ref={dropdownRef} className="relative shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      className="flex h-7.5 cursor-pointer items-center justify-center gap-1 rounded-lg bg-neutral-100 px-2 font-mono text-xs font-semibold text-neutral-500 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
+                    >
+                      <span>{pkgManager}</span>
+                      <svg
+                        className={`h-3 w-3 text-neutral-400 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
+
+                    <AnimatePresence>
+                      {isDropdownOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                          transition={{ duration: 0.15 }}
+                          className="absolute bottom-full left-0 z-50 mb-1.5 flex w-20 flex-col rounded-lg border border-neutral-200 bg-white/95 p-0.5 shadow-md backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/95"
+                        >
+                          {(["pnpm", "npm", "yarn", "bun"] as PkgManager[]).map(
+                            (pm) => (
+                              <button
+                                key={pm}
+                                type="button"
+                                onClick={() => {
+                                  setPkgManager(pm);
+                                  setIsDropdownOpen(false);
+                                }}
+                                className={`w-full cursor-pointer rounded-md px-1.5 py-1 text-left font-mono text-xs font-medium transition-colors ${
+                                  pkgManager === pm
+                                    ? "bg-neutral-100 text-neutral-950 dark:bg-neutral-900 dark:text-white"
+                                    : "text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-900/50 dark:hover:text-white"
+                                }`}
+                              >
+                                {pm}
+                              </button>
+                            ),
+                          )}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  <div className="min-w-0 scrollbar-none overflow-x-auto pr-1 font-mono text-[13px] leading-6 whitespace-nowrap text-neutral-800 select-all dark:text-neutral-200">
+                    <code className="whitespace-nowrap">{installCommand}</code>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handleCopyInstall}
+                    className="flex h-7.5 w-7.5 shrink-0 cursor-pointer items-center justify-center rounded-lg bg-neutral-100 text-neutral-500 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
+                    title="Copy installation command"
+                  >
+                    {copiedInstall ? (
+                      <CheckIcon className="h-3.5 w-3.5 text-green-500" />
+                    ) : (
+                      <CopyIcon className="h-3.5 w-3.5" />
+                    )}
+                  </button>
+                </motion.div>
               )}
-            </button>
-          </motion.div>
+            </AnimatePresence>
+          </div>
+        </section>
+
+        <aside
+          aria-label="Props customizer"
+          className={`relative hidden h-full shrink-0 overflow-hidden transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] lg:block ${
+            hasCustomizableProps ? "w-72 xl:w-80" : "w-0"
+          }`}
+        >
+          <div
+            inert={!hasCustomizableProps}
+            className="absolute inset-y-0 left-0 flex w-72 flex-col overflow-hidden bg-white xl:w-80 dark:bg-[#0a0a0a]"
+          >
+            <div className="relative flex h-full w-full flex-col overflow-hidden">
+              <div className="flex shrink-0 items-center justify-between px-4 pt-4 pb-2">
+                <span className="text-[13px] font-medium text-neutral-900 dark:text-white">
+                  Props
+                </span>
+                <button
+                  type="button"
+                  onClick={resetProps}
+                  className="cursor-pointer text-[12px] font-medium text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+                  title="Reset props to default"
+                >
+                  Reset
+                </button>
+              </div>
+
+              <div className="relative min-h-0 flex-1 overflow-hidden px-2">
+                <PropsCustomizationPanel component={component} />
+              </div>
+            </div>
+          </div>
+        </aside>
+      </motion.div>
+
+      <AnimatePresence>
+        {isPanelOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs"
+              onClick={() => {
+                setIsPanelOpen(false);
+                setIsCodeOpen(false);
+                setIsMarkdownOpen(false);
+              }}
+            />
+
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{
+                duration: 0.32,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              drag="y"
+              dragConstraints={{ top: 0, bottom: 0 }}
+              dragElastic={{ top: 0, bottom: 0.6 }}
+              onDragEnd={(_, info) => {
+                if (info.offset.y > 100 || info.velocity.y > 350) {
+                  setIsPanelOpen(false);
+                  setIsCodeOpen(false);
+                  setIsMarkdownOpen(false);
+                }
+              }}
+              className="fixed inset-x-0 bottom-0 z-50 mx-auto flex h-[calc(100dvh-2rem)] w-[86vw] max-w-[1480px] flex-col overflow-hidden rounded-t-[1.75rem] border-x border-t border-neutral-200/80 bg-white shadow-2xl md:h-[calc(100dvh-2.25rem)] 2xl:max-w-[1540px] dark:border-neutral-800/80 dark:bg-[#111111]"
+            >
+              <div className="relative flex shrink-0 cursor-grab items-center justify-center pt-2.5 pb-1 active:cursor-grabbing">
+                <button
+                  type="button"
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => {
+                    setIsPanelOpen(false);
+                    setIsCodeOpen(false);
+                    setIsMarkdownOpen(false);
+                  }}
+                  className="group flex cursor-pointer items-center justify-center rounded-full px-4 py-1.5 transition-opacity outline-none hover:opacity-80 focus:outline-none active:scale-95"
+                  aria-label="Close docs drawer"
+                >
+                  <span className="h-1.25 w-10 rounded-full bg-neutral-300 transition-colors group-hover:bg-neutral-400 dark:bg-neutral-700 dark:group-hover:bg-neutral-500" />
+                </button>
+              </div>
+
+              <div
+                id="docs-drawer-scroll"
+                onScroll={(e) => {
+                  drawerScrollRef.current = e.currentTarget.scrollTop;
+                }}
+                className="relative min-h-0 flex-1 scrollbar-none overflow-y-auto px-6 pt-2 pb-8 md:px-8"
+              >
+                <div className="flex w-full items-start justify-between gap-6 md:gap-8">
+                  <div className="min-w-0 flex-1">
+                    <DocsPanel component={component} />
+                  </div>
+                  <div className="sticky top-2 hidden w-60 shrink-0 xl:block">
+                    <DocsToc component={component} />
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className={`absolute inset-0 z-30 flex flex-col justify-end transition-transform duration-500 ease-in-out ${
+                  isCodeOpen
+                    ? "translate-y-0"
+                    : "pointer-events-none translate-y-full"
+                }`}
+              >
+                <div className="relative h-full w-full overflow-hidden shadow-xl">
+                  <CodePanel
+                    component={component}
+                    onClose={() => setIsCodeOpen(false)}
+                  />
+                </div>
+              </div>
+
+              <div
+                className={`absolute inset-0 z-30 flex flex-col justify-end transition-transform duration-500 ease-in-out ${
+                  isMarkdownOpen
+                    ? "translate-y-0"
+                    : "pointer-events-none translate-y-full"
+                }`}
+              >
+                <div className="relative h-full w-full overflow-hidden shadow-xl">
+                  <MarkdownPanel
+                    component={component}
+                    onClose={() => setIsMarkdownOpen(false)}
+                  />
+                </div>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </div>

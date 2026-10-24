@@ -93,8 +93,8 @@ export default function CodePanel({ component, onClose }: CodePanelProps) {
         style={{
           fontFamily:
             "var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
-          fontSize: "14px",
-          lineHeight: "1.6",
+          fontSize: "13px",
+          lineHeight: "1.65",
         }}
         className="!m-0 flex-1 scrollbar-none overflow-auto bg-neutral-100 p-6 text-left !font-mono select-text selection:bg-[#f6821f]/30 dark:bg-[#141414]"
       />

@@ -70,17 +70,17 @@ export default function ComponentActions({
   return (
     <div
       ref={dropdownRef}
-      className="relative flex items-stretch rounded-xl bg-neutral-100 dark:bg-[#222]"
+      className="relative flex h-8 items-stretch rounded-lg bg-neutral-100 dark:bg-[#222]"
     >
       <button
         type="button"
         onClick={handleCopyPage}
-        className="flex items-center justify-center gap-2 rounded-l-xl px-3 py-2 text-sm font-medium whitespace-nowrap text-neutral-700 transition-colors hover:bg-neutral-200 dark:text-neutral-200 dark:hover:bg-[#2a2a2a]"
+        className="flex h-full items-center justify-center gap-1.5 rounded-l-lg px-2.5 text-[13px] font-medium whitespace-nowrap text-neutral-700 transition-colors hover:bg-neutral-200 dark:text-neutral-200 dark:hover:bg-[#2a2a2a]"
       >
         {copiedPage ? (
-          <CheckIcon className="h-4 w-4 text-green-500" />
+          <CheckIcon className="h-3.5 w-3.5 text-green-500" />
         ) : (
-          <CopyIcon className="h-4 w-4" />
+          <CopyIcon className="h-3.5 w-3.5" />
         )}
         {copiedPage ? "Copied" : "Copy Page"}
       </button>
@@ -88,11 +88,11 @@ export default function ComponentActions({
       <button
         type="button"
         onClick={() => setIsCopyDropdownOpen(!isCopyDropdownOpen)}
-        className="flex items-center justify-center rounded-r-xl px-2 py-2 text-neutral-500 transition-colors hover:bg-neutral-200 hover:text-neutral-700 dark:text-neutral-400 dark:hover:bg-[#2a2a2a] dark:hover:text-neutral-200"
+        className="flex h-full items-center justify-center rounded-r-lg px-1.5 text-neutral-500 transition-colors hover:bg-neutral-200 hover:text-neutral-700 dark:text-neutral-400 dark:hover:bg-[#2a2a2a] dark:hover:text-neutral-200"
       >
         <svg
-          width="16"
-          height="16"
+          width="14"
+          height="14"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"

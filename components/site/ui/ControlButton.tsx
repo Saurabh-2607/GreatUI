@@ -30,10 +30,10 @@ export function ControlButton({
   };
 
   const sizeClasses = {
-    sm: "h-8 px-3 text-xs rounded-lg",
-    md: "h-10 px-3.5 text-xs rounded-xl",
-    lg: "h-10 px-4 text-xs rounded-xl",
-    icon: "h-8 w-8 p-0 rounded-lg shrink-0 justify-center",
+    sm: "h-7.5 px-2.5 text-xs rounded-lg",
+    md: "h-8.5 px-3 text-xs rounded-lg",
+    lg: "h-9 px-3.5 text-xs rounded-lg",
+    icon: "h-7.5 w-7.5 p-0 rounded-lg shrink-0 justify-center",
   };
 
   return (

@@ -36,6 +36,7 @@ export function ControlField({ schema, value, onChange }: ControlFieldProps) {
       case "number":
         return (
           <ControlSlider
+            label={schema.label}
             value={Number(currentValue)}
             min={schema.min}
             max={schema.max}
@@ -63,16 +64,15 @@ export function ControlField({ schema, value, onChange }: ControlFieldProps) {
     }
   };
 
+  if (schema.type === "number") {
+    return <div className="w-full">{renderInput()}</div>;
+  }
+
   return (
-    <div className="flex flex-col gap-1.5">
-      <div className="flex items-center justify-between gap-3">
-        <span className="text-md text-neutral-450 font-semibold dark:text-neutral-500">
-          {schema.label.replace(/\s*\([^)]*\)/, "").toUpperCase()}
-          {schema.label.match(/\s*\([^)]*\)/) && (
-            <span className="lowercase">
-              {schema.label.match(/\s*\([^)]*\)/)?.[0]}
-            </span>
-          )}
+    <div className="flex flex-col gap-1">
+      <div className="flex items-center justify-between gap-3 px-2 py-0.5">
+        <span className="text-[11px] font-semibold tracking-wider text-neutral-400 uppercase select-none dark:text-neutral-500">
+          {schema.label}
         </span>
         {schema.type === "boolean" && renderInput()}
       </div>

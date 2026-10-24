@@ -3,167 +3,106 @@
 import React from "react";
 import Link from "next/link";
 import posthog from "posthog-js";
-import { components } from "@/lib/registry";
 import { CATEGORY_ORDER, componentsByCategory } from "@/lib/categories";
-import { animate } from "motion/react";
+import { cn } from "@/lib/utils";
 import CarbonAds from "./CarbonAds";
 
 interface SidebarProps {
   activeSlug: string;
 }
 
-const TickRow = () => (
-  <div className="flex h-2.5 items-center">
-    <span className="block h-[2px] w-8 shrink-0 bg-neutral-300 dark:bg-neutral-700" />
-  </div>
-);
-
-const orderedComponents: typeof components = [];
-const categoryHeaders: { index: number; name: string }[] = [];
-
-CATEGORY_ORDER.forEach((catName) => {
-  const catComponents = componentsByCategory[catName] || [];
-  if (catComponents.length > 0) {
-    categoryHeaders.push({ index: orderedComponents.length, name: catName });
-    orderedComponents.push(...[...catComponents].reverse());
-  }
-});
-
 export default function Sidebar({ activeSlug }: SidebarProps) {
   const activeRef = React.useRef<HTMLAnchorElement>(null);
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
-  const [paddings, setPaddings] = React.useState({ top: 200, bottom: 200 });
 
   React.useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (container) {
-      const containerHeight = container.clientHeight;
-      setPaddings({
-        top: Math.max(0, containerHeight * 0.35 - 20),
-        bottom: Math.max(0, containerHeight * 0.35 - 20),
+    if (activeRef.current && scrollContainerRef.current) {
+      activeRef.current.scrollIntoView({
+        block: "nearest",
+        behavior: "smooth",
       });
     }
-  }, []);
-
-  React.useEffect(() => {
-    let animationControls: { stop: () => void } | null = null;
-    const timer = setTimeout(() => {
-      const container = scrollContainerRef.current;
-      const element = activeRef.current;
-      if (container && element) {
-        const containerHeight = container.clientHeight;
-        const elementTop = element.offsetTop;
-        const elementHeight = element.clientHeight;
-
-        const activeIndex = orderedComponents.findIndex(
-          (c) => c.slug === activeSlug,
-        );
-        const N = orderedComponents.length;
-        const ratio = N > 1 ? 0.35 + 0.3 * (activeIndex / (N - 1)) : 0.35;
-
-        const targetScrollTop =
-          elementTop + elementHeight / 2 - containerHeight * ratio;
-
-        animationControls = animate(container.scrollTop, targetScrollTop, {
-          type: "spring",
-          stiffness: 80,
-          damping: 18,
-          onUpdate: (latest) => {
-            container.scrollTop = latest;
-          },
-        });
-      }
-    }, 100);
-    return () => {
-      clearTimeout(timer);
-      if (animationControls) {
-        animationControls.stop();
-      }
-    };
   }, [activeSlug]);
+
+  const groupedCategories = React.useMemo(() => {
+    return CATEGORY_ORDER.map((catName) => {
+      const catComponents = componentsByCategory[catName] || [];
+      return {
+        name: catName,
+        items: [...catComponents].reverse(),
+      };
+    }).filter((group) => group.items.length > 0);
+  }, []);
 
   return (
     <aside className="relative flex h-full w-full flex-col overflow-hidden bg-transparent text-neutral-900 select-none dark:text-white">
       <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-0 right-0 left-0 z-20 h-24 bg-gradient-to-b from-neutral-100 via-neutral-100/80 to-transparent dark:from-[#141414] dark:via-[#141414]/80 dark:to-transparent"
-        />
-
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-28 bg-gradient-to-t from-neutral-100 via-neutral-100/80 to-transparent dark:from-[#141414] dark:via-[#141414]/80 dark:to-transparent"
+          className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-16 bg-gradient-to-t from-white via-white/80 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a]/80 dark:to-transparent"
         />
 
         <div
           ref={scrollContainerRef}
-          className="relative flex-1 scrollbar-none overflow-x-clip overflow-y-auto pr-2 pl-1 tracking-tight"
+          className="relative flex-1 scrollbar-none overflow-x-clip overflow-y-auto px-2 py-2"
         >
-          <div
-            style={{
-              paddingTop: `${paddings.top}px`,
-              paddingBottom: `${paddings.bottom}px`,
-            }}
-            className="relative flex h-fit flex-col"
-          >
-            {orderedComponents.length === 0 ? (
+          <div className="relative flex h-fit flex-col pb-10">
+            {groupedCategories.length === 0 ? (
               <div className="flex items-center justify-center p-4 text-center">
                 <span className="text-xs text-neutral-400">No components</span>
               </div>
             ) : (
-              orderedComponents.map((c, index) => {
-                const active = c.slug === activeSlug;
-                const itemNumber = (index + 1).toString().padStart(2, "0");
+              groupedCategories.map((group) => (
+                <div
+                  key={group.name}
+                  className="mt-6 flex flex-col gap-1 first:mt-1"
+                >
+                  <span className="px-2 py-1 text-[11px] font-semibold tracking-wider text-neutral-400 uppercase select-none dark:text-neutral-500">
+                    {group.name}
+                  </span>
+                  <ul className="flex flex-col gap-0.5">
+                    {group.items.map((c) => {
+                      const active = c.slug === activeSlug;
 
-                const headerInfo = categoryHeaders.find(
-                  (h) => h.index === index,
-                );
-                const isFirstInCategory = !!headerInfo;
-
-                return (
-                  <React.Fragment key={c.slug}>
-                    {isFirstInCategory && (
-                      <div className="mt-6 mb-2 first:mt-0">
-                        <span className="text-xl font-bold text-neutral-400/80 dark:text-neutral-500/80">
-                          {headerInfo.name}
-                        </span>
-                      </div>
-                    )}
-                    <Link
-                      ref={active ? activeRef : undefined}
-                      href={`/components/${c.slug}`}
-                      onClick={() => {
-                        posthog.capture("sidebar_component_navigated", {
-                          component_slug: c.slug,
-                          component_name: c.name,
-                          from_slug: activeSlug,
-                        });
-                      }}
-                      className="group relative flex cursor-pointer flex-col transition-colors"
-                    >
-                      {!isFirstInCategory && <TickRow />}
-                      <div className="flex h-4 items-center gap-2">
-                        <span
-                          className={`block shrink-0 transition-all ${
-                            active
-                              ? "h-[3px] w-14 bg-[#f6821f]"
-                              : "h-[2px] w-8 bg-neutral-300 group-hover:w-11 group-hover:bg-[#f6821f] dark:bg-neutral-700"
-                          }`}
-                        />
-                        <span
-                          className={`text-[19px] leading-none whitespace-nowrap transition-all ease-out ${
-                            active
-                              ? "font-semibold text-[#f6821f] opacity-100 dark:text-[#ff9d42]"
-                              : "font-medium text-neutral-700 opacity-50 group-hover:text-[#f6821f] group-hover:opacity-100 dark:text-neutral-300 dark:group-hover:text-[#f6821f]"
-                          }`}
-                        >
-                          {itemNumber} {c.name}
-                        </span>
-                      </div>
-                    </Link>
-                  </React.Fragment>
-                );
-              })
+                      return (
+                        <li key={c.slug} className="relative">
+                          {active ? (
+                            <span className="pointer-events-none absolute inset-y-0 left-2 z-10 flex items-center">
+                              <span className="h-3.5 w-1 rounded-full bg-[#f6821f]" />
+                            </span>
+                          ) : null}
+                          <Link
+                            ref={active ? activeRef : undefined}
+                            href={`/components/${c.slug}`}
+                            onClick={() => {
+                              posthog.capture("sidebar_component_navigated", {
+                                component_slug: c.slug,
+                                component_name: c.name,
+                                from_slug: activeSlug,
+                              });
+                            }}
+                            className={cn(
+                              "flex h-8 items-center rounded-lg px-2 text-sm transition-colors",
+                              active
+                                ? "bg-neutral-100 font-medium text-neutral-950 dark:bg-neutral-900/90 dark:text-white"
+                                : "text-neutral-600 hover:bg-neutral-100/70 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-900/60 dark:hover:text-white",
+                            )}
+                          >
+                            <span
+                              className={cn(
+                                "min-w-0 truncate transition-transform duration-200",
+                                active && "translate-x-3.5",
+                              )}
+                            >
+                              {c.name}
+                            </span>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))
             )}
           </div>
         </div>
