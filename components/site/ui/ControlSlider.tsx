@@ -198,11 +198,11 @@ export function ControlSlider({
           />
         </div>
 
-        <span className="pointer-events-none relative z-[4] text-xs font-semibold tracking-wide text-neutral-700 dark:text-neutral-400">
+        <span className="pointer-events-none relative z-[4] max-w-[70%] min-w-0 truncate text-xs font-semibold tracking-wide whitespace-nowrap text-neutral-700 dark:text-neutral-400">
           {label}
         </span>
 
-        <span className="pointer-events-none relative z-[4] font-mono text-xs font-semibold text-neutral-900 tabular-nums dark:text-white">
+        <span className="pointer-events-none relative z-[4] ml-2 shrink-0 font-mono text-xs font-semibold text-neutral-900 tabular-nums dark:text-white">
           {formattedValue}
         </span>
       </div>

@@ -14,7 +14,6 @@ import {
 } from "./Icons";
 import ShikiHighlight from "./ShikiHighlight";
 import ComponentActions from "./ComponentActions";
-import { useViewer } from "@/lib/viewer-context";
 import { getComponentPropsSchema } from "@/lib/propsRegistry";
 
 type PkgManager = "npm" | "pnpm" | "yarn" | "bun";
@@ -92,7 +91,7 @@ export default function DocsPanel({ component }: { component: Component }) {
 
   return (
     <aside className="flex flex-col space-y-20 text-neutral-900 dark:text-white">
-      <div className="flex flex-col gap-8">
+      <div id="overview" className="flex scroll-mt-6 flex-col gap-8">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
           <h2 className="text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl dark:text-white">
             {component.name}
@@ -146,7 +145,7 @@ export default function DocsPanel({ component }: { component: Component }) {
       </div>
 
       {component.dependencies.length > 0 && (
-        <div className="flex flex-col gap-2">
+        <div id="dependencies" className="flex scroll-mt-6 flex-col gap-2">
           <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
             Dependencies
           </p>
@@ -194,7 +193,7 @@ export default function DocsPanel({ component }: { component: Component }) {
         </div>
       )}
 
-      <div className="flex flex-col gap-2">
+      <div id="interaction" className="flex scroll-mt-6 flex-col gap-2">
         <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
           Interaction
         </p>
@@ -203,7 +202,7 @@ export default function DocsPanel({ component }: { component: Component }) {
         </p>
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div id="installation" className="flex scroll-mt-6 flex-col gap-2">
         <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
           Installation
         </p>
@@ -259,7 +258,7 @@ export default function DocsPanel({ component }: { component: Component }) {
       </div>
 
       {component.usageCode && (
-        <div className="flex flex-col gap-2">
+        <div id="how-to-use" className="flex scroll-mt-6 flex-col gap-2">
           <div className="flex items-center justify-between">
             <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
               How to use
@@ -285,7 +284,7 @@ export default function DocsPanel({ component }: { component: Component }) {
         </div>
       )}
 
-      <div className="flex flex-col gap-2">
+      <div id="source-code" className="flex scroll-mt-6 flex-col gap-2">
         <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
           Source Code
         </p>
@@ -299,7 +298,7 @@ export default function DocsPanel({ component }: { component: Component }) {
       </div>
 
       {hasCustomizableProps && (
-        <div className="flex flex-col gap-2">
+        <div id="customization" className="flex scroll-mt-6 flex-col gap-2">
           <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
             Customization
           </p>
@@ -326,7 +325,7 @@ export default function DocsPanel({ component }: { component: Component }) {
       )}
 
       {component.props.length > 0 && (
-        <div className="flex flex-col gap-8">
+        <div id="props-details" className="flex scroll-mt-6 flex-col gap-8">
           <div className="flex flex-col gap-2">
             <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
               Props Details
@@ -370,7 +369,7 @@ export default function DocsPanel({ component }: { component: Component }) {
         </div>
       )}
 
-      <div className="flex flex-col gap-2">
+      <div id="keep-in-mind" className="flex scroll-mt-6 flex-col gap-2">
         <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
           Keep in mind
         </p>
@@ -384,7 +383,7 @@ export default function DocsPanel({ component }: { component: Component }) {
       </div>
 
       {component.inspiration && (
-        <div className="flex flex-col gap-2">
+        <div id="inspiration" className="flex scroll-mt-6 flex-col gap-2">
           <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
             Inspiration / Source
           </p>
@@ -422,7 +421,7 @@ export default function DocsPanel({ component }: { component: Component }) {
         </div>
       )}
 
-      <div className="flex flex-col gap-2">
+      <div id="license" className="flex scroll-mt-6 flex-col gap-2">
         <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
           License & Usage
         </p>

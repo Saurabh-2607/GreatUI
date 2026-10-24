@@ -53,6 +53,7 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
   const handleSetCodeOpen = (open: boolean) => {
     setIsCodeOpen(open);
     if (open) {
+      setIsPanelOpen(true);
       setIsMarkdownOpen(false);
     }
   };
@@ -60,6 +61,7 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
   const handleSetMarkdownOpen = (open: boolean) => {
     setIsMarkdownOpen(open);
     if (open) {
+      setIsPanelOpen(true);
       setIsCodeOpen(false);
     }
   };

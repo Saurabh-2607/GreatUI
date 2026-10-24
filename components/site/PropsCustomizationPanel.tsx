@@ -51,18 +51,38 @@ export function generateJsxCode(
 export default function PropsCustomizationPanel({
   component,
 }: PropsCustomizationPanelProps) {
-  const { props, schemas, presets, setProp, applyPreset, resetProps } =
-    useProps();
+  const { props, schemas, presets, setProp, applyPreset } = useProps();
   const [copiedCode, setCopiedCode] = useState(false);
 
-  if (!schemas || schemas.length === 0) {
+  const [cached, setCached] = useState(() => ({
+    schemas: schemas && schemas.length > 0 ? schemas : null,
+    component,
+    props,
+  }));
+
+  const hasCurrentSchemas = Boolean(schemas && schemas.length > 0);
+
+  if (
+    hasCurrentSchemas &&
+    (cached.schemas !== schemas ||
+      cached.component !== component ||
+      cached.props !== props)
+  ) {
+    setCached({ schemas, component, props });
+  }
+
+  const effectiveSchemas = hasCurrentSchemas ? schemas : cached.schemas;
+  const effectiveComponent = hasCurrentSchemas ? component : cached.component;
+  const effectiveProps = hasCurrentSchemas ? props : cached.props;
+
+  if (!effectiveSchemas || effectiveSchemas.length === 0) {
     return null;
   }
 
   const jsxCode = generateJsxCode(
-    component.name.replace(/\s+/g, ""),
-    schemas,
-    props,
+    effectiveComponent.name.replace(/\s+/g, ""),
+    effectiveSchemas,
+    effectiveProps,
   );
 
   const handleCopyCode = () => {
@@ -72,24 +92,11 @@ export default function PropsCustomizationPanel({
   };
 
   return (
-    <div className="flex h-full w-full flex-col overflow-hidden text-neutral-900 select-none dark:text-white">
-      <div className="sticky top-0 z-10 flex h-12 shrink-0 items-center justify-between bg-transparent px-4">
-        <span className="text-[13px] font-medium text-neutral-900 dark:text-white">
-          Props
-        </span>
-        <button
-          type="button"
-          onClick={resetProps}
-          className="cursor-pointer text-[12px] font-medium text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
-        >
-          Reset
-        </button>
-      </div>
-
-      <div className="flex flex-1 scrollbar-none flex-col gap-3.5 overflow-y-auto p-4">
+    <div className="relative flex h-full w-full flex-col overflow-hidden text-neutral-900 select-none dark:text-white">
+      <div className="relative flex flex-1 scrollbar-none flex-col gap-3.5 overflow-y-auto px-2 py-2">
         {presets && presets.length > 0 && (
-          <div className="flex flex-col gap-1.5">
-            <span className="text-[12px] font-medium text-neutral-600 dark:text-neutral-400">
+          <div className="flex flex-col gap-1">
+            <span className="px-2 text-[11px] font-semibold tracking-wider text-neutral-400 uppercase select-none dark:text-neutral-500">
               Presets
             </span>
             <ControlSelect
@@ -111,19 +118,19 @@ export default function PropsCustomizationPanel({
         )}
 
         <div className="flex flex-col gap-3">
-          {schemas.map((schema) => (
+          {effectiveSchemas.map((schema) => (
             <ControlField
               key={schema.key}
               schema={schema}
-              value={props[schema.key]}
+              value={effectiveProps[schema.key]}
               onChange={setProp}
             />
           ))}
         </div>
 
         <div className="mt-2 flex flex-col gap-2 pt-1">
-          <div className="flex items-center justify-between">
-            <span className="text-[12px] font-medium text-neutral-600 dark:text-neutral-400">
+          <div className="flex items-center justify-between px-2">
+            <span className="text-[11px] font-semibold tracking-wider text-neutral-400 uppercase select-none dark:text-neutral-500">
               Generated JSX
             </span>
             <button

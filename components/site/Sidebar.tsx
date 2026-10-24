@@ -55,9 +55,9 @@ export default function Sidebar({ activeSlug }: SidebarProps) {
               groupedCategories.map((group) => (
                 <div
                   key={group.name}
-                  className="mt-5 flex flex-col gap-0.5 first:mt-1"
+                  className="mt-6 flex flex-col gap-1 first:mt-1"
                 >
-                  <span className="px-2 py-1 font-mono text-[10.5px] font-normal tracking-[0.18em] text-neutral-400 uppercase dark:text-neutral-500">
+                  <span className="px-2 py-1 text-[11px] font-semibold tracking-wider text-neutral-400 uppercase select-none dark:text-neutral-500">
                     {group.name}
                   </span>
                   <ul className="flex flex-col gap-0.5">

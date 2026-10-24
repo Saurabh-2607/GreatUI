@@ -7,14 +7,13 @@ import posthog from "posthog-js";
 import Sidebar from "@/components/site/Sidebar";
 import SidebarToggle from "@/components/site/SidebarToggle";
 import DocsPanel from "@/components/site/DocsPanel";
+import { DocsToc } from "@/components/site/DocsToc";
 import CodePanel from "@/components/site/CodePanel";
 import MarkdownPanel from "@/components/site/MarkdownPanel";
 import ThemeToggle from "@/components/site/ThemeToggle";
 import {
   CodeIcon,
-  HomeIcon,
-  MaximizeIcon,
-  MinimizeIcon,
+  BookOpenIcon,
   CopyIcon,
   CheckIcon,
 } from "@/components/site/Icons";
@@ -23,7 +22,6 @@ import { getComponentPropsSchema } from "@/lib/propsRegistry";
 import { ViewerProvider, useViewer } from "@/lib/viewer-context";
 import { PropsProvider, useProps } from "@/lib/PropsContext";
 import PropsCustomizationPanel from "@/components/site/PropsCustomizationPanel";
-import { ProgressiveBlur } from "@/components/site/ProgressiveBlur";
 import { motion, AnimatePresence } from "motion/react";
 import { generateComponentLdJsonGraph } from "@/lib/i18n-seo";
 
@@ -174,7 +172,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
       >
         <div
           inert={!isSidebarOpen}
-          className="absolute inset-y-0 right-0 flex w-64 flex-col overflow-hidden border-r border-neutral-200/70 bg-white xl:w-72 dark:border-neutral-800/70 dark:bg-[#0a0a0a]"
+          className="absolute inset-y-0 right-0 flex w-64 flex-col overflow-hidden bg-white xl:w-72 dark:bg-[#0a0a0a]"
         >
           <div className="flex shrink-0 items-center justify-between px-4 pt-4 pb-2">
             <Link
@@ -210,123 +208,62 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
 
-      <div
-        className={`relative flex h-full shrink-0 flex-col transition-all duration-300 ${
-          isPanelOpen
-            ? "w-full border-r border-neutral-200/70 lg:w-[380px] xl:w-[440px] dark:border-neutral-800/70"
-            : "pointer-events-none w-0 overflow-hidden opacity-0"
-        }`}
-      >
-        <div className="relative h-full w-full overflow-hidden backdrop-blur-md">
-          <ProgressiveBlur
-            position="top"
-            height="140px"
-            className="pointer-events-none z-20 bg-gradient-to-b from-white via-white/90 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a]/90 dark:to-transparent"
-          />
-          <div className="relative z-10 h-full w-full scrollbar-none overflow-y-auto px-6 pt-[25dvh] pb-[10dvh]">
-            <DocsPanel component={component} />
-          </div>
+      <section className="relative flex h-full min-w-0 flex-1 flex-col px-2 pb-2 md:px-3 md:pb-3">
+        <div className="flex shrink-0 items-center justify-between px-1 pt-4 pb-2">
+          <div className="flex items-center">
+            <AnimatePresence initial={false}>
+              {!isSidebarOpen && (
+                <motion.div
+                  initial={{ width: 0, opacity: 0 }}
+                  animate={{ width: 42, opacity: 1 }}
+                  exit={{ width: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  className="shrink-0 overflow-hidden"
+                >
+                  <div className="w-8">
+                    <SidebarToggle
+                      isOpen={isSidebarOpen}
+                      onToggle={() => {
+                        const next = !isSidebarOpen;
+                        setIsSidebarOpen(next);
+                        posthog.capture("sidebar_toggled", {
+                          state: next ? "open" : "closed",
+                          component_slug: component.slug,
+                        });
+                      }}
+                      className="!h-8 !w-8 !rounded-lg border border-neutral-200/70 !bg-transparent shadow-none hover:!bg-neutral-100 dark:border-neutral-800/70 dark:hover:!bg-neutral-900"
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-          <div
-            className={`absolute inset-0 z-[99999] flex flex-col justify-end transition-transform duration-500 ease-in-out ${
-              isCodeOpen ? "translate-y-0" : "translate-y-full"
-            }`}
-          >
-            <div className="relative h-full w-full overflow-hidden shadow-xl">
-              <CodePanel
-                component={component}
-                onClose={() => setIsCodeOpen(false)}
-              />
-            </div>
-          </div>
-
-          <div
-            className={`absolute inset-0 z-[99999] flex flex-col justify-end transition-transform duration-500 ease-in-out ${
-              isMarkdownOpen ? "translate-y-0" : "translate-y-full"
-            }`}
-          >
-            <div className="relative h-full w-full overflow-hidden shadow-xl">
-              <MarkdownPanel
-                component={component}
-                onClose={() => setIsMarkdownOpen(false)}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <section className="relative flex h-full min-w-0 flex-1 flex-col p-2 md:p-3">
-        <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden rounded-[1.25rem] bg-neutral-100 backdrop-blur-md dark:bg-[#141414]">
-          <AnimatePresence>
-            {!isSidebarOpen && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.18, delay: 0.15 }}
-                className="absolute top-4 left-4 z-40"
+            <nav
+              aria-label="Breadcrumb"
+              className="flex items-center gap-1.5 text-[13px] font-medium select-none"
+            >
+              <Link
+                href="/components"
+                className="text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
               >
-                <SidebarToggle
-                  isOpen={isSidebarOpen}
-                  onToggle={() => {
-                    const next = !isSidebarOpen;
-                    setIsSidebarOpen(next);
-                    posthog.capture("sidebar_toggled", {
-                      state: next ? "open" : "closed",
-                      component_slug: component.slug,
-                    });
-                  }}
-                  className="shadow-sm backdrop-blur-md"
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
+                Components
+              </Link>
+              <span className="text-neutral-400 select-none dark:text-neutral-600">
+                /
+              </span>
+              <span className="text-neutral-900 dark:text-neutral-100">
+                {component.name}
+              </span>
+            </nav>
+          </div>
 
           <div
-            className={`absolute top-4 right-4 z-40 flex items-center gap-1.5 rounded-2xl border border-neutral-200 bg-white/80 p-1.5 shadow-xs backdrop-blur-xl transition-all sm:top-5 sm:right-5 dark:border-neutral-800/60 dark:bg-neutral-950/80 ${
+            className={`flex items-center gap-1.5 transition-all ${
               isCodeOpen || isMarkdownOpen
                 ? "pointer-events-none opacity-0 sm:pointer-events-auto sm:opacity-100"
                 : "opacity-100"
             }`}
           >
-            <Link
-              href="/"
-              title="Back to Home"
-              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-xl bg-neutral-100 text-neutral-700 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
-              aria-label="Navigate to Home"
-            >
-              <HomeIcon className="h-4.5 w-4.5" />
-            </Link>
-
-            <button
-              type="button"
-              onClick={() => {
-                window.dispatchEvent(new CustomEvent("open-search-menu"));
-                posthog.capture("search_trigger_clicked", {
-                  location: "viewer-toolbar",
-                  component_slug: component.slug,
-                });
-              }}
-              title="Search pages or components (⌘K)"
-              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-xl bg-neutral-100 text-neutral-700 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
-              aria-label="Search pages or components"
-            >
-              <svg
-                className="h-4.5 w-4.5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </button>
-
             <button
               type="button"
               onClick={() => {
@@ -354,14 +291,10 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                 }
               }}
               title={isPanelOpen ? "Hide docs" : "Show docs"}
-              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-xl bg-neutral-100 text-neutral-700 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
+              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
               aria-label="Toggle docs panel"
             >
-              {isPanelOpen ? (
-                <MaximizeIcon className="h-4.5 w-4.5" />
-              ) : (
-                <MinimizeIcon className="h-4.5 w-4.5" />
-              )}
+              <BookOpenIcon className="h-4.5 w-4.5" />
             </button>
 
             <button
@@ -391,15 +324,17 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                 }
               }}
               title={isPanelOpen && isCodeOpen ? "Hide code" : "Show code"}
-              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-xl bg-neutral-100 text-neutral-700 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
+              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
               aria-label="Toggle code panel"
             >
               <CodeIcon className="h-4.5 w-4.5" />
             </button>
 
-            <ThemeToggle className="dark:!hover:text-white !h-9 !w-9 !rounded-xl !border-0 !bg-neutral-100 !text-neutral-700 shadow-xs hover:!bg-neutral-200 hover:!text-neutral-950 dark:!border-0 dark:!bg-neutral-900 dark:!text-neutral-300 dark:hover:!bg-neutral-800 [&>svg]:h-4.5 [&>svg]:w-4.5 [&>svg]:text-neutral-700 dark:[&>svg]:text-neutral-300" />
+            <ThemeToggle className="dark:!hover:text-white !h-8 !w-8 !rounded-lg !border-0 !bg-transparent !text-neutral-600 shadow-none hover:!bg-neutral-100 hover:!text-neutral-950 dark:!border-0 dark:!bg-transparent dark:!text-neutral-400 dark:hover:!bg-neutral-900 [&>svg]:h-4.5 [&>svg]:w-4.5 [&>svg]:text-neutral-600 dark:[&>svg]:text-neutral-400" />
           </div>
+        </div>
 
+        <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden rounded-[1.25rem] bg-neutral-100 backdrop-blur-md dark:bg-[#141414]">
           <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden px-4">
             <div
               ref={setPreviewContainer}
@@ -416,16 +351,13 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.15 }}
-                className="absolute bottom-6 left-1/2 z-40 hidden -translate-x-1/2 items-center gap-3 rounded-xl border border-neutral-200 bg-white/80 p-1.5 shadow-md backdrop-blur-xl transition-all sm:flex dark:border-neutral-800/60 dark:bg-neutral-950/80"
+                className="absolute bottom-3.5 left-1/2 z-40 hidden max-w-[calc(100%-2rem)] -translate-x-1/2 items-center gap-2 rounded-xl bg-white/80 p-1.5 shadow-md backdrop-blur-xl transition-all sm:flex dark:bg-neutral-950/80"
               >
-                <div
-                  ref={dropdownRef}
-                  className="relative border-r border-neutral-200/60 pr-2.5 dark:border-neutral-800/60"
-                >
+                <div ref={dropdownRef} className="relative shrink-0">
                   <button
                     type="button"
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="hover:text-neutral-955 flex h-7.5 cursor-pointer items-center justify-center gap-1 rounded-lg bg-neutral-100 px-2 font-mono text-xs font-semibold text-neutral-500 shadow-xs transition-all hover:bg-neutral-200 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
+                    className="flex h-7.5 cursor-pointer items-center justify-center gap-1 rounded-lg bg-neutral-100 px-2 font-mono text-xs font-semibold text-neutral-500 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
                   >
                     <span>{pkgManager}</span>
                     <svg
@@ -463,7 +395,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                               }}
                               className={`w-full cursor-pointer rounded-md px-1.5 py-1 text-left font-mono text-xs font-medium transition-colors ${
                                 pkgManager === pm
-                                  ? "text-neutral-955 bg-neutral-100 dark:bg-neutral-900 dark:text-white"
+                                  ? "bg-neutral-100 text-neutral-950 dark:bg-neutral-900 dark:text-white"
                                   : "text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-900/50 dark:hover:text-white"
                               }`}
                             >
@@ -476,14 +408,14 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                   </AnimatePresence>
                 </div>
 
-                <div className="text-neutral-850 pr-1 font-mono text-[13px] leading-6 select-all dark:text-neutral-200">
-                  <code>{installCommand}</code>
+                <div className="min-w-0 scrollbar-none overflow-x-auto pr-1 font-mono text-[13px] leading-6 whitespace-nowrap text-neutral-800 select-all dark:text-neutral-200">
+                  <code className="whitespace-nowrap">{installCommand}</code>
                 </div>
 
                 <button
                   type="button"
                   onClick={handleCopyInstall}
-                  className="hover:text-neutral-955 flex h-7.5 w-7.5 cursor-pointer items-center justify-center rounded-lg bg-neutral-100 text-neutral-500 shadow-xs transition-all hover:bg-neutral-200 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
+                  className="flex h-7.5 w-7.5 shrink-0 cursor-pointer items-center justify-center rounded-lg bg-neutral-100 text-neutral-500 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
                   title="Copy installation command"
                 >
                   {copiedInstall ? (
@@ -498,32 +430,142 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
         </div>
       </section>
 
-      {hasCustomizableProps && (
-        <aside
-          aria-label="Props customizer"
-          className="relative hidden h-full w-64 shrink-0 flex-col overflow-hidden border-l border-neutral-200/70 bg-white lg:flex xl:w-72 dark:border-neutral-800/70 dark:bg-[#0a0a0a]"
+      <aside
+        aria-label="Props customizer"
+        className={`relative hidden h-full shrink-0 overflow-hidden transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] lg:block ${
+          hasCustomizableProps ? "w-72 xl:w-80" : "w-0"
+        }`}
+      >
+        <div
+          inert={!hasCustomizableProps}
+          className="absolute inset-y-0 left-0 flex w-72 flex-col overflow-hidden bg-white xl:w-80 dark:bg-[#0a0a0a]"
         >
           <div className="relative flex h-full w-full flex-col overflow-hidden">
             <div className="flex shrink-0 items-center justify-between px-4 pt-4 pb-2">
-              <span className="font-tt text-base font-bold tracking-tight text-neutral-900 uppercase dark:text-white">
-                Props <span className="text-[#f6821f]">Customizer</span>
+              <span className="text-[13px] font-medium text-neutral-900 dark:text-white">
+                Props
               </span>
               <button
                 type="button"
                 onClick={resetProps}
-                className="flex h-8 cursor-pointer items-center rounded-lg border border-neutral-200/70 bg-transparent px-2 font-mono text-xs font-medium text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:border-neutral-800/70 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
+                className="cursor-pointer text-[12px] font-medium text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
                 title="Reset props to default"
               >
                 Reset
               </button>
             </div>
 
-            <div className="relative min-h-0 flex-1 scrollbar-none overflow-y-auto px-4 py-2">
+            <div className="relative min-h-0 flex-1 overflow-hidden px-2">
               <PropsCustomizationPanel component={component} />
             </div>
           </div>
-        </aside>
-      )}
+        </div>
+      </aside>
+
+      <AnimatePresence>
+        {isPanelOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs"
+              onClick={() => {
+                setIsPanelOpen(false);
+                setIsCodeOpen(false);
+                setIsMarkdownOpen(false);
+              }}
+            />
+
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 32, stiffness: 320 }}
+              className="fixed inset-x-0 bottom-0 z-50 mx-auto flex h-[calc(100dvh-2rem)] w-[86vw] max-w-[1480px] flex-col overflow-hidden rounded-t-[1.75rem] border-x border-t border-neutral-200/80 bg-white shadow-2xl md:h-[calc(100dvh-2.25rem)] 2xl:max-w-[1540px] dark:border-neutral-800/80 dark:bg-[#111111]"
+              onScroll={(e) => {
+                (e.currentTarget as HTMLElement).scrollTop = 0;
+              }}
+            >
+              <div className="relative flex shrink-0 items-center justify-between px-6 pt-2.5 pb-1">
+                <div className="flex-1" />
+                <div className="h-1.25 w-10 rounded-full bg-neutral-300 dark:bg-neutral-700" />
+                <div className="flex flex-1 justify-end">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsPanelOpen(false);
+                      setIsCodeOpen(false);
+                      setIsMarkdownOpen(false);
+                    }}
+                    className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-lg text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
+                    aria-label="Close docs drawer"
+                  >
+                    <svg
+                      className="h-4 w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div
+                id="docs-drawer-scroll"
+                className="relative min-h-0 flex-1 scrollbar-none overflow-y-auto px-6 pt-2 pb-8 md:px-8"
+              >
+                <div className="flex w-full items-start justify-between gap-6 md:gap-8">
+                  <div className="min-w-0 flex-1">
+                    <DocsPanel component={component} />
+                  </div>
+                  <div className="sticky top-2 hidden w-60 shrink-0 xl:block">
+                    <DocsToc component={component} />
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className={`absolute inset-0 z-30 flex flex-col justify-end transition-transform duration-500 ease-in-out ${
+                  isCodeOpen
+                    ? "translate-y-0"
+                    : "pointer-events-none translate-y-full"
+                }`}
+              >
+                <div className="relative h-full w-full overflow-hidden shadow-xl">
+                  <CodePanel
+                    component={component}
+                    onClose={() => setIsCodeOpen(false)}
+                  />
+                </div>
+              </div>
+
+              <div
+                className={`absolute inset-0 z-30 flex flex-col justify-end transition-transform duration-500 ease-in-out ${
+                  isMarkdownOpen
+                    ? "translate-y-0"
+                    : "pointer-events-none translate-y-full"
+                }`}
+              >
+                <div className="relative h-full w-full overflow-hidden shadow-xl">
+                  <MarkdownPanel
+                    component={component}
+                    onClose={() => setIsMarkdownOpen(false)}
+                  />
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
