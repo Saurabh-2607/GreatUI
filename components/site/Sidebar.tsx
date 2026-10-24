@@ -5,7 +5,6 @@ import Link from "next/link";
 import posthog from "posthog-js";
 import { CATEGORY_ORDER, componentsByCategory } from "@/lib/categories";
 import { cn } from "@/lib/utils";
-import CarbonAds from "./CarbonAds";
 
 interface SidebarProps {
   activeSlug: string;
@@ -107,8 +106,6 @@ export default function Sidebar({ activeSlug }: SidebarProps) {
           </div>
         </div>
       </div>
-
-      <CarbonAds className="mt-4 shrink-0" />
     </aside>
   );
 }
