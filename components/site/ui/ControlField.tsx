@@ -66,10 +66,10 @@ export function ControlField({ schema, value, onChange }: ControlFieldProps) {
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-center justify-between gap-3">
-        <span className="text-md text-neutral-450 font-semibold dark:text-neutral-500">
+        <span className="text-xs font-semibold tracking-wider text-neutral-500 uppercase dark:text-neutral-400">
           {schema.label.replace(/\s*\([^)]*\)/, "").toUpperCase()}
           {schema.label.match(/\s*\([^)]*\)/) && (
-            <span className="lowercase">
+            <span className="text-neutral-400 lowercase dark:text-neutral-500">
               {schema.label.match(/\s*\([^)]*\)/)?.[0]}
             </span>
           )}

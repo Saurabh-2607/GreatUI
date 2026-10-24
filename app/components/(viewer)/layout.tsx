@@ -148,7 +148,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
         />
 
         <div
-          className={`hidden items-center gap-2.5 text-xl font-normal tracking-tight text-neutral-500 transition-all duration-300 select-none sm:flex dark:text-neutral-400 ${isSidebarOpen ? "pointer-events-none invisible opacity-0" : "visible opacity-100"}`}
+          className={`hidden items-center gap-2 text-sm font-medium tracking-tight text-neutral-500 transition-all duration-300 select-none sm:flex dark:text-neutral-400 ${isSidebarOpen ? "pointer-events-none invisible opacity-0" : "visible opacity-100"}`}
         >
           <Link
             href="/components"
@@ -157,7 +157,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
             Components
           </Link>
           <svg
-            className="h-4.5 w-4.5 text-neutral-400 dark:text-neutral-600"
+            className="h-3.5 w-3.5 text-neutral-400 dark:text-neutral-600"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -169,7 +169,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
               d="M9 5l7 7-7 7"
             />
           </svg>
-          <span className="text-neutral-955 font-semibold dark:text-white">
+          <span className="font-semibold text-neutral-900 dark:text-white">
             {component.name}
           </span>
         </div>
@@ -567,7 +567,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
               </AnimatePresence>
             </div>
 
-            <div className="text-neutral-850 pr-1 font-mono text-xs select-all dark:text-neutral-200">
+            <div className="text-neutral-850 pr-1 font-mono text-[13px] leading-6 select-all dark:text-neutral-200">
               <code>{installCommand}</code>
             </div>
 

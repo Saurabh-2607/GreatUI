@@ -72,21 +72,21 @@ export default function PropsCustomizationPanel({
   };
 
   return (
-    <div className="flex flex-col gap-8 text-neutral-900 dark:text-white">
-      <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-6 text-neutral-900 dark:text-white">
+      <div className="flex flex-col gap-1.5">
         <div className="flex items-center justify-between">
-          <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+          <p className="text-base font-semibold tracking-tight text-neutral-900 dark:text-white">
             Props Customizer
           </p>
           <button
             type="button"
             onClick={resetProps}
-            className="cursor-pointer rounded-xl bg-neutral-100 px-3.5 py-1.5 font-mono text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-200/50 dark:bg-neutral-900/60 dark:text-neutral-300 dark:hover:bg-neutral-800/60"
+            className="cursor-pointer rounded-lg bg-neutral-100 px-2.5 py-1 font-mono text-[11px] font-medium text-neutral-600 transition-colors hover:bg-neutral-200/60 dark:bg-neutral-900/60 dark:text-neutral-400 dark:hover:bg-neutral-800/60 dark:hover:text-white"
           >
             Reset
           </button>
         </div>
-        <p className="text-2xl leading-relaxed text-neutral-500 dark:text-neutral-400">
+        <p className="text-xs leading-relaxed text-neutral-500 dark:text-neutral-400">
           Adjust configurable properties for live preview.
         </p>
       </div>
@@ -124,7 +124,7 @@ export default function PropsCustomizationPanel({
 
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
-          <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+          <p className="text-xs font-semibold tracking-tight text-neutral-700 dark:text-neutral-300">
             Generated JSX
           </p>
           <button
@@ -134,16 +134,16 @@ export default function PropsCustomizationPanel({
             title="Copy code"
           >
             {copiedCode ? (
-              <CheckIcon className="h-4 w-4 text-green-500" />
+              <CheckIcon className="h-3.5 w-3.5 text-green-500" />
             ) : (
-              <CopyIcon className="h-4 w-4" />
+              <CopyIcon className="h-3.5 w-3.5" />
             )}
           </button>
         </div>
         <ShikiHighlight
           code={jsxCode}
           lang="tsx"
-          className="relative !m-0 scrollbar-none overflow-auto rounded-xl bg-neutral-100 p-6 text-left !font-mono font-mono text-sm leading-[1.6] select-text dark:bg-[#141414]"
+          className="relative !m-0 scrollbar-none overflow-auto rounded-xl bg-neutral-100 p-4 text-left !font-mono font-mono text-[13px] leading-6 select-text dark:bg-[#141414]"
         />
       </div>
     </div>

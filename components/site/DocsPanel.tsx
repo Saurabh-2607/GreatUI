@@ -94,7 +94,7 @@ export default function DocsPanel({ component }: { component: Component }) {
     <aside className="flex flex-col space-y-20 text-neutral-900 dark:text-white">
       <div className="flex flex-col gap-8">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-          <h2 className="text-4xl font-semibold tracking-tight text-neutral-900 dark:text-white">
+          <h2 className="text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl dark:text-white">
             {component.name}
           </h2>
 
@@ -140,14 +140,14 @@ export default function DocsPanel({ component }: { component: Component }) {
             </Link>
           </div>
         </div>
-        <p className="leading-tighter text-2xl text-neutral-700 dark:text-neutral-300">
+        <p className="text-[17px] leading-relaxed text-neutral-600 dark:text-neutral-400">
           {component.description}
         </p>
       </div>
 
       {component.dependencies.length > 0 && (
         <div className="flex flex-col gap-2">
-          <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+          <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
             Dependencies
           </p>
           <div className="flex flex-wrap gap-2.5">
@@ -161,7 +161,7 @@ export default function DocsPanel({ component }: { component: Component }) {
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 rounded-xl border border-neutral-200 bg-neutral-100 px-4 py-2.5 font-mono text-lg font-medium text-neutral-800 transition-all duration-200 hover:bg-neutral-200/50 hover:text-neutral-950 dark:border-neutral-800 dark:bg-neutral-900/40 dark:text-neutral-200 dark:hover:bg-neutral-800/50 dark:hover:text-white"
+                  className="inline-flex items-center gap-2 rounded-xl border border-neutral-200 bg-neutral-100 px-3 py-1.5 font-mono text-[13px] font-medium text-neutral-800 transition-all duration-200 hover:bg-neutral-200/50 hover:text-neutral-950 dark:border-neutral-800 dark:bg-neutral-900/40 dark:text-neutral-200 dark:hover:bg-neutral-800/50 dark:hover:text-white"
                 >
                   {dependencyIcons[dep.toLowerCase()]}
                   {dep}
@@ -170,7 +170,7 @@ export default function DocsPanel({ component }: { component: Component }) {
             })}
           </div>
           {component.dependencyNotes && (
-            <p className="mt-3 text-xl leading-snug text-neutral-600 dark:text-neutral-400">
+            <p className="mt-3 text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-400">
               {component.dependencyNotes
                 .split(/(https?:\/\/[^\s\)]+)/g)
                 .map((part, idx) => {
@@ -195,16 +195,16 @@ export default function DocsPanel({ component }: { component: Component }) {
       )}
 
       <div className="flex flex-col gap-2">
-        <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+        <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
           Interaction
         </p>
-        <p className="text-2xl leading-relaxed text-neutral-700 dark:text-neutral-300">
+        <p className="text-[16px] leading-[1.7] text-neutral-600 dark:text-neutral-300">
           {component.interactionType}
         </p>
       </div>
 
       <div className="flex flex-col gap-2">
-        <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+        <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
           Installation
         </p>
         <div className="overflow-hidden rounded-xl bg-neutral-100 dark:bg-neutral-900">
@@ -252,7 +252,7 @@ export default function DocsPanel({ component }: { component: Component }) {
               )}
             </button>
           </div>
-          <div className="px-6 py-5 font-mono text-sm leading-[1.6] text-neutral-800 select-all dark:text-neutral-200">
+          <div className="px-5 py-4 font-mono text-[13px] leading-6 text-neutral-800 select-all dark:text-neutral-200">
             <code>{installCommand}</code>
           </div>
         </div>
@@ -261,7 +261,7 @@ export default function DocsPanel({ component }: { component: Component }) {
       {component.usageCode && (
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between">
-            <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+            <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
               How to use
             </p>
             <button
@@ -280,19 +280,19 @@ export default function DocsPanel({ component }: { component: Component }) {
           <ShikiHighlight
             code={component.usageCode || ""}
             lang="tsx"
-            className="relative !m-0 scrollbar-none overflow-auto rounded-xl bg-neutral-100 p-6 text-left !font-mono font-mono text-sm leading-[1.6] select-text selection:bg-[#f6821f]/30 dark:bg-[#141414]"
+            className="relative !m-0 scrollbar-none overflow-auto rounded-xl bg-neutral-100 p-5 text-left !font-mono font-mono text-[13px] leading-6 select-text selection:bg-[#f6821f]/30 dark:bg-[#141414]"
           />
         </div>
       )}
 
       <div className="flex flex-col gap-2">
-        <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+        <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
           Source Code
         </p>
-        <p className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-2xl leading-relaxed text-neutral-700 dark:text-neutral-300">
+        <p className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[16px] leading-[1.7] text-neutral-600 dark:text-neutral-300">
           <span>Click on the top right</span>
-          <span className="text-neutral-750 dark:text-neutral-250 border-neutral-250 inline-flex h-9 w-9 items-center justify-center rounded-xl border bg-neutral-100 shadow-xs dark:border-neutral-800 dark:bg-neutral-900">
-            <CodeIcon className="h-4.5 w-4.5" />
+          <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-100 text-neutral-700 shadow-xs dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300">
+            <CodeIcon className="h-3.5 w-3.5" />
           </span>
           <span>button to view the source code.</span>
         </p>
@@ -300,14 +300,14 @@ export default function DocsPanel({ component }: { component: Component }) {
 
       {hasCustomizableProps && (
         <div className="flex flex-col gap-2">
-          <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+          <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
             Customization
           </p>
-          <p className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-2xl leading-relaxed text-neutral-700 dark:text-neutral-300">
+          <p className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[16px] leading-[1.7] text-neutral-600 dark:text-neutral-300">
             <span>Click on the top right</span>
-            <span className="text-neutral-750 dark:text-neutral-250 border-neutral-250 inline-flex h-9 w-9 items-center justify-center rounded-xl border bg-neutral-100 shadow-xs dark:border-neutral-800 dark:bg-neutral-900">
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg border border-neutral-200 bg-neutral-100 text-neutral-700 shadow-xs dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300">
               <svg
-                className="h-4.5 w-4.5"
+                className="h-3.5 w-3.5"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -328,10 +328,10 @@ export default function DocsPanel({ component }: { component: Component }) {
       {component.props.length > 0 && (
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-2">
-            <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+            <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
               Props Details
             </p>
-            <p className="text-2xl leading-relaxed text-neutral-500 dark:text-neutral-400">
+            <p className="text-[15px] leading-relaxed text-neutral-500 dark:text-neutral-400">
               Configurable properties for {component.name}.
             </p>
           </div>
@@ -341,27 +341,27 @@ export default function DocsPanel({ component }: { component: Component }) {
               <div key={prop.name} className="flex flex-col gap-2">
                 <div className="flex flex-wrap items-center justify-between gap-x-3.5 gap-y-1.5">
                   <div className="flex flex-wrap items-center gap-x-3.5 gap-y-1.5">
-                    <code className="rounded-md bg-neutral-100 px-2.5 py-1 font-mono text-base font-semibold text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+                    <code className="rounded-md bg-neutral-100 px-2 py-0.5 font-mono text-[13px] font-semibold text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
                       {prop.name}
                     </code>
-                    <span className="font-mono text-base font-semibold text-[#f6821f] dark:text-[#ff9d42]">
+                    <span className="font-mono text-[13px] font-medium text-[#f6821f] dark:text-[#ff9d42]">
                       {prop.type.join(" | ")}
                     </span>
                   </div>
                   {prop.default ? (
-                    <span className="font-mono text-base text-neutral-500 dark:text-neutral-400">
+                    <span className="font-mono text-xs text-neutral-500 dark:text-neutral-400">
                       default:{" "}
-                      <code className="dark:text-neutral-350 rounded-md bg-neutral-100 px-2 py-0.5 text-sm font-semibold text-neutral-600 dark:bg-neutral-800">
+                      <code className="rounded-md bg-neutral-100 px-1.5 py-0.5 text-xs font-medium text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300">
                         {prop.default}
                       </code>
                     </span>
                   ) : (
-                    <span className="font-mono text-sm text-neutral-400 dark:text-neutral-600">
+                    <span className="font-mono text-xs text-neutral-400 dark:text-neutral-600">
                       no default
                     </span>
                   )}
                 </div>
-                <div className="dark:text-neutral-350 text-xl leading-relaxed text-neutral-600">
+                <div className="text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-400">
                   {prop.description}
                 </div>
               </div>
@@ -371,10 +371,10 @@ export default function DocsPanel({ component }: { component: Component }) {
       )}
 
       <div className="flex flex-col gap-2">
-        <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+        <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
           Keep in mind
         </p>
-        <p className="text-2xl leading-relaxed text-neutral-700 dark:text-neutral-300">
+        <p className="text-[16px] leading-[1.7] text-neutral-600 dark:text-neutral-300">
           Some of the components here are inspired by or recreated from
           incredible designs across the web. I don&apos;t claim to be the
           original creator these are my attempts to reverse-engineer, replicate,
@@ -385,10 +385,10 @@ export default function DocsPanel({ component }: { component: Component }) {
 
       {component.inspiration && (
         <div className="flex flex-col gap-2">
-          <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+          <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
             Inspiration / Source
           </p>
-          <p className="text-2xl leading-relaxed text-neutral-700 dark:text-neutral-300">
+          <p className="text-[16px] leading-[1.7] text-neutral-600 dark:text-neutral-300">
             {component.inspiration.startsWith("http") ? (
               <a
                 href={component.inspiration}
@@ -423,25 +423,25 @@ export default function DocsPanel({ component }: { component: Component }) {
       )}
 
       <div className="flex flex-col gap-2">
-        <p className="text-md text-neutral-450 font-semibold uppercase dark:text-neutral-500">
+        <p className="text-xl font-semibold tracking-[-0.015em] text-neutral-900 dark:text-white">
           License & Usage
         </p>
-        <div className="flex flex-col gap-2 text-2xl leading-relaxed text-neutral-700 dark:text-neutral-300">
+        <div className="flex flex-col gap-2 text-[16px] leading-[1.7] text-neutral-600 dark:text-neutral-300">
           <p className="flex items-start gap-3">
-            <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-400 dark:bg-neutral-600" />
+            <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-400 dark:bg-neutral-600" />
             <span>
               Free to use and modify in both personal and commercial projects.
             </span>
           </p>
           <p className="flex items-start gap-3">
-            <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-400 dark:bg-neutral-600" />
+            <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-400 dark:bg-neutral-600" />
             <span>
               Attribution to Great UI is highly appreciated when using a
               component.
             </span>
           </p>
           <p className="flex items-start gap-3">
-            <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-400 dark:bg-neutral-600" />
+            <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-400 dark:bg-neutral-600" />
             <span>
               Please don&apos;t resell the components as your own kit.
             </span>

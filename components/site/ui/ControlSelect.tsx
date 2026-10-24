@@ -15,7 +15,7 @@ export function ControlSelect({
   onChange,
 }: ControlSelectProps) {
   return (
-    <div className="flex w-full flex-col gap-1 rounded-xl bg-neutral-100 p-1.5 dark:bg-neutral-900/60">
+    <div className="flex w-full flex-col gap-0.5 rounded-lg bg-neutral-100 p-1 dark:bg-neutral-900/60">
       {options.map((opt) => {
         const isSelected = value === opt.value;
         return (
@@ -23,7 +23,7 @@ export function ControlSelect({
             key={String(opt.value)}
             type="button"
             onClick={() => onChange(opt.value)}
-            className={`text-md w-full cursor-pointer rounded-lg px-3.5 py-2 text-left font-mono font-medium transition-all ${
+            className={`w-full cursor-pointer rounded-lg px-3 py-1.5 text-left font-mono text-xs font-medium transition-all ${
               isSelected
                 ? "bg-white text-neutral-900 shadow-sm dark:bg-[#222] dark:text-white"
                 : "text-neutral-600 hover:bg-neutral-200/60 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-[#1a1a1a] dark:hover:text-white"

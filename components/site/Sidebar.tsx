@@ -124,7 +124,7 @@ export default function Sidebar({ activeSlug }: SidebarProps) {
                   <React.Fragment key={c.slug}>
                     {isFirstInCategory && (
                       <div className="mt-6 mb-2 first:mt-0">
-                        <span className="text-xl font-bold text-neutral-400/80 dark:text-neutral-500/80">
+                        <span className="text-xs font-semibold tracking-wider text-neutral-400 uppercase dark:text-neutral-500">
                           {headerInfo.name}
                         </span>
                       </div>
@@ -151,10 +151,10 @@ export default function Sidebar({ activeSlug }: SidebarProps) {
                           }`}
                         />
                         <span
-                          className={`text-[19px] leading-none whitespace-nowrap transition-all ease-out ${
+                          className={`text-sm leading-none whitespace-nowrap transition-all ease-out ${
                             active
                               ? "font-semibold text-[#f6821f] opacity-100 dark:text-[#ff9d42]"
-                              : "font-medium text-neutral-700 opacity-50 group-hover:text-[#f6821f] group-hover:opacity-100 dark:text-neutral-300 dark:group-hover:text-[#f6821f]"
+                              : "font-normal text-neutral-700 opacity-60 group-hover:text-[#f6821f] group-hover:opacity-100 dark:text-neutral-300 dark:group-hover:text-[#f6821f]"
                           }`}
                         >
                           {itemNumber} {c.name}
