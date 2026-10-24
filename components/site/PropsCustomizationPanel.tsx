@@ -72,79 +72,79 @@ export default function PropsCustomizationPanel({
   };
 
   return (
-    <div className="flex flex-col gap-6 text-neutral-900 dark:text-white">
-      <div className="flex flex-col gap-1.5">
-        <div className="flex items-center justify-between">
-          <p className="text-base font-semibold tracking-tight text-neutral-900 dark:text-white">
-            Props Customizer
-          </p>
-          <button
-            type="button"
-            onClick={resetProps}
-            className="cursor-pointer rounded-lg bg-neutral-100 px-2.5 py-1 font-mono text-[11px] font-medium text-neutral-600 transition-colors hover:bg-neutral-200/60 dark:bg-neutral-900/60 dark:text-neutral-400 dark:hover:bg-neutral-800/60 dark:hover:text-white"
-          >
-            Reset
-          </button>
-        </div>
-        <p className="text-xs leading-relaxed text-neutral-500 dark:text-neutral-400">
-          Adjust configurable properties for live preview.
-        </p>
+    <div className="flex h-full w-full flex-col overflow-hidden text-neutral-900 select-none dark:text-white">
+      <div className="sticky top-0 z-10 flex h-12 shrink-0 items-center justify-between bg-transparent px-4">
+        <span className="text-[13px] font-medium text-neutral-900 dark:text-white">
+          Props
+        </span>
+        <button
+          type="button"
+          onClick={resetProps}
+          className="cursor-pointer text-[12px] font-medium text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+        >
+          Reset
+        </button>
       </div>
 
-      {presets && presets.length > 0 && (
-        <div className="flex flex-col gap-2">
-          <ControlSelect
-            options={presets.map((p) => ({
-              label: p.name,
-              value: p.name,
-            }))}
-            value={
-              presets.find((p) =>
-                Object.entries(p.values).every(([k, v]) => props[k] === v),
-              )?.name || ""
-            }
-            onChange={(val) => {
-              const selected = presets?.find((p) => p.name === val);
-              if (selected) applyPreset(selected.values);
-            }}
+      <div className="flex flex-1 scrollbar-none flex-col gap-3.5 overflow-y-auto p-4">
+        {presets && presets.length > 0 && (
+          <div className="flex flex-col gap-1.5">
+            <span className="text-[12px] font-medium text-neutral-600 dark:text-neutral-400">
+              Presets
+            </span>
+            <ControlSelect
+              options={presets.map((p) => ({
+                label: p.name,
+                value: p.name,
+              }))}
+              value={
+                presets.find((p) =>
+                  Object.entries(p.values).every(([k, v]) => props[k] === v),
+                )?.name || ""
+              }
+              onChange={(val) => {
+                const selected = presets?.find((p) => p.name === val);
+                if (selected) applyPreset(selected.values);
+              }}
+            />
+          </div>
+        )}
+
+        <div className="flex flex-col gap-3">
+          {schemas.map((schema) => (
+            <ControlField
+              key={schema.key}
+              schema={schema}
+              value={props[schema.key]}
+              onChange={setProp}
+            />
+          ))}
+        </div>
+
+        <div className="mt-2 flex flex-col gap-2 pt-1">
+          <div className="flex items-center justify-between">
+            <span className="text-[12px] font-medium text-neutral-600 dark:text-neutral-400">
+              Generated JSX
+            </span>
+            <button
+              type="button"
+              onClick={handleCopyCode}
+              className="cursor-pointer p-1 text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-white"
+              title="Copy code"
+            >
+              {copiedCode ? (
+                <CheckIcon className="h-3.5 w-3.5 text-green-500" />
+              ) : (
+                <CopyIcon className="h-3.5 w-3.5" />
+              )}
+            </button>
+          </div>
+          <ShikiHighlight
+            code={jsxCode}
+            lang="tsx"
+            className="relative !m-0 scrollbar-none overflow-auto rounded-xl border border-neutral-200/60 bg-neutral-100/60 p-3 text-left !font-mono font-mono text-[11px] leading-5 select-text dark:border-neutral-800/60 dark:bg-neutral-900/40"
           />
         </div>
-      )}
-
-      <div className="flex flex-col gap-4">
-        {schemas.map((schema) => (
-          <ControlField
-            key={schema.key}
-            schema={schema}
-            value={props[schema.key]}
-            onChange={setProp}
-          />
-        ))}
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between">
-          <p className="text-xs font-semibold tracking-tight text-neutral-700 dark:text-neutral-300">
-            Generated JSX
-          </p>
-          <button
-            type="button"
-            onClick={handleCopyCode}
-            className="cursor-pointer p-1 text-neutral-400 hover:text-neutral-900 dark:text-neutral-500 dark:hover:text-white"
-            title="Copy code"
-          >
-            {copiedCode ? (
-              <CheckIcon className="h-3.5 w-3.5 text-green-500" />
-            ) : (
-              <CopyIcon className="h-3.5 w-3.5" />
-            )}
-          </button>
-        </div>
-        <ShikiHighlight
-          code={jsxCode}
-          lang="tsx"
-          className="relative !m-0 scrollbar-none overflow-auto rounded-xl bg-neutral-100 p-4 text-left !font-mono font-mono text-[13px] leading-6 select-text dark:bg-[#141414]"
-        />
       </div>
     </div>
   );

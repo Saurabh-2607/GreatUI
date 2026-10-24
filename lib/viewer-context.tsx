@@ -23,19 +23,17 @@ interface ViewerContextType {
 const ViewerContext = createContext<ViewerContextType | undefined>(undefined);
 
 export function ViewerProvider({ children }: { children: React.ReactNode }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isPanelOpen, setIsPanelOpen] = useState(() => {
-    if (typeof window === "undefined") return false;
-    try {
-      const savedPanelOpen = localStorage.getItem("great-ui-panel-open");
-      return savedPanelOpen !== null ? savedPanelOpen === "true" : false;
-    } catch {
-      return false;
-    }
+  const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return window.innerWidth >= 1024;
   });
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [isCodeOpen, setIsCodeOpen] = useState(false);
   const [isMarkdownOpen, setIsMarkdownOpen] = useState(false);
-  const [isCustomizerOpen, setIsCustomizerOpen] = useState(false);
+  const [isCustomizerOpen, setIsCustomizerOpen] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return window.innerWidth >= 1024;
+  });
   const [activeComponent, setActiveComponent] = useState<Component | null>(
     null,
   );
