@@ -102,11 +102,11 @@ export default function DocsPanel({ component }: { component: Component }) {
 
             <Link
               href={prevComponent ? `/components/${prevComponent.slug}` : "#"}
-              className={`flex items-center justify-center rounded-xl bg-neutral-100 p-2 text-neutral-700 transition-colors dark:bg-[#222] dark:text-neutral-200 ${!prevComponent ? "pointer-events-none cursor-not-allowed opacity-50" : "hover:bg-neutral-200 dark:hover:bg-[#2a2a2a]"}`}
+              className={`flex h-8 w-8 items-center justify-center rounded-lg bg-neutral-100 text-neutral-700 transition-colors dark:bg-[#222] dark:text-neutral-200 ${!prevComponent ? "pointer-events-none cursor-not-allowed opacity-50" : "hover:bg-neutral-200 dark:hover:bg-[#2a2a2a]"}`}
             >
               <svg
-                width="18"
-                height="18"
+                width="15"
+                height="15"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -121,11 +121,11 @@ export default function DocsPanel({ component }: { component: Component }) {
 
             <Link
               href={nextComponent ? `/components/${nextComponent.slug}` : "#"}
-              className={`flex items-center justify-center rounded-xl bg-neutral-100 p-2 text-neutral-700 transition-colors dark:bg-[#222] dark:text-neutral-200 ${!nextComponent ? "pointer-events-none cursor-not-allowed opacity-50" : "hover:bg-neutral-200 dark:hover:bg-[#2a2a2a]"}`}
+              className={`flex h-8 w-8 items-center justify-center rounded-lg bg-neutral-100 text-neutral-700 transition-colors dark:bg-[#222] dark:text-neutral-200 ${!nextComponent ? "pointer-events-none cursor-not-allowed opacity-50" : "hover:bg-neutral-200 dark:hover:bg-[#2a2a2a]"}`}
             >
               <svg
-                width="18"
-                height="18"
+                width="15"
+                height="15"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"

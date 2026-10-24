@@ -7,39 +7,47 @@ import { getComponentPropsSchema } from "@/lib/propsRegistry";
 import { useViewer } from "@/lib/viewer-context";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
+import CarbonAds from "./CarbonAds";
 
 type TOCItem = {
   title: string;
   id: string;
 };
 
-function ScopeTrace() {
-  const wave = Array.from({ length: 33 }, (_, i) => {
-    const x = i * 0.75;
-    const y = 5 - Math.sin((i / 16) * Math.PI * 2) * 3.2;
-    return `${i ? "L" : "M"}${x.toFixed(2)} ${y.toFixed(2)}`;
-  }).join("");
+function TocOutlineIcon() {
   return (
     <svg
       aria-hidden
-      width={14}
-      height={10}
-      viewBox="0 0 12 10"
-      className="shrink-0 overflow-hidden"
+      width="13"
+      height="11"
+      viewBox="0 0 13 11"
+      fill="none"
+      className="shrink-0"
     >
-      <g className="motion-safe:animate-toc-scope [animation-play-state:paused] group-hover/toc:[animation-play-state:running]">
-        <path
-          d={wave}
-          pathLength={1}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={1.2}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeDasharray={1}
-          className="motion-safe:animate-toc-rail"
-        />
-      </g>
+      <rect
+        x="0"
+        y="0.75"
+        width="13"
+        height="1.5"
+        rx="0.75"
+        className="fill-[#f6821f]"
+      />
+      <rect
+        x="3"
+        y="4.75"
+        width="10"
+        height="1.5"
+        rx="0.75"
+        className="fill-neutral-400 transition-transform duration-200 group-hover/toc:translate-x-0.5 dark:fill-neutral-500"
+      />
+      <rect
+        x="5"
+        y="8.75"
+        width="8"
+        height="1.5"
+        rx="0.75"
+        className="fill-neutral-300 transition-transform duration-200 group-hover/toc:translate-x-1 dark:fill-neutral-600"
+      />
     </svg>
   );
 }
@@ -144,8 +152,8 @@ export function DocsToc({
   return (
     <aside className={cn("flex w-60 flex-col gap-6 select-none", className)}>
       <nav aria-label="On this page" className="group/toc">
-        <p className="mb-3 flex items-center gap-2 text-[13px] text-neutral-500 dark:text-neutral-400">
-          <ScopeTrace />
+        <p className="mb-3 flex items-center gap-2 text-[11px] font-semibold tracking-wider text-neutral-400 uppercase select-none dark:text-neutral-500">
+          <TocOutlineIcon />
           On this page
         </p>
 
@@ -185,40 +193,44 @@ export function DocsToc({
         </div>
       </nav>
 
-      <Link
-        href="/sponsor"
-        onClick={() => {
-          setIsPanelOpen(false);
-          setIsCodeOpen(false);
-          setIsMarkdownOpen(false);
-        }}
-        className="group flex cursor-pointer items-start gap-2.5 rounded-xl border border-neutral-200/80 bg-neutral-50/60 p-3 transition-all hover:border-neutral-300 hover:bg-neutral-100/70 hover:shadow-xs dark:border-neutral-800 dark:bg-neutral-900/40 dark:hover:border-neutral-700 dark:hover:bg-neutral-900/70"
-      >
-        <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-neutral-200/50 text-neutral-500 transition-colors group-hover:bg-red-500/10 group-hover:text-red-500 dark:bg-neutral-800/60 dark:text-neutral-400 dark:group-hover:bg-red-500/15 dark:group-hover:text-red-400">
-          <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-          </svg>
-        </div>
-        <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-          <span className="text-[13px] font-semibold text-neutral-900 transition-colors group-hover:text-neutral-950 dark:text-neutral-100 dark:group-hover:text-white">
-            Sponsor Great UI
-          </span>
-          <span className="text-[11.5px] leading-snug text-neutral-500 dark:text-neutral-400">
-            Your logo and link on great-ui.com/sponsors
-          </span>
-        </div>
-        <svg
-          className="mt-0.5 h-3.5 w-3.5 shrink-0 text-neutral-400 opacity-60 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100 dark:text-neutral-500"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+      <div className="flex flex-col gap-3.5 pt-1">
+        <Link
+          href="/sponsor"
+          onClick={() => {
+            setIsPanelOpen(false);
+            setIsCodeOpen(false);
+            setIsMarkdownOpen(false);
+          }}
+          className="group flex cursor-pointer items-start gap-2.5 rounded-xl bg-neutral-100/70 p-3 transition-all hover:bg-neutral-100 dark:bg-neutral-900/60 dark:hover:bg-neutral-900/90"
         >
-          <path d="M7 17L17 7M17 7H7M17 7V17" />
-        </svg>
-      </Link>
+          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-neutral-200/60 text-neutral-500 transition-colors group-hover:bg-red-500/10 group-hover:text-red-500 dark:bg-neutral-800/80 dark:text-neutral-400 dark:group-hover:bg-red-500/15 dark:group-hover:text-red-400">
+            <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+          </div>
+          <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+            <span className="text-[13px] font-semibold text-neutral-900 transition-colors group-hover:text-neutral-950 dark:text-neutral-100 dark:group-hover:text-white">
+              Sponsor Great UI
+            </span>
+            <span className="text-[11.5px] leading-snug text-neutral-500 dark:text-neutral-400">
+              Your logo and link on great-ui.com/sponsors
+            </span>
+          </div>
+          <svg
+            className="mt-0.5 h-3.5 w-3.5 shrink-0 text-neutral-400 opacity-60 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100 dark:text-neutral-500"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M7 17L17 7M17 7H7M17 7V17" />
+          </svg>
+        </Link>
+
+        <CarbonAds className="shrink-0" />
+      </div>
     </aside>
   );
 }
