@@ -115,6 +115,141 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
     setIsMarkdownOpen,
   ]);
 
+  const previewRef = React.useRef<HTMLDivElement | null>(null);
+  const drawerScrollRef = React.useRef(0);
+  const isWheelGestureActiveRef = React.useRef(false);
+  const wasAlreadyAtBottomRef = React.useRef(false);
+  const hadNestedScrollRef = React.useRef(false);
+  const wheelAccumulatorRef = React.useRef(0);
+  const wheelGestureTimerRef = React.useRef<NodeJS.Timeout | null>(null);
+
+  React.useEffect(() => {
+    const el = previewRef.current;
+    if (!el || isPanelOpen) return;
+
+    const checkNestedScrollDown = (target: HTMLElement | null) => {
+      let current = target;
+      while (current && current !== el && current !== document.body) {
+        const style = window.getComputedStyle(current);
+        const isScrollable =
+          (style.overflowY === "auto" || style.overflowY === "scroll") &&
+          current.scrollHeight - current.scrollTop - current.clientHeight > 4;
+        if (isScrollable) return true;
+        current = current.parentElement;
+      }
+      return false;
+    };
+
+    const isPreviewAtBottom = () => {
+      return el.scrollHeight - el.scrollTop - el.clientHeight <= 4;
+    };
+
+    const handleWheel = (e: WheelEvent) => {
+      if (isPanelOpen) return;
+
+      if (!isWheelGestureActiveRef.current) {
+        isWheelGestureActiveRef.current = true;
+        hadNestedScrollRef.current = checkNestedScrollDown(
+          e.target as HTMLElement | null,
+        );
+        wasAlreadyAtBottomRef.current = isPreviewAtBottom();
+        wheelAccumulatorRef.current = 0;
+      }
+
+      if (wheelGestureTimerRef.current) {
+        clearTimeout(wheelGestureTimerRef.current);
+      }
+      wheelGestureTimerRef.current = setTimeout(() => {
+        isWheelGestureActiveRef.current = false;
+        wasAlreadyAtBottomRef.current = false;
+        hadNestedScrollRef.current = false;
+        wheelAccumulatorRef.current = 0;
+      }, 200);
+
+      if (e.deltaY <= 0) {
+        wheelAccumulatorRef.current = 0;
+        return;
+      }
+
+      if (hadNestedScrollRef.current) {
+        return;
+      }
+
+      if (!wasAlreadyAtBottomRef.current) {
+        return;
+      }
+
+      wheelAccumulatorRef.current += e.deltaY;
+
+      if (wheelAccumulatorRef.current >= 80) {
+        wheelAccumulatorRef.current = 0;
+        isWheelGestureActiveRef.current = false;
+        wasAlreadyAtBottomRef.current = false;
+        if (wheelGestureTimerRef.current) {
+          clearTimeout(wheelGestureTimerRef.current);
+        }
+        e.preventDefault();
+        setIsPanelOpen(true);
+        setIsCodeOpen(false);
+      }
+    };
+
+    let touchStartY = 0;
+    let touchStartedAtBottom = false;
+    let touchHadNestedScroll = false;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        touchStartY = e.touches[0].clientY;
+        touchHadNestedScroll = checkNestedScrollDown(
+          e.target as HTMLElement | null,
+        );
+        touchStartedAtBottom = isPreviewAtBottom();
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isPanelOpen || e.touches.length !== 1) return;
+      const currentY = e.touches[0].clientY;
+      const deltaY = touchStartY - currentY;
+
+      if (deltaY <= 0 || touchHadNestedScroll || !touchStartedAtBottom) return;
+
+      if (deltaY > 70) {
+        setIsPanelOpen(true);
+        setIsCodeOpen(false);
+      }
+    };
+
+    el.addEventListener("wheel", handleWheel, { passive: false });
+    el.addEventListener("touchstart", handleTouchStart, { passive: true });
+    el.addEventListener("touchmove", handleTouchMove, { passive: true });
+
+    return () => {
+      el.removeEventListener("wheel", handleWheel);
+      el.removeEventListener("touchstart", handleTouchStart);
+      el.removeEventListener("touchmove", handleTouchMove);
+      if (wheelGestureTimerRef.current) {
+        clearTimeout(wheelGestureTimerRef.current);
+      }
+    };
+  }, [isPanelOpen, setIsPanelOpen, setIsCodeOpen]);
+
+  React.useEffect(() => {
+    if (!isPanelOpen) return;
+
+    const handleDrawerWheel = (e: WheelEvent) => {
+      if (e.deltaY < -40 && drawerScrollRef.current <= 0) {
+        setIsPanelOpen(false);
+        setIsCodeOpen(false);
+        setIsMarkdownOpen(false);
+      }
+    };
+
+    window.addEventListener("wheel", handleDrawerWheel, { passive: true });
+    return () => window.removeEventListener("wheel", handleDrawerWheel);
+  }, [isPanelOpen, setIsPanelOpen, setIsCodeOpen, setIsMarkdownOpen]);
+
   const params = useParams();
   const slug = params.slug as string;
   const clientComponent = components.find((c) => c.slug === slug);
@@ -225,7 +360,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                   alt="Great UI"
                   className="h-6 w-auto object-contain"
                 />
-                <span className="font-tt text-base font-bold tracking-tight text-neutral-900 uppercase dark:text-white">
+                <span className="font-tt text-2xl leading-none font-bold tracking-tight text-neutral-900 uppercase dark:text-white">
                   Great <span className="text-[#f6821f]">UI</span>
                 </span>
               </Link>
@@ -386,7 +521,10 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
           <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden rounded-[1.25rem] bg-neutral-100 backdrop-blur-md dark:bg-[#141414]">
             <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden px-4">
               <div
-                ref={setPreviewContainer}
+                ref={(node) => {
+                  setPreviewContainer(node);
+                  previewRef.current = node;
+                }}
                 className="pointer-events-auto relative z-10 h-full w-full scrollbar-none overflow-y-auto"
               >
                 {children}
@@ -536,12 +674,19 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                 duration: 0.32,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="fixed inset-x-0 bottom-0 z-50 mx-auto flex h-[calc(100dvh-2rem)] w-[86vw] max-w-[1480px] flex-col overflow-hidden rounded-t-[1.75rem] border-x border-t border-neutral-200/80 bg-white shadow-2xl md:h-[calc(100dvh-2.25rem)] 2xl:max-w-[1540px] dark:border-neutral-800/80 dark:bg-[#111111]"
-              onScroll={(e) => {
-                (e.currentTarget as HTMLElement).scrollTop = 0;
+              drag="y"
+              dragConstraints={{ top: 0, bottom: 0 }}
+              dragElastic={{ top: 0, bottom: 0.6 }}
+              onDragEnd={(_, info) => {
+                if (info.offset.y > 100 || info.velocity.y > 350) {
+                  setIsPanelOpen(false);
+                  setIsCodeOpen(false);
+                  setIsMarkdownOpen(false);
+                }
               }}
+              className="fixed inset-x-0 bottom-0 z-50 mx-auto flex h-[calc(100dvh-2rem)] w-[86vw] max-w-[1480px] flex-col overflow-hidden rounded-t-[1.75rem] border-x border-t border-neutral-200/80 bg-white shadow-2xl md:h-[calc(100dvh-2.25rem)] 2xl:max-w-[1540px] dark:border-neutral-800/80 dark:bg-[#111111]"
             >
-              <div className="relative flex shrink-0 items-center justify-center pt-2.5 pb-1">
+              <div className="relative flex shrink-0 cursor-grab items-center justify-center pt-2.5 pb-1 active:cursor-grabbing">
                 <button
                   type="button"
                   onMouseDown={(e) => e.preventDefault()}
@@ -559,6 +704,9 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
 
               <div
                 id="docs-drawer-scroll"
+                onScroll={(e) => {
+                  drawerScrollRef.current = e.currentTarget.scrollTop;
+                }}
                 className="relative min-h-0 flex-1 scrollbar-none overflow-y-auto px-6 pt-2 pb-8 md:px-8"
               >
                 <div className="flex w-full items-start justify-between gap-6 md:gap-8">
