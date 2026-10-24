@@ -164,7 +164,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
         wasAlreadyAtBottomRef.current = false;
         hadNestedScrollRef.current = false;
         wheelAccumulatorRef.current = 0;
-      }, 200);
+      }, 140);
 
       if (e.deltaY <= 0) {
         wheelAccumulatorRef.current = 0;
@@ -181,7 +181,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
 
       wheelAccumulatorRef.current += e.deltaY;
 
-      if (wheelAccumulatorRef.current >= 80) {
+      if (wheelAccumulatorRef.current >= 35) {
         wheelAccumulatorRef.current = 0;
         isWheelGestureActiveRef.current = false;
         wasAlreadyAtBottomRef.current = false;
@@ -215,7 +215,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
 
       if (deltaY <= 0 || touchHadNestedScroll || !touchStartedAtBottom) return;
 
-      if (deltaY > 70) {
+      if (deltaY > 35) {
         setIsPanelOpen(true);
         setIsCodeOpen(false);
       }
@@ -306,10 +306,10 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
           borderRadius: isPanelOpen ? 24 : 0,
         }}
         transition={{
-          duration: 0.32,
-          ease: [0.22, 1, 0.36, 1],
+          duration: 0.24,
+          ease: [0.16, 1, 0.3, 1],
         }}
-        style={{ transformOrigin: "center top" }}
+        style={{ transformOrigin: "center top", willChange: "transform" }}
         className={`relative flex h-full w-full overflow-hidden bg-white dark:bg-[#0a0a0a] ${
           isPanelOpen ? "shadow-2xl ring-1 ring-black/5 dark:ring-white/10" : ""
         }`}
@@ -657,7 +657,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
               className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs"
               onClick={() => {
                 setIsPanelOpen(false);
@@ -671,9 +671,10 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{
-                duration: 0.32,
-                ease: [0.22, 1, 0.36, 1],
+                duration: 0.24,
+                ease: [0.16, 1, 0.3, 1],
               }}
+              style={{ willChange: "transform" }}
               drag="y"
               dragConstraints={{ top: 0, bottom: 0 }}
               dragElastic={{ top: 0, bottom: 0.6 }}
@@ -719,35 +720,49 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                 </div>
               </div>
 
-              <div
-                className={`absolute inset-0 z-30 flex flex-col justify-end transition-transform duration-500 ease-in-out ${
-                  isCodeOpen
-                    ? "translate-y-0"
-                    : "pointer-events-none translate-y-full"
-                }`}
-              >
-                <div className="relative h-full w-full overflow-hidden shadow-xl">
-                  <CodePanel
-                    component={component}
-                    onClose={() => setIsCodeOpen(false)}
-                  />
-                </div>
-              </div>
+              <AnimatePresence>
+                {isCodeOpen && (
+                  <motion.div
+                    initial={{ y: "100%" }}
+                    animate={{ y: 0 }}
+                    exit={{ y: "100%" }}
+                    transition={{
+                      duration: 0.28,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    className="absolute inset-0 z-30 flex flex-col justify-end"
+                  >
+                    <div className="relative h-full w-full overflow-hidden shadow-xl">
+                      <CodePanel
+                        component={component}
+                        onClose={() => setIsCodeOpen(false)}
+                      />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-              <div
-                className={`absolute inset-0 z-30 flex flex-col justify-end transition-transform duration-500 ease-in-out ${
-                  isMarkdownOpen
-                    ? "translate-y-0"
-                    : "pointer-events-none translate-y-full"
-                }`}
-              >
-                <div className="relative h-full w-full overflow-hidden shadow-xl">
-                  <MarkdownPanel
-                    component={component}
-                    onClose={() => setIsMarkdownOpen(false)}
-                  />
-                </div>
-              </div>
+              <AnimatePresence>
+                {isMarkdownOpen && (
+                  <motion.div
+                    initial={{ y: "100%" }}
+                    animate={{ y: 0 }}
+                    exit={{ y: "100%" }}
+                    transition={{
+                      duration: 0.28,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    className="absolute inset-0 z-30 flex flex-col justify-end"
+                  >
+                    <div className="relative h-full w-full overflow-hidden shadow-xl">
+                      <MarkdownPanel
+                        component={component}
+                        onClose={() => setIsMarkdownOpen(false)}
+                      />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           </>
         )}
