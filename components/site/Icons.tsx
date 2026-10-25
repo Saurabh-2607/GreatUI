@@ -63,6 +63,25 @@ export function SidebarLeftIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+export function SidebarRightIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+      <line x1="15" y1="3" x2="15" y2="21" />
+      <path d="M10 9l3 3-3 3" />
+    </svg>
+  );
+}
+
 export function BookOpenIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg

@@ -6,6 +6,7 @@ import Link from "next/link";
 import posthog from "posthog-js";
 import Sidebar from "@/components/site/Sidebar";
 import SidebarToggle from "@/components/site/SidebarToggle";
+import { cn } from "@/lib/utils";
 import DocsPanel from "@/components/site/DocsPanel";
 import { DocsToc } from "@/components/site/DocsToc";
 import CodePanel from "@/components/site/CodePanel";
@@ -16,6 +17,7 @@ import {
   BookOpenIcon,
   CopyIcon,
   CheckIcon,
+  SidebarRightIcon,
 } from "@/components/site/Icons";
 import { components } from "@/lib/registry";
 import { getComponentPropsSchema } from "@/lib/propsRegistry";
@@ -51,6 +53,8 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
     setIsCodeOpen,
     isMarkdownOpen,
     setIsMarkdownOpen,
+    isCustomizerOpen,
+    setIsCustomizerOpen,
     activeComponent,
     setPreviewContainer,
   } = useViewer();
@@ -80,16 +84,6 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
   }, []);
 
   React.useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 1024) {
-        setIsSidebarOpen(false);
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [setIsSidebarOpen]);
-
-  React.useEffect(() => {
     if (!isPanelOpen && !isCodeOpen && !isMarkdownOpen) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -116,8 +110,8 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
   ]);
 
   const params = useParams();
-  const slug = params.slug as string;
-  const clientComponent = components.find((c) => c.slug === slug);
+  const slug = (params?.slug as string) || "";
+  const clientComponent = slug ? components.find((c) => c.slug === slug) : null;
 
   const component =
     activeComponent?.slug === slug ? activeComponent : clientComponent;
@@ -140,7 +134,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
     navigator.clipboard.writeText(installCommand);
     setCopiedInstall(true);
     posthog.capture("component_install_command_copied", {
-      component_slug: component?.slug,
+      component_slug: component?.slug || "components",
       package_manager: pkgManager,
     });
     setTimeout(() => setCopiedInstall(false), 2000);
@@ -154,7 +148,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
     );
   }
 
-  if (!component) {
+  if (slug && !component) {
     return (
       <div className="flex h-[100dvh] w-full items-center justify-center bg-white dark:bg-neutral-950">
         <div className="text-sm text-neutral-400">Loading component...</div>
@@ -201,7 +195,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                 : "-translate-x-[calc(100%+1.5rem)] opacity-0"
             }`}
           >
-            <Sidebar activeSlug={component.slug} />
+            <Sidebar activeSlug={component?.slug || ""} />
           </div>
         </div>
 
@@ -236,7 +230,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                   setIsSidebarOpen(next);
                   posthog.capture("sidebar_toggled", {
                     state: next ? "open" : "closed",
-                    component_slug: component.slug,
+                    component_slug: component?.slug || "components",
                   });
                 }}
                 className="!h-8 !w-8 !rounded-lg border border-neutral-200/70 !bg-transparent shadow-none hover:!bg-neutral-100 dark:border-neutral-800/70 dark:hover:!bg-neutral-900"
@@ -244,7 +238,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
             </div>
 
             <div className="relative min-h-0 flex-1 overflow-hidden px-2">
-              <Sidebar activeSlug={component.slug} />
+              <Sidebar activeSlug={component?.slug || ""} />
             </div>
           </div>
         </aside>
@@ -269,7 +263,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                           setIsSidebarOpen(next);
                           posthog.capture("sidebar_toggled", {
                             state: next ? "open" : "closed",
-                            component_slug: component.slug,
+                            component_slug: component?.slug || "components",
                           });
                         }}
                         className="!h-8 !w-8 !rounded-lg border border-neutral-200/70 !bg-transparent shadow-none hover:!bg-neutral-100 dark:border-neutral-800/70 dark:hover:!bg-neutral-900"
@@ -285,16 +279,25 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
               >
                 <Link
                   href="/components"
-                  className="text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+                  className={cn(
+                    "transition-colors",
+                    component
+                      ? "text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+                      : "font-semibold text-neutral-900 dark:text-neutral-100",
+                  )}
                 >
                   Components
                 </Link>
-                <span className="text-neutral-400 select-none dark:text-neutral-600">
-                  /
-                </span>
-                <span className="text-neutral-900 dark:text-neutral-100">
-                  {component.name}
-                </span>
+                {component && (
+                  <>
+                    <span className="text-neutral-400 select-none dark:text-neutral-600">
+                      /
+                    </span>
+                    <span className="text-neutral-900 dark:text-neutral-100">
+                      {component.name}
+                    </span>
+                  </>
+                )}
               </nav>
             </div>
 
@@ -305,96 +308,133 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                   : "opacity-100"
               }`}
             >
-              <button
-                type="button"
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => {
-                  if (isPanelOpen) {
-                    if (isCodeOpen) {
-                      setIsCodeOpen(false);
-                      posthog.capture("docs_panel_toggled", {
-                        state: "open",
-                        component_slug: component.slug,
-                      });
-                    } else {
-                      setIsPanelOpen(false);
-                      posthog.capture("docs_panel_toggled", {
-                        state: "closed",
-                        component_slug: component.slug,
-                      });
-                    }
-                  } else {
-                    setIsPanelOpen(true);
-                    setIsCodeOpen(false);
-                    posthog.capture("docs_panel_toggled", {
-                      state: "open",
-                      component_slug: component.slug,
-                    });
-                  }
-                }}
-                aria-label="Toggle docs panel"
-                className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg transition-colors outline-none focus:outline-none ${
-                  isPanelOpen && !isCodeOpen
-                    ? "bg-neutral-100 text-neutral-950 dark:bg-neutral-800 dark:text-white"
-                    : "text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-800/80 dark:hover:text-white"
-                }`}
-              >
-                <BookOpenIcon className="h-4.5 w-4.5" />
-              </button>
+              {component && (
+                <>
+                  <button
+                    type="button"
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => {
+                      if (isPanelOpen) {
+                        if (isCodeOpen) {
+                          setIsCodeOpen(false);
+                          posthog.capture("docs_panel_toggled", {
+                            state: "open",
+                            component_slug: component.slug,
+                          });
+                        } else {
+                          setIsPanelOpen(false);
+                          posthog.capture("docs_panel_toggled", {
+                            state: "closed",
+                            component_slug: component.slug,
+                          });
+                        }
+                      } else {
+                        setIsPanelOpen(true);
+                        setIsCodeOpen(false);
+                        posthog.capture("docs_panel_toggled", {
+                          state: "open",
+                          component_slug: component.slug,
+                        });
+                      }
+                    }}
+                    aria-label="Toggle docs panel"
+                    className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg transition-colors outline-none focus:outline-none ${
+                      isPanelOpen && !isCodeOpen
+                        ? "bg-neutral-100 text-neutral-950 dark:bg-neutral-800 dark:text-white"
+                        : "text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-800/80 dark:hover:text-white"
+                    }`}
+                  >
+                    <BookOpenIcon className="h-4.5 w-4.5" />
+                  </button>
 
-              <button
-                type="button"
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => {
-                  if (isPanelOpen) {
-                    if (isCodeOpen) {
-                      setIsCodeOpen(false);
-                      posthog.capture("code_panel_toggled", {
-                        state: "closed",
-                        component_slug: component.slug,
-                      });
-                    } else {
-                      setIsCodeOpen(true);
-                      posthog.capture("code_panel_toggled", {
-                        state: "open",
-                        component_slug: component.slug,
-                      });
-                    }
-                  } else {
-                    setIsPanelOpen(true);
-                    setIsCodeOpen(true);
-                    posthog.capture("code_panel_toggled", {
-                      state: "open",
-                      component_slug: component.slug,
-                    });
-                  }
-                }}
-                aria-label="Toggle code panel"
-                className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg transition-colors outline-none focus:outline-none ${
-                  isPanelOpen && isCodeOpen
-                    ? "bg-neutral-100 text-neutral-950 dark:bg-neutral-800 dark:text-white"
-                    : "text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-800/80 dark:hover:text-white"
-                }`}
-              >
-                <CodeIcon className="h-4.5 w-4.5" />
-              </button>
+                  <button
+                    type="button"
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => {
+                      if (isPanelOpen) {
+                        if (isCodeOpen) {
+                          setIsCodeOpen(false);
+                          posthog.capture("code_panel_toggled", {
+                            state: "closed",
+                            component_slug: component.slug,
+                          });
+                        } else {
+                          setIsCodeOpen(true);
+                          posthog.capture("code_panel_toggled", {
+                            state: "open",
+                            component_slug: component.slug,
+                          });
+                        }
+                      } else {
+                        setIsPanelOpen(true);
+                        setIsCodeOpen(true);
+                        posthog.capture("code_panel_toggled", {
+                          state: "open",
+                          component_slug: component.slug,
+                        });
+                      }
+                    }}
+                    aria-label="Toggle code panel"
+                    className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg transition-colors outline-none focus:outline-none ${
+                      isPanelOpen && isCodeOpen
+                        ? "bg-neutral-100 text-neutral-950 dark:bg-neutral-800 dark:text-white"
+                        : "text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-800/80 dark:hover:text-white"
+                    }`}
+                  >
+                    <CodeIcon className="h-4.5 w-4.5" />
+                  </button>
+                </>
+              )}
 
               <ThemeToggle className="!h-8 !w-8 !rounded-lg !border-0 !bg-transparent shadow-none transition-colors hover:!bg-neutral-100 dark:!border-0 dark:!bg-transparent dark:hover:!bg-neutral-800/80 [&>svg]:h-4.5 [&>svg]:w-4.5 [&>svg]:text-neutral-500 hover:[&>svg]:text-neutral-950 dark:[&>svg]:text-neutral-400 dark:hover:[&>svg]:text-white" />
+
+              {hasCustomizableProps && (
+                <button
+                  type="button"
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => {
+                    const next = !isCustomizerOpen;
+                    setIsCustomizerOpen(next);
+                    posthog.capture("customizer_toggled", {
+                      state: next ? "open" : "closed",
+                      component_slug: component?.slug || "",
+                    });
+                  }}
+                  aria-label={
+                    isCustomizerOpen
+                      ? "Collapse props customizer"
+                      : "Open props customizer"
+                  }
+                  title={isCustomizerOpen ? "Collapse props" : "Open props"}
+                  className={`hidden h-8 w-8 cursor-pointer items-center justify-center rounded-lg transition-colors outline-none focus:outline-none lg:flex ${
+                    isCustomizerOpen
+                      ? "bg-neutral-100 text-neutral-950 dark:bg-neutral-800 dark:text-white"
+                      : "text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-800/80 dark:hover:text-white"
+                  }`}
+                >
+                  <SidebarRightIcon className="h-4.5 w-4.5" />
+                </button>
+              )}
             </div>
           </div>
 
-          <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden rounded-[1.25rem] bg-neutral-100 backdrop-blur-md dark:bg-[#141414]">
-            <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden">
+          <div className="relative flex h-full w-full flex-1 overflow-hidden rounded-[1.25rem] bg-neutral-100 backdrop-blur-md dark:bg-[#141414]">
+            <div className="relative flex h-full w-full flex-1 overflow-hidden">
               <div
                 ref={setPreviewContainer}
-                className="pointer-events-auto relative z-10 h-full w-full scrollbar-none overflow-y-auto"
+                className={cn(
+                  "pointer-events-auto relative z-10 h-full w-full overflow-y-auto",
+                  component
+                    ? "flex scrollbar-none items-center justify-center"
+                    : "scrollbar-thin scrollbar-thumb-neutral-300 dark:scrollbar-thumb-neutral-800",
+                )}
               >
                 {children}
               </div>
             </div>
 
             <AnimatePresence>
-              {!isPanelOpen && (
+              {!isPanelOpen && component && installCommand && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -482,11 +522,11 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
         <aside
           aria-label="Props customizer"
           className={`relative hidden h-full shrink-0 overflow-hidden transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] lg:block ${
-            hasCustomizableProps ? "w-72 xl:w-80" : "w-0"
+            hasCustomizableProps && isCustomizerOpen ? "w-72 xl:w-80" : "w-0"
           }`}
         >
           <div
-            inert={!hasCustomizableProps}
+            inert={!hasCustomizableProps || !isCustomizerOpen}
             className="absolute inset-y-0 left-0 flex w-72 flex-col overflow-hidden bg-white xl:w-80 dark:bg-[#0a0a0a]"
           >
             <div className="relative flex h-full w-full flex-col overflow-hidden">
@@ -494,18 +534,35 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                 <span className="text-[13px] font-medium text-neutral-900 dark:text-white">
                   Props
                 </span>
-                <button
-                  type="button"
-                  onClick={resetProps}
-                  className="cursor-pointer text-[12px] font-medium text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
-                  title="Reset props to default"
-                >
-                  Reset
-                </button>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={resetProps}
+                    className="cursor-pointer text-[12px] font-medium text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+                    title="Reset props to default"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsCustomizerOpen(false);
+                      posthog.capture("customizer_toggled", {
+                        state: "closed",
+                        component_slug: component?.slug || "",
+                      });
+                    }}
+                    className="flex h-7.5 w-7.5 cursor-pointer items-center justify-center rounded-lg border border-neutral-200/70 bg-transparent text-neutral-500 shadow-none transition-colors hover:bg-neutral-100 hover:text-neutral-950 dark:border-neutral-800/70 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
+                    title="Collapse props"
+                    aria-label="Collapse props customizer"
+                  >
+                    <SidebarRightIcon className="h-4 w-4" />
+                  </button>
+                </div>
               </div>
 
               <div className="relative min-h-0 flex-1 overflow-hidden px-2">
-                <PropsCustomizationPanel component={component} />
+                {component && <PropsCustomizationPanel component={component} />}
               </div>
             </div>
           </div>
@@ -513,7 +570,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
       </motion.div>
 
       <AnimatePresence>
-        {isPanelOpen && (
+        {isPanelOpen && component && (
           <>
             <motion.div
               initial={{ opacity: 0 }}

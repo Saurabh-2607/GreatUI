@@ -23,15 +23,23 @@ interface ViewerContextType {
 const ViewerContext = createContext<ViewerContextType | undefined>(undefined);
 
 export function ViewerProvider({ children }: { children: React.ReactNode }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
+  const [isSidebarOpen, setIsSidebarOpenState] = useState(() => {
     if (typeof window === "undefined") return true;
+    try {
+      const saved = localStorage.getItem("great-ui-sidebar-open");
+      if (saved !== null) return saved === "true";
+    } catch {}
     return window.innerWidth >= 1024;
   });
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [isCodeOpen, setIsCodeOpen] = useState(false);
   const [isMarkdownOpen, setIsMarkdownOpen] = useState(false);
-  const [isCustomizerOpen, setIsCustomizerOpen] = useState(() => {
+  const [isCustomizerOpen, setIsCustomizerOpenState] = useState(() => {
     if (typeof window === "undefined") return true;
+    try {
+      const saved = localStorage.getItem("great-ui-customizer-open");
+      if (saved !== null) return saved === "true";
+    } catch {}
     return window.innerWidth >= 1024;
   });
   const [activeComponent, setActiveComponent] = useState<Component | null>(
@@ -40,6 +48,24 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
   const [previewContainer, setPreviewContainer] = useState<HTMLElement | null>(
     null,
   );
+
+  const handleSetSidebarOpen = (open: boolean) => {
+    setIsSidebarOpenState(open);
+    try {
+      localStorage.setItem("great-ui-sidebar-open", String(open));
+    } catch (e) {
+      console.error("Failed to write to localStorage", e);
+    }
+  };
+
+  const handleSetCustomizerOpen = (open: boolean) => {
+    setIsCustomizerOpenState(open);
+    try {
+      localStorage.setItem("great-ui-customizer-open", String(open));
+    } catch (e) {
+      console.error("Failed to write to localStorage", e);
+    }
+  };
 
   const handleSetPanelOpen = (open: boolean) => {
     setIsPanelOpen(open);
@@ -70,7 +96,7 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
     <ViewerContext.Provider
       value={{
         isSidebarOpen,
-        setIsSidebarOpen,
+        setIsSidebarOpen: handleSetSidebarOpen,
         isPanelOpen,
         setIsPanelOpen: handleSetPanelOpen,
         isCodeOpen,
@@ -78,7 +104,7 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
         isMarkdownOpen,
         setIsMarkdownOpen: handleSetMarkdownOpen,
         isCustomizerOpen,
-        setIsCustomizerOpen,
+        setIsCustomizerOpen: handleSetCustomizerOpen,
         activeComponent,
         setActiveComponent,
         previewContainer,

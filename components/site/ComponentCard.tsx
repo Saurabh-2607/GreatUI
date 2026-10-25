@@ -103,7 +103,6 @@ function CardMedia({
             isVideoLoaded && isHovered
               ? "pointer-events-none opacity-0"
               : "opacity-100",
-            !isMp4 && "scale-120",
           )}
         />
       )}
@@ -138,7 +137,7 @@ function CardMedia({
           loading="lazy"
           decoding="async"
           onError={handleMediaError}
-          className="relative z-10 h-full w-full scale-120 object-cover"
+          className="relative z-10 h-full w-full object-cover"
         />
       )}
     </div>
@@ -165,7 +164,7 @@ export default function ComponentCard({
       onMouseLeave={() => setIsHovered(false)}
       className="group flex h-full w-full flex-col overflow-hidden bg-transparent select-none"
     >
-      <div className="relative flex h-56 w-full items-center justify-center overflow-hidden rounded-t-3xl bg-neutral-100 dark:bg-neutral-900">
+      <div className="relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-t-3xl bg-neutral-100 dark:bg-neutral-900">
         <CardMedia
           key={component.slug}
           component={component}
