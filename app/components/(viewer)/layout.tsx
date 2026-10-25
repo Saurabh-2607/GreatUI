@@ -384,7 +384,7 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
           </div>
 
           <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden rounded-[1.25rem] bg-neutral-100 backdrop-blur-md dark:bg-[#141414]">
-            <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden px-4">
+            <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden">
               <div
                 ref={setPreviewContainer}
                 className="pointer-events-auto relative z-10 h-full w-full scrollbar-none overflow-y-auto"

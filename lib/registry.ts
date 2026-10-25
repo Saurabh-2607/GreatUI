@@ -2139,12 +2139,14 @@ export function AppShell() {
         name: "showNavigation",
         type: ["boolean"],
         description: "Whether to display the previous/next navigation row.",
+        default: "true",
       },
       {
         name: "showDateLabel",
         type: ["boolean"],
         description:
           "Whether to display the active revision date label in the toolbar.",
+        default: "true",
       },
       {
         name: "pastPaddingDays",

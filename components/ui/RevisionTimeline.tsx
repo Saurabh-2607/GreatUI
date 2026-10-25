@@ -445,14 +445,23 @@ const renderMDXContent = (mdxText: string): React.ReactNode => {
 };
 
 interface RevisionTimelineProps {
+  /** List of document history revision items containing date, time, title, author, and markdown content log. */
   revisions: TimelineRevision[];
+  /** Optional ID of the revision log active by default. */
   defaultActiveId?: string;
+  /** Optional class name for the root wrapper container. */
   className?: string;
+  /** Whether to display the previous/next navigation row. */
   showNavigation?: boolean;
+  /** Whether to display the active revision date label in the toolbar. */
   showDateLabel?: boolean;
+  /** Number of past placeholder days to pad before the active revisions. */
   pastPaddingDays?: number;
+  /** Number of future placeholder days to pad after the active revisions. */
   futurePaddingDays?: number;
+  /** Optional height for the revision log content area, accepts CSS units or pixel numbers. */
   height?: string | number;
+  /** Callback fired when the active revision selection changes. */
   onActiveIdChange?: (activeId: string) => void;
 }
 
