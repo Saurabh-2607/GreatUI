@@ -116,7 +116,6 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
   ]);
 
   const previewRef = React.useRef<HTMLDivElement | null>(null);
-  const drawerScrollRef = React.useRef(0);
   const isWheelGestureActiveRef = React.useRef(false);
   const wasAlreadyAtBottomRef = React.useRef(false);
   const hadNestedScrollRef = React.useRef(false);
@@ -234,21 +233,6 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
       }
     };
   }, [isPanelOpen, setIsPanelOpen, setIsCodeOpen]);
-
-  React.useEffect(() => {
-    if (!isPanelOpen) return;
-
-    const handleDrawerWheel = (e: WheelEvent) => {
-      if (e.deltaY < -40 && drawerScrollRef.current <= 0) {
-        setIsPanelOpen(false);
-        setIsCodeOpen(false);
-        setIsMarkdownOpen(false);
-      }
-    };
-
-    window.addEventListener("wheel", handleDrawerWheel, { passive: true });
-    return () => window.removeEventListener("wheel", handleDrawerWheel);
-  }, [isPanelOpen, setIsPanelOpen, setIsCodeOpen, setIsMarkdownOpen]);
 
   const params = useParams();
   const slug = params.slug as string;
@@ -705,9 +689,6 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
 
               <div
                 id="docs-drawer-scroll"
-                onScroll={(e) => {
-                  drawerScrollRef.current = e.currentTarget.scrollTop;
-                }}
                 className="relative min-h-0 flex-1 scrollbar-none overflow-y-auto px-6 pt-2 pb-8 md:px-8"
               >
                 <div className="flex w-full items-start justify-between gap-6 md:gap-8">
