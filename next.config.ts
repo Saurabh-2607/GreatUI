@@ -39,6 +39,16 @@ const nextConfig: NextConfig = {
         destination: "/components/category/layout-and-cards",
         permanent: true,
       },
+      {
+        source: "/components/hacienda-gallery",
+        destination: "/components/fluid-dock-carousel",
+        permanent: true,
+      },
+      {
+        source: "/components/dock-gallery",
+        destination: "/components/fluid-dock-carousel",
+        permanent: true,
+      },
     ];
   },
   skipTrailingSlashRedirect: true,

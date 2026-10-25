@@ -56,6 +56,135 @@ export function getPreviewPoster(component: {
 
 export const components: Component[] = [
   {
+    slug: "fluid-dock-carousel",
+    category: "Visuals",
+    name: "Fluid Dock Carousel",
+    description:
+      "A full-viewport vertical or horizontal carousel with a floating fluid dock, interactive thumbnail navigation, continuous scrolling, and customizable indicator styling.",
+    interactionType:
+      "Wheel scroll, swipe gesture, and floating fluid dock thumbnail navigation with spring-physics transitions and continuous scrolling modes.",
+    dependencies: ["motion"],
+    previewFile: "FluidDockCarouselPreview",
+    preview:
+      "https://ik.imagekit.io/j65jb9u8q/japan_mount_fuji_1792951286679.jpg",
+    props: [
+      {
+        name: "orientation",
+        type: ["'vertical' | 'horizontal'"],
+        description:
+          "Scrolling orientation of the gallery (vertical or horizontal).",
+        default: "vertical",
+        customizable: true,
+      },
+      {
+        name: "dockPosition",
+        type: ["'center' | 'bottom' | 'top' | 'left' | 'right'"],
+        description: "Position alignment of the floating dock on screen.",
+        default: "center",
+        customizable: true,
+      },
+      {
+        name: "indicatorVariant",
+        type: ["'glow' | 'contrast' | 'minimal'"],
+        description:
+          "Visual styling variant of the active thumbnail border indicator.",
+        default: "glow",
+        customizable: true,
+      },
+      {
+        name: "enableSnap",
+        type: ["boolean"],
+        description:
+          "Whether scrolling snaps strictly slide-by-slide or allows continuous smooth scroll.",
+        default: "false",
+        customizable: true,
+      },
+      {
+        name: "showDock",
+        type: ["boolean"],
+        description:
+          "Whether to render the floating navigation thumbnail dock.",
+        default: "true",
+        customizable: true,
+      },
+      {
+        name: "showTitles",
+        type: ["boolean"],
+        description: "Whether to display the large bold slide titles.",
+        default: "true",
+        customizable: true,
+      },
+      {
+        name: "enableWheel",
+        type: ["boolean"],
+        description: "Whether mouse wheel scrolling advances slides.",
+        default: "true",
+        customizable: true,
+      },
+      {
+        name: "enableTouch",
+        type: ["boolean"],
+        description: "Whether mobile swipe gestures advance slides.",
+        default: "true",
+        customizable: true,
+      },
+      {
+        name: "overlayOpacity",
+        type: ["number"],
+        description: "Opacity of the dark overlay over images (0 to 1).",
+        default: "0.25",
+        min: 0,
+        max: 1,
+        step: 0.05,
+        customizable: true,
+      },
+      {
+        name: "activeScale",
+        type: ["number"],
+        description:
+          "Scale multiplier applied to the active dock thumbnail image.",
+        default: "1.1",
+        min: 1,
+        max: 1.5,
+        step: 0.05,
+        customizable: true,
+      },
+      {
+        name: "activeWidth",
+        type: ["number"],
+        description:
+          "Expanded dimension in pixels of the active dock thumbnail item.",
+        default: "58",
+        min: 40,
+        max: 80,
+        step: 2,
+        customizable: true,
+      },
+      {
+        name: "dockGooey",
+        type: ["boolean"],
+        description:
+          "Whether to enable the gooey fluid background effect on the dock.",
+        default: "true",
+        customizable: true,
+      },
+      {
+        name: "items",
+        type: ["FluidDockCarouselItem[]"],
+        description:
+          "Array of gallery items containing image URLs, titles, and identifiers.",
+        customizable: false,
+      },
+      {
+        name: "className",
+        type: ["string"],
+        description:
+          "Additional CSS class names for the root gallery container.",
+        customizable: false,
+      },
+    ],
+  },
+  {
     slug: "pixel-swipe-page-transition",
     category: "Page Transitions",
     name: "Pixel Swipe Page Transition",

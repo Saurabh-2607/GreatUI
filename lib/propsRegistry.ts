@@ -231,20 +231,28 @@ function parsePropToSchema(prop: Prop): ControlSchema | null {
     return null;
   }
 
-  if (typeStr.includes("'") && typeStr.includes("|")) {
-    const options = typeStr
-      .split("|")
-      .map((s) => s.trim().replace(/^['"]|['"]$/g, ""));
-    return {
-      key,
-      label,
-      type: "select",
-      defaultValue: prop.default
-        ? prop.default.replace(/^["']|["']$/g, "")
-        : options[0],
-      options: options.map((opt) => ({ label: opt, value: opt })),
-      description: prop.description,
-    };
+  if (
+    (typeStr.includes("|") &&
+      !typeStr.includes("boolean") &&
+      !typeStr.includes("number")) ||
+    prop.type.length > 1
+  ) {
+    const rawOptions = prop.type.length > 1 ? prop.type : typeStr.split("|");
+    const options = rawOptions
+      .map((s) => s.trim().replace(/^['"]|['"]$/g, ""))
+      .filter(Boolean);
+    if (options.length > 1) {
+      return {
+        key,
+        label,
+        type: "select",
+        defaultValue: prop.default
+          ? prop.default.replace(/^["']|["']$/g, "")
+          : options[0],
+        options: options.map((opt) => ({ label: opt, value: opt })),
+        description: prop.description,
+      };
+    }
   }
 
   if (typeStr.includes("boolean")) {

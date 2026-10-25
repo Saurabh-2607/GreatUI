@@ -5,6 +5,12 @@ export type ChangelogItem = {
 
 export const changelogData: ChangelogItem[] = [
   {
+    date: "October 25, 2026",
+    features: [
+      "Added [Fluid Dock Carousel](/components/fluid-dock-carousel) component featuring a full-viewport vertical or horizontal carousel with a floating fluid dock, interactive thumbnail selector, continuous scrolling, dock position controls, and luminous indicator styling.",
+    ],
+  },
+  {
     date: "September 28, 2026",
     features: [
       "Switched global site typography from TT Commons to the sleek Geist sans-serif font and refined global layout spacing.",
