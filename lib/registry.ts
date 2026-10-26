@@ -70,33 +70,17 @@ export const components: Component[] = [
     props: [
       {
         name: "orientation",
-        type: ["'vertical' | 'horizontal'"],
+        type: ["'horizontal' | 'vertical'"],
         description:
-          "Scrolling orientation of the gallery (vertical or horizontal).",
-        default: "vertical",
+          "Scrolling orientation of the gallery (horizontal or vertical).",
+        default: "horizontal",
         customizable: true,
       },
       {
         name: "dockPosition",
-        type: ["'center' | 'bottom' | 'top' | 'left' | 'right'"],
+        type: ["'top' | 'bottom' | 'left' | 'right' | 'center'"],
         description: "Position alignment of the floating dock on screen.",
-        default: "center",
-        customizable: true,
-      },
-      {
-        name: "indicatorVariant",
-        type: ["'glow' | 'contrast' | 'minimal'"],
-        description:
-          "Visual styling variant of the active thumbnail border indicator.",
-        default: "glow",
-        customizable: true,
-      },
-      {
-        name: "enableSnap",
-        type: ["boolean"],
-        description:
-          "Whether scrolling snaps strictly slide-by-slide or allows continuous smooth scroll.",
-        default: "false",
+        default: "bottom",
         customizable: true,
       },
       {
@@ -104,6 +88,14 @@ export const components: Component[] = [
         type: ["boolean"],
         description:
           "Whether to render the floating navigation thumbnail dock.",
+        default: "true",
+        customizable: true,
+      },
+      {
+        name: "showControls",
+        type: ["boolean"],
+        description:
+          "Whether to render floating next and previous navigation controls.",
         default: "true",
         customizable: true,
       },

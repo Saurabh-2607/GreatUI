@@ -91,6 +91,25 @@ export default function PropsCustomizationPanel({
     setTimeout(() => setCopiedCode(false), 2000);
   };
 
+  const handlePropChange = (key: string, value: unknown) => {
+    setProp(key, value);
+    if (
+      effectiveComponent.slug === "fluid-dock-carousel" &&
+      key === "orientation"
+    ) {
+      const currentPos = effectiveProps.dockPosition;
+      if (value === "vertical") {
+        if (currentPos === "top" || currentPos === "bottom") {
+          setProp("dockPosition", "center");
+        }
+      } else {
+        if (currentPos === "left" || currentPos === "right") {
+          setProp("dockPosition", "bottom");
+        }
+      }
+    }
+  };
+
   return (
     <div className="relative flex h-full w-full flex-col overflow-hidden text-neutral-900 select-none dark:text-white">
       <div className="relative flex flex-1 scrollbar-none flex-col gap-3.5 overflow-y-auto px-2 py-2">
@@ -118,14 +137,35 @@ export default function PropsCustomizationPanel({
         )}
 
         <div className="flex flex-col gap-3">
-          {effectiveSchemas.map((schema) => (
-            <ControlField
-              key={schema.key}
-              schema={schema}
-              value={effectiveProps[schema.key]}
-              onChange={setProp}
-            />
-          ))}
+          {effectiveSchemas.map((schema) => {
+            let filteredSchema = schema;
+            if (
+              effectiveComponent.slug === "fluid-dock-carousel" &&
+              schema.key === "dockPosition" &&
+              schema.options
+            ) {
+              const currentOrientation =
+                effectiveProps.orientation || "horizontal";
+              const validValues =
+                currentOrientation === "vertical"
+                  ? ["left", "right", "center"]
+                  : ["top", "bottom", "center"];
+              filteredSchema = {
+                ...schema,
+                options: schema.options.filter((opt) =>
+                  validValues.includes(String(opt.value)),
+                ),
+              };
+            }
+            return (
+              <ControlField
+                key={schema.key}
+                schema={filteredSchema}
+                value={effectiveProps[schema.key]}
+                onChange={handlePropChange}
+              />
+            );
+          })}
         </div>
 
         <div className="mt-2 flex flex-col gap-2 pt-1">
