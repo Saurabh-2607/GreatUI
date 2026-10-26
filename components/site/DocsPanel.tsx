@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import posthog from "posthog-js";
 import { type Component, components } from "@/lib/registry";
 import { CATEGORY_ORDER, componentsByCategory } from "@/lib/categories";
@@ -11,12 +11,35 @@ import {
   CodeIcon,
   dependencyUrls,
   dependencyIcons,
+  NpmIcon,
+  PnpmIcon,
+  YarnIcon,
+  BunIcon,
 } from "./Icons";
 import ShikiHighlight from "./ShikiHighlight";
 import ComponentActions from "./ComponentActions";
 import { getComponentPropsSchema } from "@/lib/propsRegistry";
 
 type PkgManager = "npm" | "pnpm" | "yarn" | "bun";
+
+function PkgManagerIcon({
+  pm,
+  className = "h-3.5 w-3.5",
+}: {
+  pm: PkgManager;
+  className?: string;
+}) {
+  switch (pm) {
+    case "pnpm":
+      return <PnpmIcon className={className} />;
+    case "npm":
+      return <NpmIcon className={className} />;
+    case "yarn":
+      return <YarnIcon className={className} />;
+    case "bun":
+      return <BunIcon className={className} />;
+  }
+}
 
 function getInstallCommand(pm: PkgManager, url: string): string {
   switch (pm) {
@@ -32,6 +55,34 @@ function getInstallCommand(pm: PkgManager, url: string): string {
   }
 }
 
+function subscribePkgManager(callback: () => void) {
+  window.addEventListener("storage", callback);
+  window.addEventListener("great-ui-pkg-manager-changed", callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener("great-ui-pkg-manager-changed", callback);
+  };
+}
+
+function getPkgManagerSnapshot(): PkgManager {
+  try {
+    const saved = localStorage.getItem(
+      "great-ui-pkg-manager",
+    ) as PkgManager | null;
+    if (
+      saved &&
+      (["pnpm", "npm", "yarn", "bun"] as PkgManager[]).includes(saved)
+    ) {
+      return saved;
+    }
+  } catch {}
+  return "pnpm";
+}
+
+function getPkgManagerServerSnapshot(): PkgManager {
+  return "pnpm";
+}
+
 export default function DocsPanel({ component }: { component: Component }) {
   const propsSchema = getComponentPropsSchema(component.slug);
   const hasCustomizableProps = propsSchema
@@ -41,7 +92,18 @@ export default function DocsPanel({ component }: { component: Component }) {
   const [copiedInstall, setCopiedInstall] = useState(false);
   const [copiedUsage, setCopiedUsage] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [pkgManager, setPkgManager] = useState<PkgManager>("npm");
+  const pkgManager = useSyncExternalStore(
+    subscribePkgManager,
+    getPkgManagerSnapshot,
+    getPkgManagerServerSnapshot,
+  );
+
+  const handleSelectPkgManager = (pm: PkgManager) => {
+    try {
+      localStorage.setItem("great-ui-pkg-manager", pm);
+      window.dispatchEvent(new Event("great-ui-pkg-manager-changed"));
+    } catch {}
+  };
 
   const orderedComponents: typeof components = [];
   CATEGORY_ORDER.forEach((catName) => {
@@ -226,14 +288,15 @@ export default function DocsPanel({ component }: { component: Component }) {
                   <button
                     key={pm}
                     type="button"
-                    onClick={() => setPkgManager(pm)}
-                    className={`cursor-pointer px-2.5 py-0.5 text-xs font-semibold transition-colors ${
+                    onClick={() => handleSelectPkgManager(pm)}
+                    className={`flex cursor-pointer items-center gap-1.5 px-2.5 py-1 text-xs font-semibold transition-colors ${
                       pkgManager === pm
                         ? "rounded-md border border-neutral-200 bg-white text-neutral-900 shadow-sm dark:border-neutral-800/60 dark:bg-neutral-900 dark:text-white"
                         : "text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
                     }`}
                   >
-                    {pm}
+                    <PkgManagerIcon pm={pm} className="h-3 w-3 shrink-0" />
+                    <span>{pm}</span>
                   </button>
                 ))}
               </div>

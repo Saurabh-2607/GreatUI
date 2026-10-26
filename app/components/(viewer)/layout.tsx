@@ -12,12 +12,17 @@ import { DocsToc } from "@/components/site/DocsToc";
 import CodePanel from "@/components/site/CodePanel";
 import MarkdownPanel from "@/components/site/MarkdownPanel";
 import ThemeToggle from "@/components/site/ThemeToggle";
+import ComponentActions from "@/components/site/ComponentActions";
 import {
   CodeIcon,
   BookOpenIcon,
   CopyIcon,
   CheckIcon,
   SidebarRightIcon,
+  NpmIcon,
+  PnpmIcon,
+  YarnIcon,
+  BunIcon,
 } from "@/components/site/Icons";
 import { components } from "@/lib/registry";
 import { getComponentPropsSchema } from "@/lib/propsRegistry";
@@ -28,6 +33,27 @@ import { motion, AnimatePresence } from "motion/react";
 import { generateComponentLdJsonGraph } from "@/lib/i18n-seo";
 
 type PkgManager = "npm" | "pnpm" | "yarn" | "bun";
+
+const PKG_MANAGER_STORAGE_KEY = "great-ui-pkg-manager";
+
+function PkgManagerIcon({
+  pm,
+  className = "h-3.5 w-3.5",
+}: {
+  pm: PkgManager;
+  className?: string;
+}) {
+  switch (pm) {
+    case "pnpm":
+      return <PnpmIcon className={className} />;
+    case "npm":
+      return <NpmIcon className={className} />;
+    case "yarn":
+      return <YarnIcon className={className} />;
+    case "bun":
+      return <BunIcon className={className} />;
+  }
+}
 
 function getInstallCommand(pm: PkgManager, url: string): string {
   switch (pm) {
@@ -41,6 +67,34 @@ function getInstallCommand(pm: PkgManager, url: string): string {
     default:
       return `npx shadcn@latest add ${url}`;
   }
+}
+
+function subscribePkgManager(callback: () => void) {
+  window.addEventListener("storage", callback);
+  window.addEventListener("great-ui-pkg-manager-changed", callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener("great-ui-pkg-manager-changed", callback);
+  };
+}
+
+function getPkgManagerSnapshot(): PkgManager {
+  try {
+    const saved = localStorage.getItem(
+      PKG_MANAGER_STORAGE_KEY,
+    ) as PkgManager | null;
+    if (
+      saved &&
+      (["pnpm", "npm", "yarn", "bun"] as PkgManager[]).includes(saved)
+    ) {
+      return saved;
+    }
+  } catch {}
+  return "pnpm";
+}
+
+function getPkgManagerServerSnapshot(): PkgManager {
+  return "pnpm";
 }
 
 function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
@@ -65,10 +119,22 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
     () => true,
     () => false,
   );
-  const [pkgManager, setPkgManager] = React.useState<PkgManager>("pnpm");
+  const pkgManager = React.useSyncExternalStore(
+    subscribePkgManager,
+    getPkgManagerSnapshot,
+    getPkgManagerServerSnapshot,
+  );
   const [copiedInstall, setCopiedInstall] = React.useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
+
+  const handleSelectPkgManager = (pm: PkgManager) => {
+    setIsDropdownOpen(false);
+    try {
+      localStorage.setItem(PKG_MANAGER_STORAGE_KEY, pm);
+      window.dispatchEvent(new Event("great-ui-pkg-manager-changed"));
+    } catch {}
+  };
 
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -432,91 +498,113 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                 {children}
               </div>
             </div>
+          </div>
 
-            <AnimatePresence>
-              {!isPanelOpen && component && installCommand && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                  className="absolute bottom-2 left-1/2 z-40 hidden max-w-[calc(100%-2rem)] -translate-x-1/2 items-center gap-2 rounded-xl bg-white/80 p-1.5 shadow-md backdrop-blur-xl transition-all sm:flex dark:bg-neutral-950/80"
-                >
-                  <div ref={dropdownRef} className="relative shrink-0">
-                    <button
-                      type="button"
-                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                      className="flex h-7.5 cursor-pointer items-center justify-center gap-1 rounded-lg bg-neutral-100 px-2 font-mono text-xs font-semibold text-neutral-500 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
-                    >
-                      <span>{pkgManager}</span>
-                      <svg
-                        className={`h-3 w-3 text-neutral-400 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
+          <AnimatePresence>
+            {!isPanelOpen && component && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 8 }}
+                transition={{ duration: 0.15 }}
+                className="flex shrink-0 items-center justify-between gap-3 px-1 pt-2 pb-2"
+              >
+                {installCommand ? (
+                  <div className="relative flex h-8 max-w-[calc(100%-11rem)] min-w-0 items-center gap-1.5">
+                    <div ref={dropdownRef} className="relative shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        className="flex h-8 w-[76px] cursor-pointer items-center justify-center gap-1.5 rounded-lg text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M19 9l-7 7-7-7"
+                        <PkgManagerIcon
+                          pm={pkgManager}
+                          className="h-3.5 w-3.5 shrink-0"
                         />
-                      </svg>
-                    </button>
-
-                    <AnimatePresence>
-                      {isDropdownOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                          transition={{ duration: 0.15 }}
-                          className="absolute bottom-full left-0 z-50 mb-1.5 flex w-20 flex-col rounded-lg border border-neutral-200 bg-white/95 p-0.5 shadow-md backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/95"
+                        <span className="inline-block w-[4ch] text-left font-mono text-xs font-semibold">
+                          {pkgManager}
+                        </span>
+                        <svg
+                          className={`h-3 w-3 shrink-0 text-neutral-400 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`}
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
                         >
-                          {(["pnpm", "npm", "yarn", "bun"] as PkgManager[]).map(
-                            (pm) => (
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </button>
+
+                      <AnimatePresence>
+                        {isDropdownOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute bottom-full left-0 z-50 mb-2 flex w-24 flex-col rounded-xl border border-neutral-200 bg-white p-1 shadow-xl dark:border-neutral-800 dark:bg-[#1f1f1f]"
+                          >
+                            {(
+                              ["pnpm", "npm", "yarn", "bun"] as PkgManager[]
+                            ).map((pm) => (
                               <button
                                 key={pm}
                                 type="button"
-                                onClick={() => {
-                                  setPkgManager(pm);
-                                  setIsDropdownOpen(false);
-                                }}
-                                className={`w-full cursor-pointer rounded-md px-1.5 py-1 text-left font-mono text-xs font-medium transition-colors ${
+                                onClick={() => handleSelectPkgManager(pm)}
+                                className={`flex w-full cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 text-left font-mono text-xs font-medium transition-colors ${
                                   pkgManager === pm
-                                    ? "bg-neutral-100 text-neutral-950 dark:bg-neutral-900 dark:text-white"
-                                    : "text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-900/50 dark:hover:text-white"
+                                    ? "bg-neutral-100 font-semibold text-neutral-950 dark:bg-neutral-800 dark:text-white"
+                                    : "text-neutral-600 hover:bg-neutral-100/70 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-800/50 dark:hover:text-white"
                                 }`}
                               >
-                                {pm}
+                                <PkgManagerIcon
+                                  pm={pm}
+                                  className="h-3.5 w-3.5 shrink-0"
+                                />
+                                <span>{pm}</span>
                               </button>
-                            ),
-                          )}
-                        </motion.div>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
+                    <div className="min-w-0 scrollbar-none overflow-x-auto px-1 font-mono text-[13px] whitespace-nowrap text-neutral-700 select-all dark:text-neutral-300">
+                      <code className="whitespace-nowrap">
+                        {installCommand}
+                      </code>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={handleCopyInstall}
+                      className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
+                      title="Copy installation command"
+                    >
+                      {copiedInstall ? (
+                        <CheckIcon className="h-3.5 w-3.5 text-green-500" />
+                      ) : (
+                        <CopyIcon className="h-3.5 w-3.5" />
                       )}
-                    </AnimatePresence>
+                    </button>
                   </div>
+                ) : (
+                  <div />
+                )}
 
-                  <div className="min-w-0 scrollbar-none overflow-x-auto pr-1 font-mono text-[13px] leading-6 whitespace-nowrap text-neutral-800 select-all dark:text-neutral-200">
-                    <code className="whitespace-nowrap">{installCommand}</code>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={handleCopyInstall}
-                    className="flex h-7.5 w-7.5 shrink-0 cursor-pointer items-center justify-center rounded-lg bg-neutral-100 text-neutral-500 shadow-xs transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
-                    title="Copy installation command"
-                  >
-                    {copiedInstall ? (
-                      <CheckIcon className="h-3.5 w-3.5 text-green-500" />
-                    ) : (
-                      <CopyIcon className="h-3.5 w-3.5" />
-                    )}
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+                <div className="shrink-0">
+                  <ComponentActions
+                    component={component}
+                    dropdownPosition="up"
+                  />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </section>
 
         <aside

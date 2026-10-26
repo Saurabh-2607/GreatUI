@@ -6,6 +6,7 @@ import { type Component } from "@/lib/registry";
 import { getComponentMarkdown } from "@/lib/markdown";
 import { useViewer } from "@/lib/viewer-context";
 import { motion, AnimatePresence } from "motion/react";
+import { cn } from "@/lib/utils";
 import {
   CopyIcon,
   CheckIcon,
@@ -17,8 +18,12 @@ import {
 
 export default function ComponentActions({
   component,
+  dropdownPosition = "down",
+  className,
 }: {
   component: Component;
+  dropdownPosition?: "up" | "down";
+  className?: string;
 }) {
   const { setIsMarkdownOpen } = useViewer();
   const [copiedPage, setCopiedPage] = useState(false);
@@ -49,7 +54,7 @@ export default function ComponentActions({
 
   const handleOpenAI = (baseUrl: string) => {
     const md = getComponentMarkdown(component);
-    navigator.clipboard.writeText(md); // Fallback
+    navigator.clipboard.writeText(md);
 
     const url = new URL(baseUrl);
     url.searchParams.set("q", md);
@@ -70,7 +75,10 @@ export default function ComponentActions({
   return (
     <div
       ref={dropdownRef}
-      className="relative flex h-8 items-stretch rounded-lg bg-neutral-100 dark:bg-[#222]"
+      className={cn(
+        "relative flex h-8 items-stretch rounded-lg bg-neutral-100 dark:bg-[#222]",
+        className,
+      )}
     >
       <button
         type="button"
@@ -99,6 +107,7 @@ export default function ComponentActions({
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          className={`transition-transform duration-200 ${isCopyDropdownOpen ? "rotate-180" : ""}`}
         >
           <polyline points="6 9 12 15 18 9"></polyline>
         </svg>
@@ -107,11 +116,23 @@ export default function ComponentActions({
       <AnimatePresence>
         {isCopyDropdownOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            initial={{
+              opacity: 0,
+              y: dropdownPosition === "up" ? -8 : 10,
+              scale: 0.95,
+            }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+            exit={{
+              opacity: 0,
+              y: dropdownPosition === "up" ? -8 : 10,
+              scale: 0.95,
+            }}
             transition={{ duration: 0.15 }}
-            className="absolute top-full left-0 z-50 mt-2 flex w-56 flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-xl sm:right-0 sm:left-auto sm:w-48 dark:border-neutral-800 dark:bg-[#1f1f1f]"
+            className={`absolute z-50 flex w-56 flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-xl sm:w-48 dark:border-neutral-800 dark:bg-[#1f1f1f] ${
+              dropdownPosition === "up"
+                ? "right-0 bottom-full mb-2"
+                : "top-full left-0 mt-2 sm:right-0 sm:left-auto"
+            }`}
           >
             <div className="flex flex-col p-1.5">
               <button
