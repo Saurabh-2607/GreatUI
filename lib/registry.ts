@@ -57,7 +57,7 @@ export function getPreviewPoster(component: {
 export const components: Component[] = [
   {
     slug: "fluid-dock-carousel",
-    category: "Visuals",
+    category: "Carousels",
     name: "Fluid Dock Carousel",
     description:
       "A full-viewport vertical or horizontal carousel with a floating fluid dock, interactive thumbnail navigation, continuous scrolling, and customizable indicator styling.",
@@ -955,7 +955,7 @@ export function AppShell() {
   },
   {
     slug: "radial-gooey-menu",
-    category: "Visuals",
+    category: "Navigation",
     inspiration: "",
     preview:
       "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-gooey-menu.mp4",
@@ -1039,7 +1039,7 @@ export function AppShell() {
   },
   {
     slug: "floating-dock-menu",
-    category: "Visuals",
+    category: "Navigation",
     inspiration: "",
     preview:
       "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Floating-Dock-Menu.mp4",
@@ -1327,7 +1327,7 @@ export function AppShell() {
   },
   {
     slug: "floating-menu",
-    category: "Visuals",
+    category: "Navigation",
     inspiration: "",
     preview:
       "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/floatingmenu.mp4",
@@ -1662,7 +1662,7 @@ export function AppShell() {
   }, */
   {
     slug: "animated-link",
-    category: "Visuals",
+    category: "Navigation",
     inspiration: "",
     preview:
       "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/links.mp4",
@@ -2030,7 +2030,7 @@ export function AppShell() {
   },
   {
     slug: "diagonal-marquee-carousel",
-    category: "Layout & Cards",
+    category: "Carousels",
     inspiration: "",
     preview:
       "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/marquee.mp4",
@@ -4786,7 +4786,7 @@ export default function PageTransitionWrapper() {
   {
     slug: "scroll-flying-cards",
     name: "Scroll Flying Cards",
-    category: "Visuals",
+    category: "Layout & Cards",
     inspiration: "https://www.hexcode.design/",
     preview:
       "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Scroll-flying-Cards.mp4?v=2",

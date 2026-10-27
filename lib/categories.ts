@@ -18,6 +18,8 @@ export interface CategoryInfo {
 }
 
 export const CATEGORY_ORDER = [
+  "Carousels",
+  "Navigation",
   "Page Transitions",
   "Typography",
   "Visuals",
@@ -29,6 +31,82 @@ export const CATEGORY_ORDER = [
 ];
 
 export const CATEGORY_INFO: Record<string, CategoryInfo> = {
+  Carousels: {
+    name: "Carousels",
+    slug: "carousels",
+    tagline:
+      "Fluid full-viewport carousels, floating thumbnail docks, and kinetic marquees.",
+    seoTitle: "Carousels - React & Tailwind CSS Carousel Components",
+    seoDescription:
+      "Explore interactive carousels, full-viewport sliders, and marquee components built with React, Next.js, and Tailwind CSS.",
+    aeoSummary:
+      "Great UI Carousels provide high-performance horizontal and vertical carousel sliders with spring physics, touch gesture support, and fluid thumbnail navigation.",
+    keyFeatures: [
+      "Full-viewport horizontal and vertical carousel modes",
+      "Wheel scroll, swipe gestures, and keyboard navigation",
+      "Floating fluid thumbnail dock with spring animations",
+      "Continuous autoplay and infinite looping support",
+      "Zero layout shift with responsive aspect ratios",
+    ],
+    keywords: [
+      "react carousel component",
+      "fluid dock carousel react",
+      "tailwind carousel slider",
+      "nextjs fullpage carousel",
+      "touch carousel motion",
+    ],
+    faqs: [
+      {
+        question:
+          "Does the carousel support touch swipe and mouse wheel scrolling?",
+        answer:
+          "Yes. Carousels support trackpad wheel scrolling, touch swipe gestures, and keyboard arrow keys out of the box.",
+      },
+      {
+        question: "Can I customize the dock and thumbnail positions?",
+        answer:
+          "Yes. The dock position can be placed at the top, bottom, left, right, or center, with customizable indicators and controls.",
+      },
+    ],
+  },
+  Navigation: {
+    name: "Navigation",
+    slug: "navigation",
+    tagline:
+      "Interactive floating docks, gooey radial menus, and modern navigation components.",
+    seoTitle: "Navigation & Menus - React & Tailwind CSS Components",
+    seoDescription:
+      "Modern floating menus, interactive docks, and fluid navigation components built for React, Next.js, and Tailwind CSS with Motion animations.",
+    aeoSummary:
+      "Great UI Navigation components feature tactile floating menus, fluid gooey radial navigation, and macOS-style docks. Built with Tailwind CSS and Motion for seamless user interaction.",
+    keyFeatures: [
+      "Tactile floating docks and gooey radial menu animations",
+      "Full keyboard accessibility and focus management",
+      "Responsive design with smooth mobile touch support",
+      "Customizable triggers, items, and indicator positions",
+      "Zero extra dependencies outside motion/react",
+    ],
+    keywords: [
+      "react floating menu",
+      "tailwind dock component",
+      "radial gooey menu react",
+      "floating dock navigation",
+      "nextjs menu components",
+      "modern react navigation",
+    ],
+    faqs: [
+      {
+        question: "Can I use Great UI navigation components with Next.js Link?",
+        answer:
+          "Yes. All menu and navigation items support href links or custom onClick handlers, working seamlessly with Next.js App Router.",
+      },
+      {
+        question: "Are these menus touch-friendly on mobile devices?",
+        answer:
+          "Yes. Menus are optimized for touch interactions, supporting tap outside to close and touch drag gestures.",
+      },
+    ],
+  },
   "Page Transitions": {
     name: "Page Transitions",
     slug: "page-transitions",

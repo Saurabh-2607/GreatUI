@@ -126,9 +126,6 @@ export default function Sidebar({ activeSlug }: SidebarProps) {
         >
           <div className="relative flex h-fit flex-col pb-2">
             <div className="mb-2 flex flex-col gap-1 border-b border-neutral-200/60 pb-3 dark:border-neutral-800/60">
-              <span className="px-2 py-1 text-[11px] font-semibold tracking-wider text-neutral-400 uppercase select-none dark:text-neutral-500">
-                Navigation
-              </span>
               <ul className="flex flex-col gap-0.5">
                 <li className="relative">
                   {isAllComponentsActive ? (
