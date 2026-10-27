@@ -61,12 +61,14 @@ export default function ComponentPreviewRenderer({
   const previewFilename = component.previewFile || `${component.name}Preview`;
 
   return (
-    <div className="pointer-events-auto relative z-10 flex min-h-full w-full items-center justify-center">
-      <DynamicPreviewLoader
-        key={previewFilename}
-        filename={previewFilename}
-        componentName={component.name}
-      />
+    <div className="pointer-events-auto relative z-10 flex min-h-full w-full flex-col">
+      <div className="my-auto flex w-full flex-1 flex-col items-center justify-center">
+        <DynamicPreviewLoader
+          key={previewFilename}
+          filename={previewFilename}
+          componentName={component.name}
+        />
+      </div>
     </div>
   );
 }

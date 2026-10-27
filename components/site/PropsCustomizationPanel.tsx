@@ -209,7 +209,7 @@ export default function PropsCustomizationPanel({
           <ShikiHighlight
             code={jsxCode}
             lang="tsx"
-            className="relative !m-0 scrollbar-none overflow-auto rounded-xl border border-neutral-200/70 bg-neutral-100/70 p-3 text-left !font-mono font-mono text-[11.5px] leading-relaxed select-text dark:border-neutral-800/70 dark:bg-neutral-900/60"
+            className="relative !m-0 scrollbar-none overflow-auto rounded-xl border border-neutral-200/70 bg-neutral-100 p-3 text-left !font-mono font-mono text-[11.5px] leading-relaxed select-text selection:bg-[#f6821f]/30 dark:border-neutral-800/70 dark:bg-[#141414]"
           />
         </div>
       </div>

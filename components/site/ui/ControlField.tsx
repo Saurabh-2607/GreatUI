@@ -88,7 +88,7 @@ export function ControlField({ schema, value, onChange }: ControlFieldProps) {
   return (
     <div className="flex flex-col gap-1.5 select-none">
       <div className="px-2 py-0.5">
-        <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+        <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
           {schema.label}
         </span>
       </div>

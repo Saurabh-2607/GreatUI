@@ -161,13 +161,13 @@ export function ControlSlider({
         onMouseLeave={() => setIsHovering(false)}
         onKeyDown={handleKeyDown}
         className={cn(
-          "group relative flex h-8.5 w-full cursor-pointer touch-pan-y items-center justify-between overflow-hidden rounded-lg border border-neutral-200/70 bg-white/90 px-3 shadow-xs transition-colors outline-none select-none dark:border-neutral-800/70 dark:bg-neutral-900/60",
+          "group relative flex h-8.5 w-full cursor-pointer touch-pan-y items-center justify-between overflow-hidden rounded-lg border border-neutral-200/70 bg-neutral-100/70 px-3 shadow-xs transition-colors outline-none select-none hover:border-neutral-300 dark:border-neutral-800/70 dark:bg-neutral-900/60 dark:hover:border-neutral-700",
           isDisabled && "pointer-events-none opacity-40",
           isActive && "border-neutral-300 dark:border-neutral-700",
         )}
       >
         <div
-          className="pointer-events-none absolute inset-y-0 left-0 bg-neutral-100 transition-colors dark:bg-neutral-800/80"
+          className="pointer-events-none absolute inset-y-0 left-0 bg-neutral-200/80 transition-colors dark:bg-neutral-800/80"
           style={{ width: `${percentage}%` }}
         />
 
@@ -177,10 +177,10 @@ export function ControlSlider({
         >
           <div
             className={cn(
-              "h-5 w-1 rounded-full transition-all duration-150 ease-out",
+              "h-5 w-1.5 rounded-full transition-all duration-150 ease-out",
               isActive
-                ? "scale-y-110 bg-[#f6821f] opacity-100"
-                : "bg-neutral-400 opacity-60 dark:bg-neutral-500",
+                ? "scale-y-110 bg-[#f6821f] opacity-100 shadow-xs"
+                : "bg-neutral-400/80 shadow-xs dark:bg-neutral-500",
             )}
           />
         </div>

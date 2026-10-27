@@ -26,7 +26,7 @@ export function ControlInput({
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full rounded-lg border border-neutral-200/70 bg-white/80 px-2.5 py-1.5 font-mono text-xs font-medium text-neutral-800 transition-colors focus:border-neutral-400 focus:outline-none dark:border-neutral-800/70 dark:bg-neutral-900/60 dark:text-neutral-200 dark:focus:border-neutral-600"
+          className="w-full rounded-lg border border-neutral-200/70 bg-neutral-100/70 px-2.5 py-1.5 font-mono text-xs font-medium text-neutral-800 transition-colors focus:border-neutral-400 focus:outline-none dark:border-neutral-800/70 dark:bg-neutral-900/60 dark:text-neutral-200 dark:focus:border-neutral-600"
         />
       </div>
     );
@@ -37,7 +37,7 @@ export function ControlInput({
       type="text"
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full rounded-lg border border-neutral-200/70 bg-white/80 px-2.5 py-1.5 font-mono text-xs font-medium text-neutral-800 transition-colors focus:border-neutral-400 focus:outline-none dark:border-neutral-800/70 dark:bg-neutral-900/60 dark:text-neutral-200 dark:focus:border-neutral-600"
+      className="w-full rounded-lg border border-neutral-200/70 bg-neutral-100/70 px-2.5 py-1.5 font-mono text-xs font-medium text-neutral-800 transition-colors focus:border-neutral-400 focus:outline-none dark:border-neutral-800/70 dark:bg-neutral-900/60 dark:text-neutral-200 dark:focus:border-neutral-600"
     />
   );
 }

@@ -47,14 +47,14 @@ export function ControlSelect({
                 ? "justify-center text-center"
                 : "w-full justify-start text-left",
               isSelected
-                ? "text-neutral-950 dark:text-white"
+                ? "font-semibold text-neutral-950 dark:text-white"
                 : "text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white",
             )}
           >
             {isSelected && (
               <motion.div
                 layoutId={`select-pill-${groupId}`}
-                className="absolute inset-0 rounded-md bg-white shadow-xs dark:bg-neutral-800"
+                className="absolute inset-0 rounded-md bg-white shadow-xs dark:bg-neutral-800 dark:shadow-sm"
                 transition={{ type: "spring", stiffness: 450, damping: 35 }}
               />
             )}

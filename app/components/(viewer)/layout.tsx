@@ -489,10 +489,8 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
               <div
                 ref={setPreviewContainer}
                 className={cn(
-                  "pointer-events-auto relative z-10 h-full w-full overflow-y-auto",
-                  component
-                    ? "flex scrollbar-none items-center justify-center"
-                    : "scrollbar-thin scrollbar-thumb-neutral-300 dark:scrollbar-thumb-neutral-800",
+                  "pointer-events-auto relative z-10 h-full w-full overflow-x-hidden overflow-y-auto",
+                  "scrollbar-thin scrollbar-thumb-neutral-300 dark:scrollbar-thumb-neutral-800",
                 )}
               >
                 {children}
@@ -628,25 +626,10 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                   <button
                     type="button"
                     onClick={resetProps}
-                    className="h-8 cursor-pointer rounded-lg px-2 text-xs font-medium text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
+                    className="flex h-8 cursor-pointer items-center rounded-lg px-2 text-xs font-medium text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-800/80 dark:hover:text-white"
                     title="Reset props to default"
                   >
                     Reset
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsCustomizerOpen(false);
-                      posthog.capture("customizer_toggled", {
-                        state: "closed",
-                        component_slug: component?.slug || "",
-                      });
-                    }}
-                    className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg border border-neutral-200/70 bg-transparent text-neutral-500 shadow-none transition-colors hover:bg-neutral-100 hover:text-neutral-950 dark:border-neutral-800/70 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
-                    title="Collapse customizer"
-                    aria-label="Collapse props customizer"
-                  >
-                    <SidebarRightIcon className="h-4 w-4" />
                   </button>
                 </div>
               </div>
