@@ -167,7 +167,25 @@ export const components: Component[] = [
         name: "items",
         type: ["FluidDockCarouselItem[]"],
         description:
-          "Array of gallery items containing image URLs, titles, and identifiers.",
+          "Array of gallery items containing image URLs, titles, and optional content.",
+        customizable: false,
+      },
+      {
+        name: "images",
+        type: ["string[]"],
+        description: "Array of image URLs for quick array-based configuration.",
+        customizable: false,
+      },
+      {
+        name: "titles",
+        type: ["string[]"],
+        description: "Array of slide titles corresponding to images.",
+        customizable: false,
+      },
+      {
+        name: "contents",
+        type: ["(React.ReactNode | string)[]"],
+        description: "Array of custom HTML or React elements for each slide.",
         customizable: false,
       },
       {
@@ -175,6 +193,13 @@ export const components: Component[] = [
         type: ["string"],
         description:
           "Additional CSS class names for the root gallery container.",
+        customizable: false,
+      },
+      {
+        name: "contentClassName",
+        type: ["string"],
+        description:
+          "Additional CSS class names for slide content / HTML container.",
         customizable: false,
       },
     ],

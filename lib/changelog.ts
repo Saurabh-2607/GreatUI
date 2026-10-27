@@ -7,7 +7,7 @@ export const changelogData: ChangelogItem[] = [
   {
     date: "October 27, 2026",
     features: [
-      "Added [Fluid Dock Carousel](/components/fluid-dock-carousel) component featuring full-viewport horizontal and vertical carousel layouts with fluid gooey thumbnail dock navigation, dock-styled next/previous chevron navigation controls, keyboard navigation, directional wheel scrolling, responsive mobile dock auto-centering, and high-contrast indicator styling.",
+      "Added [Fluid Dock Carousel](/components/fluid-dock-carousel) component featuring full-viewport horizontal and vertical carousel layouts with fluid gooey thumbnail dock navigation, support for array-based images, titles, and custom HTML / React content, dock-styled next/previous chevron navigation controls, keyboard navigation, directional wheel scrolling, responsive mobile dock auto-centering, and high-contrast indicator styling.",
     ],
   },
   {

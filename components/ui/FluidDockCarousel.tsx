@@ -7,13 +7,20 @@ import { cn } from "@/lib/utils";
 export interface FluidDockCarouselItem {
   id?: string | number;
   image: string;
-  title: string;
+  title?: string;
   alt?: string;
+  content?: React.ReactNode | string;
 }
 
 export interface FluidDockCarouselProps {
-  /** Array of gallery items containing image URLs, titles, and optional identifiers */
+  /** Array of gallery items containing image URLs, titles, and optional content */
   items?: FluidDockCarouselItem[];
+  /** Array of image URLs for quick array-based configuration */
+  images?: string[];
+  /** Array of slide titles corresponding to images */
+  titles?: string[];
+  /** Array of custom HTML or React elements for each slide */
+  contents?: (React.ReactNode | string)[];
   /** Controlled active index of the current slide */
   activeIndex?: number;
   /** Initial active index when uncontrolled */
@@ -50,6 +57,8 @@ export interface FluidDockCarouselProps {
   dockClassName?: string;
   /** Additional CSS class names for slide title typography */
   titleClassName?: string;
+  /** Additional CSS class names for slide content / HTML container */
+  contentClassName?: string;
 }
 
 const DEFAULT_ITEMS: FluidDockCarouselItem[] = [
@@ -58,47 +67,55 @@ const DEFAULT_ITEMS: FluidDockCarouselItem[] = [
     image:
       "https://ik.imagekit.io/j65jb9u8q/japan_mount_fuji_1792951286679.jpg",
     title: "Japan",
+    content: "Mount Fuji & Ancient Cherry Blossoms",
   },
   {
     id: 2,
     image:
       "https://ik.imagekit.io/j65jb9u8q/italy_amalfi_coast_1792951323930.jpg",
     title: "Italy",
+    content: "Amalfi Coast Cliffside Horizons",
   },
   {
     id: 3,
     image:
       "https://ik.imagekit.io/j65jb9u8q/france_eiffel_tower_1792951364018.jpg",
     title: "France",
+    content: "Parisian Architecture & Eiffel Views",
   },
   {
     id: 4,
     image:
       "https://ik.imagekit.io/j65jb9u8q/iceland_aurora_mountain_1792951406929.jpg",
     title: "Iceland",
+    content: "Northern Lights & Glacial Peaks",
   },
   {
     id: 5,
     image:
       "https://ik.imagekit.io/j65jb9u8q/egypt_giza_pyramids_1792951450291.jpg",
     title: "Egypt",
+    content: "Ancient Pyramids of Giza & Golden Dunes",
   },
   {
     id: 6,
     image:
       "https://ik.imagekit.io/j65jb9u8q/switzerland_matterhorn_alps_1792951497495.jpg",
     title: "Switzerland",
+    content: "Alpine Peaks of Zermatt & The Matterhorn",
   },
   {
     id: 7,
     image:
       "https://ik.imagekit.io/j65jb9u8q/brazil_rio_sugarloaf_1792951544409.jpg",
     title: "Brazil",
+    content: "Sugarloaf Mountain & Rio Coastline",
   },
   {
     id: 8,
     image: "https://ik.imagekit.io/j65jb9u8q/india_taj_mahal_1792951592038.jpg",
     title: "India",
+    content: "The Taj Mahal & Mughal Splendor",
   },
 ];
 
@@ -132,6 +149,9 @@ const verticalSlideVariants = {
 
 export function FluidDockCarousel({
   items = DEFAULT_ITEMS,
+  images,
+  titles,
+  contents,
   activeIndex: controlledIndex,
   defaultActiveIndex = 0,
   onActiveChange,
@@ -150,7 +170,25 @@ export function FluidDockCarousel({
   className,
   dockClassName,
   titleClassName,
+  contentClassName,
 }: FluidDockCarouselProps) {
+  const resolvedItems: FluidDockCarouselItem[] = React.useMemo(() => {
+    if (images && images.length > 0) {
+      return images.map((image, idx) => ({
+        id: idx,
+        image,
+        title: titles?.[idx] ?? "",
+        content: contents?.[idx],
+      }));
+    }
+    const baseItems = items && items.length > 0 ? items : DEFAULT_ITEMS;
+    return baseItems.map((item, idx) => ({
+      ...item,
+      title: titles?.[idx] !== undefined ? titles[idx] : item.title,
+      content: contents?.[idx] !== undefined ? contents[idx] : item.content,
+    }));
+  }, [items, images, titles, contents]);
+
   const [internalIndex, setInternalIndex] = useState(defaultActiveIndex);
   const [direction, setDirection] = useState(0);
   const activeIndex =
@@ -208,12 +246,12 @@ export function FluidDockCarousel({
   useEffect(() => {
     if (activeIndex !== activeIndexRef.current) {
       let diff = activeIndex - activeIndexRef.current;
-      if (diff > items.length / 2) diff -= items.length;
-      if (diff < -items.length / 2) diff += items.length;
+      if (diff > resolvedItems.length / 2) diff -= resolvedItems.length;
+      if (diff < -resolvedItems.length / 2) diff += resolvedItems.length;
       setDirection(diff >= 0 ? 1 : -1);
       activeIndexRef.current = activeIndex;
     }
-  }, [activeIndex, items.length]);
+  }, [activeIndex, resolvedItems.length]);
 
   useEffect(() => {
     return () => {
@@ -276,27 +314,28 @@ export function FluidDockCarousel({
 
   const paginate = useCallback(
     (newDirection: number) => {
-      if (isAnimatingRef.current || items.length === 0) return;
+      if (isAnimatingRef.current || resolvedItems.length === 0) return;
       const current = activeIndexRef.current;
-      const nextIndex = (current + newDirection + items.length) % items.length;
+      const nextIndex =
+        (current + newDirection + resolvedItems.length) % resolvedItems.length;
       setDirection(newDirection);
       activeIndexRef.current = nextIndex;
       updateIndex(nextIndex);
       triggerAnimationCooldown();
     },
-    [items.length, triggerAnimationCooldown, updateIndex],
+    [resolvedItems.length, triggerAnimationCooldown, updateIndex],
   );
 
   const handleSelectSection = useCallback(
     (targetIndex: number) => {
-      if (isAnimatingRef.current || items.length === 0) return;
+      if (isAnimatingRef.current || resolvedItems.length === 0) return;
       const current = activeIndexRef.current;
       if (targetIndex === current) return;
 
       let dir = targetIndex > current ? 1 : -1;
-      if (targetIndex - current > items.length / 2) {
+      if (targetIndex - current > resolvedItems.length / 2) {
         dir = -1;
-      } else if (current - targetIndex > items.length / 2) {
+      } else if (current - targetIndex > resolvedItems.length / 2) {
         dir = 1;
       }
 
@@ -305,7 +344,7 @@ export function FluidDockCarousel({
       updateIndex(targetIndex);
       triggerAnimationCooldown();
     },
-    [items.length, triggerAnimationCooldown, updateIndex],
+    [resolvedItems.length, triggerAnimationCooldown, updateIndex],
   );
 
   const handlePrev = useCallback(() => {
@@ -441,7 +480,7 @@ export function FluidDockCarousel({
     >
       <div className="absolute inset-0 z-0 overflow-hidden">
         <AnimatePresence initial={false} custom={direction}>
-          {items.map((item, i) =>
+          {resolvedItems.map((item, i) =>
             i === activeIndex ? (
               <motion.div
                 key={item.id ?? i}
@@ -465,15 +504,36 @@ export function FluidDockCarousel({
                   className="pointer-events-none absolute inset-0 h-full w-full object-cover"
                 />
 
-                {showTitles && item.title && (
-                  <h1
-                    className={cn(
-                      "relative z-10 px-4 text-center font-sans text-3xl font-black tracking-tight break-words text-white uppercase opacity-90 select-none sm:text-6xl md:text-8xl lg:text-9xl",
-                      titleClassName,
+                {(Boolean(showTitles && item.title) ||
+                  Boolean(item.content)) && (
+                  <div className="relative z-10 flex max-w-4xl flex-col items-center justify-center px-4 text-center select-none">
+                    {showTitles && item.title && (
+                      <h1
+                        className={cn(
+                          "font-sans text-3xl font-black tracking-tight break-words text-white uppercase opacity-90 sm:text-6xl md:text-8xl lg:text-9xl",
+                          titleClassName,
+                        )}
+                      >
+                        {item.title}
+                      </h1>
                     )}
-                  >
-                    {item.title}
-                  </h1>
+                    {item.content && (
+                      <div
+                        className={cn(
+                          "mt-2 text-sm font-medium tracking-wide text-white/90 drop-shadow-md sm:mt-4 sm:text-lg md:text-xl",
+                          contentClassName,
+                        )}
+                      >
+                        {typeof item.content === "string" ? (
+                          <div
+                            dangerouslySetInnerHTML={{ __html: item.content }}
+                          />
+                        ) : (
+                          item.content
+                        )}
+                      </div>
+                    )}
+                  </div>
                 )}
               </motion.div>
             ) : null,
@@ -486,7 +546,7 @@ export function FluidDockCarousel({
         style={{ opacity: overlayOpacity }}
       />
 
-      {showDock && items.length > 0 && (
+      {showDock && resolvedItems.length > 0 && (
         <div
           className={cn(
             "absolute z-20 flex items-center",
@@ -496,7 +556,7 @@ export function FluidDockCarousel({
             getPositionClasses(),
           )}
         >
-          {showControls && items.length > 1 && (
+          {showControls && resolvedItems.length > 1 && (
             <button
               type="button"
               onClick={handlePrev}
@@ -631,7 +691,7 @@ export function FluidDockCarousel({
                   isHorizontal ? { height: activeDim } : { width: activeDim }
                 }
               >
-                {items.map((item, i) => {
+                {resolvedItems.map((item, i) => {
                   const isActive = activeIndex === i;
                   return (
                     <motion.button
@@ -683,7 +743,7 @@ export function FluidDockCarousel({
             </div>
           </div>
 
-          {showControls && items.length > 1 && (
+          {showControls && resolvedItems.length > 1 && (
             <button
               type="button"
               onClick={handleNext}
