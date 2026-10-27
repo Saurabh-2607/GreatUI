@@ -84,7 +84,7 @@ function CardMedia({
     );
   }
 
-  const isMp4 = currentSrc.includes(".mp4");
+  const isVideo = currentSrc.includes(".mp4") || currentSrc.includes(".webm");
   const shouldLoad = isInView || isHovered;
 
   return (
@@ -107,7 +107,7 @@ function CardMedia({
         />
       )}
 
-      {isMp4 && (
+      {isVideo && (
         <video
           key={currentSrc}
           ref={videoRef}
@@ -129,7 +129,7 @@ function CardMedia({
         />
       )}
 
-      {!isMp4 && !poster && (
+      {!isVideo && !poster && (
         <img
           key={currentSrc}
           src={shouldLoad ? currentSrc : undefined}

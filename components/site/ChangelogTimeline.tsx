@@ -75,7 +75,7 @@ function ChangelogMedia({
     );
   }
 
-  const isMp4 = currentSrc.includes(".mp4");
+  const isVideo = currentSrc.includes(".mp4") || currentSrc.includes(".webm");
   const shouldLoad = isInView || isHovered;
 
   return (
@@ -95,7 +95,7 @@ function ChangelogMedia({
         />
       )}
 
-      {isMp4 && (
+      {isVideo && (
         <video
           key={currentSrc}
           ref={videoRef}
@@ -117,7 +117,7 @@ function ChangelogMedia({
         />
       )}
 
-      {!isMp4 && !poster && (
+      {!isVideo && !poster && (
         <img
           key={currentSrc}
           src={shouldLoad ? currentSrc : undefined}

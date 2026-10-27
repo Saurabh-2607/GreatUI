@@ -34,7 +34,8 @@ export function getPreviewFallback(component: {
   if (!component.preview) return null;
   if (component.preview.startsWith("/previews/")) return component.preview;
   const fileName = component.preview.split("/").pop()?.split("?")[0];
-  return fileName ? `/previews/${fileName}` : null;
+  if (!fileName) return null;
+  return `/previews/${fileName}`;
 }
 
 export function getPreviewPoster(component: {
@@ -66,7 +67,7 @@ export const components: Component[] = [
     dependencies: ["motion"],
     previewFile: "FluidDockCarouselPreview",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Fluid-Dock-Carousel.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Fluid-Dock-Carousel.webm",
     props: [
       {
         name: "orientation",
@@ -187,7 +188,7 @@ export const components: Component[] = [
     dependencies: [],
     previewFile: "PixelSwipePageTransitionPreview",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Pixel-Swipe-Page-Transition.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Pixel-Swipe-Page-Transition.webm",
     props: [
       {
         name: "trigger",
@@ -314,7 +315,7 @@ export function AppShell() {
     dependencies: ["motion"],
     previewFile: "PixelSwipeTextPreview",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Pixel-Swipe-Text.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Pixel-Swipe-Text.webm",
     props: [
       {
         name: "children",
@@ -375,7 +376,7 @@ export function AppShell() {
     category: "Visuals",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Animated-Path.mp4?v=2",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Animated-Path.webm",
     name: "Animated Path",
     description:
       "An animated logo component that draws the paths smoothly using Framer Motion.",
@@ -472,7 +473,7 @@ export function AppShell() {
     category: "Social Cards",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-linkedin-Card.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-linkedin-Card.webm",
     name: "LinkedIn Card",
     description:
       "An interactive LinkedIn profile card component that supports both static and animated 3D tilt effects.",
@@ -603,7 +604,7 @@ export function AppShell() {
     category: "Social Cards",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-x-Card.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-x-Card.webm",
     name: "Twitter(X) Card",
     description:
       "An interactive Twitter profile card component that supports both static and animated 3D tilt effects.",
@@ -697,7 +698,7 @@ export function AppShell() {
     category: "Social Cards",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Facebook-Card.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Facebook-Card.webm",
     name: "Facebook Card",
     description:
       "An interactive Facebook profile card component with magnetic 3D tilt effects on hover.",
@@ -827,7 +828,7 @@ export function AppShell() {
     category: "Social Cards",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Instagram-Card.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Instagram-Card.webm",
     name: "Instagram Card",
     description:
       "An interactive Instagram profile card component featuring gradient avatar border and 3D tilt effects on hover.",
@@ -958,7 +959,7 @@ export function AppShell() {
     category: "Navigation",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-gooey-menu.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-gooey-menu.webm",
     name: "Radial Gooey Menu",
     description:
       "A liquid radial gooey menu component with spring-physics magnetic hover effects and smooth SVG blob matrix filtering.",
@@ -1042,7 +1043,7 @@ export function AppShell() {
     category: "Navigation",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Floating-Dock-Menu.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Floating-Dock-Menu.webm",
     name: "Floating Dock Menu",
     description:
       "An expandable floating dock menu with smooth layout morphing, active pill indicator, toggle switches, and submenus.",
@@ -1111,7 +1112,7 @@ export function AppShell() {
     category: "Layout & Cards",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/accordian.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/accordian.webm",
     name: "Accordion",
     description:
       "An interactive Accordion component with smooth expand/collapse animations.",
@@ -1134,7 +1135,7 @@ export function AppShell() {
     category: "Buttons",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/button.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/button.webm",
     name: "Button",
     description:
       "A versatile button component supporting multiple variants, sizes, icons, and a loading state.",
@@ -1192,7 +1193,7 @@ export function AppShell() {
     category: "Visuals",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/mobileMockup.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/mobileMockup.webm",
     name: "Mobile Mockup",
     description:
       "An interactive mobile device frame mockup with a realistic smartphone chassis, status bar, and WhatsApp mobile chat UI.",
@@ -1250,7 +1251,7 @@ export function AppShell() {
     category: "Visuals",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/macbookMockup.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/macbookMockup.webm",
     name: "Macbook Mockup",
     description:
       "A realistic 3D Macbook Pro device frame mockup with aluminum casing, keyboard base, and dual-pane WhatsApp Web chat UI.",
@@ -1307,7 +1308,7 @@ export function AppShell() {
     category: "Layout & Cards",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/deploymentchecklist.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/deploymentchecklist.webm",
     name: "Deployment Checklist",
     description:
       "An interactive CI/CD pipeline protocol checklist depicting git clone, install, build, and deploy stages with custom animated status icons.",
@@ -1330,7 +1331,7 @@ export function AppShell() {
     category: "Navigation",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/floatingmenu.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/floatingmenu.webm",
     name: "Floating Menu",
     description:
       "A floating, animated capsule menu that expands into a full-screen navigation overlay.",
@@ -1367,7 +1368,7 @@ export function AppShell() {
     category: "Layout & Cards",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/vinyl.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/vinyl.webm",
     name: "Vinyl Album Card",
     description:
       "An interactive music album card with a spinning vinyl record that emerges from the cover sleeve upon hover.",
@@ -1419,7 +1420,8 @@ export function AppShell() {
     slug: "liquid-ripple-shader",
     category: "Shaders",
     inspiration: "",
-    preview: "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/liquidRiple.mp4",
+    preview:
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/liquidRiple.webm",
     name: "Liquid Ripple Shader",
     description:
       "A fullscreen WebGL page transition that animates a fluid concentric ripple wave expanding from the center of the viewport during route changes.",
@@ -1465,7 +1467,8 @@ export function AppShell() {
     slug: "cyber-glitch-shader",
     category: "Shaders",
     inspiration: "",
-    preview: "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/cyberglitch.mp4",
+    preview:
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/cyberglitch.webm",
     name: "Cyber Glitch Shader",
     description:
       "A fullscreen WebGL page transition that applies an RGB-split chromatic aberration glitch effect across the viewport during route changes.",
@@ -1511,7 +1514,8 @@ export function AppShell() {
     slug: "vortex-spiral-shader",
     category: "Shaders",
     inspiration: "",
-    preview: "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/swirl.mp4",
+    preview:
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/swirl.webm",
     name: "Vortex Spiral Shader",
     description:
       "A fullscreen WebGL page transition that spins a rotating swirl vortex wipe across the viewport during route changes.",
@@ -1557,7 +1561,8 @@ export function AppShell() {
     slug: "liquid-dissolve-shader",
     category: "Shaders",
     inspiration: "",
-    preview: "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/liquidDisolve.mp4",
+    preview:
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/liquidDisolve.webm",
     name: "Liquid Dissolve Shader",
     description:
       "A fullscreen WebGL page transition that melts the viewport away using organic fractal noise dissolve during route changes.",
@@ -1603,7 +1608,8 @@ export function AppShell() {
     slug: "animated-select",
     category: "Visuals",
     inspiration: "",
-    preview: "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/dropdown.mp4",
+    preview:
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/dropdown.webm",
     name: "Animated Select",
     description:
       "A premium interactive dropdown component with dynamic spring-based menu expanding animations and sequenced staggering list items.",
@@ -1665,7 +1671,7 @@ export function AppShell() {
     category: "Navigation",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/links.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/links.webm",
     name: "Animated Link",
     description:
       "An interactive link component supporting 13 premium hover variants including custom clipping masks, SVG sine waves, and text marquee animations.",
@@ -1763,7 +1769,7 @@ export function AppShell() {
     category: "Visuals",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/terminalLoader.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/terminalLoader.webm",
     name: "Terminal Loader",
     description:
       "A retro, terminal-inspired monospace loading indicator that animates character blocks and trailing density particles in real-time.",
@@ -1890,7 +1896,7 @@ export function AppShell() {
     category: "Buttons",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/shadowButton.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/shadowButton.webm",
     name: "Minimal Buttons",
     description:
       "A tactile, retro-modern button component featuring beveled top-border highlights, inner gradients, and inset shadow detailing.",
@@ -1932,7 +1938,7 @@ export function AppShell() {
     category: "Buttons",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/aceternitybutton.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/aceternitybutton.webm",
     name: "Aceternity Button",
     description:
       "A soft, convex tactile button component featuring inner shadows, active scaling states, and smooth gradients for premium feedback.",
@@ -2033,7 +2039,7 @@ export function AppShell() {
     category: "Carousels",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/marquee.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/marquee.webm",
     name: "Diagonal Marquee Carousel",
     description:
       "A premium diagonally slanted, infinitely scrolling marquee showing cards or landscapes with offset speeds, alternating directions, and soft gradients.",
@@ -2099,7 +2105,7 @@ export function AppShell() {
     category: "Layout & Cards",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/timeline.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/timeline.webm",
     name: "Revision Timeline",
     description:
       "A premium interactive document revision history log timeline featuring Gaussian-weighted dial scale indicators, spring-based sliding position centering, and parsed markdown log lists.",
@@ -2179,7 +2185,8 @@ export function AppShell() {
   // {
   //   slug: "frosted-glass-reveal",
   //   inspiration: "",
-  //   preview: "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/frostedglass.mp4",
+  //   preview:
+  //     "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/frostedglass.webm",
   //   name: "Frosted Glass Reveal",
   //   description:
   //     "An interactive frosted glass image reveal effect that simulates realistic light refraction and tracks the user's cursor.",
@@ -2220,7 +2227,7 @@ export function AppShell() {
     category: "Layout & Cards",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/card.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/card.webm",
     name: "Card",
     description:
       "A card component that displays an image, a title, and a date, and highlights custom divider lines on hover.",
@@ -2285,7 +2292,7 @@ export function AppShell() {
     category: "Typography",
     inspiration: "https://x.com/samitkapoorr",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/textscroll.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/textscroll.webm",
     name: "Text Reveal",
     description:
       "A scroll-driven text mask reveal component that animates words and characters letter-by-letter as the viewport scrolls.",
@@ -2357,7 +2364,7 @@ export function AppShell() {
     category: "Social Cards",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/avatarhover.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/avatarhover.webm",
     name: "Github Card",
     description:
       "A customizable hover link component that reveals a realistic 3D-tilted GitHub contributions calendar popup with interactive tooltips.",
@@ -2466,7 +2473,7 @@ export function AppShell() {
     category: "Layout & Cards",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/teamSection.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/teamSection.webm",
     name: "Team Section",
     description:
       "A premium interactive team listing component featuring custom layout reveals, grayscale-to-color hover effects, and responsive layout.",
@@ -2533,7 +2540,7 @@ export function AppShell() {
     category: "Typography",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/command-copy-scramble-text.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/command-copy-scramble-text.webm",
     name: "Scrambled Install Command",
     description:
       "A copy-to-clipboard command installation component featuring an animated scramble text effect.",
@@ -2650,7 +2657,7 @@ export function AppShell() {
     category: "Typography",
     inspiration: "",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/textscroll.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/textscroll.webm",
     name: "Text On Path Scroll",
     description:
       "A scroll-driven text animation that follows a custom SVG path as the user scrolls.",
@@ -2707,7 +2714,7 @@ export function AppShell() {
     dependencies: ["motion"],
     previewFile: "MultilingualQuotePreview",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/quote-multilingual.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/quote-multilingual.webm",
     props: [
       {
         name: "quotes",
@@ -2759,7 +2766,7 @@ export function AppShell() {
     dependencies: ["motion"],
     previewFile: "PixelToAsciiImagePreview",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/pixel-to-ascii.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/pixel-to-ascii.webm",
     props: [
       {
         name: "src",
@@ -2818,7 +2825,7 @@ export function AppShell() {
     dependencies: ["motion"],
     previewFile: "StaggeredPageTransitionPreview",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/staggering-page-transition.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/staggering-page-transition.webm",
     props: [
       {
         name: "trigger",
@@ -2970,7 +2977,7 @@ export function AppShell() {
     dependencies: ["motion"],
     previewFile: "ColorWipePageTransitionPreview",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/ColorWipeTransition.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/ColorWipeTransition.webm",
     props: [
       {
         name: "trigger",
@@ -3146,7 +3153,7 @@ export function AppShell() {
     slug: "split-line-fly-in",
     category: "Typography",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/flyIntext.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/flyIntext.webm",
     name: "Split Line Fly In",
     description:
       "A scroll-driven text animation component where lines fly in from opposite sides of the viewport and settle at the center.",
@@ -3249,7 +3256,7 @@ export function AppShell() {
     slug: "blur-scroll-reveal",
     category: "Typography",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/BlurTextScroll.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/BlurTextScroll.webm",
     name: "Blur Scroll Reveal",
     description:
       "A scroll-driven text animation component where words or lines fade and transition from blur to sharp as they scroll into view.",
@@ -3348,7 +3355,7 @@ export function AppShell() {
     slug: "word-focus-scroll",
     category: "Typography",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/wordFocus.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/wordFocus.webm",
     name: "Word Focus Scroll",
     description:
       "A scroll-driven text focusing component where individual words scale up, unblur, and fade in sequentially on scroll and lock into focus.",
@@ -3428,7 +3435,7 @@ export function AppShell() {
     interactionType:
       "Triggered programmatically or using directional controls. Wipes the screen in the selected direction.",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-SwipeThemeProviders.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-SwipeThemeProviders.webm",
     dependencies: [],
     previewFile: "SwipeThemeChangePreview",
     props: [
@@ -3529,7 +3536,7 @@ export function CustomThemeToggle() {
     interactionType:
       "Triggered by user clicks or programmatically. Wipes the screen outward in an expanding circle.",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-CircularThemeProvider.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-CircularThemeProvider.webm",
     dependencies: [],
     previewFile: "CircularThemeProviderPreview",
     props: [
@@ -3614,7 +3621,7 @@ export function CustomThemeToggle() {
     interactionType:
       "Triggered programmatically or using control buttons. Splits the viewport outward from the center, or inward from the edges.",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-SplitThemeProvider.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-SplitThemeProvider.webm",
     dependencies: [],
     previewFile: "SplitThemeProviderPreview",
     props: [
@@ -3707,7 +3714,7 @@ export function CustomThemeToggle() {
     dependencies: ["motion"],
     previewFile: "CurtainPageTransitionPreview",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Curtain-Transition.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Curtain-Transition.webm",
     props: [
       {
         name: "trigger",
@@ -3820,7 +3827,7 @@ export function AppShell() {
     dependencies: ["motion"],
     previewFile: "InterlockingPageTransitionPreview",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Interlocking-Page-Transition.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Interlocking-Page-Transition.webm",
     props: [
       {
         name: "trigger",
@@ -3942,7 +3949,7 @@ export function AppShell() {
     dependencies: ["motion"],
     previewFile: "SweepPageTransitionPreview",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Sweep-Page-Transition.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Sweep-Page-Transition.webm",
     props: [
       {
         name: "trigger",
@@ -4072,7 +4079,7 @@ export function AppShell() {
     dependencies: ["motion"],
     previewFile: "PixelPageTransitionPreview",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Pixel-page-Transition.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Pixel-page-Transition.webm",
     props: [
       {
         name: "trigger",
@@ -4188,7 +4195,7 @@ export function AppShell() {
     dependencies: ["motion"],
     previewFile: "SineWavePageTransitionPreview",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Sine-Wave-Page-Transition.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Sine-Wave-Page-Transition.webm",
     props: [
       {
         name: "trigger",
@@ -4328,7 +4335,7 @@ export function AppShell() {
     dependencies: ["motion"],
     previewFile: "CascadePageTransitionPreview",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Cascade-Page-Transition.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Cascade-Page-Transition.webm",
     props: [
       {
         name: "trigger",
@@ -4515,7 +4522,7 @@ export function AppShell() {
     dependencies: ["motion"],
     previewFile: "VenetianBlindsPageTransitionPreview",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Venetian-Blinds-Page-Transition.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Venetian-Blinds-Page-Transition.webm",
     props: [
       {
         name: "trigger",
@@ -4658,7 +4665,7 @@ export function AppShell() {
     interactionType:
       "Triggered programmatically. Smoothly cross-fades and blurs the screen during theme changes.",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-blur-fade-theme-transition.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-blur-fade-theme-transition.webm",
     dependencies: [],
     previewFile: "BlurFadeThemeTransitionPreview",
     props: [
@@ -4731,7 +4738,7 @@ export function CustomThemeToggle() {
     interactionType:
       "Programmatically triggered on route change or view swaps, applying a soft blur over the screen.",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-cross-blur-page-transition.mp4",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-cross-blur-page-transition.webm",
     dependencies: ["motion"],
     previewFile: "CrossBlurPageTransitionPreview",
     props: [
@@ -4789,7 +4796,7 @@ export default function PageTransitionWrapper() {
     category: "Layout & Cards",
     inspiration: "https://www.hexcode.design/",
     preview:
-      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Scroll-flying-Cards.mp4?v=2",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Scroll-flying-Cards.webm",
     description:
       "A scroll-driven flying cards component featuring dynamic entry/exit transforms, rotation, scale depth, blur filters, and sticky background text.",
     interactionType:
