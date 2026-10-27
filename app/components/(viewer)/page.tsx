@@ -48,17 +48,7 @@ export const metadata: Metadata = {
   },
 };
 
-const FEATURED_SLUGS = [
-  "pixel-swipe-page-transition",
-  "pixel-swipe-text",
-  "scroll-flying-cards",
-];
-
 export default function ComponentsCatalogPage() {
-  const featuredComponents = FEATURED_SLUGS.map((slug) =>
-    components.find((c) => c.slug === slug),
-  ).filter((c): c is Component => c !== undefined);
-
   const activeCategories = CATEGORY_ORDER.filter(
     (catName) => (componentsByCategory[catName] || []).length > 0,
   );
@@ -81,23 +71,6 @@ export default function ComponentsCatalogPage() {
       </div>
 
       <div className="mt-12 flex flex-col gap-16">
-        {featuredComponents.length > 0 && (
-          <section className="flex flex-col">
-            <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {featuredComponents.map((c) => (
-                <Link
-                  href={`/components/${c.slug}`}
-                  key={c.slug}
-                  aria-label={`View ${c.name} component`}
-                  className="group relative block cursor-pointer overflow-hidden rounded-3xl bg-neutral-100 no-underline dark:bg-neutral-900"
-                >
-                  <ComponentCard component={c} isFeatured={true} />
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
-
         {CATEGORY_ORDER.map((catName) => {
           const catComponents = componentsByCategory[catName] || [];
           if (catComponents.length === 0) return null;

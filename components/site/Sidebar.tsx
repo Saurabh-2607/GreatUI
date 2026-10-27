@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import posthog from "posthog-js";
+import { motion } from "motion/react";
 import { CATEGORY_ORDER, componentsByCategory } from "@/lib/categories";
 import { cn } from "@/lib/utils";
 
@@ -63,6 +64,45 @@ function ChangelogIcon(props: React.SVGProps<SVGSVGElement>) {
       <line x1="16" y1="17" x2="8" y2="17" />
       <polyline points="10 9 9 9 8 9" />
     </svg>
+  );
+}
+
+function NewBadge() {
+  return (
+    <div className="flex shrink-0 items-center gap-0.5 text-[#f6821f]">
+      <span className="text-[12px] font-semibold tracking-tight">New</span>
+      <svg viewBox="0 0 16 16" fill="none" className="h-3.5 w-3.5">
+        <motion.path
+          d="M5.2168 11.2812L8.3418 8.15625L11.4668 11.2812"
+          stroke="currentColor"
+          strokeWidth="1.25"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          animate={{ opacity: [0.3, 1, 0.3] }}
+          transition={{
+            repeat: Infinity,
+            duration: 1.2,
+            ease: "easeInOut",
+            times: [0, 0.5, 1],
+          }}
+        />
+        <motion.path
+          d="M5.2168 6.90625L8.3418 3.78125L11.4668 6.90625"
+          stroke="currentColor"
+          strokeWidth="1.25"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          animate={{ opacity: [0.3, 1, 0.3] }}
+          transition={{
+            repeat: Infinity,
+            duration: 1.2,
+            ease: "easeInOut",
+            times: [0, 0.5, 1],
+            delay: 0.25,
+          }}
+        />
+      </svg>
+    </div>
   );
 }
 
@@ -276,7 +316,7 @@ export default function Sidebar({ activeSlug }: SidebarProps) {
                               });
                             }}
                             className={cn(
-                              "flex h-8 items-center rounded-lg px-2 text-sm transition-colors",
+                              "flex h-8 items-center justify-between gap-2 rounded-lg px-2 text-sm transition-colors",
                               active
                                 ? "bg-neutral-100 font-medium text-neutral-950 dark:bg-neutral-900/90 dark:text-white"
                                 : "text-neutral-600 hover:bg-neutral-100/70 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-900/60 dark:hover:text-white",
@@ -290,6 +330,7 @@ export default function Sidebar({ activeSlug }: SidebarProps) {
                             >
                               {c.name}
                             </span>
+                            {c.isNew ? <NewBadge /> : null}
                           </Link>
                         </li>
                       );

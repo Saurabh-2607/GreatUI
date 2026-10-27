@@ -24,6 +24,7 @@ export type Component = {
   code?: string;
   usageCode?: string;
   inspiration?: string;
+  isNew?: boolean;
 };
 
 export function getPreviewFallback(component: {
@@ -60,6 +61,7 @@ export const components: Component[] = [
     slug: "fluid-dock-carousel",
     category: "Carousels",
     name: "Fluid Dock Carousel",
+    isNew: true,
     description:
       "A full-viewport vertical or horizontal carousel with a floating fluid dock, interactive thumbnail navigation, continuous scrolling, and customizable indicator styling.",
     interactionType:
@@ -181,6 +183,7 @@ export const components: Component[] = [
     slug: "pixel-swipe-page-transition",
     category: "Page Transitions",
     name: "Pixel Swipe Page Transition",
+    isNew: true,
     description:
       "A fast, canvas-powered single pixel wipe page transition with dynamic dithered noise edges.",
     interactionType:
@@ -308,6 +311,7 @@ export function AppShell() {
     slug: "pixel-swipe-text",
     category: "Typography",
     name: "Pixel Swipe Text ",
+    isNew: true,
     description:
       "A pixel-noise stylized dual-band canvas wipe reveal animation for text headlines and hero statements.",
     interactionType:
@@ -4794,6 +4798,7 @@ export default function PageTransitionWrapper() {
     slug: "scroll-flying-cards",
     name: "Scroll Flying Cards",
     category: "Layout & Cards",
+    isNew: true,
     inspiration: "https://www.hexcode.design/",
     preview:
       "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Scroll-flying-Cards.webm",

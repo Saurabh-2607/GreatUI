@@ -178,7 +178,7 @@ export default function ComponentCard({
             {component.name}
           </span>
           <div className="flex items-center gap-2">
-            {isFeatured ? (
+            {component.isNew ? (
               <div className="flex items-center gap-1 text-[#f6821f]">
                 <span className="text-[14px] font-semibold tracking-wide">
                   New
