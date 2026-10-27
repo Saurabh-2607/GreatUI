@@ -66,7 +66,7 @@ export const components: Component[] = [
     dependencies: ["motion"],
     previewFile: "FluidDockCarouselPreview",
     preview:
-      "https://ik.imagekit.io/j65jb9u8q/japan_mount_fuji_1792951286679.jpg",
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Fluid-Dock-Carousel.mp4",
     props: [
       {
         name: "orientation",
