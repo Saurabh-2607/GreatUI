@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { useProps } from "@/lib/PropsContext";
 import { ControlField } from "./ui/ControlField";
 import { ControlSelect } from "./ui/ControlSelect";
-import { CopyIcon, CheckIcon } from "./Icons";
+import { CopyCheckIcon } from "./Icons";
+import { TextMorph } from "torph/react";
 import ShikiHighlight from "./ShikiHighlight";
 import { type Component } from "@/lib/registry";
 import { type ControlSchema } from "@/lib/propsRegistry";
@@ -196,14 +197,13 @@ export default function PropsCustomizationPanel({
             <button
               type="button"
               onClick={handleCopyCode}
-              className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-lg text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
+              className="flex h-7 cursor-pointer items-center justify-start gap-1.5 rounded-lg px-2 text-xs font-medium text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
               title="Copy code"
             >
-              {copiedCode ? (
-                <CheckIcon className="h-3.5 w-3.5 text-green-500" />
-              ) : (
-                <CopyIcon className="h-3.5 w-3.5" />
-              )}
+              <CopyCheckIcon copied={copiedCode} className="size-3.5" />
+              <TextMorph as="span" ease={{ stiffness: 220, damping: 22 }}>
+                {copiedCode ? "Copied code" : "Copy code"}
+              </TextMorph>
             </button>
           </div>
           <ShikiHighlight

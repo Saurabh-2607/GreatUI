@@ -16,8 +16,7 @@ import ComponentActions from "@/components/site/ComponentActions";
 import {
   CodeIcon,
   BookOpenIcon,
-  CopyIcon,
-  CheckIcon,
+  CopyCheckIcon,
   SidebarRightIcon,
   NpmIcon,
   PnpmIcon,
@@ -30,6 +29,7 @@ import { ViewerProvider, useViewer } from "@/lib/viewer-context";
 import { PropsProvider, useProps } from "@/lib/PropsContext";
 import PropsCustomizationPanel from "@/components/site/PropsCustomizationPanel";
 import { motion, AnimatePresence } from "motion/react";
+import { TextMorph } from "torph/react";
 import { generateComponentLdJsonGraph } from "@/lib/i18n-seo";
 
 type PkgManager = "npm" | "pnpm" | "yarn" | "bun";
@@ -521,9 +521,12 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                           pm={pkgManager}
                           className="h-3.5 w-3.5 shrink-0"
                         />
-                        <span className="inline-block w-[4ch] text-left font-mono text-xs font-semibold">
+                        <TextMorph
+                          as="span"
+                          className="inline-block w-[4ch] text-left font-mono text-xs font-semibold"
+                        >
                           {pkgManager}
-                        </span>
+                        </TextMorph>
                         <svg
                           className={`h-3 w-3 shrink-0 text-neutral-400 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`}
                           fill="none"
@@ -574,9 +577,9 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                     </div>
 
                     <div className="min-w-0 scrollbar-none overflow-x-auto px-1 font-mono text-[13px] whitespace-nowrap text-neutral-700 select-all dark:text-neutral-300">
-                      <code className="whitespace-nowrap">
+                      <TextMorph as="code" className="whitespace-nowrap">
                         {installCommand}
-                      </code>
+                      </TextMorph>
                     </div>
 
                     <button
@@ -585,11 +588,10 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                       className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
                       title="Copy installation command"
                     >
-                      {copiedInstall ? (
-                        <CheckIcon className="h-3.5 w-3.5 text-green-500" />
-                      ) : (
-                        <CopyIcon className="h-3.5 w-3.5" />
-                      )}
+                      <CopyCheckIcon
+                        copied={copiedInstall}
+                        className="size-3.5"
+                      />
                     </button>
                   </div>
                 ) : (

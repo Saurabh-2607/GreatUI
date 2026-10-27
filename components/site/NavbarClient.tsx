@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import posthog from "posthog-js";
 import { motion, AnimatePresence } from "motion/react";
+import { TextMorph } from "torph/react";
 import Container from "./Container";
 import ThemeToggle from "./ThemeToggle";
 import { GithubIcon, StarIcon } from "./Icons";
@@ -132,21 +133,18 @@ export function Navbar({ starCount = null }: { starCount?: number | null }) {
                     <StarIcon className="h-5 w-5" />
                   </div>
                 </div>
-                {starCount !== null ? (
-                  <span className="hidden text-sm font-medium text-neutral-800 sm:inline dark:text-neutral-200">
-                    {(() => {
-                      if (starCount >= 1000000)
-                        return (starCount / 1000000).toFixed(1) + "M";
-                      if (starCount >= 1000)
-                        return (starCount / 1000).toFixed(1) + "K";
-                      return starCount;
-                    })()}
-                  </span>
-                ) : (
-                  <span className="hidden text-sm font-medium text-neutral-800 sm:inline dark:text-neutral-200">
-                    Star
-                  </span>
-                )}
+                <TextMorph
+                  as="span"
+                  className="hidden text-sm font-medium text-neutral-800 sm:inline dark:text-neutral-200"
+                >
+                  {starCount !== null
+                    ? starCount >= 1000000
+                      ? (starCount / 1000000).toFixed(1) + "M"
+                      : starCount >= 1000
+                        ? (starCount / 1000).toFixed(1) + "K"
+                        : String(starCount)
+                    : "Star"}
+                </TextMorph>
               </div>
             </a>
 

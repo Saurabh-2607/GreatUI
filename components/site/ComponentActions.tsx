@@ -6,10 +6,10 @@ import { type Component } from "@/lib/registry";
 import { getComponentMarkdown } from "@/lib/markdown";
 import { useViewer } from "@/lib/viewer-context";
 import { motion, AnimatePresence } from "motion/react";
+import { TextMorph } from "torph/react";
 import { cn } from "@/lib/utils";
 import {
-  CopyIcon,
-  CheckIcon,
+  CopyCheckIcon,
   MarkdownIcon,
   V0Icon,
   ChatGPTIcon,
@@ -95,14 +95,12 @@ export default function ComponentActions({
       <button
         type="button"
         onClick={handleCopyForAgent}
-        className="flex h-full items-center justify-center gap-1.5 rounded-l-lg px-2.5 text-[13px] font-medium whitespace-nowrap text-neutral-700 transition-colors hover:bg-neutral-200 dark:text-neutral-200 dark:hover:bg-[#2a2a2a]"
+        className="flex h-full items-center justify-start gap-1.5 rounded-l-lg px-2.5 text-[13px] font-medium whitespace-nowrap text-neutral-700 transition-colors hover:bg-neutral-200 dark:text-neutral-200 dark:hover:bg-[#2a2a2a]"
       >
-        {copied ? (
-          <CheckIcon className="h-3.5 w-3.5 text-green-500" />
-        ) : (
-          <CopyIcon className="h-3.5 w-3.5" />
-        )}
-        {copied ? "Copied" : "Copy for your agent"}
+        <CopyCheckIcon copied={copied} className="size-3.5" />
+        <TextMorph as="span" ease={{ stiffness: 220, damping: 22 }}>
+          {copied ? "Copied for agent" : "Copy for your agent"}
+        </TextMorph>
       </button>
       <div className="my-1.5 w-[1px] bg-neutral-300 dark:bg-neutral-700/50"></div>
       <button
@@ -152,12 +150,10 @@ export default function ComponentActions({
                 onClick={handleCopyLink}
                 className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-base font-medium text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 sm:px-2.5 sm:py-1.5 sm:text-sm dark:text-neutral-300 dark:hover:bg-[#2a2a2a] dark:hover:text-white"
               >
-                {copiedLink ? (
-                  <CheckIcon className="h-4 w-4 text-green-500" />
-                ) : (
-                  <CopyIcon className="h-4 w-4" />
-                )}
-                {copiedLink ? "Link Copied" : "Copy Page Link"}
+                <CopyCheckIcon copied={copiedLink} className="size-4" />
+                <TextMorph as="span" ease={{ stiffness: 220, damping: 22 }}>
+                  {copiedLink ? "Copied page link" : "Copy page link"}
+                </TextMorph>
               </button>
               <button
                 type="button"

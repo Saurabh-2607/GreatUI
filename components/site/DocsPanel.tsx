@@ -6,8 +6,7 @@ import { type Component, components } from "@/lib/registry";
 import { CATEGORY_ORDER, componentsByCategory } from "@/lib/categories";
 import Link from "next/link";
 import {
-  CopyIcon,
-  CheckIcon,
+  CopyCheckIcon,
   CodeIcon,
   dependencyUrls,
   dependencyIcons,
@@ -19,6 +18,7 @@ import {
 import ShikiHighlight from "./ShikiHighlight";
 import ComponentActions from "./ComponentActions";
 import { getComponentPropsSchema } from "@/lib/propsRegistry";
+import { TextMorph } from "torph/react";
 
 type PkgManager = "npm" | "pnpm" | "yarn" | "bun";
 
@@ -307,15 +307,11 @@ export default function DocsPanel({ component }: { component: Component }) {
               className="cursor-pointer p-1 text-neutral-400 hover:text-neutral-900 dark:text-neutral-500 dark:hover:text-white"
               title="Copy installation command"
             >
-              {copiedInstall ? (
-                <CheckIcon className="h-4 w-4 text-green-500" />
-              ) : (
-                <CopyIcon className="h-4 w-4" />
-              )}
+              <CopyCheckIcon copied={copiedInstall} className="size-4" />
             </button>
           </div>
           <div className="px-5 py-4 font-mono text-[13px] leading-6 text-neutral-800 select-all dark:text-neutral-200">
-            <code>{installCommand}</code>
+            <TextMorph as="code">{installCommand}</TextMorph>
           </div>
         </div>
       </div>
@@ -332,11 +328,7 @@ export default function DocsPanel({ component }: { component: Component }) {
               className="cursor-pointer p-1 text-neutral-400 hover:text-neutral-900 dark:text-neutral-500 dark:hover:text-white"
               title="Copy code"
             >
-              {copiedUsage ? (
-                <CheckIcon className="h-4 w-4 text-green-500" />
-              ) : (
-                <CopyIcon className="h-4 w-4" />
-              )}
+              <CopyCheckIcon copied={copiedUsage} className="size-4" />
             </button>
           </div>
           <ShikiHighlight

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { TextMorph } from "torph/react";
 import { cn } from "@/lib/utils";
 
 const clamp = (val: number, min: number, max: number) =>
@@ -188,9 +189,12 @@ export function ControlSlider({
           {label}
         </span>
 
-        <span className="pointer-events-none relative z-[4] ml-2 shrink-0 font-mono text-xs font-semibold text-neutral-900 tabular-nums dark:text-white">
+        <TextMorph
+          as="span"
+          className="pointer-events-none relative z-[4] ml-2 shrink-0 font-mono text-xs font-semibold text-neutral-900 tabular-nums dark:text-white"
+        >
           {formattedValue}
-        </span>
+        </TextMorph>
       </div>
     </div>
   );

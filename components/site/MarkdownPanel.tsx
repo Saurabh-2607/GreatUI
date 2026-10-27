@@ -4,7 +4,7 @@ import { useState } from "react";
 import posthog from "posthog-js";
 import { type Component } from "@/lib/registry";
 import { getComponentMarkdown } from "@/lib/markdown";
-import { ChevronLeftIcon, DownloadIcon, CopyIcon, CheckIcon } from "./Icons";
+import { ChevronLeftIcon, DownloadIcon, CopyCheckIcon } from "./Icons";
 import ShikiHighlight from "./ShikiHighlight";
 
 interface MarkdownPanelProps {
@@ -82,11 +82,7 @@ export default function MarkdownPanel({
             className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-neutral-100 text-neutral-700 transition-all hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
             title="Copy markdown"
           >
-            {copied ? (
-              <CheckIcon className="h-4 w-4 text-green-500" />
-            ) : (
-              <CopyIcon className="h-4 w-4" />
-            )}
+            <CopyCheckIcon copied={copied} className="size-4" />
           </button>
         </div>
       </div>

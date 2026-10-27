@@ -5,7 +5,9 @@ import { useRouter } from "next/navigation";
 import { Command } from "cmdk";
 import posthog from "posthog-js";
 import { motion, AnimatePresence } from "motion/react";
+import { TextMorph } from "torph/react";
 import { useTheme } from "./ThemeProvider";
+import { CopyCheckIcon } from "./Icons";
 import { getSearchIndex, type SearchEntry } from "@/lib/search";
 interface CarbonAdData {
   company?: string;
@@ -185,20 +187,7 @@ export function SearchCommand() {
           : "Copy Great UI website link to clipboard",
         category: "System Actions",
         keywords: ["copy", "url", "share", "link", "clipboard"],
-        icon: (
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="size-4"
-          >
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-          </svg>
-        ),
+        icon: <CopyCheckIcon copied={copied} className="size-4" />,
         onAction: () => {
           navigator.clipboard.writeText(window.location.origin);
           setCopied(true);
@@ -495,9 +484,12 @@ export function SearchCommand() {
                             <span className="text-[17.5px] font-semibold text-neutral-900 transition-colors group-data-[selected=true]:text-neutral-900 dark:text-neutral-300 dark:group-data-[selected=true]:text-white">
                               {item.title}
                             </span>
-                            <span className="mt-0.5 line-clamp-1 text-[14.5px] font-normal text-neutral-500 dark:text-neutral-400">
+                            <TextMorph
+                              as="span"
+                              className="mt-0.5 line-clamp-1 text-[14.5px] font-normal text-neutral-500 dark:text-neutral-400"
+                            >
                               {item.description}
-                            </span>
+                            </TextMorph>
                           </div>
 
                           <svg

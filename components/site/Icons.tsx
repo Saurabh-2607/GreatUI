@@ -850,3 +850,5 @@ export function BunIcon(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export { CopyCheckIcon } from "./CopyCheckIcon";
