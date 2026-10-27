@@ -26,7 +26,8 @@ export default function ComponentActions({
   className?: string;
 }) {
   const { setIsMarkdownOpen } = useViewer();
-  const [copiedPage, setCopiedPage] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [copiedLink, setCopiedLink] = useState(false);
   const [isCopyDropdownOpen, setIsCopyDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -43,13 +44,24 @@ export default function ComponentActions({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleCopyPage = () => {
+  const handleCopyForAgent = () => {
+    const md = getComponentMarkdown(component);
+    navigator.clipboard.writeText(md);
+    posthog.capture("component_agent_prompt_copied", {
+      component_slug: component.slug,
+    });
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
     posthog.capture("component_page_link_copied", {
       component_slug: component.slug,
     });
-    setCopiedPage(true);
-    setTimeout(() => setCopiedPage(false), 2000);
+    setCopiedLink(true);
+    setTimeout(() => setCopiedLink(false), 2000);
+    setIsCopyDropdownOpen(false);
   };
 
   const handleOpenAI = (baseUrl: string) => {
@@ -82,15 +94,15 @@ export default function ComponentActions({
     >
       <button
         type="button"
-        onClick={handleCopyPage}
+        onClick={handleCopyForAgent}
         className="flex h-full items-center justify-center gap-1.5 rounded-l-lg px-2.5 text-[13px] font-medium whitespace-nowrap text-neutral-700 transition-colors hover:bg-neutral-200 dark:text-neutral-200 dark:hover:bg-[#2a2a2a]"
       >
-        {copiedPage ? (
+        {copied ? (
           <CheckIcon className="h-3.5 w-3.5 text-green-500" />
         ) : (
           <CopyIcon className="h-3.5 w-3.5" />
         )}
-        {copiedPage ? "Copied" : "Copy Page"}
+        {copied ? "Copied" : "Copy for your agent"}
       </button>
       <div className="my-1.5 w-[1px] bg-neutral-300 dark:bg-neutral-700/50"></div>
       <button
@@ -135,6 +147,18 @@ export default function ComponentActions({
             }`}
           >
             <div className="flex flex-col p-1.5">
+              <button
+                type="button"
+                onClick={handleCopyLink}
+                className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-base font-medium text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 sm:px-2.5 sm:py-1.5 sm:text-sm dark:text-neutral-300 dark:hover:bg-[#2a2a2a] dark:hover:text-white"
+              >
+                {copiedLink ? (
+                  <CheckIcon className="h-4 w-4 text-green-500" />
+                ) : (
+                  <CopyIcon className="h-4 w-4" />
+                )}
+                {copiedLink ? "Link Copied" : "Copy Page Link"}
+              </button>
               <button
                 type="button"
                 onClick={handleCopyMarkdown}
