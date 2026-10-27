@@ -110,12 +110,17 @@ export default function PropsCustomizationPanel({
     }
   };
 
+  const nonBooleanSchemas = effectiveSchemas.filter(
+    (s) => s.type !== "boolean",
+  );
+  const booleanSchemas = effectiveSchemas.filter((s) => s.type === "boolean");
+
   return (
     <div className="relative flex h-full w-full flex-col overflow-hidden text-neutral-900 select-none dark:text-white">
-      <div className="relative flex flex-1 scrollbar-none flex-col gap-3.5 overflow-y-auto px-2 py-2">
+      <div className="relative flex flex-1 scrollbar-none flex-col gap-3 overflow-y-auto px-2 py-2">
         {presets && presets.length > 0 && (
-          <div className="flex flex-col gap-1">
-            <span className="px-2 text-[11px] font-semibold tracking-wider text-neutral-400 uppercase select-none dark:text-neutral-500">
+          <div className="flex flex-col gap-1 pb-1">
+            <span className="px-2 py-1 text-[11px] font-semibold tracking-wider text-neutral-400 uppercase select-none dark:text-neutral-500">
               Presets
             </span>
             <ControlSelect
@@ -136,47 +141,62 @@ export default function PropsCustomizationPanel({
           </div>
         )}
 
-        <div className="flex flex-col gap-3">
-          {effectiveSchemas.map((schema) => {
-            let filteredSchema = schema;
-            if (
-              effectiveComponent.slug === "fluid-dock-carousel" &&
-              schema.key === "dockPosition" &&
-              schema.options
-            ) {
-              const currentOrientation =
-                effectiveProps.orientation || "horizontal";
-              const validValues =
-                currentOrientation === "vertical"
-                  ? ["left", "right", "center"]
-                  : ["top", "bottom", "center"];
-              filteredSchema = {
-                ...schema,
-                options: schema.options.filter((opt) =>
-                  validValues.includes(String(opt.value)),
-                ),
-              };
-            }
-            return (
+        {nonBooleanSchemas.length > 0 && (
+          <div className="flex flex-col gap-2.5">
+            {nonBooleanSchemas.map((schema) => {
+              let filteredSchema = schema;
+              if (
+                effectiveComponent.slug === "fluid-dock-carousel" &&
+                schema.key === "dockPosition" &&
+                schema.options
+              ) {
+                const currentOrientation =
+                  effectiveProps.orientation || "horizontal";
+                const validValues =
+                  currentOrientation === "vertical"
+                    ? ["left", "right", "center"]
+                    : ["top", "bottom", "center"];
+                filteredSchema = {
+                  ...schema,
+                  options: schema.options.filter((opt) =>
+                    validValues.includes(String(opt.value)),
+                  ),
+                };
+              }
+              return (
+                <ControlField
+                  key={schema.key}
+                  schema={filteredSchema}
+                  value={effectiveProps[schema.key]}
+                  onChange={handlePropChange}
+                />
+              );
+            })}
+          </div>
+        )}
+
+        {booleanSchemas.length > 0 && (
+          <div className="flex flex-col gap-0.5">
+            {booleanSchemas.map((schema) => (
               <ControlField
                 key={schema.key}
-                schema={filteredSchema}
+                schema={schema}
                 value={effectiveProps[schema.key]}
                 onChange={handlePropChange}
               />
-            );
-          })}
-        </div>
+            ))}
+          </div>
+        )}
 
-        <div className="mt-2 flex flex-col gap-2 pt-1">
+        <div className="mt-2 flex flex-col gap-2 pb-2">
           <div className="flex items-center justify-between px-2">
-            <span className="text-[11px] font-semibold tracking-wider text-neutral-400 uppercase select-none dark:text-neutral-500">
+            <span className="py-1 text-[11px] font-semibold tracking-wider text-neutral-400 uppercase select-none dark:text-neutral-500">
               Generated JSX
             </span>
             <button
               type="button"
               onClick={handleCopyCode}
-              className="cursor-pointer p-1 text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-white"
+              className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-lg text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white"
               title="Copy code"
             >
               {copiedCode ? (
@@ -189,7 +209,7 @@ export default function PropsCustomizationPanel({
           <ShikiHighlight
             code={jsxCode}
             lang="tsx"
-            className="relative !m-0 scrollbar-none overflow-auto rounded-xl border border-neutral-200/60 bg-neutral-100/60 p-3 text-left !font-mono font-mono text-[11px] leading-5 select-text dark:border-neutral-800/60 dark:bg-neutral-900/40"
+            className="relative !m-0 scrollbar-none overflow-auto rounded-xl border border-neutral-200/70 bg-neutral-100/70 p-3 text-left !font-mono font-mono text-[11.5px] leading-relaxed select-text dark:border-neutral-800/70 dark:bg-neutral-900/60"
           />
         </div>
       </div>

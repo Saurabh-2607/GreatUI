@@ -619,14 +619,14 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
           >
             <div className="relative flex h-full w-full flex-col overflow-hidden">
               <div className="flex shrink-0 items-center justify-between px-4 pt-4 pb-2">
-                <span className="text-[13px] font-medium text-neutral-900 dark:text-white">
-                  Props
+                <span className="text-sm font-semibold tracking-tight text-neutral-900 dark:text-white">
+                  Customizer
                 </span>
                 <div className="flex items-center gap-1.5">
                   <button
                     type="button"
                     onClick={resetProps}
-                    className="cursor-pointer text-[12px] font-medium text-neutral-500 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+                    className="h-8 cursor-pointer rounded-lg px-2 text-xs font-medium text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
                     title="Reset props to default"
                   >
                     Reset
@@ -640,8 +640,8 @@ function ViewerLayoutContent({ children }: { children: React.ReactNode }) {
                         component_slug: component?.slug || "",
                       });
                     }}
-                    className="flex h-7.5 w-7.5 cursor-pointer items-center justify-center rounded-lg border border-neutral-200/70 bg-transparent text-neutral-500 shadow-none transition-colors hover:bg-neutral-100 hover:text-neutral-950 dark:border-neutral-800/70 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
-                    title="Collapse props"
+                    className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg border border-neutral-200/70 bg-transparent text-neutral-500 shadow-none transition-colors hover:bg-neutral-100 hover:text-neutral-950 dark:border-neutral-800/70 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
+                    title="Collapse customizer"
                     aria-label="Collapse props customizer"
                   >
                     <SidebarRightIcon className="h-4 w-4" />

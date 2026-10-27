@@ -68,15 +68,31 @@ export function ControlField({ schema, value, onChange }: ControlFieldProps) {
     return <div className="w-full">{renderInput()}</div>;
   }
 
-  return (
-    <div className="flex flex-col gap-1">
-      <div className="flex items-center justify-between gap-3 px-2 py-0.5">
-        <span className="text-[11px] font-semibold tracking-wider text-neutral-400 uppercase select-none dark:text-neutral-500">
+  if (schema.type === "boolean") {
+    return (
+      <div
+        onClick={() => onChange(schema.key, !Boolean(currentValue))}
+        className="group flex h-8.5 cursor-pointer items-center justify-between rounded-lg px-2 transition-colors hover:bg-neutral-100/70 dark:hover:bg-neutral-900/60"
+      >
+        <span className="text-sm font-medium text-neutral-600 transition-colors select-none group-hover:text-neutral-950 dark:text-neutral-400 dark:group-hover:text-white">
           {schema.label}
         </span>
-        {schema.type === "boolean" && renderInput()}
+        <ControlSwitch
+          checked={Boolean(currentValue)}
+          onChange={(val) => onChange(schema.key, val)}
+        />
       </div>
-      {schema.type !== "boolean" && <div>{renderInput()}</div>}
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-1.5 select-none">
+      <div className="px-2 py-0.5">
+        <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+          {schema.label}
+        </span>
+      </div>
+      <div>{renderInput()}</div>
     </div>
   );
 }

@@ -136,14 +136,13 @@ export function ControlSlider({
     [value, step, min, max, onChange, isDisabled],
   );
 
-  const ticks = 9;
   const decimals = stepDecimals(step);
   const formattedValue = displayValue
     ? displayValue(value)
     : `${Number(value.toFixed(decimals))}${valueUnit}`;
 
   return (
-    <div className="relative w-full py-0.5 select-none">
+    <div className="relative w-full select-none">
       <div
         ref={trackRef}
         role="slider"
@@ -161,30 +160,15 @@ export function ControlSlider({
         onMouseLeave={() => setIsHovering(false)}
         onKeyDown={handleKeyDown}
         className={cn(
-          "relative flex h-8.5 w-full cursor-pointer touch-pan-y items-center justify-between overflow-hidden rounded-lg border border-neutral-200/80 bg-white/90 px-3 shadow-xs transition-all outline-none select-none focus-visible:outline-2 focus-visible:outline-neutral-400 dark:border-transparent dark:bg-neutral-900/60 dark:shadow-none",
-          isDisabled && "pointer-events-none opacity-35",
+          "group relative flex h-8.5 w-full cursor-pointer touch-pan-y items-center justify-between overflow-hidden rounded-lg border border-neutral-200/70 bg-white/90 px-3 shadow-xs transition-colors outline-none select-none dark:border-neutral-800/70 dark:bg-neutral-900/60",
+          isDisabled && "pointer-events-none opacity-40",
+          isActive && "border-neutral-300 dark:border-neutral-700",
         )}
       >
         <div
-          className={cn(
-            "pointer-events-none absolute inset-y-0 left-0 bg-neutral-200/80 dark:bg-neutral-800/90",
-            percentage >= 99 ? "rounded-lg" : "rounded-l-lg rounded-r-xs",
-          )}
+          className="pointer-events-none absolute inset-y-0 left-0 bg-neutral-100 transition-colors dark:bg-neutral-800/80"
           style={{ width: `${percentage}%` }}
         />
-
-        <div className="pointer-events-none absolute inset-0">
-          {Array.from({ length: ticks }, (_, i) => {
-            const pos = ((i + 1) / (ticks + 1)) * 100;
-            return (
-              <div
-                key={i}
-                style={{ left: `${pos}%` }}
-                className="pointer-events-none absolute top-1/2 h-1.5 w-0.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-neutral-400/30 dark:bg-neutral-600/40"
-              />
-            );
-          })}
-        </div>
 
         <div
           className="pointer-events-none absolute top-1/2 z-[3] -translate-x-1/2 -translate-y-1/2"
@@ -192,13 +176,15 @@ export function ControlSlider({
         >
           <div
             className={cn(
-              "h-5 w-1 rounded-full bg-neutral-900 shadow-sm transition-opacity duration-150 ease-out dark:bg-white",
-              isActive ? "opacity-90" : "opacity-50",
+              "h-5 w-1 rounded-full transition-all duration-150 ease-out",
+              isActive
+                ? "scale-y-110 bg-[#f6821f] opacity-100"
+                : "bg-neutral-400 opacity-60 dark:bg-neutral-500",
             )}
           />
         </div>
 
-        <span className="pointer-events-none relative z-[4] max-w-[70%] min-w-0 truncate text-xs font-semibold tracking-wide whitespace-nowrap text-neutral-700 dark:text-neutral-400">
+        <span className="pointer-events-none relative z-[4] max-w-[70%] min-w-0 truncate text-sm font-medium text-neutral-700 transition-colors group-hover:text-neutral-950 dark:text-neutral-300 dark:group-hover:text-white">
           {label}
         </span>
 
