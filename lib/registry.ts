@@ -166,8 +166,7 @@ export const components: Component[] = [
       {
         name: "items",
         type: ["FluidDockCarouselItem[]"],
-        description:
-          "Array of gallery items containing image URLs, titles, and optional content.",
+        description: "Array of gallery items containing image URLs and titles.",
         customizable: false,
       },
       {
@@ -183,12 +182,6 @@ export const components: Component[] = [
         customizable: false,
       },
       {
-        name: "contents",
-        type: ["(React.ReactNode | string)[]"],
-        description: "Array of custom HTML or React elements for each slide.",
-        customizable: false,
-      },
-      {
         name: "className",
         type: ["string"],
         description:
@@ -196,10 +189,9 @@ export const components: Component[] = [
         customizable: false,
       },
       {
-        name: "contentClassName",
+        name: "titleClassName",
         type: ["string"],
-        description:
-          "Additional CSS class names for slide content / HTML container.",
+        description: "Additional CSS class names for slide title typography.",
         customizable: false,
       },
     ],
