@@ -13,6 +13,7 @@ import RevisionTimelinePreview from "@/components/site/previews/RevisionTimeline
 import TeamSectionPreview from "@/components/site/previews/TeamSectionPreview";
 import InstagramCardPreview from "@/components/site/previews/InstagramCardPreview";
 import PixelToAsciiImagePreview from "@/components/site/previews/PixelToAsciiImagePreview";
+import FluidAppDockPreview from "@/components/site/previews/FluidAppDockPreview";
 
 interface ShowcaseItem {
   id: string;
@@ -32,6 +33,21 @@ interface SimulationStep {
   action?: "click" | "hover" | "unhover" | "move";
   duration?: number;
   wait?: number;
+}
+
+interface ComponentPropsCarrier {
+  onMouseMove?: (e: {
+    clientX: number;
+    clientY: number;
+    currentTarget?: EventTarget | null;
+    target?: EventTarget | null;
+  }) => void;
+  onMouseLeave?: (e?: {
+    currentTarget?: EventTarget | null;
+    target?: EventTarget | null;
+  }) => void;
+  onMouseEnter?: (e?: unknown) => void;
+  [key: string]: unknown;
 }
 
 const COMPONENT_SCRIPTS: Record<string, SimulationStep[]> = {
@@ -148,6 +164,28 @@ const COMPONENT_SCRIPTS: Record<string, SimulationStep[]> = {
 };
 
 const SHOWCASE_ITEMS: ShowcaseItem[] = [
+  {
+    id: "fluid-app-dock",
+    title: "Fluid App Dock",
+    icon: (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="size-4"
+      >
+        <rect width="20" height="12" x="2" y="6" rx="3" />
+        <circle cx="6.5" cy="12" r="1.5" />
+        <circle cx="12" cy="12" r="1.5" />
+        <circle cx="17.5" cy="12" r="1.5" />
+      </svg>
+    ),
+  },
   {
     id: "pixel-to-ascii",
     title: "Pixel to ASCII",
@@ -338,6 +376,44 @@ export function ComponentShowcase() {
     setActiveTabIdx(idx);
   };
 
+  const getDockProps = useCallback(
+    (container: HTMLElement | null): ComponentPropsCarrier | null => {
+      if (!container) return null;
+      const dock = container.querySelector("svg.pointer-events-none")
+        ?.parentElement as (HTMLElement & Record<string, unknown>) | null;
+      if (!dock) return null;
+      const propKey = Object.keys(dock).find((k) =>
+        k.startsWith("__reactProps"),
+      );
+      return propKey ? (dock[propKey] as ComponentPropsCarrier) : null;
+    },
+    [],
+  );
+
+  const resetFluidDock = useCallback(
+    (container: HTMLElement | null) => {
+      if (!container) return;
+      const dockProps = getDockProps(container);
+      dockProps?.onMouseLeave?.({
+        currentTarget: container,
+        target: container,
+      });
+      const buttons = container.querySelectorAll("button[aria-label]");
+      buttons.forEach((btn) => {
+        const w = (btn.closest(".relative.flex.shrink-0") ||
+          btn.parentElement) as (HTMLElement & Record<string, unknown>) | null;
+        if (w) {
+          const k = Object.keys(w).find((x) => x.startsWith("__reactProps"));
+          if (k) {
+            const carrier = w[k] as ComponentPropsCarrier | undefined;
+            carrier?.onMouseLeave?.();
+          }
+        }
+      });
+    },
+    [getDockProps],
+  );
+
   const handlePointerEnter = () => {
     if (idleTimerRef.current) {
       clearTimeout(idleTimerRef.current);
@@ -345,9 +421,11 @@ export function ComponentShowcase() {
     }
     setIsHovered(true);
     setCursor((c) => ({ ...c, visible: false }));
+    resetFluidDock(stageRef.current);
   };
 
   const handlePointerLeave = () => {
+    resetFluidDock(stageRef.current);
     if (idleTimerRef.current) {
       clearTimeout(idleTimerRef.current);
     }
@@ -401,31 +479,186 @@ export function ComponentShowcase() {
     if (isHovered) return;
 
     let isCancelled = false;
+    let rafId: number | null = null;
+    let activeHoveredWrapper: HTMLElement | null = null;
+    const currentStageAtMount = stageRef.current;
+
+    if (activeTab.id === "fluid-app-dock") {
+      async function runFluidSweep() {
+        await new Promise((r) => setTimeout(r, 60));
+        if (isCancelled) return;
+
+        const stage = stageRef.current;
+        if (!stage) return;
+
+        const getBounds = () => {
+          const currentStage = stageRef.current;
+          if (!currentStage) return null;
+          const sRect = currentStage.getBoundingClientRect();
+          const btns = currentStage.querySelectorAll("button[aria-label]");
+          if (!btns.length) return null;
+          const fRect = btns[0].getBoundingClientRect();
+          const lRect = btns[btns.length - 1].getBoundingClientRect();
+          return {
+            startX: fRect.left + fRect.width / 2 - sRect.left,
+            endX: lRect.left + lRect.width / 2 - sRect.left,
+            targetY: fRect.top + fRect.height / 2 - sRect.top,
+          };
+        };
+
+        const initial = getBounds();
+        if (!initial) return;
+
+        setCursor({
+          x: initial.startX,
+          y: initial.targetY,
+          isDown: false,
+          visible: true,
+          durationMs: 300,
+        });
+
+        await new Promise((r) => setTimeout(r, 320));
+        if (isCancelled) return;
+
+        let fromX = initial.startX;
+        let toX = initial.endX;
+        let currentY = initial.targetY;
+        const sweepDuration = 2600;
+        let startTime = performance.now();
+
+        const animate = (now: number) => {
+          if (isCancelled) return;
+
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / sweepDuration, 1);
+          const ease = 0.5 - 0.5 * Math.cos(progress * Math.PI);
+          const currentX = fromX + (toX - fromX) * ease;
+
+          setCursor({
+            x: currentX,
+            y: currentY,
+            isDown: false,
+            visible: true,
+            durationMs: 0,
+          });
+
+          const currentStage = stageRef.current;
+          if (currentStage) {
+            const currentStageRect = currentStage.getBoundingClientRect();
+            const clientX = currentStageRect.left + currentX;
+            const clientY = currentStageRect.top + currentY;
+
+            const btns = currentStage.querySelectorAll("button[aria-label]");
+            const dockProps = getDockProps(currentStage);
+            dockProps?.onMouseMove?.({
+              clientX,
+              clientY,
+              currentTarget: currentStage,
+              target: currentStage,
+            });
+
+            let closestWrapper: HTMLElement | null = null;
+            let minDistance = Infinity;
+
+            for (let i = 0; i < btns.length; i++) {
+              const bRect = btns[i].getBoundingClientRect();
+              const cX = bRect.left + bRect.width / 2;
+              const dist = Math.abs(clientX - cX);
+              if (dist < minDistance && dist < bRect.width / 2 + 8) {
+                minDistance = dist;
+                closestWrapper = (btns[i].closest(".relative.flex.shrink-0") ||
+                  btns[i].parentElement) as HTMLElement;
+              }
+            }
+
+            if (closestWrapper !== activeHoveredWrapper) {
+              if (activeHoveredWrapper) {
+                const carrierEl = activeHoveredWrapper as HTMLElement &
+                  Record<string, unknown>;
+                const k = Object.keys(carrierEl).find((x) =>
+                  x.startsWith("__reactProps"),
+                );
+                if (k) {
+                  const carrier = carrierEl[k] as
+                    ComponentPropsCarrier | undefined;
+                  carrier?.onMouseLeave?.();
+                }
+              }
+              if (closestWrapper) {
+                const carrierEl = closestWrapper as HTMLElement &
+                  Record<string, unknown>;
+                const k = Object.keys(carrierEl).find((x) =>
+                  x.startsWith("__reactProps"),
+                );
+                if (k) {
+                  const carrier = carrierEl[k] as
+                    ComponentPropsCarrier | undefined;
+                  carrier?.onMouseEnter?.();
+                }
+              }
+              activeHoveredWrapper = closestWrapper;
+            }
+          }
+
+          if (progress >= 1) {
+            const updated = getBounds();
+            if (updated) {
+              currentY = updated.targetY;
+              if (fromX < toX) {
+                fromX = updated.endX;
+                toX = updated.startX;
+              } else {
+                fromX = updated.startX;
+                toX = updated.endX;
+              }
+            } else {
+              const temp = fromX;
+              fromX = toX;
+              toX = temp;
+            }
+            startTime = performance.now();
+          }
+
+          rafId = requestAnimationFrame(animate);
+        };
+
+        rafId = requestAnimationFrame(animate);
+      }
+
+      runFluidSweep();
+
+      return () => {
+        isCancelled = true;
+        if (rafId !== null) {
+          cancelAnimationFrame(rafId);
+        }
+        activeHoveredWrapper = null;
+        resetFluidDock(currentStageAtMount);
+      };
+    }
+
     let activeHoveredEl: HTMLElement | null = null;
     const steps = COMPONENT_SCRIPTS[activeTab.id] || [];
     if (steps.length === 0) return;
 
     const dispatchHover = (el: HTMLElement | null) => {
       if (!el) return;
-      el.dispatchEvent(
-        new MouseEvent("mouseover", { bubbles: true, cancelable: true }),
-      );
-      el.dispatchEvent(
-        new MouseEvent("mouseenter", { bubbles: true, cancelable: true }),
-      );
-      el.dispatchEvent(
-        new PointerEvent("pointerenter", { bubbles: true, cancelable: true }),
-      );
-      if (el.parentElement) {
-        el.parentElement.dispatchEvent(
-          new MouseEvent("mouseover", { bubbles: true, cancelable: true }),
-        );
-        el.parentElement.dispatchEvent(
-          new MouseEvent("mouseenter", { bubbles: true, cancelable: true }),
-        );
-        el.parentElement.dispatchEvent(
-          new PointerEvent("pointerenter", { bubbles: true, cancelable: true }),
-        );
+      const rect = el.getBoundingClientRect();
+      const clientX = rect.left + rect.width / 2;
+      const clientY = rect.top + rect.height / 2;
+      const eventInit = {
+        bubbles: true,
+        cancelable: true,
+        clientX,
+        clientY,
+      };
+      el.dispatchEvent(new MouseEvent("mousemove", eventInit));
+      el.dispatchEvent(new MouseEvent("mouseover", eventInit));
+      el.dispatchEvent(new MouseEvent("mouseenter", eventInit));
+      el.dispatchEvent(new PointerEvent("pointerenter", eventInit));
+      const dockContainer = el.closest(".select-none") || el.parentElement;
+      if (dockContainer) {
+        dockContainer.dispatchEvent(new MouseEvent("mousemove", eventInit));
       }
     };
 
@@ -440,15 +673,10 @@ export function ComponentShowcase() {
       el.dispatchEvent(
         new PointerEvent("pointerleave", { bubbles: true, cancelable: true }),
       );
-      if (el.parentElement) {
-        el.parentElement.dispatchEvent(
-          new MouseEvent("mouseout", { bubbles: true, cancelable: true }),
-        );
-        el.parentElement.dispatchEvent(
+      const dockContainer = el.closest(".select-none") || el.parentElement;
+      if (dockContainer) {
+        dockContainer.dispatchEvent(
           new MouseEvent("mouseleave", { bubbles: true, cancelable: true }),
-        );
-        el.parentElement.dispatchEvent(
-          new PointerEvent("pointerleave", { bubbles: true, cancelable: true }),
         );
       }
     };
@@ -554,10 +782,12 @@ export function ComponentShowcase() {
       isCancelled = true;
       dispatchUnhover(activeHoveredEl);
     };
-  }, [activeTab.id, isHovered, resolveTargetPosition]);
+  }, [activeTab.id, isHovered, resolveTargetPosition, resetFluidDock]);
 
   const renderActiveComponent = () => {
     switch (activeTab.id) {
+      case "fluid-app-dock":
+        return <FluidAppDockPreview />;
       case "floating-menu":
         return <FloatingMenuPreview />;
       case "multilingual-quote":
@@ -646,13 +876,11 @@ export function ComponentShowcase() {
 
       <div className="relative mx-auto mt-4 max-w-[1400px] pb-16">
         <Container>
-          <div
-            className="w-full overflow-hidden"
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
-          >
+          <div className="w-full overflow-hidden">
             <div
               ref={stageRef}
+              onPointerEnter={handlePointerEnter}
+              onPointerLeave={handlePointerLeave}
               className="relative flex aspect-video min-h-[350px] w-full overflow-hidden rounded-3xl bg-neutral-100/60 dark:bg-neutral-900/60"
             >
               <Link
@@ -717,7 +945,10 @@ export function ComponentShowcase() {
                 style={{
                   transform: `translate3d(${cursor.x}px, ${cursor.y}px, 0)`,
                   opacity: cursor.visible && !isHovered ? 1 : 0,
-                  transition: `transform ${cursor.durationMs}ms cubic-bezier(0.22, 1, 0.36, 1), opacity 250ms ease`,
+                  transition:
+                    cursor.durationMs > 0
+                      ? `transform ${cursor.durationMs}ms cubic-bezier(0.22, 1, 0.36, 1), opacity 250ms ease`
+                      : "opacity 250ms ease",
                 }}
               >
                 <div
