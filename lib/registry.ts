@@ -58,6 +58,125 @@ export function getPreviewPoster(component: {
 
 export const components: Component[] = [
   {
+    slug: "fluid-app-dock",
+    category: "Navigation",
+    name: "Fluid App Dock",
+    isNew: true,
+    description:
+      "A floating application dock featuring an organic continuous bell-curve shape along the top side that dynamically arches upward on hover with proximity scale magnification, smooth item lift, click bounce physics, and frosted styling.",
+    interactionType:
+      "Cursor proximity bell-curve scale magnification and upward lift with spring physics, dynamic continuous bell-curve dock shelf deformation, and interactive app launch tooltips.",
+    dependencies: ["motion"],
+    previewFile: "FluidAppDockPreview",
+    preview:
+      "https://br-cold-art-b4ndjkjf.storage.c-6.us-east-2.aws.neon.tech/srbh/GUI-Fluid-Dock.webm",
+    props: [
+      {
+        name: "baseSize",
+        type: ["number"],
+        description:
+          "Default width and height of an unhovered dock icon in pixels.",
+        default: "48",
+        min: 32,
+        max: 80,
+        step: 2,
+        customizable: true,
+      },
+      {
+        name: "magnifiedSize",
+        type: ["number"],
+        description:
+          "Maximum width and height of a magnified dock icon at peak hover.",
+        default: "72",
+        min: 48,
+        max: 120,
+        step: 2,
+        customizable: true,
+      },
+      {
+        name: "maxLift",
+        type: ["number"],
+        description:
+          "Maximum upward lift distance in pixels along the bell curve on hover.",
+        default: "18",
+        min: 0,
+        max: 40,
+        step: 2,
+        customizable: true,
+      },
+      {
+        name: "distance",
+        type: ["number"],
+        description:
+          "Distance in pixels around the cursor that triggers magnification.",
+        default: "160",
+        min: 60,
+        max: 260,
+        step: 10,
+        customizable: true,
+      },
+      {
+        name: "hoverScale",
+        type: ["number"],
+        description:
+          "Scale multiplier applied to the active or hovered thumbnail icon.",
+        default: "1.08",
+        min: 1,
+        max: 1.5,
+        step: 0.02,
+        customizable: true,
+      },
+      {
+        name: "showLabels",
+        type: ["boolean"],
+        description: "Whether to render floating app name tooltips on hover.",
+        default: "true",
+        customizable: true,
+      },
+      {
+        name: "labelOffset",
+        type: ["number"],
+        description:
+          "Distance in pixels between the dock icon and the floating label tooltip.",
+        default: "26",
+        min: 8,
+        max: 60,
+        step: 2,
+        customizable: true,
+      },
+      {
+        name: "showIndicator",
+        type: ["boolean"],
+        description:
+          "Whether to display running indicator dots beneath active apps.",
+        default: "false",
+        customizable: true,
+      },
+      {
+        name: "enableBounce",
+        type: ["boolean"],
+        description:
+          "Whether to enable playful bounce animation when an app is clicked.",
+        default: "true",
+        customizable: true,
+      },
+      {
+        name: "isFixed",
+        type: ["boolean"],
+        description: "Whether the dock is fixed to the screen viewport edge.",
+        default: "false",
+        customizable: true,
+      },
+      {
+        name: "items",
+        type: ["FluidAppDockItem[]"],
+        description:
+          "Array of dock items containing icons, images, labels, badges, and action handlers.",
+        customizable: false,
+      },
+    ],
+  },
+  {
     slug: "fluid-dock-carousel",
     category: "Carousels",
     name: "Fluid Dock Carousel",

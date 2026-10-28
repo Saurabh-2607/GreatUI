@@ -5,6 +5,12 @@ export type ChangelogItem = {
 
 export const changelogData: ChangelogItem[] = [
   {
+    date: "October 28, 2026",
+    features: [
+      "Added [Fluid App Dock](/components/fluid-app-dock) component featuring a continuous bell-curve top dock background that organically arches upward on hover with proximity scale magnification, squircle icon tile containers, item lift, click bounce physics, and dual-theme frosted glass styling.",
+    ],
+  },
+  {
     date: "October 27, 2026",
     features: [
       "Added [Fluid Dock Carousel](/components/fluid-dock-carousel) component featuring full-viewport horizontal and vertical carousel layouts with fluid gooey thumbnail dock navigation, bold slide title overlays, dock-styled next/previous chevron navigation controls, keyboard navigation, directional wheel scrolling, responsive mobile dock auto-centering, and high-contrast indicator styling.",
